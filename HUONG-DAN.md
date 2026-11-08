@@ -15,7 +15,7 @@ Docker Desktop (phần mềm Claude sẽ cài để chạy n8n) miễn phí cho 
 
 ## 2. Mở folder trong app (làm một lần)
 
-1. Tải kit: đăng nhập GitHub bằng tài khoản đã được mời vào repo `GTV-SEO-Agency/claude-n8n-starter`, bấm nút xanh **Code** → **Download ZIP**. Giải nén, đổi tên folder thành `claude-n8n-starter` nếu tên có thêm `-main`, rồi đặt ở chỗ dễ tìm, ví dụ trong Documents.
+1. Tải kit: mở https://github.com/GTV-SEO-Agency/claude-n8n-starter, bấm nút xanh **Code** → **Download ZIP**. Không cần tài khoản GitHub. Giải nén, đổi tên folder thành `claude-n8n-starter` nếu tên có thêm `-main`, rồi đặt ở chỗ dễ tìm, ví dụ trong Documents.
 2. Mở app Claude, chọn tab **Code**.
 3. Ở ô chọn môi trường, chọn **Local**. Bấm chỗ chọn folder, chọn `claude-n8n-starter`.
 4. App hỏi có tin folder này không: bấm **Trust**. Bước này cho Claude đọc luật trong folder.
