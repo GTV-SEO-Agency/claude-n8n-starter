@@ -1,0 +1,537 @@
+{
+  "active": false,
+  "connections": {
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Blog Post Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Blog Post Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Docs",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Docs": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update GG Doc",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Image Covers": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update sheet",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Send Blog",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Perplexity": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Blog Post Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Send Blog": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Photo1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Photo": {
+      "main": [
+        []
+      ]
+    },
+    "Send Photo1": {
+      "main": [
+        []
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Blog Post Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Update GG Doc": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Image Covers",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Blog Post Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "1Q9fXmimhJzvMAdW",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "product content workflow",
+  "nodes": [
+    {
+      "id": "b215b6e8-3a9f-4fd0-a75a-53e807887ba2",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "# Content Generation",
+        "height": 260,
+        "width": 380
+      },
+      "position": [
+        -1360,
+        120
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Sticky Note1",
+      "parameters": {
+        "color": 5,
+        "content": "# Generate Image\n",
+        "height": 260,
+        "width": 680
+      },
+      "position": [
+        -960,
+        120
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "47fe6100-22c8-4dc8-9376-63be898b76c2",
+      "name": "Sticky Note2",
+      "parameters": {
+        "color": 7,
+        "content": "## Tool & Model",
+        "height": 240,
+        "width": 420
+      },
+      "position": [
+        -1360,
+        400
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "cef95b8c-52b5-41c1-8fc7-9819e258ce6f",
+      "name": "When Executed by Another Workflow",
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "Product_detail"
+            },
+            {
+              "name": "chatID"
+            }
+          ]
+        }
+      },
+      "position": [
+        -1560,
+        220
+      ],
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "42592e68-e65b-4911-89c8-c06a873eb1be",
+      "name": "Blog Post Agent",
+      "parameters": {
+        "options": {
+          "systemMessage": "=[Overview & context]:\n\nTôi đang muốn viết nội dung content về mô tả sản phẩm để đăng lên website ecommerce. Vì vậy trước khi viết, tôi muốn research các thông tin liên quan về sản phẩm. \n\n[tools]:\n1. Perplexity: use this tool to search the web, the product information the need to create the content (limit to 2 times only)\n2. Think: Use the tool before generating the final response/content/output, in order to think about the guidlines, checklist the approach  final output will try its best meet the standard of Google_HelpFul_Content.\n\n[Objectives]:\nAlways begin by conducting a real-time search using the Perplexity tool to gather all the information about the product (features, benefits, statistic, product description, USP & Features), all the information must be accurate, up-to-date information. Also, the research should also including the review from reddit or from review sites.\n\nAfter that, based on your research, generate a well-structured blog post that:\n- Starts with an engaging and informative introduction that sets up and introduce the product detaile\n- Maintains a professional, clear, and easy-to-read tone\n- Is educational, insightful, and provides depth\n- Uses headers, subheaders, and paragraphs to create good readability\n- Incorporates real data, examples.\n- The Product detail content should be around 2000 - 2500 words.\n\n[Output Instructions]:\n- Your ONLY output should be the final blog article text.\n- Do not include explanations, notes, or anything beyond the blog content itself.\n- Nội dung bài viết cuối phải có chất lượng đảm bảo theo Google Helpful Content và Product Review (\"Write high quality reviews\" by google).\n\n[Example Workflow]:\n1) Receive a topic (e.g., “Iphone 16 pro”)\n2) Use Perplexity to search and gather recent information, studies, or examples\n3) Draft a blog post using that research\n4) Format it with an engaging intro, structured sections, source citations, and a natural conclusion\n\n[output content example]:\n\nChính thức ra mắt vào ngày 10/09/2024, iPhone 16 Pro Max 256GB Chính Hãng (VN/A) đánh dấu bước tiến vượt bậc của Apple với chip A18 Pro 3nm mạnh hơn 40%, màn hình 6.9 inch ProMotion 120Hz độ sáng 2000 nits. Camera nâng cấp ấn tượng: cảm biến chính 48MP, góc siêu rộng 48MP, tele zoom quang 5x (300mm) và nút Capture cảm ứng lực mang trải nghiệm chụp ảnh chuyên nghiệp. Tích hợp iOS 18 với AI vượt trội, kết nối 5G, Wi-Fi 7, pin 4676mAh cho 30 giờ sử dụng, cùng tản nhiệt graphene hiệu quả.\n\nDi Động Việt là đại lý ủy quyền chính thức của Apple tại Việt Nam, tự hào mang đến iPhone 16 Pro Max 256GB VN/A với mức giá từ 30.790.000đ và nhiều ưu đãi hấp dẫn. Khách hàng sẽ được trải nghiệm sản phẩm nguyên seal, chất lượng đảm bảo cùng chế độ bảo hành chính hãng 12 tháng khi mua sắm tại hệ thống Di Động Việt trên toàn quốc.\n\n## 1\\. iPhone 16 Pro Max 256GB Chính Hãng (VN/A) có đáng mua trong năm 2025?\n\nChắc chắn là có! iPhone 16 Pro Max 256GB vẫn là phiên bản điện thoại thông minh hàng đầu với chip A18 Pro mạnh mẽ, camera nâng cấp toàn diện và màn hình lớn nhất từ trước đến nay. Đây là lựa chọn hoàn hảo cho người dùng đam mê công nghệ và nhiếp ảnh di động. Dưới đây là bảng thông số chi tiết của sản phẩm này.\n\n| Thông số | iPhone 16 Pro Max 256GB | Chính hãng VN/A |\n| --- | --- |\n| Kích thước màn hình | 6.9 inches |\n| Công nghệ màn hình | Super Retina XDR OLED |\n| Camera sau | Camera chính: 48MP, f/1.78, 24mm, 2µm, chống rung quang học dịch chuyển cảm biến thế hệ thứ hai, Focus Pixels 100%Telephoto 2x 12MP: 52 mm, ƒ/1.6Camera góc siêu rộng: 48MP, 13 mm,ƒ/2.2 và trường ảnh 120°, Hybrid Focus Pixels, ảnh có độ phân giải |\n| Camera trước | 12MP, ƒ/1.9, Tự động lấy nét theo pha Focus Pixels |\n| Chipset | Apple A18 Pro |\n| Công nghệ NFC | Có |\n| Bộ nhớ trong | 256 GB |\n| Thẻ SIM | Sim kép (nano-Sim và e-Sim) - Hỗ trợ 2 e-Sim |\n| Hệ điều hành | iOS 18 |\n| Độ phân giải màn hình | 2868 x 1320 pixels |\n| Tính năng màn hình | Dynamic IslandMàn hình Luôn BậtCông nghệ ProMotion với tốc độ làm mới thích ứng lên đến 120HzMàn hình HDRTrue ToneDải màu rộng (P3)Haptic TouchTỷ lệ tương phản 2.000.000:1 |\n| Loại CPU | CPU 6 lõi mới với 2 lõi hiệu năng và 4 lõi hiệu suất |\n\nThông số kỹ thuật của iPhone 16 Pro Max cho thấy sự vượt trội so với các thế hệ trước, đặc biệt về kích thước màn hình và camera.\n\n## 2\\. iPhone 16 Pro Max 256GB Chính Hãng (VN/A) có gì mới?\n\nPhiên bản iPhone 16 Pro Max đem đến nhiều cải tiến đáng giá, từ thiết kế đến hiệu năng và camera nâng cao. Các điểm nổi bật của iPhone 16 Pro Max như sau.\n\n### 2.1. Thiết kế đột phá với nút Capture cảm ứng lực và khung viền Titan\n\niPhone 16 Pro Max 256GB gây ấn tượng với nút \"Capture Button\" hoàn toàn mới, tái hiện trải nghiệm chụp ảnh như máy ảnh chuyên nghiệp. Thiết kế này cho phép người dùng dễ dàng chuyển đổi giữa các chức năng lấy nét, chụp ảnh và quay video, mang lại trải nghiệm nhiếp ảnh mượt mà và chuyên nghiệp hơn.\n\n*   Nút Capture cảm ứng lực: Giúp kiểm soát camera như DSLR, hỗ trợ nửa nhấn để lấy nét và nhấn hoàn toàn để chụp, mang lại trải nghiệm chụp ảnh chuyên nghiệp.\n*   Khung viền Titan cao cấp: Nhẹ hơn 19g so với thế hệ trước nhưng vẫn đảm bảo độ bền vượt trội, kết hợp với mặt lưng kính nhám sang trọng.\n*   Kháng nước và bụi IP68: Đảm bảo an toàn khi sử dụng trong điều kiện thời tiết khắc nghiệt hay khi vô tình tiếp xúc với nước.\n\niPhone 16 Pro Max vẫn giữ nguyên thiết kế vuông vức đặc trưng nhưng được tinh chỉnh để cầm nắm thoải mái hơn, phù hợp với màn hình lớn 6.9 inch. Khung viền Titan không chỉ làm giảm trọng lượng mà còn tăng độ bền cho thiết bị.\n\n![Thiết kế điện thoại iPhone 16 Pro Max](https://cdn-v2.didongviet.vn/files/default/2025/3/29/0/1745913791957_nut_capture_cam_ung_luc_iphone_16_pro_max.jpg)\n\nThiết kế điện thoại iPhone 16 Pro Max\n\n### 2.2. Màn hình lớn nhất từ trước đến nay với công nghệ micro-lens\n\nMàn hình iPhone 16 Pro Max được mở rộng lên 6.9 inch, lớn hơn 0.2 inch so với iPhone 15 Pro Max, mang đến không gian hiển thị rộng rãi hơn. Đây là màn hình lớn nhất từng xuất hiện trên dòng iPhone.\n\n*   Công nghệ MLA (OLED MLA): Sử dụng hàng tỷ thấu kính siêu nhỏ để giảm thiểu độ phản xạ nội bộ, giúp màn hình sáng hơn và tiết kiệm năng lượng.\n*   Độ sáng SDR tăng 20%: So với thế hệ trước, mang lại khả năng hiển thị tốt hơn ngay cả dưới ánh sáng mặt trời.\n*   Tần số quét 120Hz ProMotion: Điều chỉnh tần số quét từ 1Hz đến 120Hz một cách thông minh, cân bằng giữa trải nghiệm mượt mà và tiết kiệm pin.\n*   Công nghệ cấu trúc giảm viền: Tối ưu không gian hiển thị, tăng tỷ lệ màn hình so với thân máy.\n\nMàn hình Super Retina XDR OLED mang lại màu sắc sống động và độ tương phản ấn tượng. Công nghệ LTPO cho phép màn hình luôn bật (Always-on Display) mà vẫn tiết kiệm pin hiệu quả.\n\n![Màn hình điện thoại iPhone 16 Pro Max](https://cdn-v2.didongviet.vn/files/default/2025/3/29/0/1745913847553_man_hinh_iphone_16_pro_max_micro_lens.jpg)\n\nMàn hình điện thoại iPhone 16 Pro Max\n\n### 2.3. Camera siêu tele và góc siêu rộng 48MP hoàn toàn mới\n\niPhone 16 Pro Max nâng tầm nhiếp ảnh di động với bộ ba camera sau được cải tiến toàn diện. Đặc biệt, camera góc siêu rộng được nâng cấp từ 12MP lên 48MP, mang lại chất lượng ảnh vượt trội trong nhiều điều kiện ánh sáng.\n\n*   Camera \"siêu\" tele: Mô phỏng tiêu cự 300mm, hỗ trợ zoom quang học 5X, cho phép chụp ảnh từ xa với độ sắc nét ấn tượng và khả năng xóa phông chuyên nghiệp.\n*   Camera góc siêu rộng 48MP: Nâng cấp đáng kể từ 12MP, mang lại độ chi tiết cao hơn cho ảnh chụp phong cảnh và chế độ macro.\n*   Công nghệ phủ quang học chống phản chiếu: Giảm hiện tượng lóa sáng khi chụp dưới ánh sáng mạnh nhờ lớp phủ siêu mỏng được tạo bằng công nghệ lắng đọng lớp nguyên tử (ALD).\n*   Photonic Engine: Cải thiện chất lượng ảnh trong điều kiện ánh sáng yếu, đặc biệt là với các tông màu trung bình và tối.\n\nCamera trước 12MP với tính năng tự động lấy nét theo pha (Focus Pixels) mang đến những bức ảnh selfie sắc nét. Hệ thống camera được hỗ trợ bởi chip A18 Pro, cho khả năng xử lý hình ảnh mạnh mẽ và các tính năng AI độc đáo.\n\n![Camera iPhone 16 Pro Max 256GB](https://cdn-v2.didongviet.vn/files/default/2025/3/29/0/1745913912118_camera_sieu_tele_iphone_16_pro_max.jpg)\n\nCamera iPhone 16 Pro Max 256GB\n\n### 2.4. Hiệu năng vượt trội với chip A18 Pro và tản nhiệt graphene\n\niPhone 16 Pro Max 256GB được trang bị chip A18 Pro phát triển trên tiến trình N3E 3nm tiên tiến của TSMC. Quy trình sản xuất thế hệ thứ hai này không chỉ nâng cao độ ổn định mà còn tối ưu hóa hiệu quả tiêu thụ năng lượng.\n\n*   Chip A18 Pro tiến trình 3nm: Mang lại hiệu năng vượt trội, mạnh hơn 40% so với thế hệ trước với 6 lõi CPU (2 lõi hiệu năng và 4 lõi hiệu suất).\n*   Neural Engine cải tiến: Hỗ trợ xử lý các tính năng AI sáng tạo trên iOS 18 như Siri AI, sàng lọc cuộc gọi thông minh, chỉnh sửa video tự động và dịch thuật thông minh.\n*   Hệ thống tản nhiệt graphene: Giúp duy trì nhiệt độ mát mẻ trong quá trình sử dụng, đặc biệt khi chơi game hoặc sử dụng các ứng dụng đòi hỏi nhiều tài nguyên.\n*   RAM 8GB: Đảm bảo khả năng đa nhiệm mượt mà, tối ưu cho các tính năng AI và ứng dụng nặng.\n\nChip A18 Pro kết hợp với iOS 18 tạo nên trải nghiệm người dùng mượt mà, phản hồi nhanh chóng và tiết kiệm pin. Khả năng xử lý đồ họa cũng được cải thiện đáng kể, mang lại trải nghiệm chơi game và chỉnh sửa video chuyên nghiệp.\n\n![Hiệu ứng vượt trội iPhone 16 Pro Max](https://cdn-v2.didongviet.vn/files/default/2025/3/29/0/1745913958668_chip_a18_pro_iphone_16_pro_max.jpg)\n\nHiệu ứng vượt trội iPhone 16 Pro Max\n\n### 2.5. Pin dung lượng lớn và công nghệ sạc tiên tiến\n\niPhone 16 Pro Max sở hữu pin dung lượng 4.676 mAh, tăng khoảng 5-6% so với thế hệ trước. Nhờ vậy, thiết bị có thể hoạt động liên tục trong 30 giờ, vượt qua thời lượng 29 giờ phát video của iPhone 15 Pro Max.\n\n*   Pin dung lượng 4.676 mAh: Tăng 5-6% so với thế hệ trước, cho thời gian sử dụng vượt trội lên đến 30 giờ xem video.\n*   Sạc nhanh 30W: Sạc đầy 50% pin chỉ trong khoảng 30 phút với bộ sạc công suất cao.\n*   Sạc không dây MagSafe 15W: Tiện lợi với khả năng gắn từ tính chính xác và tốc độ sạc nhanh hơn so với sạc không dây Qi thông thường.\n*   Tối ưu hóa năng lượng: Chip A18 Pro và iOS 18 cùng làm việc để quản lý năng lượng hiệu quả, kéo dài thời lượng sử dụng.\n\nHệ thống tản nhiệt graphene không chỉ giúp thiết bị mát hơn mà còn góp phần tối ưu hiệu suất pin và hiệu năng tổng thể. Apple cũng đã cải thiện thuật toán quản lý năng lượng để kéo dài tuổi thọ pin.\n\n![Hiệu ứng vượt trội iPhone 16 Pro Max](https://cdn-v2.didongviet.vn/files/default/2025/3/29/0/1745914001509_pin_iphone_16_pro_max_dung_luong_lon.jpg)\n\nPin iPhone 16 Pro Max\n\n### 2.6. Kết nối 5G tiên tiến và Wi-Fi 7 tốc độ cao\n\niPhone 16 Pro Max 256GB được trang bị modem Snapdragon X75 do Qualcomm phát triển. Công nghệ này giúp máy có kết nối mạng 5G nhanh hơn, hiệu quả hơn và tiết kiệm năng lượng hơn so với thế hệ trước.\n\n*   Modem Snapdragon X75: Hỗ trợ tốc độ tải lên đạt chuẩn 5G Advanced (5.5G), nhanh hơn và tiết kiệm năng lượng hơn so với X70 trên iPhone 15.\n*   Wi-Fi 7: Đạt tốc độ truyền tải tối đa lên đến 40 Gbps, nhanh gấp 4 lần so với Wi-Fi 6 và 6E, hoạt động trên các băng tần 2.4 GHz, 5 GHz và 6 GHz.\n*   Bluetooth 5.3: Cải thiện kết nối với các thiết bị ngoại vi, giảm độ trễ và tăng phạm vi hoạt động.\n*   Chip Ultra Wideband thế hệ thứ hai: Cải thiện khả năng định vị chính xác cho các tính năng như Tìm (Find My) và kết nối với phụ kiện.\n\nCông nghệ kết nối mới cho phép người dùng tải xuống nội dung nhanh hơn, stream video độ phân giải cao mượt mà và có trải nghiệm chơi game trực tuyến với độ trễ thấp hơn.\n\n![Snapdragon X7 điện thoại iPhone 16 Pro Max 256GB](https://cdn-v2.didongviet.vn/files/default/2025/3/29/0/1745914089502_iphone_16_pro_max_256gb_snapdragon_x75.jpg)\n\nSnapdragon X7 điện thoại iPhone 16 Pro Max 256GB\n\n## 3\\. iPhone 16 Pro Max 256GB Chính Hãng (VN/A) có bao nhiêu màu và màu nào đẹp?\n\niPhone 16 Pro Max 256GB có 4 màu sắc sang trọng, bao gồm màu Desert Titanium (Titan Sa Mạc) mới, cùng với các màu quen thuộc: Titan Trắng, Titan Đen và Titan Tự Nhiên.\n\n### 3.1. Titan Sa Mạc (Desert Titanium)\n\nTitan Sa Mạc là màu sắc hoàn toàn mới trên iPhone 16 Pro Max, mang đến vẻ đẹp độc đáo và ấn tượng. Sắc thái ấm áp với tông vàng đồng nhẹ nhàng nhưng sang trọng mang đến cảm giác cao cấp và khác biệt.\n\n*   Màu sắc ấm áp: Tông màu vàng đồng tinh tế, gợi nhớ đến cát sa mạc dưới ánh mặt trời, mang lại vẻ đẹp tự nhiên và đẳng cấp.\n*   Kết hợp hoàn hảo: Khung viền titan màu vàng đồng kết hợp với mặt lưng kính mờ cùng tông tạo nên tổng thể hài hòa và sang trọng.\n\nDesert Titanium là lựa chọn tuyệt vời cho người dùng yêu thích sự khác biệt và muốn khẳng định phong cách cá nhân. Màu sắc này đặc biệt nổi bật khi kết hợp với các phụ kiện màu trung tính.\n\n![iPhone 16 Pro Max màu Titan Sa Mạc](https://cdn-v2.didongviet.vn/files/default/2025/3/29/0/1745914142060_iphone_16_pro_max_mau_titan_sa_mac.jpg)\n\niPhone 16 Pro Max màu Titan Sa Mạc\n\n### 3.2. Titan Trắng (White Titanium)\n\nTitan Trắng trên iPhone 16 Pro Max mang đến vẻ đẹp tinh khôi, thanh lịch và không bao giờ lỗi thời. Sắc trắng sáng nổi bật trên khung viền titan và mặt lưng kính mờ tạo nên diện mạo sang trọng, hiện đại.\n\n*   Vẻ đẹp tinh tế: Màu trắng bạc thanh lịch kết hợp với khung viền titan tạo nên sự tương phản tinh tế, nổi bật trong mọi không gian.\n*   Dễ kết hợp: Phù hợp với mọi phong cách và dễ dàng kết hợp với các loại phụ kiện, ốp lưng đa dạng.\n\nTitan Trắng là lựa chọn lý tưởng cho những người yêu thích sự tối giản và tinh tế. Màu sắc này ít bị lộ vân tay và vết bẩn, giữ được vẻ đẹp sang trọng trong quá trình sử dụng.\n\n![iPhone 16 Pro Max Titan Trắng](https://cdn-v2.didongviet.vn/files/default/2025/3/29/0/1745914182452_iphone_16_pro_max_mau_titan_trang.jpg)\n\niPhone 16 Pro Max Titan Trắng\n\n### 3.3. Titan Tự Nhiên (Natural Titanium)\n\nTitan Tự Nhiên mang đến sắc thái xám trung tính nhưng vẫn toát lên vẻ đẹp thanh lịch và đẳng cấp. Màu sắc này kết hợp hoàn hảo giữa khung viền titan và mặt lưng kính mờ đồng điệu, tạo nên tổng thể hài hòa.\n\n*   Màu sắc trung tính: Sắc xám bạc mang đến vẻ ngoài chuyên nghiệp, phù hợp với cả nam và nữ, đặc biệt là trong môi trường công việc.\n*   Vẻ đẹp vượt thời gian: Tone màu trung tính không dễ lỗi mốt, lựa chọn an toàn cho những ai thường xuyên sử dụng điện thoại trong nhiều năm.\n\nTitan Tự Nhiên là lựa chọn hoàn hảo cho người dùng yêu thích sự thanh lịch, đơn giản nhưng vẫn muốn sở hữu một thiết bị cao cấp, khẳng định phong cách và địa vị.\n\n![iPhone 16 Pro Max màu Titan tự nhiên](https://cdn-v2.didongviet.vn/files/default/2025/3/29/0/1745914225694_iphone_16_pro_max_mau_titan_tu_nhien.jpg)\n\niPhone 16 Pro Max màu Titan tự nhiên\n\n### 3.4. Titan Đen (Black Titanium)\n\nTitan Đen là màu sắc mang tính biểu tượng cho sự mạnh mẽ và quyền lực trên iPhone 16 Pro Max. Sắc đen cổ điển kết hợp cùng khung viền titan cao cấp tạo nên sự sang trọng và đẳng cấp vượt thời gian.\n\n*   Vẻ đẹp huyền bí: Sắc đen sâu thẳm kết hợp với bề mặt kính mờ tạo nên diện mạo mạnh mẽ, nam tính và bí ẩn.\n*   Chuyên nghiệp và lịch lãm: Màu đen luôn mang đến vẻ ngoài trang nhã, phù hợp với mọi hoàn cảnh từ công việc đến giải trí.\n\nTitan Đen là lựa chọn phổ biến cho những người dùng yêu thích phong cách tối giản nhưng vẫn muốn toát lên vẻ chuyên nghiệp và lịch lãm. Đây cũng là màu sắc ít bị lỗi mốt theo thời gian.\n\nTương tự iPhone 16 Pro, phiên bản Titan Sa Mạc của iPhone 16 Pro Max 256GB Chính Hãng (VN/A) được đông đảo người yêu công nghệ yêu thích, sắc vàng nhẹ nhàng, phù hợp với nhiều phong cách khác nhau.\n\n![iPhone 16 Pro Max màu Titan đen](https://cdn-v2.didongviet.vn/files/default/2025/3/29/0/1745914268485_iphone_16_pro_max_mau_titan_den.jpg)\n\niPhone 16 Pro Max màu Titan đen\n\n## 4\\. Giá iPhone 16 Pro Max 256GB Chính Hãng (VN/A) tại Di Động Việt bao nhiêu?\n\nHiện tại, Di Động Việt đang phân phối iPhone 16 Pro Max 256GB chính hãng VN/A với mức giá từ 30.790.000đ, kèm theo nhiều ưu đãi hấp dẫn. Dưới đây là bảng giá chi tiết cho các phiên bản iPhone 16 Pro Max tại Di Động Việt tháng 4/2025:\n\n| Phiên bản | Giá bán hiện tại | Giá bán khởi điểm VN | Giá bán khởi điểm Mỹ |\n| --- | --- | --- | --- |\n| iPhone 16 Pro Max 256GB | Từ 30.790.000đ | Từ 36.990.000đ | Từ $1.199 |\n| iPhone 16 Pro Max 512GB | Từ 36.990.000đ | Từ 42.990.000đ | Từ $1.399 |\n| iPhone 16 Pro Max 1TB | Từ 42.990.000đ | Từ 49.990.000đ | Từ $1.599 |\n\n_Lưu ý__: Giá của sản phẩm sẽ có sự khác biệt giữa các phiên bản màu sắc và thay đổi theo thời gian. Để cập nhật giá mới nhất và các chương trình khuyến mãi, vui lòng truy cập website didongviet.vn hoặc liên hệ trực tiếp với Di Động Việt._\n\n## 5\\. iPhone 16 Pro Max có gì khác so với các phiên bản khác trong iPhone 16 Series?\n\niPhone 16 Pro Max 128GB Chính hãng (VN/A) thuộc [iPhone 16 Series](https://didongviet.vn/iphone-16-series.html) là mẫu flagship nổi bật với các nâng cấp vượt trội về thiết kế, hiệu năng, camera và thời lượng pin, hướng đến người dùng muốn trải nghiệm tối ưu nhất. Các đặc điểm nổi bật của iPhone 16 Pro Max bao gồm:\n\n*   Về màu sắc và kiểu dáng: iPhone 16 Pro Max có 4 màu mới (Đen Titanium, Trắng Titanium, Natural Titanium, Desert Titanium), vỏ titan cấp độ 5 kết hợp kính cường lực Ceramic Shield thế hệ mới.\n*   Về cổng kết nối: Sử dụng USB-C với tốc độ USB 3.0, hỗ trợ sạc nhanh và truyền dữ liệu vượt trội so với USB 2.0 trên các phiên bản thường.\n*   Về thiết kế - kích thước và công nghệ màn hình: Kích thước 6.9 inch, màn hình OLED Super Retina XDR với ProMotion 120Hz, Always-On Display, độ sáng tối đa 2000 nits, thêm nút Action và Camera Control.\n*   Về camera và công nghệ chụp: Camera chính 48MP Fusion, ultrawide 48MP, telephoto 12MP zoom quang 5x, hỗ trợ macro, quay video không gian cho Vision Pro, tích hợp AI nâng cao.\n\n### 5.1. iPhone 16 Pro Max có gì khác so với iPhone 16e?\n\niPhone 16 Pro Max vượt trội hơn iPhone 16e về mọi khía cạnh. Dưới đây là bảng so sánh:\n\n| Tiêu chí | iPhone 16 Pro Max | iPhone 16e | Ưu điểm của iPhone 16 Pro Max |\n| --- | --- | --- | --- |\n| Màn hình | 6.9 inch, Super Retina XDR, 120Hz | 6.1 inch, Retina HD, 60Hz | OLED 120Hz sắc nét, mượt mà hơn LCD. |\n| Màu sắc | Titan Đen, Titan Trắng, Titan Tự Nhiên và Titan Sa Mạc | Đen, Trắng | Titan cao cấp, màu sắc sang trọng hơn. |\n| Cổng kết nối | USB-C, USB 3.0 | USB-C, USB 2.0 | Truyền dữ liệu nhanh hơn. |\n| Thời gian sử dụng | 33h video, 29h stream, 105h audio | 20h video, 16h stream, 75h audio | Thời lượng sử dụng dài hơn đáng kể. |\n| Công nghệ màn hình | OLED, ProMotion, Always-On, 2000 nits | LCD, 1200 nits, notch | ProMotion, Always-On hiện đại hơn notch. |\n| Camera | 48MP Fusion, 48MP UW, 12MP Tele 5x | 48MP main, 2x zoom, không UW | Camera đa dạng, tele 5x, ultrawide 48MP. |\n| Chip | A18 Pro, 8GB RAM | A18, 6GB RAM | Hiệu năng vượt trội với A18 Pro, RAM cao hơn. |\n| Nút bấm | Action Button, Camera Control | Action Button | Thêm Camera Control tiện lợi hơn. |\n\niPhone 16 Pro Max là lựa chọn cao cấp nhất, vượt xa [iPhone 16e cơ bản](https://didongviet.vn/dien-thoai/iphone-16e.html).\n\n### 5.2. iPhone 16 Pro Max có gì khác so với iPhone 16?\n\niPhone 16 Pro Max vượt trội hơn iPhone 16 về mọi mặt từ màn hình, camera đến pin. Dưới đây là bảng so sánh chi tiết:\n\n| Tiêu chí | iPhone 16 Pro Max | iPhone 16 | Ưu điểm của iPhone 16 Pro Max |\n| --- | --- | --- | --- |\n| Màn hình | 6.9 inch, Super Retina XDR, 120Hz | 6.1 inch, Super Retina XDR, 60Hz | Màn hình lớn hơn, ProMotion 120Hz mượt hơn. |\n| Màu sắc | Titan Đen, Titan Trắng, Titan Tự Nhiên và Titan Sa Mạc | Xanh lưu ly, Xanh mòng két, Hồng, Trắng và Đen | Vỏ titan sang trọng hơn nhôm. |\n| Cổng kết nối | USB-C, USB 3.0 | USB-C, USB 2.0 | Truyền dữ liệu nhanh hơn, chuyên nghiệp hơn. |\n| Thời gian sử dụng | 33h video, 29h stream, 105h audio | 22h video, 18h stream, 80h audio | Thời lượng pin vượt trội hơn hẳn. |\n| Công nghệ màn hình | OLED, ProMotion, Always-On, 2000 nits | OLED, MLA, 2000 nits, Dynamic Island | ProMotion và Always-On cao cấp hơn. |\n| Camera | 48MP Fusion, 48MP UW, 12MP Tele 5x | 48MP Fusion, 12MP UW, macro | Zoom 5x, ultrawide 48MP chất lượng cao hơn. |\n| Chip | A18 Pro, 8GB RAM | A18, 8GB RAM | A18 Pro mạnh hơn, tối ưu tác vụ nặng. |\n| Nút bấm | Action Button, Camera Control | Action Button, Camera Control | Tương đồng, tiện ích đầy đủ. |\n\niPhone 16 Pro Max phù hợp cho người dùng cần màn hình lớn, pin lâu và hiệu năng tối đa, trong khi [iPhone 16 thường](https://didongviet.vn/dien-thoai/iphone-16-128gb.html) đáp ứng nhu cầu cơ bản.\n\n### 5.3. iPhone 16 Pro Max có gì khác so với iPhone 16 Plus?\n\niPhone 16 Pro Max vượt xa iPhone 16 Plus về thiết kế cao cấp và hiệu năng chuyên sâu. Dưới đây là bảng so sánh:\n\n| Tiêu chí | iPhone 16 Pro Max | iPhone 16 Plus | Ưu điểm của iPhone 16 Pro Max |\n| --- | --- | --- | --- |\n| Màn hình | 6.9 inch, Super Retina XDR, 120Hz | 6.7 inch, Super Retina XDR, 60Hz | ProMotion 120Hz mượt hơn, màn hình lớn hơn. |\n| Màu sắc | Titan Đen, Titan Trắng, Titan Tự Nhiên và Titan Sa Mạc | Xanh lưu ly, Xanh mòng két, Hồng, Trắng và Đen | Vật liệu titan cao cấp hơn nhôm. |\n| Cổng kết nối | USB-C, USB 3.0 | USB-C, USB 2.0 | Tốc độ truyền dữ liệu nhanh hơn. |\n| Thời gian sử dụng | 33h video, 29h stream, 105h audio | 27h video, 24h stream, 100h audio | Thời lượng pin vượt trội hơn. |\n| Công nghệ màn hình | OLED, ProMotion, Always-On, 2000 nits | OLED, MLA, 2000 nits, Dynamic Island | ProMotion và Always-On hiện đại hơn. |\n| Camera | 48MP Fusion, 48MP UW, 12MP Tele 5x | 48MP Fusion, 12MP UW, macro | Camera tele 5x, ultrawide 48MP vượt trội. |\n| Chip | A18 Pro, 8GB RAM | A18, 8GB RAM | A18 Pro mạnh mẽ hơn cho tác vụ nặng. |\n| Nút bấm | Action Button, Camera Control | Action Button, Camera Control | Tương đồng, tiện ích đầy đủ. |\n\niPhone 16 Pro Max mang lại trải nghiệm đỉnh cao, trong khi [iPhone 16 Plus](https://didongviet.vn/dien-thoai/iphone-16-plus-128gb.html) phù hợp với người cần màn hình lớn nhưng không yêu cầu hiệu năng tối đa.\n\n### 5.4. iPhone 16 Pro Max có gì khác so với iPhone 16 Pro?\n\niPhone 16 Pro Max nhỉnh hơn iPhone 16 Pro về kích thước màn hình và pin. Dưới đây là bảng so sánh:\n\n| Tiêu chí | iPhone 16 Pro Max | iPhone 16 Pro | Ưu điểm của iPhone 16 Pro Max |\n| --- | --- | --- | --- |\n| Màn hình | 6.9 inch, Super Retina XDR, 120Hz | 6.3 inch, Super Retina XDR, 120Hz | Màn hình lớn hơn, trải nghiệm tốt hơn. |\n| Màu sắc | Titan Đen, Titan Trắng, Titan Tự Nhiên và Titan Sa Mạc | Titan Đen, Titan Trắng, Titan Tự Nhiên và Titan Sa Mạc | Tương đồng, đều sang trọng với titan. |\n| Cổng kết nối | USB-C, USB 3.0 | USB-C, USB 3.0 | Tương đồng, không khác biệt. |\n| Thời gian sử dụng | 33h video, 29h stream, 105h audio | 27h video, 22h stream, 85h audio | Thời lượng pin vượt trội hơn. |\n| Công nghệ màn hình | OLED, ProMotion, Always-On, 2000 nits | OLED, ProMotion, Always-On, 2000 nits | Tương đồng, đều hiện đại. |\n| Camera | 48MP Fusion, 48MP UW, 12MP Tele 5x | 48MP Fusion, 48MP UW, 12MP Tele 5x | Tương đồng, đều mạnh mẽ. |\n| Chip | A18 Pro, 8GB RAM | A18 Pro, 8GB RAM | Tương đồng, hiệu năng ngang bằng. |\n| Nút bấm | Action Button, Camera Control | Action Button, Camera Control | Tương đồng, tiện ích đầy đủ. |\n\niPhone 16 Pro Max dành cho người ưu tiên màn hình lớn và pin lâu, trong khi [iPhone 16 Pro](https://didongviet.vn/dien-thoai/iphone-16-pro-128gb.html) gọn nhẹ hơn.\n\n## 6\\. iPhone 16 Pro Max có nâng cấp gì so với iPhone 15 Pro Max?\n\niPhone 16 Pro Max mang đến nhiều cải tiến đáng kể so với iPhone 15 Pro Max. Dưới đây là những nâng cấp chính:\n\n*   Về màu sắc và kiểu dáng: iPhone 16 Pro Max có màu Titan Sa Mạc thay cho Titan Xanh, khung titan cải tiến nhẹ hơn và bền hơn.\n*   Về cổng kết nối: Nâng cấp lên chuẩn Thunderbolt (40 Gbps) so với USB 3.0 (20 Gbps) trên iPhone 15 Pro Max.\n*   Về thiết kế và công nghệ màn hình: Màn hình 6.9 inch (lớn hơn 6.7 inch), viền mỏng hơn (1.2mm so với 1.55mm), tích hợp công nghệ MLA tăng độ sáng và tiết kiệm pin.\n*   Về camera và công nghệ chụp: Camera ultrawide nâng cấp từ 12MP lên 48MP, thêm nút Camera Control tiện lợi.\n\nDưới đây là bảng so sánh chi tiết giữa iPhone 16 Pro Max và iPhone 15 Pro Max:\n\n| Tiêu chí | iPhone 16 Pro Max | iPhone 15 Pro Max | Nâng cấp |\n| --- | --- | --- | --- |\n| Màn hình | 6.9 inch, Super Retina XDR OLED | 6.7 inch, Super Retina XDR OLED | Lớn hơn, trải nghiệm hiển thị tốt hơn. |\n| Màu sắc | Titan Đen, Titan Trắng, Titan Tự Nhiên và Titan Sa Mạc | Titan Xanh, Titan Đen, Titan Trắng, Titan Tự Nhiên | Thay Titan Xanh bằng Titan Sa Mạc. |\n| Cổng kết nối | USB 3, Thunderbolt 40 Gbps | USB 3, 20 Gbps | Tốc độ truyền dữ liệu nhanh gấp đôi. |\n| Thời gian sử dụng | 33h video, 29h stream, 105h audio | 29h video, 25h stream, 95h audio | Tăng 4h video, cải thiện đáng kể. |\n| Công nghệ màn hình | ProMotion 120Hz, MLA, 2000 nits | ProMotion 120Hz, 2000 nits | Thêm MLA, tăng độ sáng và tiết kiệm pin. |\n| Camera sau | 48MP + 48MP UW + 12MP Tele 5x | 48MP + 12MP UW + 12MP Tele 5x | Ultrawide 48MP chất lượng cao hơn. |\n| Chipset | A18 Pro (3nm thế hệ 2) | A17 Pro (3nm thế hệ 1) | Hiệu năng mạnh hơn, tiết kiệm năng lượng hơn. |\n| Viền màn hình | 1.2mm | 1.55mm | Mỏng hơn, tăng tỷ lệ màn hình. |\n| Nút Camera Control | Có | Không có | Thêm tiện ích chụp ảnh nhanh. |\n\niPhone 16 Pro Max mang lại nhiều cải tiến đáng giá về màn hình, camera, hiệu năng và kết nối so với 15 Pro Max, xứng đáng là một bản nâng cấp lớn.\n\n## 7\\. Mua iPhone 16 Pro Max 256GB Chính Hãng (VN/A) ưu đãi hấp dẫn tại Di Động Việt\n\n\"Mua sản phẩm, chọn sản phẩm. Mua ở đâu, chọn Di Động Việt.\" Tại Di Động Việt, bạn sẽ sở hữu iPhone 16 Pro Max 256GB chính hãng VN/A với chất lượng đảm bảo và dịch vụ vượt trội. Với cam kết đó, chúng tôi luôn nỗ lực \"CHUYỂN GIAO GIÁ TRỊ VƯỢT TRỘI\" đến từng khách hàng.\n\n### 7.1. Khách hàng nhận được gì khi lựa chọn Di Động Việt?\n\nDi Động Việt tự hào là đại lý ủy quyền chính thức của Apple tại Việt Nam (Apple Authorised Reseller - AAR), mang đến cho khách hàng những sản phẩm iPhone 16 Pro Max 256GB VN/A chính hãng 100% với nhiều ưu đãi độc quyền.\n\n*   Sản phẩm chính hãng 100%, nguyên seal, đầy đủ phụ kiện\n*   Giá cạnh tranh nhất thị trường kèm khuyến mãi hấp dẫn\n*   Bảo hành chính hãng 12 tháng theo tiêu chuẩn Apple\n*   Chính sách bảo hành Hư lỗi - Đổi mới độc quyền tại Di Động Việt\n*   Thu cũ đổi mới với giá thu vào siêu tốt\n*   Trả góp 0% lãi suất với thủ tục đơn giản, nhanh chóng\n*   Giao hàng nhanh trong 2-24h tùy khu vực\n*   Hỗ trợ kỹ thuật 24/7 từ đội ngũ chuyên nghiệp\n\n_Lưu ý__: Đây là thông tin tham khảo. Quý khách vui lòng xem chi tiết thông tin bảo hành và các ưu đãi tại trang sản phẩm._\n\nNgoài ra, khách hàng còn được đội ngũ nhân viên tư vấn chuyên nghiệp hỗ trợ cài đặt, hướng dẫn sử dụng các tính năng AI tiên tiến và chuyển dữ liệu từ máy cũ sang máy mới hoàn toàn miễn phí.\n\n### 7.2. Thông tin liên hệ bộ phận hỗ trợ khách hàng\n\nNếu bạn có bất kỳ thắc mắc hay cần tư vấn thêm về iPhone 16 Pro Max 256GB, hãy liên hệ với Di Động Việt qua các kênh sau:\n\n*   Hotline Kỹ thuật, mua hàng: 1800.6018 (miễn phí)\n*   Hotline Bảo hành: 1800.6729 (miễn phí)\n*   Fanpage: [www.facebook.com/didongviet/](http://www.facebook.com/didongviet/) \n*   TikTok: [www.tiktok.com/@didongviet\\_official](http://www.tiktok.com/@didongviet_official)\n\n## 8\\. Câu hỏi thường gặp khi mua iPhone 16 Pro Max 256GB Chính Hãng (VN/A)\n\n### 8.1. Nút Capture trên iPhone 16 Pro Max có tính năng gì đặc biệt?\n\nNút Capture trên iPhone 16 Pro Max mô phỏng cách hoạt động của máy ảnh DSLR chuyên nghiệp. Bạn có thể nhấn nhẹ để lấy nét, nhấn sâu để chụp ảnh, vuốt để zoom hoặc điều chỉnh các tham số chụp ảnh khác. Đặc biệt, khi nhấn đúp nhanh, nút Capture còn cho phép truy cập nhanh vào các tính năng camera tùy chỉnh như chế độ chụp chân dung, chế độ ban đêm hay quay video chất lượng cao.\n\n### 8.2. Viên pin trên iPhone 16 Pro Max có thời lượng sử dụng trong bao lâu?\n\nPin 4.676 mAh trên iPhone 16 Pro Max cho thời lượng sử dụng ấn tượng lên đến 30 giờ phát video liên tục, 25 giờ xem video trực tuyến hoặc 95 giờ phát nhạc. Với người dùng thông thường, máy có thể sử dụng từ 1,5 đến 2 ngày trước khi cần sạc lại. Công nghệ sạc nhanh 30W giúp sạc đầy 50% pin chỉ trong khoảng 30 phút, trong khi sạc không dây MagSafe 15W cũng rất tiện lợi.\n\niPhone 16 Pro Max 256GB chính hãng VN/A là sự lựa chọn hoàn hảo cho những người dùng đam mê công nghệ và trải nghiệm cao cấp. Với màn hình 6.9 inch lớn nhất từ trước đến nay, chip A18 Pro mạnh mẽ, hệ thống camera chuyên nghiệp và thời lượng pin vượt trội, đây là chiếc điện thoại xứng đáng với danh hiệu siêu phẩm của Apple năm 2024.\n\nChọn mua iPhone 16 Pro Max 256GB tại Di Động Việt, bạn không chỉ sở hữu sản phẩm chính hãng với mức giá cạnh tranh mà còn được hưởng nhiều ưu đãi hấp dẫn cùng dịch vụ hậu mãi tận tâm. Hãy trải nghiệm ngay hôm nay để khám phá những điều tuyệt vời nhất từ Apple."
+        },
+        "promptType": "define",
+        "text": "=Tạo dựng cho tôi một bài viết giới thiệu về sản phẩm cụ thể. Sản phẩm đó là: \"{{ $('When Executed by Another Workflow').item.json.Product_detail }}\"\n"
+      },
+      "position": [
+        -1300,
+        220
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "cb8f5f0e-f14c-4d36-966a-408d45b6101b",
+      "name": "Send Blog",
+      "parameters": {
+        "additionalFields": {
+          "parse_mode": "HTML"
+        },
+        "chatId": "={{ $('When Executed by Another Workflow').item.json.chatID }}",
+        "text": "=\n\n1. Blog Title: \"{{ $('Blog Post Agent').item.json.output.split(\"\\n\")[0].replace(\"# \", \"\") || $json.topic }}\".\n\n2. <a href=\"https://docs.google.com/document/d/{{ $('Update GG Doc').item.json.documentId }}/edit?usp=sharing\"> Product content - file doc </a> "
+      },
+      "position": [
+        -160,
+        80
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "94fa70af-f2fc-4c05-8fa1-d9f55637485f"
+    },
+    {
+      "id": "9e9430c5-9ef2-43df-adbc-c45b5dad4798",
+      "name": "Send Photo",
+      "parameters": {
+        "additionalFields": {},
+        "chatId": "={{ $('When Executed by Another Workflow').item.json.chatID }}",
+        "file": "={{ $json.images_results[1].link }}",
+        "operation": "sendPhoto"
+      },
+      "position": [
+        -440,
+        -280
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "8fcbda9c-8396-41f7-8f2d-39e4ae4337c7"
+    },
+    {
+      "disabled": true,
+      "id": "56d27a7a-1a32-4d50-8a9d-30fd5656e9c8",
+      "name": "Sticky Note5",
+      "parameters": {
+        "color": 7,
+        "content": "# Trigger\n",
+        "height": 260,
+        "width": 260
+      },
+      "position": [
+        -1640,
+        120
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "51793d9f-4b24-484e-af5d-7eb37777804b",
+      "name": "Sticky Note6",
+      "parameters": {
+        "color": 6,
+        "content": "# Write to Drive & Sheets",
+        "height": 240,
+        "width": 540
+      },
+      "position": [
+        -180,
+        300
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "85c686d6-ac28-44ae-b392-052d255d6117",
+      "name": "Sticky Note7",
+      "parameters": {
+        "color": 6,
+        "content": "# Send Content",
+        "height": 260,
+        "width": 460
+      },
+      "position": [
+        -180,
+        -20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "b2bd9362-430c-4711-8f9e-28f411d5f8c5",
+      "name": "Image Covers",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "options": {},
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ $('When Executed by Another Workflow').item.json.Product_detail}}"
+            },
+            {
+              "name": "gl",
+              "value": "us"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "url": "https://serpapi.com/search?engine=google_images"
+      },
+      "position": [
+        -540,
+        220
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "a3b9644f-a5e0-42a3-bc5e-d7e88c9d0c4f",
+      "name": "Google Docs",
+      "parameters": {
+        "folderId": "",
+        "title": "={{ $('When Executed by Another Workflow').item.json.Product_detail }} - Content detail"
+      },
+      "position": [
+        -880,
+        220
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "e597548d-38bc-42e7-aebc-dda8ab4c3c9e",
+      "name": "Update GG Doc",
+      "parameters": {
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ $('Blog Post Agent').item.json.output }}"
+            }
+          ]
+        },
+        "documentURL": "={{ $json.id }}",
+        "operation": "update"
+      },
+      "position": [
+        -700,
+        220
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "a387c166-31d0-4613-aebd-679f89b64a7e",
+      "name": "Think",
+      "parameters": {},
+      "position": [
+        -1060,
+        480
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1
+    },
+    {
+      "id": "5d50c002-b556-4aad-85b4-62dba47bd829",
+      "name": "Anthropic Chat Model",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "Claude 3.7 Sonnet",
+          "mode": "list",
+          "value": "claude-3-7-sonnet-20250219"
+        },
+        "options": {
+          "maxTokensToSample": 64000
+        }
+      },
+      "position": [
+        -1340,
+        480
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "8fef687a-0599-4a81-970b-4125b4b274c9",
+      "name": "Update sheet",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ID",
+              "id": "ID",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Task Type",
+              "id": "Task Type",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Result",
+              "id": "Result",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Note",
+              "id": "Note",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "ID": "={{ $('When Executed by Another Workflow').item.json.Product_detail }}",
+            "Note": "={{ $('Update GG Doc').item.json.documentId }}",
+            "Result": "={{ $('Blog Post Agent').item.json.output }}",
+            "Task Type": "Product detail"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        0,
+        380
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "eebff334-8c95-4d68-8bb9-4d1c9ef85166",
+      "name": "Perplexity",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={\n  \"model\": \"sonar-pro\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a deep researcher who have both marketing and research expertise. Your task is research the latest and the accurate infromation base on the user request.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{query}\"\n    }\n  ],\n  \"options\": {\n    \"temperature\": 0.8,\n    \"max_tokens\": 20000\n  }\n}",
+        "method": "POST",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "description": "Performs search using Perplexity based on the provided query, which can include text and URLs. ",
+              "name": "query",
+              "type": "string"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "toolDescription": "Use this tool to Research the newest and accurate information based on user request.",
+        "url": "https://api.perplexity.ai/chat/completions"
+      },
+      "position": [
+        -1200,
+        480
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "4d12e8c3-3b50-400f-83e9-d58b679eb836",
+      "name": "Send Photo1",
+      "parameters": {
+        "additionalFields": {},
+        "chatId": "={{ $('When Executed by Another Workflow').item.json.chatID }}",
+        "file": "={{ $('Image Covers').item.json.images_results[0].link }}",
+        "operation": "sendPhoto"
+      },
+      "position": [
+        100,
+        80
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "8fcbda9c-8396-41f7-8f2d-39e4ae4337c7"
+    },
+    {
+      "id": "ec69e619-b8b9-422c-8900-6929bc7c7d53",
+      "name": "Send Photo2",
+      "parameters": {
+        "additionalFields": {},
+        "chatId": "={{ $('When Executed by Another Workflow').item.json.chatID }}",
+        "file": "={{ $json.images_results[2].link }}",
+        "operation": "sendPhoto"
+      },
+      "position": [
+        -440,
+        -100
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "8fcbda9c-8396-41f7-8f2d-39e4ae4337c7"
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

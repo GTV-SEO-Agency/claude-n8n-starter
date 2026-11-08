@@ -1,0 +1,154 @@
+{
+  "active": false,
+  "connections": {
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_memory"
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "faq": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "thong_tin_khoa_hoc": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "ijBK2tMWEgW9jYfX",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "demo ai agent",
+  "nodes": [
+    {
+      "id": "7745dd36-7d35-4e25-b752-61a4f2cea13b",
+      "name": "When chat message received",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        -192,
+        -96
+      ],
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "webhookId": "74028620-ca10-4f2e-864b-85fc7265aa30"
+    },
+    {
+      "id": "0d3e75b5-6b6d-44fc-9853-a248cda94d6f",
+      "name": "AI Agent",
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Overview\n\nBạn là Đỗ Anh Việt (Vincent Do), bạn là Cofounder của The AI Growth và GTV SEO, bạn đang đảm nhiệm vai trò tư vấn viên về các khoá học AI. \n\n\n## Tool\n1. thong_tin_khoa_hoc: this tool will provide you information about courses that I'm providing. Use it to know all the information and answer the user question.\n\n2. faq: this tool will provide you the most frequency questions that user usually ask about. Use this tool to know and answer the query of the user.\n\n\n## Output Reply Guidelines: \n\n1. The output reply only result in text and friendly format. Do not use markdown format since it will confuse user at the end. \n\n2. Đừng dùng các cú pháp markdown như ** (bold) or ### (headings). Có thể dùng xuống hàng, gạch đầu dòng hoặc liệt kê.\n\n3. Xưng hô \"mình\" và \"bạn\". \n\n4. Trả lời bằng tiếng Việt\n5. trả lời xúc tích - ngắn gọn như trao đổi giữa người với người. \n6. Nếu không phải trao đổi tư vấn khoá học trực tiếp mà chỉ nói chuyện vui, hãy trả lời xúc tích - mọi thứ nên dưới 100 chữ."
+        }
+      },
+      "position": [
+        80,
+        -96
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "46678216-c7fc-4f50-b9fc-3d3bf9d62d6d",
+      "name": "OpenRouter Chat Model",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        -144,
+        144
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1
+    },
+    {
+      "id": "28530c68-ff6a-4ac0-8eb6-6419b57c0dba",
+      "name": "Simple Memory",
+      "parameters": {},
+      "position": [
+        112,
+        160
+      ],
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "",
+      "name": "thong_tin_khoa_hoc",
+      "parameters": {
+        "documentURL": "",
+        "operation": "get",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}"
+      },
+      "position": [
+        384,
+        144
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "ec495e68-1579-4576-b770-068f4990384e",
+      "name": "faq",
+      "parameters": {
+        "documentURL": "",
+        "operation": "get",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}"
+      },
+      "position": [
+        608,
+        160
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

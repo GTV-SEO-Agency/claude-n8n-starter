@@ -1,0 +1,229 @@
+{
+  "connections": {
+    "Ci sono email?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Riassumi con AI",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Ogni mattina alle 8 (lun-ven)": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Prendi email non lette",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Prendi email non lette": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Prepara testo per AI",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Prepara testo per AI": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Ci sono email?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Riassumi con AI": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Invia rassegna su Telegram",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_04_daily-email-digest-telegram_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Tóm tắt email chưa đọc mỗi sáng qua Telegram\n**Làm gì:** Mỗi sáng gom email chưa đọc, AI tóm tắt và gửi Telegram.\n**Trigger:** Lịch (Schedule)\n**Credential cần:** Gmail, OpenAI, Telegram bot\n**Chi phí ước:** Token thấp.\n**Mở rộng gợi ý:** Dịch prompt sang tiếng Việt (gốc tiếng Ý); thêm nhóm ưu tiên.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/Gmail_and_Email_Automation/Daily%20AI%20digest%20of%20unread%20emails%20to%20Telegram%20(Italian).json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -660,
+        -300
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "nota-setup",
+      "name": "Nota di setup",
+      "parameters": {
+        "content": "## ⚙️ CONFIGURAZIONE (5 min)\n\n1. **Gmail**: collega l'account da monitorare nel nodo 'Prendi email non lette'.\n2. **OpenAI**: inserisci la tua API key nel nodo 'Riassumi con AI' (funziona anche con altri provider cambiando nodo: Claude, Gemini, Ollama in locale a costo zero).\n3. **Telegram**: crea un bot con @BotFather e inserisci token + Chat ID nel nodo finale.\n\nOgni mattina alle 8:00 ricevi su Telegram un riassunto delle email non lette delle ultime 24 ore, ordinate per urgenza.\n\n💰 Costo AI: ~1 centesimo al giorno con gpt-4o-mini.",
+        "height": 360,
+        "width": 400
+      },
+      "position": [
+        -60,
+        -200
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "schedule-8",
+      "name": "Ogni mattina alle 8 (lun-ven)",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "expression": "0 8 * * 1-5",
+              "field": "cronExpression"
+            }
+          ]
+        }
+      },
+      "position": [
+        400,
+        0
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "gmail-getall",
+      "name": "Prendi email non lette",
+      "parameters": {
+        "filters": {
+          "q": "is:unread newer_than:1d -category:promotions -category:social"
+        },
+        "limit": 25,
+        "operation": "getAll",
+        "options": {},
+        "returnAll": false
+      },
+      "position": [
+        620,
+        0
+      ],
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1
+    },
+    {
+      "id": "code-compatta",
+      "name": "Prepara testo per AI",
+      "parameters": {
+        "jsCode": "// Compatta le email in un unico testo per l'AI\nconst righe = [];\n\nfor (const item of $input.all()) {\n  const e = item.json;\n  const da = e.from?.value?.[0]?.name || e.from?.value?.[0]?.address || e.From || 'Sconosciuto';\n  const oggetto = e.subject || e.Subject || '(senza oggetto)';\n  const anteprima = String(e.snippet || e.text || '').slice(0, 200).replace(/\\s+/g, ' ');\n  righe.push(`DA: ${da}\\nOGGETTO: ${oggetto}\\nANTEPRIMA: ${anteprima}\\n---`);\n}\n\nif (righe.length === 0) {\n  return [{ json: { vuoto: true, testoEmail: '' } }];\n}\n\nreturn [{ json: { vuoto: false, totale: righe.length, testoEmail: righe.join('\\n') } }];"
+      },
+      "position": [
+        840,
+        0
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "if-ci-sono-email",
+      "name": "Ci sono email?",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.vuoto }}",
+              "operator": {
+                "operation": "equals",
+                "type": "boolean"
+              },
+              "rightValue": false
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        1060,
+        0
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "openai-riassunto",
+      "name": "Riassumi con AI",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "Sei l'assistente di un imprenditore italiano. Ricevi l'elenco delle email non lette e produci una rassegna mattutina in italiano, breve e pratica, in questo formato:\n\n🔴 URGENTI (rispondere oggi):\n- [mittente]: [cosa vuole in max 10 parole]\n\n🟡 IMPORTANTI (questa settimana):\n- ...\n\n⚪ IL RESTO:\n- una riga sola che raggruppa il resto\n\nSii sintetico. Se qualcosa sembra un cliente arrabbiato o un'opportunità di vendita, segnalalo per primo.",
+              "role": "system"
+            },
+            {
+              "content": "=Ecco le {{ $json.totale }} email non lette:\n\n{{ $json.testoEmail }}"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "position": [
+        1280,
+        -100
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8
+    },
+    {
+      "id": "telegram-rassegna",
+      "name": "Invia rassegna su Telegram",
+      "parameters": {
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        },
+        "chatId": "",
+        "text": "=☕ *Rassegna email del {{ $now.format('dd/MM') }}*\n\n{{ $json.message?.content || $json.output || $json.text }}"
+      },
+      "position": [
+        1500,
+        -100
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

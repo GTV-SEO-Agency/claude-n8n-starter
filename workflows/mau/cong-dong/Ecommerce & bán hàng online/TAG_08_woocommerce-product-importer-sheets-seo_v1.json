@@ -1,0 +1,768 @@
+{
+  "connections": {
+    "Create product": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Creation done",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Creation done": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "SEO Expert",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get products": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop products",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Loop products": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send message",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Map categories",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Map categories": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Create product",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "SEO Expert",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "SEO Expert": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set SEO meta",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Set SEO meta": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update meta",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "SEO Expert",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    },
+    "Update meta": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop products",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get products",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_woocommerce-product-importer-sheets-seo_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Đưa sản phẩm từ Google Sheets lên WooCommerce kèm meta SEO (Yoast)\n**Làm gì:** Điền sản phẩm vào Sheets, AI viết mô tả và meta SEO, workflow tạo sản phẩm trên WooCommerce hàng loạt.\n**Trigger:** Bấm tay (Execute workflow)\n**Credential cần:** Google Sheets, OpenRouter, Telegram bot, WooCommerce\n**Chi phí ước:** Token theo số sản phẩm.\n**Mở rộng gợi ý:** Đổi Yoast sang Rank Math; thêm bước duyệt mô tả trước khi đăng.\n\n---\n**Nguồn:** n8n.io template #3510 của n3witalia\nhttps://n8n.io/workflows/3510\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -1060,
+        -1380
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "aa2d7a06-6e8d-4abc-ab5f-53e9698b1655",
+      "name": "When clicking ‘Test workflow’",
+      "parameters": {},
+      "position": [
+        -360,
+        -340
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "OpenRouter Chat Model",
+      "parameters": {
+        "model": "google/gemini-2.0-flash-exp:free",
+        "options": {}
+      },
+      "position": [
+        180,
+        160
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1
+    },
+    {
+      "id": "29832953-a3e1-481d-a8bb-238bbf3c736c",
+      "name": "SEO Expert",
+      "parameters": {
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are a SEO expert specialized in creating optimized meta tags. Your task is to analyze the provided content and generate:\n\n1. A meta title of maximum 60 characters that:\n   - Includes the main keyword in a strategic position\n   - Is engaging and encourages clicks\n   - Accurately reflects the page content\n   - Uses clear and direct language\n   - Avoids keyword stuffing\n\n2. A meta description of maximum 160 characters that:\n   - Provides an engaging summary of the content\n   - Includes an appropriate call-to-action\n   - Contains the main keyword and relevant variations\n   - Is grammatically correct and flows well\n   - Maintains consistency with the meta title\n\nANALYSIS PROCESS:\n1. Carefully read the provided content\n2. Identify:\n   - Main topic\n   - Primary and related keywords\n   - Search intent\n   - Unique selling proposition\n   - Target audience\n\n3. Formulate meta tags that:\n   - Maximize CTR\n   - Respect character limits\n   - Are SEO optimized\n   - Reflect the content\n   - Don't insert placeholder\n\nREQUIRED OUTPUT:\nProvide meta tags in the required format\n\nVALIDATION CRITERIA:\n- Verify that the meta title doesn't exceed 60 characters\n- Verify that the meta description doesn't exceed 160 characters\n- Check that both contain the main keyword\n- Ensure the language is persuasive and action-oriented\n- Confirm that meta tags are consistent with the content\n\nIMPORTANT:\n- Don't use excessive punctuation\n- Avoid using special characters unless necessary\n- Don't duplicate information between title and description\n- Maintain a professional yet accessible tone\n- Ensure content is unique and not duplicated\n\nRemember: the goal is to create meta tags that effectively balance SEO optimization and user appeal, maximizing the potential click-through rate in search results."
+            }
+          ]
+        },
+        "promptType": "define",
+        "text": "=Create metatitle and metadescription in the language of the following product:\n\n- Title: {{ $('Create product').item.json.name }}\n- Category: {{ JSON.stringify($('Create product').item.json.categories) }}\n- Short Description: {{ $('Create product').item.json.short_description }}\n- Description: {{ $('Create product').item.json.description }}"
+      },
+      "position": [
+        200,
+        -60
+      ],
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5
+    },
+    {
+      "id": "e61c4d07-e535-404d-a58e-1676e043d1cb",
+      "name": "Get products",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "DONE"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": false
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        -120,
+        -340
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "a3ca44a3-a270-4339-aae0-5e7963a9d695",
+      "name": "Map categories",
+      "parameters": {
+        "jsCode": "for (const item of $input.all()) {\n  if (item.json.CATEGORY && typeof item.json.CATEGORY === 'string') {\n    item.json.CATEGORY = item.json.CATEGORY\n      .split(',')\n      .map(id => parseInt(id))\n      .filter(id => !isNaN(id));\n  }\n}\n\nreturn $input.all();\n"
+      },
+      "position": [
+        400,
+        -320
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "fe36f50a-1197-4f8a-a02f-70687e5049c8",
+      "name": "Create product",
+      "parameters": {
+        "additionalFields": {
+          "catalogVisibility": "visible",
+          "categories": "={{ $json.CATEGORY }}",
+          "description": "={{ $json.DESCRIPTION }}",
+          "manageStock": true,
+          "regularPrice": "={{ $json[\"REGULAR PRICE\"] }}",
+          "salePrice": "={{ $json[\"SALE PRICE\"] }}",
+          "shortDescription": "={{ $json[\"SHORT DESCRIPTION\"] }}",
+          "sku": "={{ $json.SKU }}",
+          "stockQuantity": "={{ $json[\"STOCK QTY\"] }}",
+          "stockStatus": "instock",
+          "taxStatus": "taxable",
+          "type": "simple"
+        },
+        "dimensionsUi": {},
+        "imagesUi": {
+          "imagesValues": [
+            {
+              "alt": "={{ $json.TITLE }}",
+              "name": "={{ $json.TITLE }}",
+              "src": "={{ $json.IMAGE }}"
+            }
+          ]
+        },
+        "metadataUi": {},
+        "name": "={{ $json.TITLE }}",
+        "operation": "create",
+        "resource": "product"
+      },
+      "position": [
+        680,
+        -320
+      ],
+      "type": "n8n-nodes-base.wooCommerce",
+      "typeVersion": 1
+    },
+    {
+      "id": "5f70ca85-45c0-483e-ae01-364d5fedb9f8",
+      "name": "Creation done",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "TITLE",
+              "id": "TITLE",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "CATEGORY",
+              "id": "CATEGORY",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "IMAGE",
+              "id": "IMAGE",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SKU",
+              "id": "SKU",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "REGULAR PRICE",
+              "id": "REGULAR PRICE",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SALE PRICE",
+              "id": "SALE PRICE",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SHORT DESCRIPTION",
+              "id": "SHORT DESCRIPTION",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "DESCRIPTION",
+              "id": "DESCRIPTION",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "STOCK QTY",
+              "id": "STOCK QTY",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "DONE",
+              "id": "DONE",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ID",
+              "id": "ID",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PERMALINK",
+              "id": "PERMALINK",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "DONE": "x",
+            "ID": "={{ $json.id }}",
+            "PERMALINK": "={{ $json.permalink }}",
+            "row_number": "={{ $('Map categories').item.json.row_number }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        940,
+        -320
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "de6904d1-5697-4fee-8492-e47a694e86c9",
+      "name": "Update meta",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "TITLE",
+              "id": "TITLE",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "CATEGORY",
+              "id": "CATEGORY",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "IMAGE",
+              "id": "IMAGE",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SKU",
+              "id": "SKU",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "REGULAR PRICE",
+              "id": "REGULAR PRICE",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SALE PRICE",
+              "id": "SALE PRICE",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SHORT DESCRIPTION",
+              "id": "SHORT DESCRIPTION",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "DESCRIPTION",
+              "id": "DESCRIPTION",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "STOCK QTY",
+              "id": "STOCK QTY",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "DONE",
+              "id": "DONE",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ID",
+              "id": "ID",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PERMALINK",
+              "id": "PERMALINK",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "METATITLE",
+              "id": "METATITLE",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "METADESCRIPTION",
+              "id": "METADESCRIPTION",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "METADESCRIPTION": "={{ $('SEO Expert').item.json.output.metadescription }}",
+            "METATITLE": "={{ $('SEO Expert').item.json.output.metatitle }}",
+            "row_number": "={{ $('Map categories').item.json.row_number }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        920,
+        -60
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "f9f0eb06-3d76-4675-af0a-8ec9b3811b79",
+      "name": "Set SEO meta",
+      "parameters": {
+        "dimensionsUi": {},
+        "imagesUi": {},
+        "metadataUi": {
+          "metadataValues": [
+            {
+              "key": "_yoast_wpseo_title",
+              "value": "={{ $json.output.metatitle }}"
+            },
+            {
+              "key": "_yoast_wpseo_metadesc",
+              "value": "={{ $json.output.metadescription }}"
+            }
+          ]
+        },
+        "operation": "update",
+        "productId": "={{ $('Create product').item.json.id }}",
+        "resource": "product",
+        "updateFields": {}
+      },
+      "position": [
+        600,
+        -60
+      ],
+      "type": "n8n-nodes-base.wooCommerce",
+      "typeVersion": 1
+    },
+    {
+      "id": "0ae1b508-9990-4f7b-bf64-e612ef5f0396",
+      "name": "Loop products",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        120,
+        -340
+      ],
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3
+    },
+    {
+      "id": "e713e1cd-b0cc-465d-971a-54a8002e0c39",
+      "name": "Send message",
+      "parameters": {
+        "additionalFields": {},
+        "chatId": "",
+        "text": "Product creation completed"
+      },
+      "position": [
+        400,
+        -500
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "9647e7ef-d449-40ff-a34d-9853e4404595"
+    },
+    {
+      "id": "06228035-8e02-4830-bf54-23096e6e1ca7",
+      "name": "Structured Output Parser",
+      "parameters": {
+        "inputSchema": "{\n\t\"type\": \"object\",\n\t\"properties\": {\n\t\t\"metatitle\": {\n\t\t\t\"type\": \"string\"\n\t\t},\n\t\t\"metadescription\": {\n\t\t\t\"type\": \"string\"\n\t\t}\n\t}\n}",
+        "schemaType": "manual"
+      },
+      "position": [
+        440,
+        160
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "c46b05a5-a565-48fe-a8ad-fad34eab267c",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "## STEP 1\n- Install Yoast SEO Plugin on Wordpress\n- Add this code in function.php file\n\n```\nfunction abilita_yoast_meta_api() {\n    $meta_keys = ['_yoast_wpseo_title', '_yoast_wpseo_metadesc'];\n\n    foreach ($meta_keys as $meta_key) {\n        register_post_meta('post', $meta_key, array(\n            'type' => 'string',\n            'description' => \"Meta Yoast $meta_key per i post\",\n            'single' => true,\n            'show_in_rest' => true, \n        ));\n\n        register_post_meta('page', $meta_key, array(\n            'type' => 'string',\n            'description' => \"Meta Yoast $meta_key per le pagine\",\n            'single' => true,\n            'show_in_rest' => true,\n        ));\n    }\n}\nadd_action('init', 'abilita_yoast_meta_api');\n```",
+        "height": 480,
+        "width": 800
+      },
+      "position": [
+        -460,
+        -1060
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "5cde4743-f5ab-4670-b836-d0d32b54db98",
+      "name": "Sticky Note1",
+      "parameters": {
+        "content": "## STEP 3\n- Copy [this sheet](https://docs.google.com/spreadsheets/d/<YOUR_FILE_ID>/edit?usp=sharing) and add product details to be inserted in columns A to I\nIMPORTANT: \n- Columns B, E and F in \"text format\"\n- Column I in \"numeric format\"\n- Columns G and H accepts HTML\n- In Column C insert the URL of product image\n",
+        "height": 260,
+        "width": 800
+      },
+      "position": [
+        380,
+        -840
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "cea0f8f9-2a98-465b-925c-48b9d3ea99a2",
+      "name": "Sticky Note2",
+      "parameters": {
+        "content": "## STEP 2\n- Enable WooCommerce API from Wordpress\n- Add CHAT_ID in Telegram trigger",
+        "height": 180,
+        "width": 800
+      },
+      "position": [
+        380,
+        -1060
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "e61ca71a-3960-49e2-a331-b8f3df8abcd7",
+      "name": "Sticky Note3",
+      "parameters": {
+        "color": 3,
+        "content": "# AI-Driven WooCommerce Product Importer\nThis workflow streamlines your WooCommerce product creation process by integrating directly with Google Sheets. Simply input product details into your spreadsheet, and the workflow takes care of the rest—automatically creating new products on your WooCommerce store.\n\nBut it doesn’t stop there. A dedicated SEO expert chain analyzes each product’s content and generates optimized meta titles and meta descriptions, enhancing visibility and ranking potential on search engines.",
+        "height": 180,
+        "width": 1640
+      },
+      "position": [
+        -460,
+        -1280
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

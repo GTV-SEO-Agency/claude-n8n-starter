@@ -1,0 +1,163 @@
+{
+  "active": false,
+  "connections": {
+    "AI Agent chọn model": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent cho trả lời",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent chọn model",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent cho trả lời",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent chọn model",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent chọn model",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "R4hQrE7Fe49ncn7e",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Tự chọn AI Model",
+  "nodes": [
+    {
+      "id": "40c4a761-5c15-4678-be8b-4cd8c6c4a848",
+      "name": "When chat message received",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        -64,
+        -48
+      ],
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "webhookId": "310cfab7-3214-4a38-add8-e116ab708c4c"
+    },
+    {
+      "id": "8efa356d-fdb3-46ba-9b58-0363ab3fef95",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "position": [
+        32,
+        176
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "a0fdbf2a-699c-4196-b4c8-a860b8ccf585",
+      "name": "Structured Output Parser",
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"UserQuery\": \"the user query input or the user prompt\",\n\t\"AIModel\": \"The AI model that the AI Agent choose\"\n}"
+      },
+      "position": [
+        464,
+        176
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "c15bbbbe-be8d-4890-86d4-2bb41d507884",
+      "name": "OpenRouter Chat Model",
+      "parameters": {
+        "model": "={{ $json.output.AIModel }}",
+        "options": {}
+      },
+      "position": [
+        672,
+        176
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1
+    },
+    {
+      "id": "0a11b4d3-5aec-435e-81ca-0db6a094f066",
+      "name": "AI Agent cho trả lời",
+      "parameters": {
+        "options": {},
+        "promptType": "define",
+        "text": "={{ $json.output.UserQuery }}"
+      },
+      "position": [
+        720,
+        -48
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1
+    },
+    {
+      "id": "92bbde94-077d-4ce1-9ad1-0badcd42be8f",
+      "name": "AI Agent chọn model",
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are a routing agent.\n\nYour job is to take in user queries and decide which model is best fit for each use case the user may have. You will have 3 models you can select for the user query:\n\n1.) \"perplexity/sonar\"\n\n2.) \"openai/o3-mini-high\"\n\n3.) \"anthropic/claude-4.0-sonnet\" \n\n4.) \"openai/gpt-4.1-mini\"\n\nEach model has it's strengths and can give better answers for specific user questions and commands. Let's dive into th`e strengths of each model so you can decide which one is best for the user question:\n\nModel:\nperplexity/sonar\n\nStrengths:\n- Long chain of thought with built-in web search.\n- Sonar pro is uncensored and hosted in US datacenters.\n- Can search the web for live data.\n\nModel:\nopenai/o3-mini-high\n\nStrengths:\n- o3-mini is a cost-efficient language model optimized for advanced reasoning tasks.\n- Excells in science and mathematics.\n- This model is best when careful, well thought responses are needing regarding problems with multiple variables or connections.\n\nModel:\nanthropic/claude-4.0-sonnet\n\nStrengths:\n- Coding: Scores ~49% on SME-Bench Verified, higher than the last best score, and without any fancy prompt scaffolding\n- Data science: Augments human data science expertise; navigates unstructured data while using multiple tools for insights\n- Visual processing: excelling at interpreting charts, graphs, and images, accurately transcribing text to derive insights beyond just the text alone\n- Agentic tasks: exceptional tool use, making it great at agentic tasks (i.e. complex, multi-step problem solving tasks that require engaging with other systems)\n\n\nModel:\n\"openai/gpt-4.1-mini\"\nStrengths:\n- Cost effective, low cost.\n- suitable for small task or non-complex task, can answer fast. \n\n\nYou are to pass the user query and decide on a model using structured JSON object format like this:\n\nJSON Object Structure:\n{\n  \"userQuery\": \"user query here\",\n  \"model\": \"selected model here\"\n}\n\nExample 1:\n{\n  \"userQuery\": \"Search the web and find cool dog breeds.\",\n  \"model\": \"perplexity/sonar\"\n}\n\nExample 2:\n{\n  \"userQuery\": \"Create me a business plan in order to create the next Google.\",\n  \"model\": \"openai/o3-mini-high\"\n}\n\nExample 3:\n{\n  \"userQuery\": \"Use the data in the code to create the same Tetris with Python.\",\n  \"model\": \"anthropic/claude-4.0-sonnet\"\n}\n"
+        },
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}"
+      },
+      "position": [
+        224,
+        -48
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

@@ -1,0 +1,356 @@
+{
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Split Out",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Aggregate for AI node": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Set Ideal Customer Profile (ICP)": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Aggregate for AI node",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Connect to your own database",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set Ideal Customer Profile (ICP)",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_01_seo-seed-keywords_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Sinh bộ từ khoá hạt giống từ chân dung khách\n**Làm gì:** Nhập mô tả khách hàng mục tiêu, AI đề xuất danh sách từ khoá hạt giống để nghiên cứu tiếp.\n**Trigger:** Bấm tay (Execute workflow)\n**Credential cần:** Anthropic (Claude)\n**Chi phí ước:** Token thấp.\n**Mở rộng gợi ý:** Đẩy kết quả sang Google Sheets rồi nối tool kiểm volume.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/AI_Research_RAG_and_Data_Analysis/Generate%20SEO%20Seed%20Keywords%20Using%20AI.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -660,
+        500
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 4,
+        "content": "## Generate SEO Seed Keywords Using AI\n\nThis flow uses an AI node to generate Seed Keywords to focus SEO efforts on based on your ideal customer profile\n\n**Outputs:** \n- List of 20 Seed Keywords\n\n\n**Pre-requisites / Dependencies:**\n- You know your ideal customer profile (ICP)\n- An AI API account (either OpenAI or Anthropic recommended)",
+        "height": 315.6388466176832,
+        "width": 462.4041757955455
+      },
+      "position": [
+        120,
+        600
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "disabled": true,
+      "id": "d2654d75-2b64-4ec3-b583-57d2b6b7b195",
+      "name": "Sticky Note13",
+      "parameters": {
+        "color": 7,
+        "content": "**Generate draft seed KW based on ICP**\n\n",
+        "height": 330.47923074942287,
+        "width": 287.0816455493243
+      },
+      "position": [
+        640,
+        920
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d248a58e-3705-4b6f-99cb-e9187e56781c",
+      "name": "Anthropic Chat Model",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        680,
+        1120
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "71517d83-59f5-441a-8a75-c35f4e06a8a2",
+      "name": "Split Out",
+      "parameters": {
+        "fieldToSplitOut": "output.answer",
+        "options": {}
+      },
+      "position": [
+        980,
+        980
+      ],
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1
+    },
+    {
+      "disabled": true,
+      "id": "",
+      "name": "Sticky Note12",
+      "parameters": {
+        "color": 7,
+        "content": "**Get data from airtable and format** ",
+        "height": 213.62075341687063,
+        "width": 492.16246201447336
+      },
+      "position": [
+        120,
+        920
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "disabled": true,
+      "id": "53dcc524-ef3d-40b8-b79d-976517dce4e7",
+      "name": "Sticky Note17",
+      "parameters": {
+        "color": 7,
+        "content": "**Add data to database**",
+        "height": 213.62075341687063,
+        "width": 348.42891651921957
+      },
+      "position": [
+        960,
+        920
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "570495fe-3f1d-44ae-bea0-9fa4b2ce15ef",
+      "name": "Sticky Note11",
+      "parameters": {
+        "color": 6,
+        "content": "**Costs to run**\nApprox. $0.02-0.05 for a run using Claude Sonnet 3.5",
+        "height": 80,
+        "width": 393.46745700785266
+      },
+      "position": [
+        640,
+        820
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "6e5e84c5-409f-4f37-931a-21a44aff7c5e",
+      "name": "Set Ideal Customer Profile (ICP)",
+      "notesInFlow": true,
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "973e949e-1afd-4378-8482-d2168532eff6",
+              "name": "product",
+              "type": "string",
+              "value": "=**Replace this with a string detailing your intended product (if you have one)**"
+            },
+            {
+              "id": "ce9c0a8f-6157-4b46-8b77-133545dc71bd",
+              "name": "pain points",
+              "type": "string",
+              "value": "=**Replace this with a string list of customer pain points**"
+            },
+            {
+              "id": "5abc858a-c412-4acf-acb9-488e4d992d2f",
+              "name": "goals",
+              "type": "string",
+              "value": "=**Replace this with a string list of your customers key goals/objectives**"
+            },
+            {
+              "id": "fbdd1ef7-c1b9-48eb-b73e-a383f12b5ba1",
+              "name": "current solutions",
+              "type": "string",
+              "value": "=**Replace this with a string detailing how your ideal customer currently solves their pain ppoints**"
+            },
+            {
+              "id": "2e5c8f48-266e-486c-956f-51f1449f6288",
+              "name": "expertise level",
+              "type": "string",
+              "value": "=**Replace this with a string detailing customer level of expertise**"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        160,
+        980
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "bd5781f4-6f35-45d3-8182-12ea6712eddf",
+      "name": "Aggregate for AI node",
+      "notesInFlow": true,
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "position": [
+        380,
+        980
+      ],
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1
+    },
+    {
+      "id": "244943bf-e4dd-40fc-9a43-7a5cd0da1c5b",
+      "name": "Sticky Note14",
+      "parameters": {
+        "color": 3,
+        "content": "**REQUIRED**\nConnect to your own AI API above",
+        "height": 80,
+        "width": 284.87764467541297
+      },
+      "position": [
+        640,
+        1260
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "73c8f47a-4fdb-40c8-9062-890ef1265ab0",
+      "name": "Sticky Note16",
+      "parameters": {
+        "color": 3,
+        "content": "**REQUIRED**\nSet your Ideal Customer Profile before proceeding",
+        "height": 80,
+        "width": 284.87764467541297
+      },
+      "position": [
+        120,
+        1140
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "a5b93e6d-44ab-4b6f-b86a-25dc621b52b0",
+      "name": "AI Agent",
+      "parameters": {
+        "agent": "conversationalAgent",
+        "options": {
+          "systemMessage": "=System: You are an expert SEO strategist tasked with generating 15-20 key head search terms (seed keywords) for a B2B SaaS company. Your goal is to create a comprehensive list of keywords that will attract and engage the ideal customer profile (ICP) described."
+        },
+        "promptType": "define",
+        "text": "=User:\nHere are some important rules for you to follow:\n<rules>\n1. Analyze the ICP information carefully.\n2. Generate 15-20 seed keywords that are relevant to the ICP's needs, challenges, goals, and search behavior.\n3. Ensure the keywords are broad enough to be considered \"\"head\"\" terms, but specific enough to target the ICP effectively.\n4. Consider various aspects of the ICP's journey, including awareness, consideration, and decision stages.\n5. Include a mix of product-related, problem-related, and solution-related terms.\n6. Think beyond just the product itself - consider industry trends, related technologies, and broader business concepts that would interest the ICP.\n7. Avoid overly generic terms that might attract irrelevant traffic.\n8. Aim for a mix of keyword difficulties, including both competitive and less competitive terms.\n9. Include keywords that cover different search intents: informational, navigational, commercial, and transactional.\n10. Consider related tools or platforms that the ICP might use, and include relevant integration-related keywords.\n11. If applicable, include some location-specific keywords based on the ICP's geographic information.\n12. Incorporate industry-specific terminology or jargon that the ICP would likely use in their searches.\n13. Consider emerging trends or pain points in the ICP's industry that they might be searching for solutions to.\n13. Format the keywords in lowercase, without punctuation. Trim any leading or trailing white space.\n</rules>\n\nYour output should be an array of strings, each representing a seed keyword:\n<example>\n['b2b lead generation', 'startup marketing strategies', 'saas sales funnel', ...]\n</example>\n\nHere is the Ideal Customer Profile (ICP) information:\n<input>\n{{ $json.data[0].product }}\n</input>\n\nNow:\nBased on the provided ICP, generate an array of 15-20 seed keywords that will form the foundation of a comprehensive SEO strategy for this B2B SaaS company. These keywords should reflect a deep understanding of the ICP's needs, challenges, and search behavior, while also considering broader industry trends and related concepts.\n\nFirst, write out your ideas in {thoughts: } JSON as part of your analysis, then answer inside the {answer: } key in the JSON. "
+      },
+      "position": [
+        660,
+        980
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6
+    },
+    {
+      "id": "ca3c0bd5-7ef0-4e2b-9b5e-071773c32c85",
+      "name": "Connect to your own database",
+      "parameters": {},
+      "position": [
+        1140,
+        980
+      ],
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1
+    },
+    {
+      "id": "94639a81-5e46-482a-851a-5443bfe9863c",
+      "name": "Sticky Note15",
+      "parameters": {
+        "color": 3,
+        "content": "**REQUIRED**\nConnect to your own database / GSheet / Airtable base to output these",
+        "height": 80,
+        "width": 284.87764467541297
+      },
+      "position": [
+        1120,
+        1140
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "When clicking ‘Test workflow’",
+      "parameters": {},
+      "position": [
+        -60,
+        980
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

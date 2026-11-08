@@ -1,0 +1,704 @@
+{
+  "connections": {
+    "Append Rows in Sheet Unverified & Not sent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Append Rows in Sheet Verified & Sent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Clean Webhooks Response Data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Clean WhatsApp Number": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Rapiwa (verify whatsapp number)",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Rapiwa (send message)",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Append Rows in Sheet Unverified & Not sent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "index": 0,
+            "node": "Clean WhatsApp Number",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Rapiwa (send message)": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Append Rows in Sheet Verified & Sent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Rapiwa (verify whatsapp number)": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "If",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "WooCommerce Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Clean Webhooks Response Data",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_woocommerce-invoice-whatsapp_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Gửi hoá đơn WooCommerce qua WhatsApp\n**Làm gì:** Đơn hoàn tất → tạo hoá đơn → gửi WhatsApp kèm file.\n**Trigger:** WooCommerce có đơn/khách mới\n**Credential cần:** Google Sheets, WooCommerce, rapiwaApi\n**Chi phí ước:** Phí tin WhatsApp.\n**Mở rộng gợi ý:** Nối module hoá đơn; đổi kênh sang Zalo/email.\n\n---\n**Nguồn:** n8n.io template #9879 của rapiwa\nhttps://n8n.io/workflows/9879\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -1992,
+        172
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "5f97a4ae-506f-4eeb-b65b-7387d6db9d37",
+      "name": "If",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "3ab8725a-9268-45fd-b91c-0e055fe6fa7c",
+              "leftValue": "={{ $json.data.exists }}",
+              "operator": {
+                "operation": "true",
+                "singleValue": true,
+                "type": "boolean"
+              },
+              "rightValue": "=\"true\""
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        1600,
+        784
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "54f3f8ff-50f7-455d-8cbc-ba13df739240",
+      "name": "Wait",
+      "parameters": {},
+      "position": [
+        2096,
+        864
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "6c474e54-eb3c-4fcd-b455-948322cd0121"
+    },
+    {
+      "id": "61f4a6bc-43fd-44f9-a1bf-09ad7fb8cc78",
+      "name": "Loop Over Items",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        624,
+        768
+      ],
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3
+    },
+    {
+      "id": "bff871ca-9ae6-4988-ada1-6d5f5ea9f959",
+      "name": "Clean Webhooks Response Data",
+      "parameters": {
+        "jsCode": "return $input.all().map(item => {\n  const body = item.json;\n\n  const customer = {\n    first_name: body.billing.first_name,\n    last_name: body.billing.last_name,\n    name: body.billing.first_name + ' ' + body.billing.last_name,\n    email: body.billing.email,\n    phone: body.billing.phone,\n    address: {\n      address_1: body.billing.address_1,\n      address_2: body.billing.address_2,\n      city: body.billing.city,\n      state: body.billing.state,\n      postcode: body.billing.postcode,\n      country: body.billing.country\n    }\n  };\n\n  const products = body.line_items.map(product => ({\n    name: product.name,\n    product_id: product.product_id,\n    variation_id: product.variation_id,\n    quantity: product.quantity,\n    total: `${body.currency} ${product.total}`, // for currency here\n    price: product.price,\n    currency: body.currency,\n    image: product.image?.src || null,\n    size: product.meta_data?.find(meta => meta.key === \"size\")?.value || null\n  }));\n\n  return {\n    json: {\n      data: {\n        customer,\n        products,\n        invoice_link: body.payment_url\n      }\n    }\n  };\n});\n"
+      },
+      "position": [
+        192,
+        768
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "bde660f4-cf63-4d5e-bff2-65f8c77f3342",
+      "name": "Clean WhatsApp Number",
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst updatedItems = items.map((item) => {\n  const waNo = item?.json?.[\"number\"];\n  const waNoStr = typeof waNo === 'string'\n    ? waNo\n    : (waNo !== undefined && waNo !== null ? String(waNo) : \"\");\n\n  const cleanedNumber = waNoStr.replace(/\\D/g, \"\"); // Remove non-digit characters\n\n  item.json[\"number\"] = cleanedNumber;\n\n  return item;\n});\n\nreturn updatedItems;\n"
+      },
+      "position": [
+        1024,
+        784
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "77e7e43e-79ca-48bd-a85d-7be61344a3bd",
+      "name": "Append Rows in Sheet Verified & Sent",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "name",
+              "id": "name",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "number",
+              "id": "number",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "email",
+              "id": "email",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "address1",
+              "id": "address1",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "productTitle",
+              "id": "productTitle",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "productId",
+              "id": "productId",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "size",
+              "id": "size",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "quantity",
+              "id": "quantity",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "totalPrice",
+              "id": "totalPrice",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "productImage",
+              "id": "productImage",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "invoiceLink",
+              "id": "invoiceLink",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "status",
+              "id": "status",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "validity",
+              "id": "validity",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "address1": "={{ $('Clean WhatsApp Number').item.json.data.customer.address.address_1 }}",
+            "email": "={{ $('Clean WhatsApp Number').item.json.data.customer.email }}",
+            "invoiceLink": "={{ $('Clean WhatsApp Number').item.json.data.invoice_link }}",
+            "name": "={{ $('Clean WhatsApp Number').item.json.data.customer.name }}",
+            "number": "={{ $json.to }}",
+            "productId": "={{ $('Clean WhatsApp Number').item.json.data.products[0].product_id }}",
+            "productImage": "={{ $('Clean WhatsApp Number').item.json.data.products[0].image }}",
+            "productTitle": "={{ $('Clean WhatsApp Number').item.json.data.products[0].name }}",
+            "quantity": "={{ $('Clean WhatsApp Number').item.json.data.products[0].quantity }}",
+            "size": "={{ $('Clean WhatsApp Number').item.json.data.products[0].size }}",
+            "status": "sent",
+            "totalPrice": "={{ $('Clean WhatsApp Number').item.json.data.products[0].total }}",
+            "validity": "verified"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        2080,
+        672
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6
+    },
+    {
+      "id": "ffac664e-9c0c-48e8-aa24-2256cfbbaca2",
+      "name": "WooCommerce Trigger",
+      "parameters": {
+        "event": "order.updated"
+      },
+      "position": [
+        -64,
+        768
+      ],
+      "type": "n8n-nodes-base.wooCommerceTrigger",
+      "typeVersion": 1,
+      "webhookId": "3aa9eb89-094d-49ba-904a-5c2d43015db8"
+    },
+    {
+      "id": "9ed7e611-af93-4329-a39c-992cbdc51b33",
+      "name": "Append Rows in Sheet Unverified & Not sent",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "name",
+              "id": "name",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "number",
+              "id": "number",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "email",
+              "id": "email",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "address1",
+              "id": "address1",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "productTitle",
+              "id": "productTitle",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "productId",
+              "id": "productId",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "size",
+              "id": "size",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "quantity",
+              "id": "quantity",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "totalPrice",
+              "id": "totalPrice",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "productImage",
+              "id": "productImage",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "invoiceLink",
+              "id": "invoiceLink",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "status",
+              "id": "status",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "validity",
+              "id": "validity",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "address1": "={{ $('Clean WhatsApp Number').item.json.data.customer.address.address_1 }}",
+            "email": "={{ $('Clean WhatsApp Number').item.json.data.customer.email }}",
+            "invoiceLink": "={{ $('Clean WhatsApp Number').item.json.data.invoice_link }}",
+            "name": "={{ $('Clean WhatsApp Number').item.json.data.customer.name }}",
+            "number": "={{ $json.data.number }}",
+            "productId": "={{ $('Clean WhatsApp Number').item.json.data.products[0].product_id }}",
+            "productImage": "={{ $('Clean WhatsApp Number').item.json.data.products[0].image }}",
+            "productTitle": "={{ $('Clean WhatsApp Number').item.json.data.products[0].name }}",
+            "quantity": "={{ $('Clean WhatsApp Number').item.json.data.products[0].quantity }}",
+            "size": "={{ $('Clean WhatsApp Number').item.json.data.products[0].size }}",
+            "status": "not sent",
+            "totalPrice": "={{ $('Clean WhatsApp Number').item.json.data.products[0].total }}",
+            "validity": "unverified"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        1872,
+        864
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6
+    },
+    {
+      "id": "7f93c1a4-5703-4edd-976f-fecf168023e4",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "# Auto-Send WooCommerce Invoices via WhatsApp with Rapiwa API\n\n## Overview\nThis workflow listens for new or updated WooCommerce orders, cleans and structures the order data, processes orders in batches, and standardizes WhatsApp phone numbers. It verifies phone numbers via the Rapiwa API, sends invoice links or messages to verified numbers, and logs results into separate Google Sheets tabs for verified and unverified numbers. Throttling and looping are managed using batch processing and wait delays.\n\n\n## Features\n- Extracts customer, address, product, and invoice_link from order payloads.\n- Batch processing for controlled throughput.\n- WhatsApp verification step prior to sending messages.\n- Conditional branching based on verification result (`$json.data.exists == \"true\"`).\n- Personalized message templates using product and customer fields.\n- Logging to Google Sheets with distinct columns for verified and unverified flows.\n\n\n## Google Sheet Required Columns\n**A Google Sheet** formatted like this ➤ [Sample](https://docs.google.com/spreadsheets/d/<YOUR_FILE_ID>/edit?usp=sharing)\n\n\n## How to Use This Workflow\n1. Configure credentials:\n   - Add Rapiwa Bearer token to the `Rapiwa Bearer Auth` credential.\n   - Add Google Sheets OAuth2 credential and ensure the spreadsheet ID is accessible.\n   - Configure WooCommerce credentials for the trigger (or replace the trigger with a Shopify webhook and set Shopify credentials).\n2. Verify the Google Sheet has the required columns listed above.\n4. Watch the execution path: webhook → mapping → batch loop → number cleaning → verify → IF → send or log → append sheet → wait → continue.\n\n## Customization Ideas\n- Replace WooCommerce trigger with a Shopify webhook trigger and adapt the mapping code.\n- Change the message template to include different product or customer fields.\n- Add filters in the mapping code to target customers (e.g., `total_spent > 5000`, order count, or tags).\n- Add fallback channels (SMS or email) for unverified numbers before marking as 'not sent'.\n- Send an admin summary (Slack or email) after each run.\n- Enrich customer data with external lookups (CRM/loyalty service) before sending.\n\n## Useful Links\n- **Dashboard:** [https://app.rapiwa.com](https://app.rapiwa.com/login)\n- **Official Website:** [https://rapiwa.com](https://rapiwa.com/)\n- **Documentation:** [https://docs.rapiwa.com](https://docs.rapiwa.com/)\n",
+        "height": 1072,
+        "width": 1216
+      },
+      "position": [
+        -1392,
+        480
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "ffb8f162-d281-4700-a655-9c67cd3db51d",
+      "name": "Sticky Note4",
+      "parameters": {
+        "content": "## If (Condition)\n- Purpose: Branch the workflow based on Rapiwa verification response.\n- It's route to `Send Message Using Rapiwa` or `Unverified & Not sent`.\n\n\n## Send Message Using Rapiwa\n- Purpose: Send a personalized WhatsApp message (text) via Rapiwa to the verified number.\n- Credentials: `httpBearerAuth` (Rapiwa Bearer Auth)\n\n\n## Append Rows in Sheet Verified & Sent\n- Purpose: Append a row for each successful send with `status: sent` and `validity: verified`.\n\n\n## Append Rows in Sheet Unverified & Not sent\n- Purpose: Append a row for unverified numbers with `validity: unverified` and `status: not sent`.",
+        "height": 816,
+        "width": 848
+      },
+      "position": [
+        1504,
+        272
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "da93b6ea-eabe-49f2-82e1-74bfc22921cc",
+      "name": "Sticky Note3",
+      "parameters": {
+        "content": "## 1. Clean WhatsApp Number\n- Purpose: Ensure the `number` field is a string and remove non-digit characters.\n- Why it matters: Ensures Rapiwa receives a consistent numeric-only phone number.\n\n\n## 2. Check valid whatsapp number Using Rapiwa\n- Purpose: Verify whether the cleaned number is registered on WhatsApp via Rapiwa.",
+        "height": 544,
+        "width": 656
+      },
+      "position": [
+        832,
+        544
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "3b65cf78-cfc1-417b-8a45-3719a25efbf0",
+      "name": "Sticky Note1",
+      "parameters": {
+        "content": "## 1. WooCommerce Trigger\n- Trigger event: `order. complete`\n- Purpose: Entry point for the workflow. Receives order complete from WooCommerce.\n- Credentials: `wooCommerceApi` (example name: \"WooCommerce (get customer)\").\n\n## 2. Clean Webhooks Response Data\n- Purpose: Transform the incoming order payload into a compact structure \n- Why it matters: Normalizes different incoming payload shapes into a single downstream contract.\n",
+        "height": 608,
+        "width": 624
+      },
+      "position": [
+        -160,
+        480
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "8e38d72a-772a-4203-8d71-4953684bcc8e",
+      "name": "Sticky Note2",
+      "parameters": {
+        "color": 7,
+        "content": "## How to Use — Step-by-step Setup\n1) Configure credentials in n8n\n   - Rapiwa: add your Bearer token to an HTTP Bearer credential (`Rapiwa Bearer Auth`).\n   - Google Sheets: connect OAuth2 credentials (`Google Sheets`).\n   - WooCommerce: add WooCommerce API credentials for the trigger (`WooCommerce (get customer)`), or configure Shopify credentials if adapting.\n\n3) Configure nodes\n   - Trigger: `WooCommerce Trigger` (event: `order.updated`) or a Shopify webhook.\n   - Code: `Clean Webhooks Response Data` — map incoming order into `{ data: { customer, products, invoice_link } }`.\n   - Code: `Clean WhatsApp Number` — remove non-digit characters and normalize numbers.\n   - HTTP Request: `Check valid whatsapp number Using Rapiwa` — POST `https://app.rapiwa.com/api/verify-whatsapp` with `{ number }`.\n   - HTTP Request: `Send Message Using Rapiwa` — POST `https://app.rapiwa.com/api/send-message` with `{ number, message_type, message }`.\n",
+        "height": 448,
+        "width": 2512
+      },
+      "position": [
+        -160,
+        1104
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "e2b00250-8849-48a2-8241-189cb53c4f08",
+      "name": "Rapiwa (verify whatsapp number)",
+      "parameters": {
+        "number": "={{ $json.data.customer.phone }}",
+        "operation": "verifyWhatsAppNumber"
+      },
+      "position": [
+        1232,
+        784
+      ],
+      "type": "n8n-nodes-rapiwa.rapiwa",
+      "typeVersion": 1
+    },
+    {
+      "id": "a02dc376-b584-46f9-8da9-3101003fffa7",
+      "name": "Rapiwa (send message)",
+      "parameters": {
+        "message": "=Hey *{{ $('Clean WhatsApp Number').item.json.data.customer.name }}*,\n\nThank you for your recent order from *SpaGreen Creative*!\nWe truly appreciate your support.\n\n🛍️ *Order Summary:*\n• *Product:* {{ $('Clean WhatsApp Number').item.json.data.products[0].name }}\n• *Size:* {{ $('Clean WhatsApp Number').item.json.data.products[0].size }}\n• *Quantity:* {{ $('Clean WhatsApp Number').item.json.data.products[0].quantity }}\n• *Product ID:* {{ $('Clean WhatsApp Number').item.json.data.products[0].product_id }}\n• *Price per item:* {{ $('Clean WhatsApp Number').item.json.data.products[0].price }}\n• *Total Price:* {{ $('Clean WhatsApp Number').item.json.data.products[0].total }} \n\n📦 *Shipping Address:* {{ $('Clean WhatsApp Number').item.json.data.customer.address.address_1 }}\n\n🖼️ *Product Preview:* {{ $('Clean WhatsApp Number').item.json.data.products[0].image }}\n\n🧾 *Invoice:* {{ $('Clean WhatsApp Number').item.json.data.invoice_link }}\n\nIf you have any questions or need help, feel free to reach out.\n\n– Team *SpaGreen Creative*\n",
+        "number": "={{ $json.data.number }}"
+      },
+      "position": [
+        1872,
+        672
+      ],
+      "type": "n8n-nodes-rapiwa.rapiwa",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

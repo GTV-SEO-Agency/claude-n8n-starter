@@ -1,0 +1,745 @@
+{
+  "connections": {
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "E-Commerce Customer Support Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Configuration": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Is Text Message?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Conversation Memory": {
+      "ai_memory": [
+        [
+          {
+            "index": 0,
+            "node": "E-Commerce Customer Support Agent",
+            "type": "ai_memory"
+          }
+        ]
+      ]
+    },
+    "E-Commerce Customer Support Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send WhatsApp Reply",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Escalate to Human Support": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "E-Commerce Customer Support Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get Customer Profile": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "E-Commerce Customer Support Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get Single Order": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "E-Commerce Customer Support Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get Single Product": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "E-Commerce Customer Support Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Guardrails: Check Message Safety": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "E-Commerce Customer Support Agent",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Reply: Policy Violation",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Is Text Message?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Guardrails: Check Message Safety",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Reply: Text Only Supported",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "List Customer Orders": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "E-Commerce Customer Support Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "List Products": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "E-Commerce Customer Support Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "OpenAI Model (Agent)": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "E-Commerce Customer Support Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "OpenAI Model (Guardrails)": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Guardrails: Check Message Safety",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Receive WhatsApp Message (Whapi)": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Configuration",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Search Knowledge Base (Notion)": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "E-Commerce Customer Support Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_ecommerce-whatsapp-support-openai-woocommerce_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Hỗ trợ ecommerce qua WhatsApp (OpenAI + WooCommerce + Notion)\n**Làm gì:** Khách hỏi đơn hàng qua WhatsApp, agent tra WooCommerce và trả lời, ghi Notion.\n**Trigger:** Webhook\n**Credential cần:** Gmail, Notion, OpenAI\n**Chi phí ước:** Token thấp.\n**Mở rộng gợi ý:** Đổi WhatsApp sang Zalo, Notion sang Sheets.\n\n---\n**Nguồn:** n8n.io template #17767 của drfiras\nhttps://n8n.io/workflows/17767\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -648,
+        -596
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "0d72af7c-f04e-4485-a348-948298bd1b6e",
+      "name": "Receive WhatsApp Message (Whapi)",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {
+          "ignoreBots": true
+        },
+        "path": "ecommerce-support-whatsapp"
+      },
+      "position": [
+        464,
+        416
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "webhookId": "91b3390e-9b91-4519-b568-2cfa0348e32f"
+    },
+    {
+      "id": "593dab22-a55f-4675-8e63-d558b9ce5a68",
+      "name": "Configuration",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cfg-openai-model",
+              "name": "openai_model",
+              "type": "string",
+              "value": "gpt-5-mini"
+            },
+            {
+              "id": "cfg-context-window",
+              "name": "context_window_length",
+              "type": "number",
+              "value": 10
+            },
+            {
+              "id": "cfg-max-iterations",
+              "name": "max_agent_iterations",
+              "type": "number",
+              "value": 10
+            },
+            {
+              "id": "cfg-support-scope",
+              "name": "support_scope",
+              "type": "string",
+              "value": "order status and tracking, product availability and pricing, shipping and returns policy, and basic technical troubleshooting for our e-commerce store"
+            },
+            {
+              "id": "cfg-jailbreak-threshold",
+              "name": "jailbreak_threshold",
+              "type": "number",
+              "value": 0.7
+            },
+            {
+              "id": "cfg-nsfw-threshold",
+              "name": "nsfw_threshold",
+              "type": "number",
+              "value": 0.7
+            },
+            {
+              "id": "cfg-topical-threshold",
+              "name": "topical_threshold",
+              "type": "number",
+              "value": 0.6
+            },
+            {
+              "id": "cfg-notification-email",
+              "name": "notification_email",
+              "type": "string",
+              "value": "<__PLACEHOLDER_VALUE__Email address of the human support manager who receives escalations__>"
+            },
+            {
+              "id": "cfg-text-only-reply",
+              "name": "text_only_reply",
+              "type": "string",
+              "value": "Hello! For now I can only read text messages 🙂 Could you send your question as text?"
+            },
+            {
+              "id": "cfg-policy-violation-reply",
+              "name": "policy_violation_reply",
+              "type": "string",
+              "value": "Sorry, I can't help with that request. If you think this is a mistake, please contact our support team directly."
+            },
+            {
+              "id": "cfg-customer-phone",
+              "name": "customer_phone",
+              "type": "string",
+              "value": "={{ $json.body?.messages?.[0]?.from ?? \"\" }}"
+            },
+            {
+              "id": "cfg-message-type",
+              "name": "message_type",
+              "type": "string",
+              "value": "={{ $json.body?.messages?.[0]?.type ?? \"unknown\" }}"
+            },
+            {
+              "id": "cfg-message-text",
+              "name": "message_text",
+              "type": "string",
+              "value": "={{ $json.body?.messages?.[0]?.text?.body ?? \"\" }}"
+            },
+            {
+              "id": "cfg-message-id",
+              "name": "message_id",
+              "type": "string",
+              "value": "={{ $json.body?.messages?.[0]?.id ?? \"\" }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        656,
+        416
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "ddb1f00d-2d32-4eb5-a901-867ab14c1156",
+      "name": "Is Text Message?",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{ $json.message_type }}",
+              "operator": {
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "text"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        928,
+        416
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3
+    },
+    {
+      "id": "a02c03a8-2abb-4706-b8aa-f4c8fd080269",
+      "name": "Guardrails: Check Message Safety",
+      "parameters": {
+        "guardrails": {
+          "jailbreak": {
+            "value": {
+              "threshold": "={{ $json.jailbreak_threshold }}"
+            }
+          },
+          "nsfw": {
+            "value": {
+              "threshold": "={{ $json.nsfw_threshold }}"
+            }
+          },
+          "topicalAlignment": {
+            "value": {
+              "prompt": "=You are a compliance classifier for a customer support assistant. The assistant may ONLY discuss: {{ $json.support_scope }}. Flag any message asking about unrelated topics as a violation.",
+              "threshold": "={{ $json.topical_threshold }}"
+            }
+          }
+        },
+        "text": "={{ $json.message_text }}"
+      },
+      "position": [
+        656,
+        -48
+      ],
+      "type": "@n8n/n8n-nodes-langchain.guardrails",
+      "typeVersion": 2
+    },
+    {
+      "id": "2d8ad11e-6710-4cf2-a9ad-8d9993c4544f",
+      "name": "OpenAI Model (Guardrails)",
+      "parameters": {
+        "builtInTools": {},
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('Configuration').item.json.openai_model }}"
+        },
+        "options": {}
+      },
+      "position": [
+        656,
+        176
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "",
+      "name": "E-Commerce Customer Support Agent",
+      "parameters": {
+        "options": {
+          "maxIterations": "={{ $(\"Configuration\").item.json.max_agent_iterations }}",
+          "systemMessage": "=You are a friendly, professional AI customer support assistant for an e-commerce store, reachable on WhatsApp.\n\nScope: {{ $(\"Configuration\").item.json.support_scope }}\n\nTOOLS: use \"Search Knowledge Base (Notion)\" for policies, FAQs and troubleshooting guides. Use \"Get Single Order\" / \"List Customer Orders\" for order questions, always fetching real data before answering, never guessing order status. Use \"Get Single Product\" / \"List Products\" for live price and stock, never trust memory for prices. Use \"Get Customer Profile\" to personalize the conversation once you know the customer email. Use \"Calculator\" for any arithmetic (totals, discounts, conversions). Use \"Escalate to Human Support\" whenever the customer asks for a human, the issue is a dispute, fraud, damaged goods, or anything you cannot resolve after a genuine attempt — tell the customer you are escalating before and after calling the tool.\n\nSTYLE: warm, concise, one clear question at a time when you need more info. Never invent prices, stock, or order statuses — always use the tools. Never expose internal IDs or raw API data, translate everything into natural language.\n\nKeep replies under 4 short paragraphs, suitable for a WhatsApp message."
+        },
+        "promptType": "define",
+        "text": "={{ $(\"Configuration\").item.json.message_text }}"
+      },
+      "position": [
+        1472,
+        -112
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1
+    },
+    {
+      "id": "23ec039f-22ab-4663-971a-7d1ef5783532",
+      "name": "OpenAI Model (Agent)",
+      "parameters": {
+        "builtInTools": {},
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('Configuration').item.json.openai_model }}"
+        },
+        "options": {}
+      },
+      "position": [
+        912,
+        224
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "",
+      "name": "Conversation Memory",
+      "parameters": {
+        "contextWindowLength": "={{ $('Configuration').item.json.context_window_length }}",
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Configuration').item.json.customer_phone }}"
+      },
+      "position": [
+        1056,
+        224
+      ],
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4
+    },
+    {
+      "id": "e3e8a14a-beaa-429e-ba05-98dd4c6c29b2",
+      "name": "Search Knowledge Base (Notion)",
+      "parameters": {
+        "limit": 5,
+        "operation": "search",
+        "options": {
+          "filter": {
+            "filters": {
+              "value": "page"
+            }
+          }
+        },
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', 'Search query for the company knowledge base. Use for FAQs, shipping and return policies, warranty info, and troubleshooting guides stored as Notion pages. Do not use for live product price or stock, use the product tools for that.') }}"
+      },
+      "position": [
+        1216,
+        224
+      ],
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "fb74ab2a-860c-46be-8821-90edde4c2193",
+      "name": "Get Single Order",
+      "parameters": {
+        "operation": "get",
+        "orderId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('order_id', 'The WooCommerce order ID the customer is asking about, e.g. 4521') }}",
+        "resource": "order"
+      },
+      "position": [
+        1376,
+        224
+      ],
+      "type": "n8n-nodes-base.wooCommerceTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "dbcb7c52-93cb-443a-89c8-2c722fce433f",
+      "name": "List Customer Orders",
+      "parameters": {
+        "limit": 10,
+        "operation": "getAll",
+        "options": {
+          "search": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('search', 'Search text to find orders, such as the customer email address or name. Leave empty to list the most recent orders.') }}"
+        },
+        "resource": "order"
+      },
+      "position": [
+        1536,
+        224
+      ],
+      "type": "n8n-nodes-base.wooCommerceTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "5224611a-3a20-4f18-aad9-a4eeb310c88a",
+      "name": "Get Single Product",
+      "parameters": {
+        "operation": "get",
+        "productId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('product_id', 'The WooCommerce product ID to fetch live price, stock and details for') }}"
+      },
+      "position": [
+        1712,
+        224
+      ],
+      "type": "n8n-nodes-base.wooCommerceTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "List Products",
+      "parameters": {
+        "limit": 10,
+        "operation": "getAll",
+        "options": {
+          "search": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('search', 'Search text to find products by name or category, for recommendations or comparisons. Leave empty to list featured/recent products.') }}"
+        }
+      },
+      "position": [
+        1872,
+        224
+      ],
+      "type": "n8n-nodes-base.wooCommerceTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "b7296afb-1487-4245-94f5-939dcc9f6f04",
+      "name": "Get Customer Profile",
+      "parameters": {
+        "filters": {
+          "email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('email', \"The customer's email address, used to look up their account profile and order history\") }}"
+        },
+        "limit": 1,
+        "operation": "getAll",
+        "resource": "customer"
+      },
+      "position": [
+        2032,
+        224
+      ],
+      "type": "n8n-nodes-base.wooCommerceTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "8fd07523-f99b-468c-8af8-d3b1419b892c",
+      "name": "Calculator",
+      "parameters": {},
+      "position": [
+        2192,
+        224
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1
+    },
+    {
+      "id": "dbd2ba4d-f329-44a4-92bd-5785f1ba08b4",
+      "name": "Escalate to Human Support",
+      "parameters": {
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('body', \"Full context for the human agent: the customer's phone number, a summary of the issue, what has already been attempted, and why this needs human attention. Write in clear plain text.\") }}",
+        "options": {
+          "appendAttribution": false
+        },
+        "sendTo": "={{ $('Configuration').item.json.notification_email }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('subject', 'Short subject line summarizing the escalation, e.g. \"WhatsApp escalation: order dispute #4521\"') }}"
+      },
+      "position": [
+        2336,
+        224
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.2,
+      "webhookId": "a872cfef-7435-472b-b355-4a7a98b1d22b"
+    },
+    {
+      "id": "49ec978c-ad45-4516-8718-c13501c1ad0d",
+      "name": "Send WhatsApp Reply",
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "jsonBody": "={{ { \"to\": $(\"Configuration\").item.json.customer_phone, \"body\": $json.output } }}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://gate.whapi.cloud/messages/text"
+      },
+      "position": [
+        2080,
+        -112
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4
+    },
+    {
+      "id": "2c26dbfb-1fec-4fa6-aef5-98bbd21aa3ee",
+      "name": "Reply: Policy Violation",
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "jsonBody": "={{ { \"to\": $(\"Configuration\").item.json.customer_phone, \"body\": $(\"Configuration\").item.json.policy_violation_reply } }}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://gate.whapi.cloud/messages/text"
+      },
+      "position": [
+        976,
+        16
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4
+    },
+    {
+      "id": "06e74ae5-9ecb-42cf-b88e-661905b535d6",
+      "name": "Reply: Text Only Supported",
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "jsonBody": "={{ { \"to\": $json.customer_phone, \"body\": $json.text_only_reply } }}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://gate.whapi.cloud/messages/text"
+      },
+      "position": [
+        1312,
+        560
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4
+    },
+    {
+      "id": "307e721b-f46e-4b00-b729-e94f049b96c4",
+      "name": "Sticky Note 5908cd29",
+      "parameters": {
+        "color": 4,
+        "content": "# Handle e-commerce customer support on WhatsApp with AI, WooCommerce and Notion\n# 📥  [Open full documentation on Notion](https://automatisation.notion.site/Course-Handle-e-commerce-customer-support-on-WhatsApp-with-AI-WooCommerce-and-Notion-39f3d6550fd98156b224eeea65e06c93)\n\n## How it works\nA customer messages your WhatsApp Business number through Whapi. The workflow checks the message is text, screens it for jailbreaks, NSFW content and off-topic requests with Guardrails, then hands it to an AI Agent that can search your Notion knowledge base, look up live WooCommerce orders/products/customers, do math, and escalate to a human by email when needed. The reply is sent back to the customer on WhatsApp.\n\n## Setup\n1. Create a free Whapi account, connect your WhatsApp number, and copy the webhook URL from this workflow's trigger node into your Whapi channel settings.\n2. Create a \"Whapi\" credential (Bearer Token) in n8n using your Whapi API token.\n3. Create a \"WooCommerce account\" credential (Consumer Key/Secret) from your WooCommerce store REST API settings.\n4. Connect your Notion, OpenAI and Gmail accounts, and add your policies/FAQs as Notion pages the agent can search.\n5. Fill in the \"Configuration\" node: support manager email, and adjust the messages/thresholds if needed.\n\n## Requirements\n- A Whapi account (WhatsApp Business API gateway)\n- A WooCommerce store with REST API keys\n- A Notion workspace with your knowledge base pages\n- An OpenAI account\n- A Gmail account for human escalation\n\n## Customization\nAdjust the system prompt, guardrail thresholds, and the support scope description in \"Configuration\" to fit your store. Add more WooCommerce tools (e.g. create/update order) if you want the agent to take actions, not just look things up.\n\nNeed help customizing?\nContact me for consulting and support : [Linkedin](https://www.linkedin.com/in/doctor-firass/)\n\n# MY NEW YOUTUBE CHANNEL\n👉 [Subscribe to my new YouTube channel](https://www.youtube.com/@DrFiras_AI). Here I'll share videos and Shorts with practical tutorials and FREE templates for n8n.\n\n[![The AI Doctor](https://www.dr-firas.com/the-ai-doctor.png)](https://www.youtube.com/@DrFiras_AI)",
+        "height": 1780,
+        "width": 460
+      },
+      "position": [
+        -48,
+        -496
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "f3739ded-52a4-47f3-83b5-4d828257b018",
+      "name": "Sticky Note 0307c364",
+      "parameters": {
+        "color": 7,
+        "content": "## STEP 1 - Configuration\nAll adjustable variables in one place: model, thresholds, messages, and the support manager email.",
+        "height": 200,
+        "width": 300
+      },
+      "position": [
+        576,
+        864
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "b4e23385-801b-47f6-8c15-d65726597693",
+      "name": "Sticky Note d37de81a",
+      "parameters": {
+        "color": 7,
+        "content": "## STEP 2 - Message intake & safety\nOnly text messages are processed. Guardrails blocks jailbreak attempts, NSFW content and off-topic requests before they reach the agent.",
+        "height": 248,
+        "width": 300
+      },
+      "position": [
+        944,
+        864
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "a5d8001b-ed5b-4a9d-a066-27f612b77fd7",
+      "name": "Sticky Note a2fc851b",
+      "parameters": {
+        "color": 7,
+        "content": "## STEP 3 - AI Support Agent & tools\nSearches the Notion knowledge base, looks up live WooCommerce orders/products/customers, does math, and escalates to a human via email when needed.",
+        "height": 248,
+        "width": 300
+      },
+      "position": [
+        1296,
+        864
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "b81c24bf-aff4-4721-8e46-685b2dd03d33",
+      "name": "Sticky Note 88c5e38d",
+      "parameters": {
+        "color": 7,
+        "content": "## STEP 4 - Reply on WhatsApp\nSends the agent's answer back to the customer through the Whapi API.",
+        "height": 200,
+        "width": 300
+      },
+      "position": [
+        1648,
+        864
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "availableInMCP": true,
+    "binaryMode": "separate",
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,361 @@
+{
+  "connections": {
+    "trello_add_comment": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Trello",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "trello_create_card": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Trello",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "trello_list_backlog": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Trello",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "trello_list_lists": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Trello",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "trello_search_cards": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Trello",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "trello_update_card": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Trello",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_06_trello-mcp-server_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## MCP server cho Trello\n**Làm gì:** Tạo, sửa, tìm card Trello từ trợ lý AI.\n**Trigger:** MCP Server Trigger (AI gọi vào)\n**Credential cần:** Không cần\n**Chi phí ước:** Gần 0.\n**Mở rộng gợi ý:** Dùng cho team nhỏ đang quản việc bằng Trello.\n\n---\n**Nguồn:** n8n.io template #11202 của ascuncia\nhttps://n8n.io/workflows/11202\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -1560,
+        -452
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "7f1dfaec-e86f-42d8-9338-8979dad18551",
+      "name": "MCP Trello",
+      "parameters": {
+        "path": "YOUR_MCP_PATH"
+      },
+      "position": [
+        -192,
+        -96
+      ],
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "webhookId": "YOUR_WEBHOOK_ID"
+    },
+    {
+      "id": "8d769849-17eb-4b4a-aa52-e2093ec8243a",
+      "name": "trello_create_card",
+      "parameters": {
+        "additionalFields": {
+          "due": "={{ $fromAI('Due_Date', ``, 'string') }}",
+          "idMembers": "YOUR_MEMBER_ID"
+        },
+        "description": "={{ $fromAI('card_description', ``, 'string') }}",
+        "descriptionType": "manual",
+        "listId": "YOUR_TRELLO_LIST_ID_BACKLOG",
+        "name": "={{ $fromAI('card_name', ``, 'string') }}",
+        "toolDescription": "Create a new card in a Trello list.\n\nParams (strings):\n- card_name (required) → card title\n- card_description (optional)\n- Due_Date (optional, ISO-8601)\n\nBehavior:\n- Use when the user wants to add a task, note, or reminder.\n- Due_Date can be empty.\n- This tool only creates cards; it does not update, move, or delete them."
+      },
+      "position": [
+        -560,
+        128
+      ],
+      "type": "n8n-nodes-base.trelloTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "36d9af36-a538-4ad8-a0cd-bbb39ce28b04",
+      "name": "trello_list_backlog",
+      "parameters": {
+        "additionalFields": {},
+        "descriptionType": "manual",
+        "id": "YOUR_TRELLO_LIST_ID_BACKLOG",
+        "operation": "getCards",
+        "resource": "list",
+        "toolDescription": "List all cards from a specific Trello list.\n\nParams:\n- None.\n\nBehavior:\n- Returns all cards with id, name, desc, due, labels, members.\n- Read-only."
+      },
+      "position": [
+        -448,
+        400
+      ],
+      "type": "n8n-nodes-base.trelloTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "c374b0de-c137-4665-960a-ecb3da914aaf",
+      "name": "trello_list_lists",
+      "parameters": {
+        "additionalFields": {},
+        "descriptionType": "manual",
+        "id": "YOUR_TRELLO_BOARD_ID",
+        "operation": "getAll",
+        "resource": "list",
+        "toolDescription": "List all lists on the Trello board.\n\nParams:\n- None.\n\nBehavior:\n- Returns id + name for each list.\n- Read-only."
+      },
+      "position": [
+        -224,
+        672
+      ],
+      "type": "n8n-nodes-base.trelloTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "trello_search_cards",
+      "parameters": {
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "trelloApi",
+        "options": {},
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $fromAI('Query', ``, 'string') }}"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "toolDescription": "Search Trello cards by text and/or due date.\n\nParams:\n- Query (required)\n\nBehavior:\n- Uses Trello native search syntax.\n- Returns matching cards.\n- If none match, return [].",
+        "url": "https://api.trello.com/1/search"
+      },
+      "position": [
+        256,
+        672
+      ],
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.3
+    },
+    {
+      "id": "c861fc8a-a57e-443d-a46b-a6d5e73dd47e",
+      "name": "trello_update_card",
+      "parameters": {
+        "authentication": "predefinedCredentialType",
+        "jsonBody": "={{ JSON.stringify(Object.assign({}, $fromAI('New_Name','', 'string') ? { name: $fromAI('New_Name','', 'string') } : {}, $fromAI('New_Description','', 'string') ? { desc: $fromAI('New_Description','', 'string') } : {}, $fromAI('New_Due','', 'string') ? { due: $fromAI('New_Due','', 'string') } : {}, $fromAI('New_List_ID','', 'string') ? { idList: $fromAI('New_List_ID','', 'string') } : {})) }}",
+        "method": "PUT",
+        "nodeCredentialType": "trelloApi",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "toolDescription": "Update a Trello card via the Trello API.\n\nParams (strings):\n- Card_ID (required)\n- New_Name\n- New_Description\n- New_Due\n- New_List_ID\n\nBehavior:\n- Only updates provided fields.\n- Fields left empty remain unchanged.\n- Can rename, update description, move card, change due date.",
+        "url": "=https://api.trello.com/1/cards/{{$fromAI('Card_ID', '', 'string')}}"
+      },
+      "position": [
+        592,
+        384
+      ],
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.3
+    },
+    {
+      "id": "2b78a755-195b-4293-b6fb-b8ee96ffc0ed",
+      "name": "trello_add_comment",
+      "parameters": {
+        "cardId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $fromAI('Card_ID', ``, 'string') }}"
+        },
+        "descriptionType": "manual",
+        "resource": "cardComment",
+        "text": "={{ $fromAI('Comment_Text', ``, 'string') }}",
+        "toolDescription": "Add a comment to a Trello card.\n\nParams (strings):\n- Card_ID (required)\n- Comment_Text (required)\n\nBehavior:\n- Adds a note/comment.\n- Does not update card fields."
+      },
+      "position": [
+        656,
+        112
+      ],
+      "type": "n8n-nodes-base.trelloTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "6378362c-fcbf-48fd-b99c-a33037b641ad",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "## 🧩 Workflow Overview – Trello MCP\n\n- Exposes Trello actions as MCP tools.  \n- LLMs can create, update, move, comment, and search cards.  \n- Lightweight setup for everyday task management.  \n- Easy to extend with more Trello endpoints.\n",
+        "height": 224,
+        "width": 432
+      },
+      "position": [
+        -960,
+        -352
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "dfe0a68f-8fa2-449a-85d9-4ae8e1edf45b",
+      "name": "Sticky Note1",
+      "parameters": {
+        "color": 5,
+        "content": "## 🔗 MCP Server Trigger\n\n- Makes Trello tools available to n8n Agents and LLMs \n- Entry point for all AI-driven interactions.",
+        "height": 304,
+        "width": 384
+      },
+      "position": [
+        -240,
+        -256
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "4c85c993-f649-4b35-ac0c-c6c87157a19f",
+      "name": "Sticky Note2",
+      "parameters": {
+        "color": 4,
+        "content": "## 📝 Create Card\n- Creates a new card in a target list.  \n- Supports title, description, and due date.  \n- Ideal for tasks, notes, and quick reminders.",
+        "height": 176,
+        "width": 464
+      },
+      "position": [
+        -912,
+        96
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "4f192ece-bde7-4fc8-8708-d71552233a36",
+      "name": "Sticky Note3",
+      "parameters": {
+        "color": 4,
+        "content": "## 📂 List Backlog\n- Returns all cards from the Backlog list (fixed)\n- Great for reviews and planning.  \n- Read-only operation.",
+        "height": 176,
+        "width": 464
+      },
+      "position": [
+        -800,
+        368
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "2895d515-fe32-4a4f-b2ab-1ac868e7c72a",
+      "name": "Sticky Note4",
+      "parameters": {
+        "color": 4,
+        "content": "## 🗂  List Board Lists\n- Lists all Trello board columns.  \n- Helps LLMs understand workflow states.  \n- Read-only discovery step.",
+        "height": 176,
+        "width": 464
+      },
+      "position": [
+        -576,
+        640
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "49c62484-efc5-4ba8-811d-076a7fdbcf06",
+      "name": "Sticky Note5",
+      "parameters": {
+        "color": 4,
+        "content": "## 🔍 Search Cards\n- Uses Trello’s native search syntax.  \n- Finds cards by keywords, due dates, \nor list filters.  \n- Returns matching cards with details.",
+        "height": 176,
+        "width": 464
+      },
+      "position": [
+        -80,
+        640
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "0fc19867-844c-4eb0-83f3-6ced8cc46a6d",
+      "name": "Sticky Note6",
+      "parameters": {
+        "color": 4,
+        "content": "## ✏️ Update Card\n- Updates name, description, due date, or list.  \n- Only applies fields explicitly provided.  \n- Used for transitions and focused edits.",
+        "height": 176,
+        "width": 464
+      },
+      "position": [
+        256,
+        352
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "65a0f5ff-b0c4-4547-9ef6-c6a4a2660b30",
+      "name": "Sticky Note7",
+      "parameters": {
+        "color": 4,
+        "content": "## 💬 Add Comment\n- Adds a comment to an existing card.  \n- Useful for quick updates or clarifications.  \n- No other fields are changed.",
+        "height": 176,
+        "width": 464
+      },
+      "position": [
+        320,
+        80
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

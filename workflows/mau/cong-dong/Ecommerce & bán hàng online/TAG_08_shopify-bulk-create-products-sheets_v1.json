@@ -1,0 +1,360 @@
+{
+  "connections": {
+    "Google Sheet, Fetch Products": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "If product exists": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Shopify, CreateProduct",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Finished",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Shopify, ProductQuery",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Shopify, CreateProduct": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Shopify, Enable InventoryTracking",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Shopify, Enable InventoryTracking": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Shopify, Set InventoryLevel",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Shopify, GetLocations": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Sheet, Fetch Products",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Shopify, ProductQuery": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "If product exists",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Shopify, Set InventoryLevel": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Start Workflow": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Shopify, GetLocations",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_shopify-bulk-create-products-sheets_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Tạo hàng loạt sản phẩm Shopify từ Google Sheets kèm tồn kho\n**Làm gì:** Sheets là bảng nhập liệu, workflow tạo sản phẩm và cập nhật tồn kho trên Shopify.\n**Trigger:** Bấm tay (Execute workflow)\n**Credential cần:** API key (Header Auth), Google Sheets\n**Chi phí ước:** 0 đồng.\n**Mở rộng gợi ý:** Đổi Shopify thành WooCommerce hoặc Haravan qua HTTP Request.\n\n---\n**Nguồn:** n8n.io template #5664 của elricho\nhttps://n8n.io/workflows/5664\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -1140,
+        -780
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "0d76a8c0-fd78-47d8-899d-6a084317ab28",
+      "name": "Start Workflow",
+      "parameters": {},
+      "position": [
+        -540,
+        20
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "executeOnce": true,
+      "id": "54ce8605-f90e-4666-85e5-cdbc0dba8077",
+      "name": "Google Sheet, Fetch Products",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        -40,
+        20
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6
+    },
+    {
+      "id": "c750de2c-71c4-4eed-a6d2-6f0fa8cfe114",
+      "name": "Shopify, ProductQuery",
+      "parameters": {
+        "authentication": "headerAuth",
+        "endpoint": "https://store99563.myshopify.com/admin/api/2025-04/graphql.json",
+        "query": "query Products ($handle: String! ) {\n    productByHandle(handle: $handle) {\n        id\n        title\n        variants(first:20) {\n            edges {\n                node {\n                    id\n                    title\n                    sku\n                    price \n                    inventoryItem {\n                        id\n                    }\n                }\n            }\n        }\n        updatedAt\n        createdAt\n    }\n}",
+        "variables": "={\n    \"handle\" : \"{{ $json.slug }}\"\n}"
+      },
+      "position": [
+        500,
+        40
+      ],
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "2f350bac-d1d5-4d69-b18b-a2f802594599",
+      "name": "If product exists",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "81228bbc-7111-40ec-8b37-3c9878945c4d",
+              "leftValue": "={{ $json.data.productByHandle }}",
+              "operator": {
+                "operation": "exists",
+                "singleValue": true,
+                "type": "object"
+              },
+              "rightValue": ""
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        740,
+        40
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "fe218fdb-6c58-49d5-b3c2-b34bbf14b54c",
+      "name": "Shopify, CreateProduct",
+      "parameters": {
+        "authentication": "headerAuth",
+        "endpoint": "https://store99563.myshopify.com/admin/api/2025-04/graphql.json",
+        "query": "mutation productCreate($product: ProductCreateInput!, $media: [CreateMediaInput!]) {\n  productCreate(product: $product, media: $media) {\n    product {\n     id\n      title\n      descriptionHtml\n      vendor\n      productType\n      status\n      handle\n      variants(first:10) {\n        edges {\n            node {\n                id\n                sku\n                displayName\n                inventoryItem {\n                    id\n                    sku\n                    tracked\n                    requiresShipping\n                }\n            }\n        }\n      }\n      media(first: 10) {\n        edges {\n            node {\n                alt\n                mediaContentType\n                status\n                id\n                preview {\n                    image {\n                        url\n                    }\n                    status\n                }\n            }\n        }\n      }\n      options {\n        id\n        name\n        position\n        optionValues {\n          id\n          name\n          hasVariants\n        }\n      }\n    }\n    userErrors {\n      field\n      message\n    }\n  }\n}",
+        "variables": "={\n    \"product\": {\n        \"title\": \" {{ $('Loop Over Items').item.json.title }} \",\n        \"descriptionHtml\": \"{{ $('Loop Over Items').item.json.description }}\",\n        \"vendor\" : \"{{ $('Loop Over Items').item.json.company }}\",\n        \"productType\": \"{{ $('Loop Over Items').item.json.category }}\",\n        \"status\": \"{{ $('Loop Over Items').item.json.status }}\",\n        \"handle\": \"{{ $('Loop Over Items').item.json.slug }}\"\n    },\n    \"media\" : [{\n        \"alt\" : \"alt tag\",\n        \"mediaContentType\" : \"IMAGE\",\n        \"originalSource\" : \"https://placehold.co/800x600.png\"\n    }]\n}"
+      },
+      "position": [
+        960,
+        200
+      ],
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "65032b74-36a8-46ee-b1a1-eaddcec9be1b",
+      "name": "Loop Over Items",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        240,
+        20
+      ],
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3
+    },
+    {
+      "executeOnce": true,
+      "id": "099ed035-6a41-4abb-8bed-011d8a6e4cc5",
+      "name": "Shopify, GetLocations",
+      "parameters": {
+        "authentication": "headerAuth",
+        "endpoint": "https://store99563.myshopify.com/admin/api/2025-04/graphql.json",
+        "query": "query {\n    locations(first:1, reverse:true) {\n        edges {\n            node {\n                id\n                name\n                address {\n                    address1\n                    address2\n                    city\n                    country\n                    zip\n                    province\n                }\n            }\n        }\n    }\n}"
+      },
+      "position": [
+        -280,
+        20
+      ],
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "be29e4ea-51fb-4e8b-a2c2-b4b2e590fd2a",
+      "name": "Shopify, Enable InventoryTracking",
+      "parameters": {
+        "authentication": "headerAuth",
+        "endpoint": "https://store99563.myshopify.com/admin/api/2025-04/graphql.json",
+        "query": "mutation inventoryItemUpdate($id: ID!, $input: InventoryItemInput!) {\n  inventoryItemUpdate(id: $id, input: $input) {\n    inventoryItem {\n      id\n      unitCost {\n        amount\n      }\n      tracked\n    }\n    userErrors {\n      message\n    }\n  }\n}",
+        "variables": "={\n  \"id\": \"{{ $json.data.productCreate.product.variants.edges[0].node.inventoryItem.id }}\",\n  \"input\": {\n    \"tracked\": true,\n    \"requiresShipping\": true\n  }\n}"
+      },
+      "position": [
+        1160,
+        200
+      ],
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "a22761aa-b55d-41a6-b853-d165ae9aa89c",
+      "name": "Shopify, Set InventoryLevel",
+      "parameters": {
+        "authentication": "headerAuth",
+        "endpoint": "=https://store99563.myshopify.com/admin/api/2025-04/graphql.json",
+        "query": "mutation inventorySetOnHandQuantities($input: InventorySetOnHandQuantitiesInput!) {\n    inventorySetOnHandQuantities(input: $input) {\n        userErrors {\n            field\n            message\n        }\n    }\n}",
+        "variables": "={\n    \"input\" : {\n        \"reason\": \"correction\",\n        \"setQuantities\" :[{\n            \"inventoryItemId\":\"{{ $json.data.inventoryItemUpdate.inventoryItem.id }}\",\n            \"locationId\": \"{{ $('Shopify, GetLocations').item.json.data.locations.edges[0].node.id }}\",\n            \"quantity\" : {{ $('Loop Over Items').item.json.stock_on_hand }}\n        }]\n    }\n}"
+      },
+      "position": [
+        1360,
+        200
+      ],
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "2b69fe40-d04e-4e60-b1e4-f19290b97edc",
+      "name": "Finished",
+      "parameters": {},
+      "position": [
+        460,
+        -220
+      ],
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1
+    },
+    {
+      "id": "44572b5d-e19b-48e3-b80d-6d6ec7ae0273",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "## Create Products in Shopify from a Google Sheet\n\nThis workflow creates products in your Shopify store from a google sheet. It also enables inventory tracking and sets the quantity of an inventory item at your store's default location. \n\nThis is a great way to get test data into test or staging stores to try out apps, update template or try out new designs. \n\nThis Automation will only import new products. It will skip existing products if the slug matches an existing product's handle (Shopify's term for a slug).\n \n### Setup Notes\n\nThe Google Sheet has the following columns\ntitle - free text\ndescription - free text\ncompany - free text\ncategory - free text\nstatus - ACTIVE, DRAFT or ARCHIVE\nslug - used in the product url, text with no spaces, can also use hyphen.\nprice - sale price of the products\ncompare_at_price - compare at price for products\nsku - unique code for each product\nstock_on_hand - quantity of this item available for purchase.\n\nUse those labels in the first row of your sheet and N8N will create one object per row with the column names as object fields. \n\n### Update GraphQL nodes with your Shopify store URL\n\n1) Replace the URL in all GraphQL nodes with the URL for your Shopify store. \n2) These GraphQL requests all use the Shopify 2025-04 GraphQL Admin API. \n",
+        "height": 660,
+        "width": 800
+      },
+      "position": [
+        -540,
+        -680
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "56b55c86-ec42-4154-a44f-c8cf50cbcc0f",
+      "name": "Sticky Note1",
+      "parameters": {
+        "content": "## Check to see if product exists\n",
+        "height": 340,
+        "width": 480
+      },
+      "position": [
+        420,
+        -40
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Sticky Note2",
+      "parameters": {
+        "content": "## Create the Product\n- Create product.\n- Enable inventory tracking \n- Set inventory quantity",
+        "height": 400,
+        "width": 600
+      },
+      "position": [
+        920,
+        60
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

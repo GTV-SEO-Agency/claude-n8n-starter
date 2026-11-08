@@ -1,0 +1,438 @@
+{
+  "connections": {
+    "AI: Quick Analysis": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Merge Data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Collect Results": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Save to Google Sheets",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Respond: Success",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Generate: Facebook Post": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Collect Results",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Generate: Instagram Caption": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Collect Results",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Generate: LinkedIn Post": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Collect Results",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Generate: Twitter Thread": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Collect Results",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Merge Data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Generate: Twitter Thread",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Generate: LinkedIn Post",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Generate: Instagram Caption",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Generate: Facebook Post",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Receive Content": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Input",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validate Input": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "AI: Quick Analysis",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_01_content-repurpose-4-platforms_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Một bài dài → 4 định dạng social\n**Làm gì:** Đưa một bài viết dài, AI tách thành bài LinkedIn, X, Instagram và newsletter, lưu ra bảng.\n**Trigger:** Webhook\n**Credential cần:** Google Sheets, OpenAI\n**Chi phí ước:** Token thấp, một lượt gọi cho cả 4 bản.\n**Mở rộng gợi ý:** Thay đầu ra bằng Google Sheets lịch đăng; nối tiếp workflow đăng đa nền tảng.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/Instagram_Twitter_Social_Media/FlowScribe%20Lite%20-%20AI%20Content%20Repurposing%204%20Platforms.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -480,
+        60
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "trigger-webhook",
+      "name": "Receive Content",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "flowscribe-lite",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        200,
+        400
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "webhookId": "flowscribe-lite-input"
+    },
+    {
+      "id": "validate-input",
+      "name": "Validate Input",
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body || $input.first().json;\nconst content = body.content || body.text || '';\nconst title = body.title || 'Untitled';\nconst brandVoice = body.brand_voice || 'professional yet approachable';\n\nif (!content || content.trim().length < 50) {\n  throw new Error('Content must be at least 50 characters.');\n}\n\nreturn [{\n  json: { content, title, brandVoice, requestId: require('crypto').randomUUID(), processedAt: new Date().toISOString() }\n}];"
+      },
+      "position": [
+        400,
+        400
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "ai-analysis",
+      "maxTries": 3,
+      "name": "AI: Quick Analysis",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "Analyze the content and extract: 5 key points, core message in one sentence, 10 hashtags, 5 SEO keywords. Respond in JSON: { keyPoints, coreMessage, hashtags, seoKeywords }",
+              "role": "system"
+            },
+            {
+              "content": "=Title: {{$json.title}}\nBrand Voice: {{$json.brandVoice}}\n\nContent:\n{{$json.content}}",
+              "role": "user"
+            }
+          ]
+        },
+        "model": "gpt-4o-mini",
+        "options": {
+          "maxTokens": 1000,
+          "responseFormat": "json_object",
+          "temperature": 0.3
+        }
+      },
+      "position": [
+        600,
+        400
+      ],
+      "retryOnFail": true,
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.8,
+      "waitBetweenTries": 2000
+    },
+    {
+      "id": "merge-data",
+      "name": "Merge Data",
+      "parameters": {
+        "jsCode": "let analysis;\ntry {\n  analysis = JSON.parse($input.first().json.message?.content || '{}');\n} catch (e) {\n  throw new Error('Failed to parse AI analysis: ' + e.message);\n}\nconst original = $('Validate Input').first().json;\nreturn [{ json: { ...original, analysis } }];"
+      },
+      "position": [
+        800,
+        400
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "gen-twitter",
+      "maxTries": 3,
+      "name": "Generate: Twitter Thread",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "Create a Twitter/X thread (5-7 tweets, each under 280 chars). First tweet: powerful hook. Last: CTA + hashtags. Use numbered format 1/, 2/. JSON: { \"thread\": [\"tweet1\", ...] }",
+              "role": "system"
+            },
+            {
+              "content": "=Title: {{$json.title}}\nKey Points: {{JSON.stringify($json.analysis.keyPoints)}}\nCore Message: {{$json.analysis.coreMessage}}\nBrand Voice: {{$json.brandVoice}}",
+              "role": "user"
+            }
+          ]
+        },
+        "model": "gpt-4o-mini",
+        "options": {
+          "maxTokens": 1200,
+          "responseFormat": "json_object",
+          "temperature": 0.7
+        }
+      },
+      "position": [
+        1040,
+        200
+      ],
+      "retryOnFail": true,
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.8,
+      "waitBetweenTries": 2000
+    },
+    {
+      "id": "gen-linkedin",
+      "maxTries": 3,
+      "name": "Generate: LinkedIn Post",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "Create a LinkedIn post: bold first line, short paragraphs, personal insight, end with question, 3-5 hashtags. 1300-1800 chars. JSON: { \"post\": \"...\" }",
+              "role": "system"
+            },
+            {
+              "content": "=Title: {{$json.title}}\nKey Points: {{JSON.stringify($json.analysis.keyPoints)}}\nCore Message: {{$json.analysis.coreMessage}}\nBrand Voice: {{$json.brandVoice}}",
+              "role": "user"
+            }
+          ]
+        },
+        "model": "gpt-4o-mini",
+        "options": {
+          "maxTokens": 1000,
+          "responseFormat": "json_object",
+          "temperature": 0.7
+        }
+      },
+      "position": [
+        1040,
+        400
+      ],
+      "retryOnFail": true,
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.8,
+      "waitBetweenTries": 2000
+    },
+    {
+      "id": "gen-instagram",
+      "maxTries": 3,
+      "name": "Generate: Instagram Caption",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "Create an Instagram caption: hook line, micro-story, emojis, CTA, 20-30 hashtags in separate block. JSON: { \"caption\": \"...\", \"hashtags\": [...] }",
+              "role": "system"
+            },
+            {
+              "content": "=Title: {{$json.title}}\nKey Points: {{JSON.stringify($json.analysis.keyPoints)}}\nBrand Voice: {{$json.brandVoice}}",
+              "role": "user"
+            }
+          ]
+        },
+        "model": "gpt-4o-mini",
+        "options": {
+          "maxTokens": 1200,
+          "responseFormat": "json_object",
+          "temperature": 0.75
+        }
+      },
+      "position": [
+        1040,
+        600
+      ],
+      "retryOnFail": true,
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.8,
+      "waitBetweenTries": 2000
+    },
+    {
+      "id": "gen-facebook",
+      "maxTries": 3,
+      "name": "Generate: Facebook Post",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "Create a Facebook post: relatable opening, story format, 100-250 words, conversation question at end, no external links, friendly tone. JSON: { \"post\": \"...\" }",
+              "role": "system"
+            },
+            {
+              "content": "=Title: {{$json.title}}\nKey Points: {{JSON.stringify($json.analysis.keyPoints)}}\nBrand Voice: {{$json.brandVoice}}",
+              "role": "user"
+            }
+          ]
+        },
+        "model": "gpt-4o-mini",
+        "options": {
+          "maxTokens": 800,
+          "responseFormat": "json_object",
+          "temperature": 0.7
+        }
+      },
+      "position": [
+        1040,
+        800
+      ],
+      "retryOnFail": true,
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.8,
+      "waitBetweenTries": 2000
+    },
+    {
+      "id": "collect-results",
+      "name": "Collect Results",
+      "parameters": {
+        "jsCode": "const original = $('Merge Data').first().json;\nconst parse = (n) => { try { return JSON.parse($(n).first().json.message?.content || '{}'); } catch(e) { return { error: e.message }; } };\n\nconst result = {\n  requestId: original.requestId,\n  title: original.title,\n  completedAt: new Date().toISOString(),\n  platforms: {\n    twitter: parse('Generate: Twitter Thread'),\n    linkedin: parse('Generate: LinkedIn Post'),\n    instagram: parse('Generate: Instagram Caption'),\n    facebook: parse('Generate: Facebook Post')\n  }\n};\n\nreturn [{ json: result }];"
+      },
+      "position": [
+        1300,
+        500
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "save-sheets",
+      "maxTries": 2,
+      "name": "Save to Google Sheets",
+      "parameters": {
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Completed At": "={{ $json.completedAt }}",
+            "Facebook Post": "={{ $json.platforms.facebook.post }}",
+            "Instagram Caption": "={{ $json.platforms.instagram.caption }}",
+            "LinkedIn Post": "={{ $json.platforms.linkedin.post }}",
+            "Request ID": "={{ $json.requestId }}",
+            "Title": "={{ $json.title }}",
+            "Twitter Thread": "={{ JSON.stringify($json.platforms.twitter.thread) }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": ""
+        }
+      },
+      "position": [
+        1520,
+        400
+      ],
+      "retryOnFail": true,
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "respond-success",
+      "name": "Respond: Success",
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: true, requestId: $json.requestId, title: $json.title, platforms: ['twitter', 'linkedin', 'instagram', 'facebook'], message: '4 platform contents generated. Check Google Sheets.' }) }}"
+      },
+      "position": [
+        1520,
+        600
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "note-overview",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 6,
+        "content": "## FlowScribe Lite — Quick 4-Platform Repurpose\n\nSimplified version with 4 core platforms:\nTwitter/X | LinkedIn | Instagram | Facebook\n\nFaster processing, lower API cost.\nIdeal for daily content repurposing.",
+        "height": 200,
+        "width": 350
+      },
+      "position": [
+        120,
+        160
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true
+  }
+}

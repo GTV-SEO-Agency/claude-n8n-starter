@@ -1,0 +1,950 @@
+{
+  "active": false,
+  "connections": {
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writer & Onpage",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Content Writer & Onpage": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Docs",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wordpress",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Process Form Data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Docs": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update GG Doc",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google_HelpFul_Content": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writer & Onpage",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "HTML version": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Image Covers",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Image Covers": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Edit Fields2",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Process Form Data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Search Intent analyze",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get row(s) in sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Search Intent analyze": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writer & Onpage",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writer & Onpage",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Update GG Doc": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update lên Sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Update lên Sheet": {
+      "main": [
+        []
+      ]
+    },
+    "Wordpress": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update tình trạng lên sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "ZexVdyiCqskm5bPa",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Content News for website - TAG",
+  "nodes": [
+    {
+      "id": "54319543-8a08-4a7f-ad58-cb264d0ceb8c",
+      "name": "Process Form Data",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5e8d95c1-407c-4adc-b61a-a8ded2aed84a",
+              "name": "formData",
+              "type": "object",
+              "value": "={{ $json }}"
+            },
+            {
+              "id": "31fe2c22-f140-4a89-8f98-af0eff940e82",
+              "name": "projectId",
+              "type": "string",
+              "value": "={{ $now.valueOf() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        440,
+        0
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "d016d71d-06a2-414b-97a1-b36e41896127",
+      "name": "Schedule Trigger1",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "69c935e3-cfcd-4e6d-bbbf-adacf0d5732d",
+      "name": "Search Intent analyze",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={\n  \"model\": \"sonar-pro\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"[Instruction]: Answer in Markdown format with clear structure, bullet points, and short paragraphs.\\n\\n[Role]: You are a Researcher & Semantic SEO Expert. Your task is to research the latest up-to-date, accuracy & depth of the query you will be provided .\"\n    },\n    {\n      \"role\": \"user\",\n     \"content\": \"{{ $json.formData.Query }}\\n\\n Note: {{ $json.formData['Note For Research'] }}\"\n    }\n  ],\n  \"options\": {\n    \"temperature\": 1,\n    \"max_tokens\": 10000\n  }\n}\n",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://api.perplexity.ai/chat/completions"
+      },
+      "position": [
+        660,
+        0
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "fb772a9e-e3d2-431c-abf0-a87fbc8a9b13",
+      "name": "Think",
+      "parameters": {},
+      "position": [
+        980,
+        220
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1
+    },
+    {
+      "id": "c8384dfb-89cc-4c5e-825c-e4d28c61c845",
+      "name": "Anthropic Chat Model",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "Claude Sonnet 4",
+          "mode": "list",
+          "value": "claude-sonnet-4-20250514"
+        },
+        "options": {
+          "maxTokensToSample": 64000,
+          "thinking": true
+        }
+      },
+      "position": [
+        780,
+        220
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "78805549-72f4-4005-b7d3-25165f45575c",
+      "name": "Content Writer & Onpage",
+      "parameters": {
+        "options": {
+          "systemMessage": "=[knowledge]:\n{{ $json.choices[0].message.content }}\n[Role]:\nSEO & Content creation Professional with 10 years of experience.  Bạn cũng chuyên về lĩnh vực AI và là writer cho thương hiệu The AI Growth (TAG).\n\n[Tools]:\n- Google_HelpFul_Content: Use this tool to retrieve the full requirements of Google on how to create the content that is good. **Call this tool without any input parameters.** (only use this tool one)\n- Think: Use the tool to think and ensure the final output will try its best meet the standard of Google_HelpFul_Content. (only use this tool one)\n\n[Example workflow]\n1. Receive the request from the use. \n2. Use Google_HelpFul_Content tool to retrieve the requirements of the content. \n3. Use Think tool to determine the approach when writing the content. \n4. Generate the content\n\n[style of writing]:\n{{ $('Get row(s) in sheet').item.json['Style of Writing'] }}\n\n[Example Content]:"
+        },
+        "promptType": "define",
+        "text": "=Dựa trên phần knowledge được cung cấp, hãy viết một nội dung để đăng trên website GTV SEO với các thông tin bên dưới.\n\n### [theme: {{ $('Process Form Data').item.json.formData.Theme }}] [tone: Authoritative, Entertaining] [audience: {{ $('Process Form Data').item.json.formData[\"Target audience\"] }}] [format: blogpost]  [length: 1300-1800 words] \n\nViết bằng tiếng Việt. "
+      },
+      "position": [
+        920,
+        0
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    },
+    {
+      "id": "",
+      "name": "Google Docs",
+      "parameters": {
+        "folderId": "",
+        "title": "={{ $('Get row(s) in sheet').item.json.Query }} - Content detail"
+      },
+      "position": [
+        1320,
+        0
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "5f568920-b183-4d3c-8441-c16040a3c7b2",
+      "name": "Update lên Sheet",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand Name",
+              "id": "Brand Name",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand information",
+              "id": "Brand information",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand solution",
+              "id": "Brand solution",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Target audience",
+              "id": "Target audience",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Query",
+              "id": "Query",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Note For Research",
+              "id": "Note For Research",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Theme",
+              "id": "Theme",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Research Result",
+              "id": "Research Result",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Title Content",
+              "id": "Title Content",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Slug",
+              "id": "Slug",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Meta Description",
+              "id": "Meta Description",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Style of Writing",
+              "id": "Style of Writing",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tone of Voice",
+              "id": "Tone of Voice",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status Writing",
+              "id": "Status Writing",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Content Final",
+              "id": "Content Final",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Content Final": "=https://docs.google.com/document/d/{{ $json.documentId }}/edit",
+            "Status": "Processing",
+            "Status Writing": "Complete Writing",
+            "row_number": "={{ $('Get row(s) in sheet').item.json.row_number }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        1760,
+        0
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "6558a7fd-3781-4461-a57e-520605c893f7",
+      "name": "Update GG Doc",
+      "parameters": {
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ $('Content Writer & Onpage').item.json.output }}"
+            }
+          ]
+        },
+        "documentURL": "={{ $json.id }}",
+        "operation": "update"
+      },
+      "position": [
+        1540,
+        0
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "ac4fda50-1d67-4e4a-8871-abbb46f1184e",
+      "name": "Google_HelpFul_Content",
+      "parameters": {
+        "documentURL": "",
+        "operation": "get",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}"
+      },
+      "position": [
+        1180,
+        200
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "2fcac8e4-6c19-434a-98b1-74b4b57ab515",
+      "name": "HTML version",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=DO NOT OUTPUT ANYTHING OTHER THAN THE CODE. I want you to follow the layout of the template as a guide to generate the WordPress code for a blog post. Here are the rules to follow:\n\nThe blog post should have a title, estimated reading time, key takeaways, table of contents, body, and FAQ in this order.\nMake it engaging by using italics, dot points, quotes, bold, spaces, and sometimes new lines. Never use emojis.\nThe blog post will have some URLs referenced next to certain keyphrases to show where the info came from. You must hyperlink the keyphrase with the provided URL so that the reader can click on the referenced URL. It is critical you get this right.\nWrap the entire content in a container <div> with inline CSS that sets the text color to black (#000000), uses a legible font such as Arial, sans-serif, and sets line-height to 1.6.\nEnsure that all non-heading text elements (e.g., paragraphs, list items) have an inline style or embedded style that sets their font size to 20px and color to black (#000000) using !important to override theme styles.\nHyperlinks, points in the table of contents, and FAQ questions must be styled in blue (#00c2ff).\nAll headings and subheadings should have an underline implemented via a bottom border in blue (#00c2ff) with appropriate padding.\nPlace a double break (<br><br>) between each section to improve readability.\nDo not output any extra text or mention code tags like HTML''' around the output; just output the HTML code.\nBlog post: \n\n{{ $json.message.content }}\n\nHere's an example of a well formatted output:\n\n<div style=\"color: #000000; font-family: Arial, sans-serif; line-height: 1.6;\">\n  <style>\n    p,\n    .wp-block-paragraph,\n    ul.wp-block-list,\n    li {\n      color: #000000 !important;\n      font-size: 20px !important;\n    }\n    a {\n      color: #00c2ff !important;\n    }\n  </style>\n\n  <h1 id=\"h-devin-ai-the-hype-and-reality-of-an-ai-software-engineer\"\n      class=\"wp-block-heading\"\n      style=\"border-bottom: 2px solid #00c2ff; padding-bottom: 5px;\">\n    Devin AI: The Hype and Reality of an AI Software Engineer\n  </h1>\n  <br><br>\n\n  <p class=\"estimated-reading-time\"\n     style=\"color: #000000; font-size: 20px !important;\">\n    Estimated reading time: 5 minutes\n  </p>\n  <br><br>\n\n  <p>\n    Devin AI has burst onto the tech scene, promising to revolutionize software development as we know it. But does this AI‑powered coding assistant live up to the hype? Let's dive into what Devin AI really is, what it can do, and what developers are saying after putting it to the test.\n  </p>\n  <br><br>\n\n  <!-- Rest of blog post content goes here -->\n</div>\n\n[final reminder]:\n\nDo not remove any content or information from the current blogpost, only change it to the html version.\n"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "GPT-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "position": [
+        280,
+        480
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8
+    },
+    {
+      "id": "bb550547-fee8-455e-af6a-70c9eee23c89",
+      "name": "Image Covers",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "options": {},
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ $('Get row(s) in sheet').item.json['Query in English'] }}"
+            },
+            {
+              "name": "gl",
+              "value": "us"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "url": "https://serpapi.com/search?engine=google_images"
+      },
+      "position": [
+        660,
+        480
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "",
+      "name": "Wordpress",
+      "parameters": {
+        "additionalFields": {
+          "authorId": 2,
+          "categories": [
+            32
+          ],
+          "commentStatus": "closed",
+          "content": "=<img src=\"{{ $json['image-url'] }}\" alt=\"Cover Image\">\n{{ $('HTML version').item.json.message.content }}}",
+          "postTemplate": {
+            "values": {}
+          },
+          "slug": "={{ $('Process Form Data').item.json.formData['Slug'] }}",
+          "status": "draft",
+          "sticky": false
+        },
+        "title": "={{ $('Process Form Data').item.json.formData['Title'] }}"
+      },
+      "position": [
+        1120,
+        480
+      ],
+      "type": "n8n-nodes-base.wordpress",
+      "typeVersion": 1
+    },
+    {
+      "id": "8bd2e188-f041-4b1c-a9e9-ecfc0a04945f",
+      "name": "Edit Fields2",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "",
+              "name": "image-url",
+              "type": "string",
+              "value": "={{ $json.images_results[1].original }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        900,
+        480
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "fb0ab805-780b-4e81-aec6-1d60b5554fde",
+      "name": "Update tình trạng lên sheet",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand Name",
+              "id": "Brand Name",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand information",
+              "id": "Brand information",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand solution",
+              "id": "Brand solution",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Query",
+              "id": "Query",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Query in English",
+              "id": "Query in English",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "outline focus",
+              "id": "outline focus",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Title",
+              "id": "Title",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Top 3 URL",
+              "id": "Top 3 URL",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Output language",
+              "id": "Output language",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Mục đích tìm kiếm",
+              "id": "Mục đích tìm kiếm",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Outline Result ",
+              "id": "Outline Result ",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Link outline",
+              "id": "Link outline",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Title Content",
+              "id": "Title Content",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Slug",
+              "id": "Slug",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Meta Description",
+              "id": "Meta Description",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Style of Writing",
+              "id": "Style of Writing",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tone of Voice",
+              "id": "Tone of Voice",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status Writing",
+              "id": "Status Writing",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Content Final",
+              "id": "Content Final",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Content Final": "={{ $('Update GG Doc').item.json.documentId }}",
+            "Link outline": "={{ $('Google Docs1').item.json.documentId }}",
+            "Status": "Processing",
+            "Status Writing": "Draft",
+            "row_number": "={{ $('Get row(s) in sheet').item.json.row_number }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        1340,
+        480
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "09ac8a9c-0ae7-4b38-8630-2bb10a0b7b9b",
+      "name": "Get row(s) in sheet",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Run"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        220,
+        0
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "createdAt": "2025-05-06T17:07:59.776Z",
+      "id": "QnPDekJYr5wskIzf",
+      "name": "marketing-automation",
+      "updatedAt": "2025-05-06T17:07:59.776Z"
+    },
+    {
+      "createdAt": "2025-05-06T17:07:59.776Z",
+      "id": "3THlsgtSV2xVrHZK",
+      "name": "content",
+      "updatedAt": "2025-05-06T17:07:59.776Z"
+    },
+    {
+      "createdAt": "2025-05-06T17:07:59.779Z",
+      "id": "mlhSbcxW9nhS7cX8",
+      "name": "seo",
+      "updatedAt": "2025-05-06T17:07:59.779Z"
+    }
+  ]
+}

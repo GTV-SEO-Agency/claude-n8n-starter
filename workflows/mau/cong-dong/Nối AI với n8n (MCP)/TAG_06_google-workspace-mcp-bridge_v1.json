@@ -1,0 +1,1185 @@
+{
+  "connections": {
+    "Add label to message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Gmail Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Sheet Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Clear sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Sheet Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Create a document in Google Docs": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Docs Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Create a draft in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Gmail Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Create a presentation in Google Slides": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Slides Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Create an event in Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Calendar Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Create file from text in Google Drive": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Drive Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Create sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Sheet Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Delete a draft in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Gmail Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Delete a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Gmail Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Delete an event in Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Calendar Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Delete rows or columns from sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Sheet Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Download file in Google Drive": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Drive Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get a document in Google Docs": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Docs Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Gmail Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get a presentation in Google Slides": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Slides Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get an event in Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Calendar Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get availability in a calendar in Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Calendar Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get many events in Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Calendar Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get many messages in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Gmail Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get many shared drives in Google Drive": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Drive Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Sheet Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get slides from a presentation in Google Slides": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Slides Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Move file in Google Drive": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Drive Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Remove label from message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Gmail Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Replace text in a presentation in Google Slides": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Slides Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Reply to a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Gmail Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Search files and folders in Google Drive": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Drive Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Gmail Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Send message and wait for response in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Gmail Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Update a document in Google Docs": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Docs Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Update row in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "MCP Sheet Trigger",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_06_google-workspace-mcp-bridge_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## n8n làm cầu MCP cho Gmail, Drive, Docs, Sheets, Calendar\n**Làm gì:** ChatGPT hoặc OpenAI Agent Builder gọi vào n8n để đọc, ghi Google Workspace.\n**Trigger:** MCP Server Trigger (AI gọi vào)\n**Credential cần:** Gmail, Google Calendar, Google Docs, Google Drive, Google Sheets, googleSlidesOAuth2Api\n**Chi phí ước:** Gần 0.\n**Mở rộng gợi ý:** Cho học viên dùng ChatGPT làm trợ lý Google Workspace.\n\n---\n**Nguồn:** n8n.io template #9635 của n3witalia\nhttps://n8n.io/workflows/9635\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -1288,
+        -708
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Get a message in Gmail",
+      "parameters": {
+        "messageId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message_ID', ``, 'string') }}",
+        "operation": "get"
+      },
+      "position": [
+        -640,
+        912
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": "94d96aef-c203-4a9b-948d-963a2f143868"
+    },
+    {
+      "id": "27b1158f-36fc-4a1d-b194-aa26cc8c5ed9",
+      "name": "Send a message in Gmail",
+      "parameters": {
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {},
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}"
+      },
+      "position": [
+        -464,
+        912
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": ""
+    },
+    {
+      "id": "7f784f55-d277-4403-94df-5887bd32d545",
+      "name": "Get many messages in Gmail",
+      "parameters": {
+        "filters": {
+          "q": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Search', ``, 'string') }}",
+          "receivedAfter": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Received_After', ``, 'string') }}",
+          "receivedBefore": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Received_Before', ``, 'string') }}"
+        },
+        "operation": "getAll",
+        "options": {
+          "downloadAttachments": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Download_Attachments', ``, 'boolean') }}"
+        },
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}"
+      },
+      "position": [
+        -128,
+        912
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": "766ec83e-38e7-41f9-86e9-dc74581a07e6"
+    },
+    {
+      "id": "348abc8d-a3c8-4a39-b33b-7b3e53f0a37c",
+      "name": "Reply to a message in Gmail",
+      "parameters": {
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "messageId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message_ID', ``, 'string') }}",
+        "operation": "reply",
+        "options": {}
+      },
+      "position": [
+        -304,
+        912
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": "09b28a3b-8944-4cc6-a2fd-a8163e013b4a"
+    },
+    {
+      "id": "f885ab48-0550-4f31-9163-1982a93cc9ab",
+      "name": "Create a draft in Gmail",
+      "parameters": {
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "replyTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Send_Replies_To', ``, 'string') }}",
+          "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To_Email', ``, 'string') }}",
+          "threadId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Thread_ID', ``, 'string') }}"
+        },
+        "resource": "draft",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}"
+      },
+      "position": [
+        48,
+        912
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": "4cda1631-469d-4c82-ac9b-cb6bfcd68fa0"
+    },
+    {
+      "id": "5acdc8b0-891a-4c6b-9509-182484d5f31b",
+      "name": "MCP Gmail Trigger",
+      "parameters": {
+        "path": "63975752-0598-4992-9422-165a84c8798c"
+      },
+      "position": [
+        -400,
+        688
+      ],
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "webhookId": "63975752-0598-4992-9422-165a84c8798c"
+    },
+    {
+      "id": "682d9175-44e6-4951-8248-1ca8ed6f0b62",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "## ChatGPT App\n\n* Go to your OpenAI profile (a Plus account is usually required).\n* Navigate to **Settings → Apps and Connectors → Advanced Settings**.\n* Enable **“Developer mode.”**\n* Go back to **Settings → Apps and Connectors** and click **“Create.”**\n* Set the MCP server URL from n8n (**“MCP Gmail Trigger”**).\n* Click **“Create.”**\n\n\n\n\n\n\n![image](https://n3wstorage.b-cdn.net/test/n8n-openaiagentbuilder.png)",
+        "height": 832,
+        "width": 912
+      },
+      "position": [
+        -688,
+        -240
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Sticky Note1",
+      "parameters": {
+        "content": "## OpenAI Agent Builder\n\n* Go to OpenAI’s [Agent Builder](https://platform.openai.com/agent-builder) and enable API.\n* Click **“Create a workflow.”**\n* Add an **Agent** node.\n* Open it and click the **“+”** button in the **Tools** section.\n* Select **“MCP Server.”**\n* Set the MCP server URL from n8n (**“MCP Gmail Trigger”**).\n* Click **“Create.”**\n* Click the **“+”** button again and set the MCP server URL from n8n (**“MCP Gmail Trigger”**).\n* Click **“Connect”** and **“Add”**\n\n![image](https://n3wstorage.b-cdn.net/test/n8n-chatgpt.png)",
+        "height": 832,
+        "width": 752
+      },
+      "position": [
+        240,
+        -240
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "962fdcbc-069a-47df-aba7-3d421ccd64d5",
+      "name": "Sticky Note2",
+      "parameters": {
+        "color": 3,
+        "content": "## How to connect Google ecosystem with ChatGPT App & OpenAI Agent Builder (using MCP)\n\nThe official ChatGPT connector doesn’t allow you to interact directly with Google Workspace apps from within the app. Let’s see how to overcome this limitation by creating a dedicated **MCP server**.\n\nThis workflow acts as a **Middleware Control Point (MCP)** between **Google Workspace** services — including **Gmail, Drive, Docs, Sheets, Calendar, and Slides** — and **AI agents** like **OpenAI’s Agent Builder** and the **ChatGPT App**.\n\nIt enables these AI assistants to **directly interact with Google Workspace** tools — from managing emails and calendars to creating and editing documents, spreadsheets, or presentations — through secure automation endpoints, a feature that is not natively supported in the ChatGPT app.",
+        "height": 320,
+        "width": 912
+      },
+      "position": [
+        -688,
+        -608
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "621eefe0-4d78-4fb6-8d4e-380081260be1",
+      "name": "MCP Calendar Trigger",
+      "parameters": {
+        "path": "0f72eb90-2a1c-403e-98e1-901d76c2825c"
+      },
+      "position": [
+        560,
+        688
+      ],
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "webhookId": "0f72eb90-2a1c-403e-98e1-901d76c2825c"
+    },
+    {
+      "id": "3db4b714-002d-42cb-bd04-49f58520e938",
+      "name": "Create an event in Google Calendar",
+      "parameters": {
+        "additionalFields": {},
+        "calendar": {
+          "__regex": "(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)",
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}"
+      },
+      "position": [
+        400,
+        896
+      ],
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "e6ecc620-ab66-4341-8bff-6dac630711eb",
+      "name": "Get many events in Google Calendar",
+      "parameters": {
+        "calendar": {
+          "__regex": "(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)",
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "getAll",
+        "options": {},
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "timeMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Before', ``, 'string') }}",
+        "timeMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('After', ``, 'string') }}"
+      },
+      "position": [
+        560,
+        896
+      ],
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "a735beec-e60e-4e26-8487-3ea70414a1b5",
+      "name": "Get an event in Google Calendar",
+      "parameters": {
+        "calendar": {
+          "__regex": "(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)",
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "eventId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Event_ID', ``, 'string') }}",
+        "operation": "get",
+        "options": {}
+      },
+      "position": [
+        704,
+        896
+      ],
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "e89c256f-f995-41a0-9935-168db6c270be",
+      "name": "Delete an event in Google Calendar",
+      "parameters": {
+        "calendar": {
+          "__regex": "(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)",
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "eventId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Event_ID', ``, 'string') }}",
+        "operation": "delete",
+        "options": {}
+      },
+      "position": [
+        848,
+        896
+      ],
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "544c8073-2d08-4d49-a3f2-b97223e972fb",
+      "name": "Get availability in a calendar in Google Calendar",
+      "parameters": {
+        "calendar": {
+          "__regex": "(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)",
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "options": {},
+        "resource": "calendar",
+        "timeMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End_Time', ``, 'string') }}",
+        "timeMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start_Time', ``, 'string') }}"
+      },
+      "position": [
+        992,
+        896
+      ],
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "f8a19eb8-5dc7-4e56-808d-bbe5f2235ddd",
+      "name": "Download file in Google Drive",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "download",
+        "options": {}
+      },
+      "position": [
+        -608,
+        1488
+      ],
+      "type": "n8n-nodes-base.googleDriveTool",
+      "typeVersion": 3
+    },
+    {
+      "id": "e7b1bfb2-794b-4e61-86be-7d3da4534932",
+      "name": "Search files and folders in Google Drive",
+      "parameters": {
+        "filter": {},
+        "limit": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Limit', ``, 'number') }}",
+        "options": {},
+        "queryString": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Search_Query', ``, 'string') }}",
+        "resource": "fileFolder"
+      },
+      "position": [
+        -448,
+        1488
+      ],
+      "type": "n8n-nodes-base.googleDriveTool",
+      "typeVersion": 3
+    },
+    {
+      "id": "c469b3fa-2c45-4953-8265-6a3432838507",
+      "name": "Get many shared drives in Google Drive",
+      "parameters": {
+        "limit": 50,
+        "operation": "list",
+        "options": {},
+        "resource": "drive",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}"
+      },
+      "position": [
+        -304,
+        1488
+      ],
+      "type": "n8n-nodes-base.googleDriveTool",
+      "typeVersion": 3
+    },
+    {
+      "id": "df0cc0d0-9209-415d-a707-c1af53806533",
+      "name": "Create file from text in Google Drive",
+      "parameters": {
+        "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('File_Content', ``, 'string') }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "name": "={{$now.format('yyyyLLdd')}}",
+        "operation": "createFromText",
+        "options": {}
+      },
+      "position": [
+        -144,
+        1488
+      ],
+      "type": "n8n-nodes-base.googleDriveTool",
+      "typeVersion": 3
+    },
+    {
+      "id": "7cbaab83-0114-4d4a-92b0-7f92524ce0ef",
+      "name": "Move file in Google Drive",
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "move"
+      },
+      "position": [
+        48,
+        1488
+      ],
+      "type": "n8n-nodes-base.googleDriveTool",
+      "typeVersion": 3
+    },
+    {
+      "id": "f078f81f-0cc5-44f7-b043-2664011584af",
+      "name": "Create a document in Google Docs",
+      "parameters": {
+        "folderId": "",
+        "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}"
+      },
+      "position": [
+        528,
+        1488
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "b9c1e37b-2b1c-4b03-8f60-4dd9956308c7",
+      "name": "Get a document in Google Docs",
+      "parameters": {
+        "documentURL": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Doc_ID_or_URL', ``, 'string') }}",
+        "operation": "get"
+      },
+      "position": [
+        704,
+        1488
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "2b8b0ea1-26f2-4183-9909-2e4c4cfbb0be",
+      "name": "Update a document in Google Docs",
+      "parameters": {
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('actionFields0_Text', ``, 'string') }}"
+            }
+          ]
+        },
+        "documentURL": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Doc_ID_or_URL', ``, 'string') }}",
+        "operation": "update"
+      },
+      "position": [
+        912,
+        1488
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "5a542afa-4920-477b-844a-b99c5ea765ab",
+      "name": "MCP Docs Trigger",
+      "parameters": {
+        "path": ""
+      },
+      "position": [
+        608,
+        1328
+      ],
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "webhookId": ""
+    },
+    {
+      "id": "6ce871bd-a4c4-437d-b8a8-90f40f8843ec",
+      "name": "MCP Drive Trigger",
+      "parameters": {
+        "path": "031809b0-c277-4ff1-b65a-9e72294b1ff1"
+      },
+      "position": [
+        -400,
+        1344
+      ],
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "webhookId": "031809b0-c277-4ff1-b65a-9e72294b1ff1"
+    },
+    {
+      "id": "bbb9c2cc-e528-4a7e-8443-8fa021a7dd31",
+      "name": "MCP Sheet Trigger",
+      "parameters": {
+        "path": ""
+      },
+      "position": [
+        -416,
+        1712
+      ],
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "webhookId": ""
+    },
+    {
+      "id": "45409bf6-d7bd-4678-84ea-cde82d1d93d7",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        }
+      },
+      "position": [
+        -688,
+        1904
+      ],
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7
+    },
+    {
+      "id": "bbb5016f-e709-4850-91e4-f1b910f4a72e",
+      "name": "Append or update row in sheet in Google Sheets",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "autoMapInputData",
+          "matchingColumns": [],
+          "schema": [],
+          "value": {}
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "appendOrUpdate",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        }
+      },
+      "position": [
+        -528,
+        1904
+      ],
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7
+    },
+    {
+      "id": "c2b57287-67ec-4557-b84a-835a58dc77fd",
+      "name": "Create sheet in Google Sheets",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "create",
+        "options": {},
+        "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}"
+      },
+      "position": [
+        -208,
+        1904
+      ],
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7
+    },
+    {
+      "id": "535af93b-6264-425e-a3dd-a042946ab939",
+      "name": "Delete rows or columns from sheet in Google Sheets",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "numberToDelete": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Number_of_Rows_to_Delete', ``, 'number') }}",
+        "operation": "delete",
+        "sheetName": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "startIndex": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start_Row_Number', ``, 'number') }}"
+      },
+      "position": [
+        -64,
+        1904
+      ],
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7
+    },
+    {
+      "id": "f416b0ac-0dc5-4564-9884-8032a91257fc",
+      "name": "Update row in sheet in Google Sheets",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "autoMapInputData",
+          "matchingColumns": [],
+          "schema": [],
+          "value": {}
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        }
+      },
+      "position": [
+        -384,
+        1904
+      ],
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7
+    },
+    {
+      "id": "93496b49-3c6a-43a2-95eb-3caafc875bb3",
+      "name": "Clear sheet in Google Sheets",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "keepFirstRow": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Keep_First_Row', ``, 'boolean') }}",
+        "operation": "clear",
+        "sheetName": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        }
+      },
+      "position": [
+        96,
+        1888
+      ],
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7
+    },
+    {
+      "id": "c8e9e81b-483d-448c-9795-2417be38cdc9",
+      "name": "Create a presentation in Google Slides",
+      "parameters": {
+        "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}"
+      },
+      "position": [
+        464,
+        1920
+      ],
+      "type": "n8n-nodes-base.googleSlidesTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "2ae1247d-99a1-4d1e-905a-ba3611e211cb",
+      "name": "MCP Slides Trigger",
+      "parameters": {
+        "path": ""
+      },
+      "position": [
+        624,
+        1712
+      ],
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "webhookId": ""
+    },
+    {
+      "id": "8d78817e-333e-4daa-b95c-1ce0019f88b5",
+      "name": "Get a presentation in Google Slides",
+      "parameters": {
+        "operation": "get",
+        "presentationId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Presentation_ID', ``, 'string') }}"
+      },
+      "position": [
+        624,
+        1920
+      ],
+      "type": "n8n-nodes-base.googleSlidesTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "50ea1dd1-e10c-4ee2-942a-7128cef8ee6d",
+      "name": "Get slides from a presentation in Google Slides",
+      "parameters": {
+        "operation": "getSlides",
+        "presentationId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Presentation_ID', ``, 'string') }}",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}"
+      },
+      "position": [
+        784,
+        1920
+      ],
+      "type": "n8n-nodes-base.googleSlidesTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "be7c29b7-5d3a-4d60-8f0d-e88871e7523d",
+      "name": "Replace text in a presentation in Google Slides",
+      "parameters": {
+        "operation": "replaceText",
+        "options": {
+          "revisionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Revision_ID', ``, 'string') }}"
+        },
+        "presentationId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Presentation_ID', ``, 'string') }}",
+        "textUi": {
+          "textValues": [
+            {
+              "replaceText": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('textValues0_Replace_With', ``, 'string') }}",
+              "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('textValues0_Search_For', ``, 'string') }}"
+            }
+          ]
+        }
+      },
+      "position": [
+        960,
+        1920
+      ],
+      "type": "n8n-nodes-base.googleSlidesTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "72575ff6-e6bc-40d5-8ce0-9994e7747049",
+      "name": "Delete a draft in Gmail",
+      "parameters": {
+        "messageId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Draft_ID', ``, 'string') }}",
+        "operation": "delete",
+        "resource": "draft"
+      },
+      "position": [
+        64,
+        1104
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": "4cda1631-469d-4c82-ac9b-cb6bfcd68fa0"
+    },
+    {
+      "id": "7d89205c-5bf7-4047-bdc2-6907f582fcf2",
+      "name": "Delete a message in Gmail",
+      "parameters": {
+        "messageId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Draft_ID', ``, 'string') }}",
+        "operation": "delete"
+      },
+      "position": [
+        -640,
+        1104
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": "4cda1631-469d-4c82-ac9b-cb6bfcd68fa0"
+    },
+    {
+      "id": "97e1d739-cf3d-4e65-9e99-82b43c434987",
+      "name": "Add label to message in Gmail",
+      "parameters": {
+        "labelIds": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Label_Names_or_IDs', ``, 'string') }}",
+        "messageId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Draft_ID', ``, 'string') }}",
+        "operation": "addLabels"
+      },
+      "position": [
+        -464,
+        1104
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": "4cda1631-469d-4c82-ac9b-cb6bfcd68fa0"
+    },
+    {
+      "id": "c9ae4857-0bfb-4996-9dc9-28c8fae0a8ab",
+      "name": "Remove label from message in Gmail",
+      "parameters": {
+        "labelIds": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Label_Names_or_IDs', ``, 'string') }}",
+        "messageId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Draft_ID', ``, 'string') }}",
+        "operation": "removeLabels"
+      },
+      "position": [
+        -288,
+        1104
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": "4cda1631-469d-4c82-ac9b-cb6bfcd68fa0"
+    },
+    {
+      "id": "361b1cba-8304-462f-9d5a-17ee3c1b242e",
+      "name": "Send message and wait for response in Gmail",
+      "parameters": {
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "operation": "sendAndWait",
+        "options": {},
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}"
+      },
+      "position": [
+        -112,
+        1104
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": "4cda1631-469d-4c82-ac9b-cb6bfcd68fa0"
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

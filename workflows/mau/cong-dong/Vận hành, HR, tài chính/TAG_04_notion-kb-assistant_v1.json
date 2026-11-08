@@ -1,0 +1,370 @@
+{
+  "connections": {
+    "Format schema": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get database details": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Format schema",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Search inside database record": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Search notion database": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get database details",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_memory"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_04_notion-kb-assistant_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Trợ lý trả lời từ knowledge base Notion\n**Làm gì:** Hỏi bằng chat, agent tìm trang Notion liên quan và trả lời có link.\n**Trigger:** Chat (khung chat n8n)\n**Credential cần:** Notion, OpenAI\n**Chi phí ước:** Token thấp.\n**Mở rộng gợi ý:** HR bot quy chế công ty; đổi Notion sang Google Drive.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/Notion/Notion%20knowledge%20base%20AI%20assistant.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -940,
+        140
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d1d4291e-fa37-43d0-81e0-f0a594371426",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {
+          "temperature": 0.7,
+          "timeout": 25000
+        }
+      },
+      "position": [
+        680,
+        620
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1
+    },
+    {
+      "id": "68e6805b-9c19-4c9e-a300-8983f2b7c28a",
+      "name": "Search notion database",
+      "parameters": {
+        "authentication": "predefinedCredentialType",
+        "jsonBody": "{\n \"filter\": {\n \"or\": [\n {\n \"property\": \"question\",\n \"rich_text\": {\n \"contains\": \"{keyword}\"\n }\n },\n {\n \"property\": \"tags\",\n \"multi_select\": {\n \"contains\": \"{tag}\"\n }\n }\n ]\n },\n \"sorts\": [\n {\n \"property\": \"updated_at\",\n \"direction\": \"ascending\"\n }\n ]\n}",
+        "method": "POST",
+        "nodeCredentialType": "notionApi",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "description": "Searches question of the record. Use one keyword at a time.",
+              "name": "keyword"
+            },
+            {
+              "description": "=Options: {{ $json.tagsOptions }}",
+              "name": "tag"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "toolDescription": "=Use this tool to search the \"\" Notion app database.\n\nIt is structured with question and answer format. \nYou can filter query result by:\n- By keyword\n- filter by tag.\n\nKeyword and Tag have an OR relationship not AND.\n\n",
+        "url": "=https://api.notion.com/v1/databases/{{ $json.notionID }}/query"
+      },
+      "position": [
+        980,
+        620
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "c3164d38-a9fb-4ee3-b6bd-fccb4aa5a1a4",
+      "name": "Get database details",
+      "parameters": {
+        "databaseId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "resource": "database",
+        "simple": false
+      },
+      "position": [
+        420,
+        380
+      ],
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "98300243-efcc-4427-88da-c1af8a91ddae",
+      "name": "Window Buffer Memory",
+      "parameters": {
+        "contextWindowLength": 4
+      },
+      "position": [
+        820,
+        620
+      ],
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "a8473f48-1343-4eb2-8e48-ec89377a2a00",
+      "name": "Search inside database record",
+      "notes": " ",
+      "notesInFlow": true,
+      "parameters": {
+        "authentication": "predefinedCredentialType",
+        "dataField": "results",
+        "fields": "id, type, paragraph.text, heading_1.text, heading_2.text, heading_3.text, bulleted_list_item.text, numbered_list_item.text, to_do.text, children",
+        "fieldsToInclude": "selected",
+        "nodeCredentialType": "notionApi",
+        "optimizeResponse": true,
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "description": "Notion page id from 'Search notion database' tool results",
+              "name": "page_id"
+            }
+          ]
+        },
+        "toolDescription": "=Use this tool to retrieve Notion page content using the page ID. \n\nIt is structured with question and answer format. \nYou can filter query result by:\n- By keyword\n- filter by tag.\n\nKeyword and Tag have an OR relationship not AND.\n\n",
+        "url": "https://api.notion.com/v1/blocks/{page_id}/children"
+      },
+      "position": [
+        1140,
+        620
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "",
+      "name": "Format schema",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a8e58791-ba51-46a2-8645-386dd1a0ff6e",
+              "name": "sessionId",
+              "type": "string",
+              "value": "={{ $('When chat message received').item.json.sessionId }}"
+            },
+            {
+              "id": "434209de-39d5-43d8-a964-0fcb7396306c",
+              "name": "action",
+              "type": "string",
+              "value": "={{ $('When chat message received').item.json.action }}"
+            },
+            {
+              "id": "cad4c972-51a9-4e16-a627-b00eea77eb30",
+              "name": "chatInput",
+              "type": "string",
+              "value": "={{ $('When chat message received').item.json.chatInput }}"
+            },
+            {
+              "id": "8e88876c-2714-494d-bd5e-5e80c99f83e3",
+              "name": "notionID",
+              "type": "string",
+              "value": "={{ $('Get database details').item.json.id }}"
+            },
+            {
+              "id": "a88a15f6-317c-4d2e-9d64-26f5ccaf7a97",
+              "name": "databaseName",
+              "type": "string",
+              "value": "={{ $json.title[0].text.content }}"
+            },
+            {
+              "id": "7c3bf758-8ed3-469a-8695-6777f4af4fb9",
+              "name": "tagsOptions",
+              "type": "string",
+              "value": "={{ $json.properties.tags.multi_select.options.map(item => item.name).join(',') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        620,
+        380
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "3b82f4fe-6c0c-4e6e-a387-27de31fec758",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 6,
+        "content": "## Notion knowledge base assistant [v1]\nBuilt as part of the [30 Day AI Sprint](https://30dayaisprint.notion.site/) by [@maxtkacz](https://x.com/maxtkacz)\n",
+        "height": 95.12709218477178,
+        "width": 462.3561535890252
+      },
+      "position": [
+        -340,
+        240
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "31debc55-6608-4e64-be18-1bc0fc0fbf16",
+      "name": "Sticky Note1",
+      "parameters": {
+        "color": 7,
+        "content": "### FAQ\n- In `Get database details` if you see a `The resource you are requesting could not be found` error, you need to add your connection to the database (in the Notion app).\n- The `Get database details` pulls most recent `Tags` and informs AI Agent of them. However this step adds ~250-800ms per run. Watch detailed video to see how to remove this step. ",
+        "height": 172.4760209818479,
+        "width": 462.3561535890252
+      },
+      "position": [
+        -340,
+        1060
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "9f48e548-f032-477c-960d-9c99d61443df",
+      "name": "AI Agent",
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Role:\nYou are a helpful agent. Query the \"{{ $json.databaseName }}\" Notion database to find relevant records or summarize insights based on multiple records.\n\n# Behavior:\n\nBe clear, very concise, efficient, and accurate in responses. Do not hallucinate.\nIf the request is ambiguous, ask for clarification. Do not embellish, only use facts from the Notion records. Do not offer general advice.\n\n# Error Handling:\n\nIf no matching records are found, try alternative search criteria. Example 1: Laptop, then Computer, then Equipment. Example 2: meetings, then meeting.\nClearly explain any issues with queries (e.g., missing fields or unsupported filters).\n\n# Output:\n\nReturn concise, user-friendly results or summaries.\nFor large sets, show top results by default and offer more if needed. Output URLs in markdown format. \n\nWhen a record has the answer to user question, always output the URL to that page. Do not output links twice."
+        },
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}"
+      },
+      "position": [
+        820,
+        380
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6
+    },
+    {
+      "id": "f1274a12-128c-4549-a19b-6bfc3beccd89",
+      "name": "When chat message received",
+      "parameters": {
+        "initialMessages": "=Happy {{ $today.weekdayLong }}!\nKnowledge source assistant at your service. How can I help you?",
+        "options": {
+          "subtitle": "",
+          "title": "Notion Knowledge Base"
+        },
+        "public": true
+      },
+      "position": [
+        220,
+        380
+      ],
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "webhookId": "b76d02c0-b406-4d21-b6bf-8ad2c623def3"
+    },
+    {
+      "id": "2e25e4bc-7970-4d00-a757-ba1e418873aa",
+      "name": "Sticky Note2",
+      "parameters": {
+        "color": 7,
+        "content": "### Template set up quickstart video 👇\n[![Video Thumbnail](https://uploads.n8n.io/maxt/notion-db-assistant-embedded-thumb.png#full-width)](https://www.youtube.com/watch?v=ynLZwS2Nhnc)\n",
+        "height": 318.2958135288425,
+        "width": 463.90418399676537
+      },
+      "position": [
+        -340,
+        360
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "ba6fe953-fd5c-497f-ac2a-7afa04b7e6cc",
+      "name": "Sticky Note3",
+      "parameters": {
+        "color": 7,
+        "content": "### Written set up steps\n1. Add a Notion credential to your n8n workspace (follow [this Notion guide](https://developers.notion.com/docs/create-a-notion-integration))\n2. [Duplicate Company knowledge base Notion template](https://www.notion.so/templates/knowledge-base-ai-assistant-with-n8n) to your Notion workspace, then make sure to share the new knowledge base with connection you created in Step 1. \n3. Add Notion cred to `Get database details`:`Credential to connect with` parameter, then to `Search notion database`:`Notion API` parameter (same for `Search inside database record`)\n4. Add OpenAI credential to `Open AI Chat Model` node (tested and working with Anthropic Claude 3.5 too)\n5. In `Get database details`, select the db you created from Step 2 in `Database` dropdown.\n6. Click `Chat` button to test the workflow. Then Activate it and copy the `Chat URL` from `When chat message received`.",
+        "height": 332.14098134070576,
+        "width": 461.5634274842711
+      },
+      "position": [
+        -340,
+        700
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

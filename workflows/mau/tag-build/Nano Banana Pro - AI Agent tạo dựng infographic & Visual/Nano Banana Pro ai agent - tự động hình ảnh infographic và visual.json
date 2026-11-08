@@ -1,0 +1,977 @@
+{
+  "active": false,
+  "connections": {
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait4",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Download Ảnh": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "If1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Download Ảnh - 2": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "If2",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Download Ảnh - 3": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "If",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Edit Ảnh": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Title & Image Prompt Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Cập Nhật",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Wait3",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Result",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Wait",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Result",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Wait1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Tạo Ảnh - 3",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Code in JavaScript",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Upload ảnh",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "On form submission1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Tạo Ảnh",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Title & Image Prompt Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Title & Image Prompt Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Tạo Ảnh": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Tạo Ảnh - 3": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait3",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Upload ảnh": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Edit Ảnh",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Download Ảnh",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Download Ảnh - 2",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Download Ảnh - 3",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait4": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Sheets",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "09DRYXU6bPYK1Zbd",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Nano Banana Pro",
+  "nodes": [
+    {
+      "id": "58438d98-afca-4b52-846b-f39dfde4bdfb",
+      "name": "Wait",
+      "parameters": {},
+      "position": [
+        1104,
+        80
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "8363f037-4a20-4f6b-9c5c-780dfb313864"
+    },
+    {
+      "id": "b132b8f0-30a1-4bea-8f79-896e994981d2",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 6,
+        "content": "##  Text to Image\n",
+        "height": 272,
+        "width": 1280
+      },
+      "position": [
+        640,
+        0
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Sticky Note1",
+      "parameters": {
+        "color": 3,
+        "content": "## Image to Image\n",
+        "height": 272,
+        "width": 1280
+      },
+      "position": [
+        640,
+        304
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "f3ea7dd1-d3ca-4534-81a8-cb54c4567b67",
+      "name": "Wait1",
+      "parameters": {},
+      "position": [
+        1168,
+        400
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "8363f037-4a20-4f6b-9c5c-780dfb313864"
+    },
+    {
+      "id": "7dfa9256-f940-4775-b937-848b9115dfbd",
+      "name": "On form submission",
+      "parameters": {
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Image Prompt",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Image",
+              "fieldType": "file",
+              "requiredField": true
+            }
+          ]
+        },
+        "formTitle": "Image to Image",
+        "options": {}
+      },
+      "position": [
+        688,
+        400
+      ],
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "webhookId": "ba0b2542-91af-4df6-9ee2-4db7b14d7b48"
+    },
+    {
+      "id": "4a68897f-8ecb-4f6c-bb65-68b79260abc1",
+      "name": "Title & Image Prompt Agent",
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Vai trò\nBạn là chuyên gia thiết kế đồ họa và kỹ sư prompt AI, chuyên tạo các prompt hình ảnh chi tiết cho Nano Banana Pro (Google Image AI Model).\n\n# Nhiệm vụ\nDựa trên dữ liệu đầu vào từ Google Sheets, tạo ra prompt hình ảnh hoàn chỉnh và chi tiết cho Nano Banana Pro để tạo:\n- **Feature Image**: Ảnh đại diện chuyên nghiệp cho bài viết/nội dung\n- **Infographic**: Đồ họa minh họa tóm tắt nội dung một cách trực quan\n\n## Nguyên tắc phân tích nội dung\n\n### 1. Phân tích Image Type\n**Feature Image:**\n- Mục đích: Ảnh hero/header thu hút ánh nhìn cho bài viết\n- Phong cách: Chuyên nghiệp, hiện đại, sạch sẽ\n- Text trong ảnh: CHỈ thêm text nếu có yêu cầu trong \"Note khi tạo ảnh\"\n- Thành phần: \n  - Một điểm nhấn trung tâm\n  - Tối giản, không lộn xộn\n  - Bảng màu chuyên nghiệp theo brand colors\n  - Tỷ lệ: 16:9 hoặc 4:3\n  - Không có text overlay trừ khi được yêu cầu cụ thể\n\n**Infographic:**\n- Mục đích: Tóm tắt/minh họa nội dung một cách trực quan\n- Phong cách: Thông tin rõ ràng, dễ hiểu, data-driven\n- Thành phần:\n  - Icons và biểu tượng trực quan\n  - Luồng logic (trên xuống hoặc trái sang phải)\n  - Số liệu, con số, điểm chính được visualize\n  - Các section có mã màu để dễ phân biệt\n  - Layout cân đối với nhiều panels/sections\n  - Thông tin phân cấp rõ ràng\n\n### 2. Xử lý Brand Logo\nMặc định hình ảnh được tạo sẽ có image input là Brand logo vào để AI model có thể tạo hình ảnh AI có brand Logo đính kèm. Vì vậy prompt trả ra luôn phải có hướng dẫn trong việc xử lý hình ảnh đính kèm là brand logo ra sao. \n\n**Khi có Brand Logo:**\n- Vị trí: Góc phải trên, góc trái trên, hoặc bottom-right (tùy composition)\n- Kích thước: Logo chiếm 10-15% diện tích, hiển thị rõ nhưng không át chủ đề\n- Hòa nhập: Logo không xung đột với các yếu tố visual chính\n- Mô tả: \"Include brand logo [mô tả logo nếu có] positioned at [vị trí], size approximately 10-15% of canvas, subtle and professional integration\"\n\n**Khi có Brand Colors:**\n- Sử dụng brand colors làm palette chính\n- Thêm màu bổ trợ hài hòa để tạo visual interest\n- Duy trì sự nhất quán màu sắc trong toàn bộ composition\n\n### 3. Chiến lược visual dựa trên Content\n\n**Phân tích để xác định:**\n- Mood/Tone: Professional, playful, serious, inspiring, educational\n- Key Concepts: Trích xuất 3-5 chủ đề visual chính\n- Target Audience: Đối tượng mục tiêu suy ra từ content\n- Industry/Domain: Tech, health, finance, education, lifestyle, etc.\n- Visual Metaphors: Ẩn dụ và biểu tượng phù hợp\n\n### 4. Tuân thủ \"Note khi tạo ảnh\"\n\nLuôn ưu tiên và tuân thủ mọi yêu cầu trong \"Note khi tạo ảnh\":\n- Có text trong ảnh hay không\n- Phong cách cụ thể (minimalist, bold, colorful)\n- Elements cụ thể cần có hoặc tránh\n- Tỷ lệ khung hình đặc biệt\n- Bất kỳ constraint nào khác\n\n## Cấu trúc Prompt Output\n\nTrả về prompt theo định dạng sau:\n```\n[IMAGE TYPE]: Feature Image / Infographic\n\nMAIN SUBJECT:\n[Mô tả rõ ràng chủ thể visual chính]\n\nVISUAL CONCEPT:\n[Concept và ý tưởng tổng thể của hình ảnh]\n\nSTYLE & AESTHETIC:\n[Phong cách nghệ thuật, design approach, mood - VD: Modern minimalist, Vibrant flat design, Professional photorealistic]\n\nCOLOR PALETTE:\n[Màu sắc cụ thể bao gồm brand colors - VD: Primary: #FF6B6B, Secondary: #4ECDC4, Accent: #FFE66D]\n\nCOMPOSITION & LAYOUT:\n[Bố cục, sắp xếp, visual hierarchy, aspect ratio]\n\nKEY VISUAL ELEMENTS:\n- [Element 1 với mô tả chi tiết]\n- [Element 2 với mô tả chi tiết]\n- [Element 3 với mô tả chi tiết]\n- [Tiếp tục nếu cần]\n\nTEXT ELEMENTS (if applicable):\n[Nếu có yêu cầu text: nội dung text, vị trí, font style, size]\n\nBRAND INTEGRATION:\n[Cách tích hợp logo và brand colors vào composition]\n\nLIGHTING & ATMOSPHERE:\n[Ánh sáng, bóng đổ, không khí tổng thể]\n\nTECHNICAL SPECIFICATIONS:\n- Aspect Ratio: [1:1, 16:9, 4:3, 9:16]\n- Quality: High resolution, sharp focus, professional quality\n- Style: [Photorealistic / Digital Illustration / Flat Design / 3D Render]\n- Output Format: PNG with transparency\n\nPOSITIVE PROMPTS (for AI model):\n[Chi tiết keywords cho quality: professional, high quality, sharp focus, detailed, vibrant colors, clean composition]\n\nNEGATIVE PROMPTS (to avoid):\n[Các elements cần tránh: blurry, low quality, distorted, cluttered, unprofessional, watermark]\n\nSPECIAL INSTRUCTIONS:\n[Bất kỳ yêu cầu đặc biệt nào từ \"Note khi tạo ảnh\"]\n```\n\n## Tiêu chuẩn chất lượng\n\n- **Rõ ràng**: Prompt phải không mơ hồ và cụ thể\n- **Chi tiết**: Bao gồm đủ detail để có kết quả nhất quán\n- **Chuyên nghiệp**: Duy trì chuẩn design chuyên nghiệp\n- **Liên quan**: Mọi element phải liên quan đến content\n- **Khả thi**: Mọi instruction phải có thể implement bởi AI model"
+        },
+        "promptType": "define",
+        "text": "=# Tạo Image Prompt cho Nano Banana Pro\n\n## Dữ liệu đầu vào\n\n[Image Type]: {{ $json['Image Type'] }}\n\n[Title of Content]: \n{{ $json['Title of content'] }}\n\n[The Content]:\n{{ $json['The Content'] }}\n\n[Brand Colors]: {{ $json['Brand Colors'] }}\n\n[Note khi tạo ảnh (Special Instructions)]: \n{{ $json['Note khi tạo ảnh'] }}\n---\n\n## Yêu cầu\n\nDựa trên thông tin trên, hãy tạo một prompt hình ảnh CHI TIẾT và HOÀN CHỈNH cho Nano Banana Pro để tạo {{ $json['Image Type'] }}.\n\n**Lưu ý quan trọng:**\n\n1. **Phân tích content**: Trích xuất key themes, messages, và visual elements từ title và content\n2. **Image type**: \n   - Nếu là \"Feature image\": Tạo thiết kế hero image chuyên nghiệp, sạch sẽ, modern\n   - Nếu là \"Infographic\": Thiết kế layout infographic rõ ràng, dễ hiểu, có cấu trúc\n3. **Brand colors**: Tích hợp màu sắc brand: {{ $json['Brand Colors'] }}\n4. **Special notes**: TUÂN THỦ TUYỆT ĐỐI mọi yêu cầu trong \"Note khi tạo ảnh\".\n5. **Visual style**: Đảm bảo phong cách visual phù hợp với tone và chủ đề của content\n6. **Chi tiết cụ thể**: Cung cấp mọi detail cần thiết để AI model có thể tạo ảnh chính xác\n7. Mặc định hình ảnh được tạo sẽ có image input là Brand logo vào để AI model có thể tạo hình ảnh AI có brand Logo đính kèm. Vì vậy prompt trả ra luôn phải có hướng dẫn trong việc xử lý hình ảnh đính kèm là brand logo ra sao. \n\n## Final Reminder: \n1. Output nên phù hợp khi tôi bỏ vào dạng json, vì tôi sẽ sử dụng API Image Model Call, nên output phải ở format phù hợp - không bị lỗi json.\n2. Không có các dấu \"\"  ở output để tránh bị lỗi json.\n3. Hãy tạo prompt theo đúng cấu trúc đã được hướng dẫn trong System Prompt.\n4. Prompt không nên quá dài, tối đa 150 text, ghi những điều cốt lõi nhất cần có và không nên có trong image.\n\n"
+      },
+      "position": [
+        992,
+        752
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "65e68bda-0941-4cd5-a250-94805997c178",
+      "name": "Google Sheets",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Run"
+            }
+          ]
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        816,
+        752
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "62b26688-c5c8-4a33-b8dd-43c864b21413",
+      "name": "When clicking ‘Execute workflow’",
+      "parameters": {},
+      "position": [
+        656,
+        752
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "4bbb371d-b774-4e0d-881c-6421b33d2f64",
+      "name": "Wait3",
+      "parameters": {},
+      "position": [
+        1664,
+        736
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "8363f037-4a20-4f6b-9c5c-780dfb313864"
+    },
+    {
+      "id": "fe2134b8-71e2-4b0a-a4d7-e50397da9419",
+      "name": "Tạo Ảnh - 3",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={\n  \"model\": \"nano-banana-pro\",\n  \"input\": {\n    \"prompt\": \"{{ $json.input.prompt }}\",\n    \"aspect_ratio\": \"1:1\",\n    \"resolution\": \"1K\",\n    \"output_format\": \"png\",\n    \"image_input\": [\n      \"{{ $('Google Sheets').item.json['Brand Logo'] }}\"\n    ]\n  }\n}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://api.kie.ai/api/v1/jobs/createTask"
+      },
+      "position": [
+        1488,
+        736
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3
+    },
+    {
+      "id": "51210ef0-ae9f-404e-9c44-caf251d028ff",
+      "name": "Tạo Ảnh",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={\n  \"model\": \"nano-banana-pro\",\n  \"input\": {\n    \"prompt\": \"{{ $json['Image Prompt'] }}\",\n    \"aspect_ratio\": \"1:1\",\n    \"resolution\": \"2K\",\n    \"output_format\": \"png\"\n  }\n}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://api.kie.ai/api/v1/jobs/createTask"
+      },
+      "position": [
+        880,
+        80
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3
+    },
+    {
+      "id": "9688a088-da08-47b7-a8d0-e43d2567f2cf",
+      "name": "Download Ảnh",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "url": "https://api.kie.ai/api/v1/jobs/recordInfo"
+      },
+      "position": [
+        1280,
+        80
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3
+    },
+    {
+      "id": "b46617c2-9d08-4565-82fc-f87bb07affc3",
+      "name": "Edit Ảnh",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={\n  \"model\": \"nano-banana-pro\",\n  \"input\": {\n    \"prompt\": \"{{ $('On form submission').item.json['Image Prompt'] }}\",\n    \"aspect_ratio\": \"1:1\",\n    \"resolution\": \"2K\",\n    \"output_format\": \"png\",\n    \"image_input\": [\n      \"{{ $json.data.url }}\"\n    ]\n  }\n}\n",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://api.kie.ai/api/v1/jobs/createTask"
+      },
+      "position": [
+        1008,
+        400
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3
+    },
+    {
+      "id": "6c03ca6a-e9bc-460c-ac4b-e540d157ddc9",
+      "name": "Upload ảnh",
+      "parameters": {
+        "bodyParameters": {
+          "parameters": [
+            {
+              "inputDataFieldName": "Image",
+              "name": "image",
+              "parameterType": "formBinaryData"
+            }
+          ]
+        },
+        "contentType": "multipart-form-data",
+        "method": "POST",
+        "options": {},
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "<YOUR_ID>"
+            }
+          ]
+        },
+        "sendBody": true,
+        "sendQuery": true,
+        "url": "https://api.imgbb.com/1/upload"
+      },
+      "position": [
+        848,
+        400
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "4dac3ebe-19aa-4b60-8e1f-332c529c4306",
+      "name": "Download Ảnh - 2",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "url": "https://api.kie.ai/api/v1/jobs/recordInfo"
+      },
+      "position": [
+        1328,
+        400
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3
+    },
+    {
+      "id": "0ae111b3-77d0-44cf-b7dd-8fceaf454fd8",
+      "name": "Download Ảnh - 3",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "url": "https://api.kie.ai/api/v1/jobs/recordInfo"
+      },
+      "position": [
+        1808,
+        736
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3
+    },
+    {
+      "id": "979e816d-e9da-4d0d-930f-33fb9a66af34",
+      "name": "Sticky Note4",
+      "parameters": {
+        "color": 4,
+        "content": "## Tạo ảnh Infographic Content / Social\n",
+        "height": 512,
+        "width": 1552
+      },
+      "position": [
+        640,
+        592
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "e86bab6b-944d-4e0a-b03f-2d60e2e76391",
+      "name": "Cập Nhật",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Title of content"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand Colors",
+              "id": "Brand Colors",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand Logo",
+              "id": "Brand Logo",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Title of content",
+              "id": "Title of content",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "The Content",
+              "id": "The Content",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Note khi tạo ảnh",
+              "id": "Note khi tạo ảnh",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Image Type",
+              "id": "Image Type",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Link ảnh",
+              "id": "Link ảnh",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Link ảnh": "={{ JSON.parse($json.data.resultJson).resultUrls[0] }}",
+            "Status": "Complete",
+            "Title of content": "={{ $('Google Sheets').item.json['Title of content'] }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "appendOrUpdate",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        2176,
+        736
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "969d374a-4d5f-4593-a279-22dda885873c",
+      "name": "On form submission1",
+      "parameters": {
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Image Prompt",
+              "requiredField": true
+            }
+          ]
+        },
+        "formTitle": "Text to Image",
+        "options": {}
+      },
+      "position": [
+        688,
+        80
+      ],
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "webhookId": "0ccaef67-c087-4cc2-821d-77847ef0128d"
+    },
+    {
+      "id": "9c22ea4c-8265-4b24-8bc1-eaddb8e7fbac",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "gpt-5.1",
+          "mode": "list",
+          "value": "gpt-5.1"
+        },
+        "options": {},
+        "responsesApiEnabled": false
+      },
+      "position": [
+        864,
+        960
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "4d4eedac-d7de-4e97-9e41-561d2ef5de6f",
+      "name": "Code in JavaScript",
+      "parameters": {
+        "jsCode": "// Lấy output prompt từ AI Agent\nconst rawPrompt = $input.first().json.output;\n\n// Clean prompt - xử lý các ký tự đặc biệt\nlet cleanedPrompt = rawPrompt\n  .replace(/\\\\n/g, '\\n')\n  .replace(/[\\u0000-\\u001F\\u007F-\\u009F\"]/g, ' ')\n  .trim();\n\n// Tạo payload cho API kie.ai\nconst payload = {\n  model: \"nano-banana-pro\",\n  input: {\n    prompt: cleanedPrompt,\n    aspect_ratio: \"16:9\",\n    resolution: \"2K\",\n    output_format: \"png\",\n    image_input: [\n      \"$('Google Sheets').first().json['Brand Logo']\"\n    ]\n  }\n};\n\nreturn {\n  json: payload\n};"
+      },
+      "position": [
+        1456,
+        928
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "2fd7cdf4-b078-41f9-b93e-1667fb0bf0b7",
+      "name": "Result",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b5346dc9-b2c3-405d-aa78-a844b4332cd9",
+              "name": "image",
+              "type": "string",
+              "value": "={{ JSON.parse($json.data.resultJson).resultUrls[0] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        1760,
+        256
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "49e33293-9db7-48f3-9fc6-7fe55088221e",
+      "name": "If",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "9e53b03c-3e26-4739-8b9b-b3aeef8b56bf",
+              "leftValue": "={{ $json.msg }}",
+              "operator": {
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "success"
+            },
+            {
+              "id": "862bb753-d895-45b6-ad39-673bed426cb5",
+              "leftValue": "={{ $json.data.resultJson }}",
+              "operator": {
+                "operation": "contains",
+                "type": "string"
+              },
+              "rightValue": "https://"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        1952,
+        736
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "cd6c3dd6-091c-4be1-b0c2-500e8f033c8e",
+      "name": "If1",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "9e53b03c-3e26-4739-8b9b-b3aeef8b56bf",
+              "leftValue": "={{ $json.msg }}",
+              "operator": {
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "success"
+            },
+            {
+              "id": "862bb753-d895-45b6-ad39-673bed426cb5",
+              "leftValue": "={{ $json.data.resultJson }}",
+              "operator": {
+                "operation": "contains",
+                "type": "string"
+              },
+              "rightValue": "https://"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        1472,
+        80
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "4cc68bd3-8988-45fd-9419-2a1be6b14c3f",
+      "name": "If2",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "9e53b03c-3e26-4739-8b9b-b3aeef8b56bf",
+              "leftValue": "={{ $json.msg }}",
+              "operator": {
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "success"
+            },
+            {
+              "id": "862bb753-d895-45b6-ad39-673bed426cb5",
+              "leftValue": "={{ $json.data.resultJson }}",
+              "operator": {
+                "operation": "contains",
+                "type": "string"
+              },
+              "rightValue": "https://"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        1520,
+        400
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "0ca4a505-3b6c-4e55-bd2c-92ee8a5e4be0",
+      "name": "Loop Over Items",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        1296,
+        752
+      ],
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3
+    },
+    {
+      "id": "90609480-48a0-4cab-80b3-25c61a2ecf93",
+      "name": "Wait4",
+      "parameters": {
+        "amount": 3
+      },
+      "position": [
+        1632,
+        928
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "7ac31bf8-c38c-4679-adb6-f22838ea5146"
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

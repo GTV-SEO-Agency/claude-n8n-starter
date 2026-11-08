@@ -1,0 +1,347 @@
+{
+  "active": false,
+  "connections": {
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Log to Google Sheets1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Check Valid Email": {
+      "main": [
+        [],
+        [
+          {
+            "index": 0,
+            "node": "AI Agent1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "info1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent1",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "info1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Check Valid Email",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "FmK7WpYtHU5oQdOl",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Automate Email Filtering & AI Summarization.",
+  "nodes": [
+    {
+      "id": "0a049b0b-4192-427b-bbd9-adea9fd35e5f",
+      "name": "Log to Google Sheets1",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Sender Name"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Sender Name",
+              "id": "Sender Name",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Sender Email",
+              "id": "Sender Email",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Ngày gửi",
+              "id": "Ngày gửi",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Title",
+              "id": "Title",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tóm tắt",
+              "id": "Tóm tắt",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Ngày gửi": "={{ $('Gmail Trigger').item.json.date }}",
+            "Sender Email": "={{ $('Gmail Trigger').item.json.from.value[0].address }}",
+            "Sender Name": "={{ $('Gmail Trigger').item.json.from.value[0].name }}",
+            "Title": "={{ $('Gmail Trigger').item.json.subject }}",
+            "Tóm tắt": "={{ $json.output }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        -368,
+        -96
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4
+    },
+    {
+      "id": "87b85bf7-fcea-4e9f-9288-8f9b352148ae",
+      "name": "AI Agent1",
+      "parameters": {
+        "options": {},
+        "promptType": "define",
+        "text": "=Please read this email \"{{ $json.Content }}\" and provide a very short, concise summary containing only the most important information. Keep the summary as brief as possible without losing essential details. \n\nAnswer in Vietnamese"
+      },
+      "position": [
+        -960,
+        -80
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2
+    },
+    {
+      "id": "f73d9cf9-ea77-4bd0-af26-89f82f2f8368",
+      "name": "Gmail Trigger",
+      "parameters": {
+        "filters": {},
+        "options": {
+          "downloadAttachments": false
+        },
+        "pollTimes": {
+          "item": [
+            {
+              "minute": 59,
+              "mode": "=everyHour"
+            }
+          ]
+        },
+        "simple": false
+      },
+      "position": [
+        -1968,
+        -64
+      ],
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "03d16df8-ac19-4c1f-9292-e230410907d8",
+      "name": "Check Valid Email",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c1d2e3f4-g5h6-i7j8-k9l0-m1n2o3p4q5r6",
+              "leftValue": "={{ $json[\"Sender Name\"] }}",
+              "operator": {
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "YOUR_SENDER_NAME_FILTER"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        -1312,
+        -64
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "id": "e11004c1-5333-4c9c-ad68-1f3443636de8",
+      "name": "info1",
+      "parameters": {
+        "jsCode": "const items = [];\n\nfor (const item of $input.all()) {\n  const emailData = item.json;\n  \n  // Handle sender information (unchanged)\n  let senderEmail = '';\n  let senderName = '';\n\n  if (emailData.from?.value?.[0]) {\n    senderEmail = emailData.from.value[0].address || '';\n    senderName = emailData.from.value[0].name || senderEmail;\n  } else if (emailData.from?.text) {\n    const emailMatch = emailData.from.text.match(/<([^>]+)>/) || \n                      emailData.from.text.match(/([^\\s]+@[^\\s]+)/);\n    senderEmail = emailMatch ? emailMatch[1] : emailData.from.text;\n    \n    const nameMatch = emailData.from.text.match(/^([^<]+)/);\n    senderName = nameMatch ? nameMatch[1].trim().replace(/\\\"/g, '') : senderEmail;\n  }\n\n  // Format date (unchanged)\n  const receivedDate = new Date(emailData.date || emailData.receivedTime);\n  const formattedDate = receivedDate.toLocaleString('en-US', {\n    year: 'numeric',\n    month: '2-digit',\n    day: '2-digit',\n    hour: '2-digit',\n    minute: '2-digit',\n    hour12: true\n  });\n\n  // FIXED CONTENT EXTRACTION\n  let emailContent = '';\n  \n  // 1. First priority: Plain text version\n  if (emailData.text) {\n    emailContent = emailData.text;\n  } \n  // 2. Second priority: HTML version (convert to plain text)\n  else if (emailData.html) {\n    emailContent = emailData.html\n      .replace(/<style[^>]*>.*?<\\/style>/gs, '')  // Remove CSS\n      .replace(/<[^>]*>/g, ' ')                   // Strip HTML tags\n      .replace(/\\s+/g, ' ')                       // Collapse whitespace\n      .trim();\n  }\n  // 3. Fallback to other possible fields\n  else if (emailData.body || emailData.textPlain || emailData.textHtml) {\n    emailContent = emailData.body || emailData.textPlain || emailData.textHtml;\n  }\n\n  // Truncate content if too long\n  const maxContentLength = 5000;\n  if (emailContent.length > maxContentLength) {\n    emailContent = emailContent.substring(0, maxContentLength) + '... [truncated]';\n  }\n\n  // Create row data\n  const rowData = {\n    'Date': formattedDate,\n    'Sender Name': senderName,\n    'Sender Email': senderEmail,\n    'Subject': emailData.subject || 'No Subject',\n    'Content': emailContent,\n    //'Message ID': emailData.messageId || '',\n    'Has Attachments': emailData.attachments?.length > 0 ? 'Yes' : 'No'\n  };\n  \n  items.push({ json: rowData });\n}\n\nreturn items;"
+      },
+      "position": [
+        -1632,
+        -64
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "69b5c4a6-8ce2-4c1e-88b5-3b40da302389",
+      "name": "Sticky Note7",
+      "parameters": {
+        "color": 5,
+        "content": "## 🔑 Step 1: Add Gmail Credentials 👇",
+        "height": 400,
+        "width": 260
+      },
+      "position": [
+        -2048,
+        -288
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "461dddc8-997f-4643-9080-f17390805221",
+      "name": "Sticky Note8",
+      "parameters": {
+        "color": 5,
+        "content": "## 📧 Step 2: Email Processing Node\n",
+        "height": 400,
+        "width": 260
+      },
+      "position": [
+        -1712,
+        -288
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d24ed38e-c51b-4210-a4ff-de861ade71c6",
+      "name": "Sticky Note9",
+      "parameters": {
+        "color": 5,
+        "content": "## ⚙️ Step 3: Sender Filter\n• Replace 'YOUR_SENDER_NAME_FILTER'\n• Only emails from this sender will proceed\n• Supports multiple conditions",
+        "height": 400,
+        "width": 308
+      },
+      "position": [
+        -1392,
+        -288
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "8db69697-8885-48ae-a2ea-05c3b744b071",
+      "name": "Sticky Note10",
+      "parameters": {
+        "color": 5,
+        "content": "## ✍️ Step 4: Customize AI Prompt\n• Default: Short email summary\n• Change tone/formality as needed",
+        "height": 420,
+        "width": 360
+      },
+      "position": [
+        -1008,
+        -304
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "bee7c031-9aea-43b8-91b1-a746d733c588",
+      "name": "Sticky Note12",
+      "parameters": {
+        "color": 4,
+        "content": "## 📊 Step 6: Google Sheets Setup\n1. Add Google credentials\n2. Paste Sheet URL\n3. Select target sheet\n4. Columns auto-map to email data",
+        "height": 400,
+        "width": 500
+      },
+      "position": [
+        -576,
+        -288
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "a8a8e6eb-b125-4309-a7c8-2619c624f1e4",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "position": [
+        -1088,
+        272
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

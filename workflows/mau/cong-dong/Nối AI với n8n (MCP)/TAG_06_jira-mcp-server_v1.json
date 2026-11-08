@@ -1,0 +1,195 @@
+{
+  "connections": {
+    "Add Attachment to Jira TIcket": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Jira MCP Server",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Add Comment to Jira Ticket": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Jira MCP Server",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Change Jira Ticket Status": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Jira MCP Server",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Create Jira ticket": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Jira MCP Server",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get Issue": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Jira MCP Server",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get Projects and Issue Types": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Jira MCP Server",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get Ticket transitions": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Jira MCP Server",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_06_jira-mcp-server_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## MCP server cho Jira\n**Làm gì:** Quản lý task Jira từ Claude qua n8n.\n**Trigger:** MCP Server Trigger (AI gọi vào)\n**Credential cần:** Không cần\n**Chi phí ước:** Gần 0.\n**Mở rộng gợi ý:** Đổi sang Trello, ClickUp, Notion tuỳ team.\n\n---\n**Nguồn:** n8n.io template #3939 của tamerelzein\nhttps://n8n.io/workflows/3939\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -1420,
+        -260
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d190bffd-8586-4eee-848b-95b37f80a827",
+      "name": "Create Jira ticket",
+      "parameters": {},
+      "position": [
+        -820,
+        60
+      ],
+      "type": "n8n-nodes-base.jiraTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "970277fd-abb6-42ee-a88b-500d119d8cb8",
+      "name": "Add Comment to Jira Ticket",
+      "parameters": {},
+      "position": [
+        -660,
+        60
+      ],
+      "type": "n8n-nodes-base.jiraTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "81441e85-ad10-4c67-923c-be619737dc18",
+      "name": "Get Ticket transitions",
+      "parameters": {},
+      "position": [
+        -520,
+        60
+      ],
+      "type": "n8n-nodes-base.jiraTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "a737e529-f202-4b60-8021-29112da02f93",
+      "name": "Add Attachment to Jira TIcket",
+      "parameters": {},
+      "position": [
+        -380,
+        60
+      ],
+      "type": "n8n-nodes-base.jiraTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Change Jira Ticket Status",
+      "parameters": {},
+      "position": [
+        -260,
+        60
+      ],
+      "type": "n8n-nodes-base.jiraTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "049da5bf-eba4-4d3a-af02-34c0f56930f7",
+      "name": "Jira MCP Server",
+      "parameters": {},
+      "position": [
+        -548,
+        -160
+      ],
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 1,
+      "webhookId": ""
+    },
+    {
+      "id": "80b57783-8bb6-443e-925e-da40e1c64bb2",
+      "name": "Get Issue",
+      "parameters": {},
+      "position": [
+        -120,
+        60
+      ],
+      "type": "n8n-nodes-base.jiraTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "73b9de14-d26a-4e55-9624-cf762548d30b",
+      "name": "Get Projects and Issue Types",
+      "parameters": {},
+      "position": [
+        0,
+        60
+      ],
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

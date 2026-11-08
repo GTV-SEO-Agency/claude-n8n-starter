@@ -1,0 +1,634 @@
+{
+  "connections": {
+    "Completed?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Url image",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Wait 60 sec.",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Create Image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait 60 sec.",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get File image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Upload Image",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Url image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get File image",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get status": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Completed?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "index": 0,
+            "node": "Set data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Set data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Create Image",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Update result": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "WooCommerce",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Upload Image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update result",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait 60 sec.": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get status",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Sheets",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "WooCommerce": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_woocommerce-virtual-try-on-nano-banana_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Ảnh thử đồ ảo (virtual try-on) cho WooCommerce bằng Nano Banana\n**Làm gì:** Ghép ảnh sản phẩm thời trang lên người mẫu bằng Gemini Nano Banana, đăng lại lên sản phẩm.\n**Trigger:** Bấm tay (Execute workflow)\n**Credential cần:** API key (Header Auth), Google Drive, Google Sheets, WooCommerce\n**Chi phí ước:** Tính theo ảnh Gemini.\n**Mở rộng gợi ý:** Hợp shop thời trang; dùng cho ảnh Facebook/TikTok.\n\n---\n**Nguồn:** n8n.io template #8022 của n3witalia\nhttps://n8n.io/workflows/8022\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -1080,
+        -276
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "614bb588-3180-47e7-8dd6-fd61883d6042",
+      "name": "When clicking ‘Test workflow’",
+      "parameters": {},
+      "position": [
+        -480,
+        1600
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "9f15348f-8e76-43d7-a17a-3efb1b9d5724",
+      "name": "Get File image",
+      "parameters": {
+        "options": {},
+        "url": "={{ $json.images[0].url }}"
+      },
+      "position": [
+        448,
+        1872
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "44d01abf-6b54-432a-a21c-a4b94c1487c7",
+      "name": "Get Url image",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "url": "=https://queue.fal.run/fal-ai/nano-banana/requests/{{ $json.request_id }}"
+      },
+      "position": [
+        224,
+        1872
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "d9e88f7a-dc2b-4470-87ae-92919b5c28d2",
+      "name": "Get status",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "url": "=https://queue.fal.run/fal-ai/nano-banana/requests/{{ $('Create Image').item.json.request_id }}/status "
+      },
+      "position": [
+        864,
+        1616
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "722f45bd-a779-43ba-9c36-8bba1d5fc421",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 6,
+        "content": "## Model\n![image](https://n3wstorage.b-cdn.net/n3witalia/model.jpg)",
+        "height": 540,
+        "width": 340
+      },
+      "position": [
+        -464,
+        320
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "2bb4598f-801e-4730-a15f-e006db7699ac",
+      "name": "Sticky Note1",
+      "parameters": {
+        "color": 6,
+        "content": "## Product\n![image](https://n3wstorage.b-cdn.net/n3witalia/tshirt.jpg)",
+        "height": 540,
+        "width": 360
+      },
+      "position": [
+        -80,
+        320
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "62a9183c-9201-4843-9d2e-c845b8dcbf7d",
+      "name": "Sticky Note2",
+      "parameters": {
+        "color": 4,
+        "content": "## Result\n![image](https://n3wstorage.b-cdn.net/n3witalia/result_sport.jpeg)",
+        "height": 540,
+        "width": 340
+      },
+      "position": [
+        576,
+        320
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "ab7daa1a-2494-4dee-af0d-c19d28adf3f0",
+      "name": "WooCommerce",
+      "parameters": {
+        "dimensionsUi": {},
+        "imagesUi": {
+          "imagesValues": [
+            {
+              "alt": "",
+              "name": "",
+              "src": "={{ $('Get File image').item.json.images[0].url }}"
+            }
+          ]
+        },
+        "metadataUi": {},
+        "operation": "update",
+        "productId": "={{ $('Loop Over Items').item.json['PRODUCT ID'] }}",
+        "resource": "product",
+        "updateFields": {}
+      },
+      "position": [
+        1104,
+        1872
+      ],
+      "type": "n8n-nodes-base.wooCommerce",
+      "typeVersion": 1
+    },
+    {
+      "id": "e8e4c772-b11e-404a-b581-5710c680d853",
+      "name": "Google Sheets",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "IMAGE RESULT",
+              "lookupValue": "="
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": false
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        -256,
+        1600
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "86a83c5c-616a-498a-a844-8b689fea7c4a",
+      "name": "Wait 60 sec.",
+      "parameters": {
+        "amount": 10
+      },
+      "position": [
+        672,
+        1616
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "351bd496-a9cc-445c-86f6-a56189df0028"
+    },
+    {
+      "id": "ff15269e-472e-4c65-872c-d24dac05739f",
+      "name": "Sticky Note3",
+      "parameters": {
+        "color": 3,
+        "content": "# AI Virtual TryOn for WooCommerce\nThis Workflow is designed to streamline the process of creating realistic images of clothing products worn by models, eliminating the need for expensive photoshoots. The primary goal is to automate the generation of virtual try-on images for an eCommerce store selling clothing, using advanced image processing technologies.\n\nStarting from a Google Sheets document or a database containing the URLs of a model image and a clothing product, the AI Agent generates an image of the model wearing the selected clothing item (Virtual TryOn).\n\nOnce the URL of the resulting image is obtained, the system downloads the final image file. This image is then uploaded to Google Drive, archived via FTP in a dedicated folder, or directly added to the WooCommerce product page.\n\nBy offering realistic images of clothing items worn by models, this automation process saves time and resources, making product catalog management more efficient. This approach not only enhances the competitiveness of the eCommerce store but also provides greater flexibility in creating high-quality visual content adaptable to various digital marketing campaigns.\n\n",
+        "height": 424,
+        "width": 740
+      },
+      "position": [
+        -464,
+        -176
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d223fd2a-6590-47e3-b197-a2fc9934c070",
+      "name": "Sticky Note4",
+      "parameters": {
+        "content": "## STEP 1 - GOOGLE SHEET\nCreate a [Google Sheet like this](https://docs.google.com/spreadsheets/d/<YOUR_FILE_ID>/edit?usp=sharing).\n\nPlease insert:\n- in the \"IMAGE MODEL\" column the basic image of the model to dress\n- in the \"IMAGE PRODUCT\" column the image of the item of clothing to wear\n- in the \"PRODUCT ID\" column the ID of the product on your WooCommerce\n\nLeave the \"IMAGE RESULT\" column unfilled. It will be inserted by the system once the image has been created",
+        "height": 260,
+        "width": 740
+      },
+      "position": [
+        -464,
+        944
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "8018008c-f420-498b-8762-4acab6af295d",
+      "name": "Completed?",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "383d112e-2cc6-4dd4-8985-f09ce0bd1781",
+              "leftValue": "={{ $json.status }}",
+              "operator": {
+                "name": "filter.operator.equals",
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "COMPLETED"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        1040,
+        1616
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "78d4b56e-0b29-40cb-a1fc-e51b5c092a93",
+      "name": "Upload Image",
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "name": "={{ $now.format('yyyyLLddHHmmss') }}-{{ $json.images[0].file_name }}",
+        "options": {}
+      },
+      "position": [
+        656,
+        1872
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "a0a4b685-b46e-400c-b8c7-863d0dfa518b",
+      "name": "Update result",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "IMAGE MODEL",
+              "id": "IMAGE MODEL",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "IMAGE PRODUCT",
+              "id": "IMAGE PRODUCT",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PRODUCT ID",
+              "id": "PRODUCT ID",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "IMAGE RESULT",
+              "id": "IMAGE RESULT",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "IMAGE RESULT": "={{ $('Get File image').item.json.images[0].url }}",
+            "row_number": "={{ $('Loop Over Items').item.json.row_number }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        896,
+        1872
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "0e09b903-fd2a-4109-86eb-22ce23065c2f",
+      "name": "Set data",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c713d31f-9abd-496a-ac79-e8e2efe60aa0",
+              "name": "model",
+              "type": "string",
+              "value": "={{ $json['IMAGE MODEL'] }}"
+            },
+            {
+              "id": "58fb5e76-6576-4d16-8b25-b931c7935c01",
+              "name": "shirt",
+              "type": "string",
+              "value": "={{ $json['IMAGE PRODUCT'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        224,
+        1616
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "f7b63738-d131-4c85-894f-b18e1cd93884",
+      "name": "Create Image",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "jsonBody": "={\n     \"prompt\": \"make a photo of the model wearing the submitted clothing item and creating the themed background\",\n     \"image_urls\": [\n       \"{{ $json.model }}\",\n       \"{{ $json.shirt }}\"\n     ]\n   }",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "sendHeaders": true,
+        "specifyBody": "json",
+        "url": "https://queue.fal.run/fal-ai/nano-banana/edit"
+      },
+      "position": [
+        464,
+        1616
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "ddf4b966-f1e3-4e55-8282-5146f91d7242",
+      "name": "Sticky Note6",
+      "parameters": {
+        "content": "## STEP 2 - GET API KEY (YOURAPIKEY)\nCreate an account [here](https://fal.ai/) and obtain API KEY.\nIn the node \"Create Image\" set \"Header Auth\" and set:\n- Name: \"Authorization\"\n- Value: \"Key YOURAPIKEY\"",
+        "height": 156,
+        "width": 740
+      },
+      "position": [
+        -464,
+        1248
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d5410953-da60-446a-8e79-9eab1aecd6ea",
+      "name": "Loop Over Items",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        -48,
+        1600
+      ],
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3
+    },
+    {
+      "id": "ddbaa607-7da6-4865-b362-3b482a326399",
+      "name": "Sticky Note7",
+      "parameters": {
+        "content": "## STEP 3 - WOOCOMMERCE\n- Set WooCommerce API",
+        "height": 92,
+        "width": 740
+      },
+      "position": [
+        -464,
+        1440
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

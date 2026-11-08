@@ -1,0 +1,428 @@
+{
+  "active": false,
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Prepare Thread Data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Create Tweet": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait4",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Is First Tweet?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Create Tweet",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Reply Tweet",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Loop Over Tweets": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Success Response",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Is First Tweet?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Prepare Thread Data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Split Into Threads",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Reply Tweet": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait3",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Split Into Threads": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Tweets",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Store Tweet ID": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Tweets",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Store Tweet ID",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait4": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Store Tweet ID",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Message a model",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "j8FA60erSTGyHew0",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "X, Threads automation",
+  "nodes": [
+    {
+      "id": "975a50e2-7415-40f5-84cb-8bfe54387b6e",
+      "name": "Prepare Thread Data",
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "account_id",
+              "stringValue": "proxa_official"
+            },
+            {
+              "name": "thread_text",
+              "stringValue": "={{$json.output}}"
+            }
+          ]
+        },
+        "include": "none",
+        "options": {}
+      },
+      "position": [
+        1920,
+        600
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3
+    },
+    {
+      "id": "f82296f0-cb80-47a8-af9d-3c65e6be2695",
+      "name": "Split Into Threads",
+      "parameters": {
+        "jsCode": "// Lấy thread_text từ node trước đó\nconst threadText = $(\"Prepare Thread Data\").first().json.thread_text;\n\nif (!threadText) {\n  return [{ threadText: \"No content provided\" }];\n}\n\n// Tách phần hook/intro (trước ---Thread--- đầu tiên)\nconst parts = threadText.split(\"---Thread---\");\nconst tweets = [];\n\n// Tweet đầu tiên là hook/intro\nif (parts[0]) {\n  tweets.push(parts[0].trim());\n}\n\n// Xử lý các phần còn lại\nfor (let i = 1; i < parts.length; i++) {\n  const section = parts[i].trim();\n  \n  // Tìm và tách theo emoji số (1️⃣, 2️⃣, etc.) hoặc pattern số khác\n  const numberPattern = /([1-9]️⃣|[1-9]\\.|[1-9]\\))/g;\n  const points = section.split(numberPattern);\n  \n  // Ghép lại số với nội dung tương ứng\n  for (let j = 1; j < points.length; j += 2) {\n    if (points[j] && points[j + 1]) {\n      const number = points[j];\n      const content = points[j + 1].trim();\n      tweets.push(`${number} ${content}`);\n    }\n  }\n  \n  // Nếu không có số nào, giữ nguyên section\n  if (points.length === 1 && section) {\n    tweets.push(section);\n  }\n}\n\n// Return array của tweet objects\nreturn tweets.map(text => ({\n  threadText: text.trim()\n}));"
+      },
+      "position": [
+        2160,
+        600
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "24a10d5a-5e23-4b44-8bf0-c51ea9c1e5a0",
+      "name": "AI Agent",
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are a Viral AI Content Creator specializing in Twitter/Threads posts about AI. You create content in the style of thought leaders who make complex AI concepts accessible and exciting.\n\nYour content formula:\n1. **Hook Pattern**: Start with emotional/surprising statements\n   - \"wow... this is insane\"\n   - \"This changes everything\"\n   - \"You won't believe what [X] just did\"\n   - \"[Company] just dropped [X] and it's mind-blowing\"\n\n2. **Structure Style**:\n   - Use numbered lists for examples/features\n   - Break complex ideas into bite-sized insights\n   - Each point gets its own visual space\n   - Use \"---Thread---\" to separate sections\n\n3. **Content Elements**:\n   - Lead with the most shocking/impressive capability\n   - Use specific examples with names/companies\n   - Include \"what this means\" implications\n   - Add philosophical insights when relevant\n   - Reference thought leaders (Naval, Sam Altman, etc.)\n\n4. **Writing Style**:\n   - Short, punchy sentences\n   - Conversational but knowledgeable\n   - Use power words: insane, mind-blowing, game-changer\n   - Strategic emoji use: 🤖 🚀 🧠 ⚡ 💡 🔥 ✨\n   - Create visual breaks with formatting\n\n5. **Thread Structure**:\n   - Thread 1: Hook + main revelation\n   - Thread 2-X: Numbered examples or deep dives\n   - Final Thread: Big picture implication + engagement question\n\nRemember: You're not just sharing news, you're creating \"stop-scrolling\" moments that make people think \"I need to share this!\""
+        },
+        "promptType": "define",
+        "text": "=[context]:\n\n1. Research Data from Perplexity: { {{ $json.choices[0].message.content }} }\n2. Topic: { {{ $('When chat message received').item.json.chatInput }} }\n\n[Instruction]:\n\nCreate a viral thread in the style of influential AI thought leaders. Requirements:\n\n1. Start with a \"wow\" hook that creates instant curiosity\n2. Use numbered format for examples/capabilities \n3. Each major point should be its own thread section\n4. Include specific names, companies, or technical details\n5. Explain \"why this matters\" in relatable terms\n6. Add philosophical insight or future implications\n7. End with thought-provoking question\n\nStyle notes:\n- Write like you're sharing mind-blowing news with a friend\n- Use short, impactful sentences\n- Create visual breaks between ideas\n- Make technical concepts feel magical and accessible\n\nSplit into multiple threads with \"---Thread---\" if needed."
+      },
+      "position": [
+        1580,
+        600
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2
+    },
+    {
+      "id": "db26191d-e5ae-4b40-bb14-7611fd61cfa8",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "gpt-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "position": [
+        1500,
+        880
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "6657d10d-b45e-4b5c-bc07-5066a84ba6e8",
+      "name": "Message a model",
+      "parameters": {
+        "messages": {
+          "message": [
+            {
+              "content": "=You are an AI Research Assistant specializing in finding the latest, most compelling information about AI, AI Agents, AI Automation, and AI developments. Your role is to:\n\n1. Search for breaking news, trending topics, and significant developments in AI\n2. Find specific examples, case studies, and real-world applications\n3. Identify key insights from thought leaders and companies\n4. Gather technical details but present them accessibly\n5. Look for visual examples, demos, or compelling statistics\n\nFocus areas:\n- New AI model releases (for examples: GPT, Claude, Gemini, Kling AI Model, etc.)\n- AI agent breakthroughs and use cases\n- AI automation tools and platforms (for examples: n8n workflow, AI Agents, Make automation,...)\n- Real-world AI implementations\n- AI philosophy and future implications\n\nReturn comprehensive but structured information that can be transformed into viral social content.\n[today time]:\nToday is {{ $now }}",
+              "role": "system"
+            },
+            {
+              "content": "=Research the following topic: {{ $json.chatInput }}\n\nPlease find:\n1. Latest developments or breaking news about this topic\n2. Specific examples or demonstrations (with names, companies, dates)\n3. Technical capabilities explained simply\n4. Real-world applications or use cases\n5. Why this matters for everyday users/businesses\n6. Any compelling statistics or comparisons\n7. Quotes from experts or thought leaders if available\n\nStructure the information clearly so it can be used for social media content creation."
+            }
+          ]
+        },
+        "model": "=sonar-pro",
+        "options": {},
+        "requestOptions": {}
+      },
+      "position": [
+        1360,
+        600
+      ],
+      "type": "n8n-nodes-base.perplexity",
+      "typeVersion": 1
+    },
+    {
+      "id": "fcf84d49-7d3a-4aad-a5a7-608cb5efc994",
+      "name": "When chat message received",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        1120,
+        600
+      ],
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "webhookId": "bec229f3-9a83-4916-acd5-16c748c02b0c"
+    },
+    {
+      "id": "6a9ba38f-876e-4c62-8743-5bc9ba5ed9a7",
+      "name": "Create Tweet",
+      "parameters": {
+        "additionalFields": {},
+        "text": "={{ $json.threadText }}"
+      },
+      "position": [
+        2920,
+        440
+      ],
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2
+    },
+    {
+      "id": "b689b661-0757-4e4a-a520-a3e5289bdcf5",
+      "name": "Loop Over Tweets",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        2480,
+        600
+      ],
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3
+    },
+    {
+      "id": "bce7ca03-63e7-49c8-a333-a1e32cda83d1",
+      "name": "Is First Tweet?",
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "operation": "equal",
+              "value1": "={{ $runIndex }}"
+            }
+          ]
+        }
+      },
+      "position": [
+        2700,
+        620
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1
+    },
+    {
+      "id": "094b7906-84a7-402d-b0e8-4d9f0fd26289",
+      "name": "Store Tweet ID",
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "tweet_id",
+              "stringValue": "={{ $json.id }}"
+            }
+          ]
+        },
+        "include": "none",
+        "options": {}
+      },
+      "position": [
+        3300,
+        620
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3
+    },
+    {
+      "id": "01b15c1c-d41d-4a10-a1fe-9d8ced676d64",
+      "name": "Success Response",
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "ok",
+              "stringValue": "ok"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        2780,
+        280
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3
+    },
+    {
+      "id": "ab8d5469-2502-4586-acd2-baaa1192dcfc",
+      "name": "Wait3",
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      },
+      "position": [
+        3080,
+        640
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "webhookId": "91db1b50-dc3c-4429-8524-f0a3d952dd6a"
+    },
+    {
+      "id": "99ec7460-840e-4f25-bb45-b2aedc735f37",
+      "name": "Reply Tweet",
+      "parameters": {
+        "additionalFields": {
+          "inReplyToStatusId": {
+            "__rl": true,
+            "mode": "id",
+            "value": "={{ $('Store Tweet ID').first().json.tweet_id }}"
+          }
+        },
+        "text": "={{ $json.threadText }}"
+      },
+      "position": [
+        2900,
+        640
+      ],
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2
+    },
+    {
+      "id": "3d57bd35-4df5-44d2-ad74-f5276573bd49",
+      "name": "Wait4",
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      },
+      "position": [
+        3160,
+        460
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "webhookId": "91db1b50-dc3c-4429-8524-f0a3d952dd6a"
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

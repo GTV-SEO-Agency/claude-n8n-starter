@@ -1,0 +1,104 @@
+{
+  "connections": {
+    "WooCommerce Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Telegram",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_woocommerce-new-order-telegram_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Đơn WooCommerce mới → báo Telegram\n**Làm gì:** Có đơn mới, workflow gửi tin Telegram gồm khách, sản phẩm, tiền. Ba node, không AI.\n**Trigger:** WooCommerce có đơn/khách mới\n**Credential cần:** Telegram bot, WooCommerce\n**Chi phí ước:** 0 đồng.\n**Mở rộng gợi ý:** Bài nhập môn WooCommerce Trigger; thêm nhánh đơn giá trị cao báo riêng chủ shop.\n\n---\n**Nguồn:** n8n.io template #4818 của mrazari\nhttps://n8n.io/workflows/4818\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -1480,
+        -460
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "31722179-ef48-4a85-9a0c-ffc824e59493",
+      "name": "WooCommerce Trigger",
+      "parameters": {
+        "event": "order.created"
+      },
+      "position": [
+        -120,
+        -20
+      ],
+      "type": "n8n-nodes-base.wooCommerceTrigger",
+      "typeVersion": 1,
+      "webhookId": "6fc419e7-2af4-44e0-af83-b4f0a408138b"
+    },
+    {
+      "id": "6564d1a2-87b0-4ffb-bc60-54256a85058f",
+      "name": "Telegram",
+      "parameters": {
+        "additionalFields": {},
+        "chatId": "",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "additionalFields": {
+                      "web_app": {
+                        "url": "={{ $json.payment_url }}"
+                      }
+                    },
+                    "text": "🔗 View Order"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyMarkup": "inlineKeyboard",
+        "text": "=🛒 New Order Received!\n\n🆔 Order #: {{$json.id}}  \n💰 Total: {{$json.total}} USD  \n📅 Date: {{$json.date_created}}  \n🔖 Status: {{$json.status}}  \n\n🛍️ Products:\n{{ $json.line_items.map(item => `- ${item.name} × ${item.quantity} = ${item.total} USD`).join('\\n') }}\n\n👁️‍🗨️ Click the button below to view this order."
+      },
+      "position": [
+        100,
+        -20
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "7ff0563d-eb68-4e68-a32a-54bdeab7c7ed"
+    },
+    {
+      "id": "b5e0a35b-f794-4f0a-b76e-f63ac8eddc7b",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "## 🛠 Setup Instructions\n\n### 🔧 Configuration Steps\n- **Replace** the `chatId` field in the Telegram node with your own Telegram **user ID** or **group ID**.\n- **Make sure** your Telegram bot is added to the group/channel if you're using one.\n- **Update** the WooCommerce API credentials with your **Consumer Key**, **Secret**, and **Base URL**.\n- **Ensure** your WooCommerce site allows external REST API access.\n- The order button uses `{{$json.payment_url}}`, so you **don’t need to hardcode your domain**.\n\n### 💵 Currency\n- The total amount and product prices are shown in **USD** for international compatibility.\n- You can change it to another currency if needed.\n\n---\n\n### ✅ What This Workflow Does\n- Triggers when a **new order** is placed in WooCommerce.\n- Sends a **Telegram message** to the admin.\n- Includes:\n  - Order ID, date, status, and total\n  - List of products\n  - **Button** to view the order in WooCommerce\n\n---\n",
+        "height": 560,
+        "width": 680
+      },
+      "position": [
+        -880,
+        -360
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,770 @@
+{
+  "active": false,
+  "connections": {
+    "AI Topic Researcher": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Through Topics",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Daily Topic Research Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "AI Topic Researcher",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Download Video1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "YouTube",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Format Rankings": {
+      "main": [
+        [
+          {
+            "index": 1,
+            "node": "Merge",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Generate Video1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait for Video",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Video Status": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Video Ready?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Video Topic": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Intro & Outro Creator",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Perplexity Research",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Intro & Outro Creator": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Merge",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Intro Outro Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "Intro & Outro Creator",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    },
+    "Loop Through Topics": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Save Topics to Sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Manual Video Creation": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Video Topic",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Generate Video1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Model (Intro/Outro)": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Intro & Outro Creator",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "OpenAI Model (Topics)": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Topic Researcher",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Perplexity Research": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Format Rankings",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Retry Wait": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Video Status",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Save Topics to Sheet": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Through Topics",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger2": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Video Topic",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Topic Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "AI Topic Researcher",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    },
+    "Video Ready?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Download Video1",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Retry Wait",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait for Video": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Video Status",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "YouTube": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update Sheet Status",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "r4l2uEubuKaSNTlA",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Long form Video workflow",
+  "nodes": [
+    {
+      "id": "8070ecf0-f242-4b81-800c-21e52617b059",
+      "name": "YouTube",
+      "parameters": {
+        "categoryId": "1",
+        "operation": "upload",
+        "options": {
+          "description": "=Our Top Ten Rankings of {{ $('Created Video').item.json.Subject }}. Do you agree with us? Let us know in the comments!👇",
+          "privacyStatus": "unlisted"
+        },
+        "regionCode": "US",
+        "resource": "video",
+        "title": "=Top Ten: {{ $('Created Video').item.json.Subject }}"
+      },
+      "position": [
+        1584,
+        1840
+      ],
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1
+    },
+    {
+      "id": "ec4d6c45-448e-4eb2-8a96-7094848b3675",
+      "name": "Setup Guide",
+      "parameters": {
+        "content": "# 🌍 Travel Top 10 Video Workflow\n\n## Workflow này bao gồm:\n\n### 1. **Topic Research Agent** (Chạy hàng ngày)\n- AI Agent tự động tìm kiếm các topic du lịch trending\n- Lưu vào sheet \"Topic Ideas\"\n\n### 2. **Content Creation** (Chạy thủ công)\n- Lấy topic từ sheet \"Videos to Create\"\n- Research với Perplexity API\n- Tạo script intro/outro và top 10 ranking\n- Generate video với JSON2Video\n- Upload lên YouTube\n\n### 3. **Cấu hình cần thiết:**\n- Google Sheets credentials\n- Perplexity API key\n- JSON2Video API key\n- YouTube OAuth2\n- ElevenLabs API (optional)\n\n### 4. **Google Sheets Template:**\nTạo 2 sheets:\n- **Topic Ideas**: Columns: Topic, Category, Trend Score, Date Added, Status\n- **Videos to Create**: Columns: Subject, Creation Status, Video URL, Posted Date",
+        "height": 788,
+        "width": 512
+      },
+      "position": [
+        -1344,
+        1216
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "517484ae-1995-4b98-aa04-09d85232605b",
+      "name": "Daily Topic Research Trigger",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "position": [
+        -784,
+        1392
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "04fbb4c5-4eec-4273-bf30-cf2345c4803a",
+      "name": "AI Topic Researcher",
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Role & Overview: Travel Content Research Expert\n\nBạn là chuyên gia nghiên cứu nội dung du lịch, chuyên tìm kiếm các chủ đề hấp dẫn cho video Top 10.\n\n## Task:\nTìm 5 chủ đề du lịch HOT và thú vị cho video Top 10 dựa trên:\n- Xu hướng tìm kiếm hiện tại\n- Mùa du lịch phù hợp\n- Sự kiện du lịch sắp tới\n- Địa điểm mới nổi\n\n## Output Requirement (TIẾNG ANH):\nMỗi topic phải bao gồm:\n1. **topic**: Tên chủ đề (VD: \"Top 10 Hidden Beaches in Southeast Asia\")\n2. **category**: Loại (Beaches/Mountains/Cities/Food/Activities/Hotels)\n3. **trendScore**: Điểm xu hướng (1-10)\n4. **reasoning**: Lý do chọn topic này\n5. **targetAudience**: Đối tượng mục tiêu\n\n## Ví dụ topics tốt:\n- Top 10 Street Food Markets in Asia\n- Top 10 Eco-Friendly Resorts in Bali\n- Top 10 Adventure Activities in New Zealand\n- Top 10 Historical Sites in Europe\n- Top 10 Budget-Friendly Destinations 2025\n\nHãy sáng tạo và tìm những góc nhìn độc đáo!"
+        },
+        "promptType": "define",
+        "text": "=Tìm kiếm các chủ đề du lịch trending cho video Top 10"
+      },
+      "position": [
+        -560,
+        1392
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8
+    },
+    {
+      "id": "4fbf66ca-f2c2-4d42-9c60-af72d38d097f",
+      "name": "OpenAI Model (Topics)",
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {
+          "temperature": 0.8,
+          "topP": 0.95
+        }
+      },
+      "position": [
+        -560,
+        1616
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1
+    },
+    {
+      "id": "b438af4f-d49e-4806-b634-6c101ca73648",
+      "name": "Topic Parser",
+      "parameters": {
+        "jsonSchemaExample": "[\n  {\n    \"topic\": \"Top 10 Hidden Beaches in Southeast Asia\",\n    \"category\": \"Beaches\",\n    \"trendScore\": 9,\n    \"reasoning\": \"High search volume for off-the-beaten-path destinations\",\n    \"targetAudience\": \"Adventure seekers and backpackers\"\n  },\n  {\n    \"topic\": \"Top 10 Street Food Markets in Bangkok\",\n    \"category\": \"Food\",\n    \"trendScore\": 8,\n    \"reasoning\": \"Food tourism is trending, Bangkok is popular destination\",\n    \"targetAudience\": \"Food lovers and cultural explorers\"\n  }\n]"
+      },
+      "position": [
+        -432,
+        1616
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "55df775e-9f66-4dba-942b-3871d64b79f1",
+      "name": "Save Topics to Sheet",
+      "parameters": {
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Category": "={{ $json.category }}",
+            "Date Added": "={{ new Date().toISOString().split('T')[0] }}",
+            "Reasoning": "={{ $json.reasoning }}",
+            "Status": "New",
+            "Target Audience": "={{ $json.targetAudience }}",
+            "Topic": "={{ $json.topic }}",
+            "Trend Score": "={{ $json.trendScore }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": ""
+        }
+      },
+      "position": [
+        16,
+        1392
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "089811bf-d3bd-4c08-8180-f88611be85e3",
+      "name": "Manual Video Creation",
+      "parameters": {},
+      "position": [
+        -784,
+        1872
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "7f2a964f-92ae-45cb-8b49-c67191305ae5",
+      "name": "Get Video Topic",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Creation Status",
+              "lookupValue": "To Do"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": ""
+        }
+      },
+      "position": [
+        -560,
+        1968
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "562f2877-39de-4c23-b748-3f6309e54a98",
+      "name": "Format Rankings",
+      "parameters": {
+        "jsCode": "// Parse Perplexity response và format cho video\nconst response = $input.item.json;\nconst content = response.choices[0].message.content;\n\n// Parse content thành ranking array\n// Giả sử Perplexity trả về format đã yêu cầu\nconst rankings = [];\nconst items = content.split(/\\d+\\./g).slice(1); // Split by numbers\n\nitems.forEach((item, index) => {\n  const rankNumber = 10 - index;\n  if (rankNumber >= 1) {\n    // Extract thông tin từ mỗi item\n    const lines = item.trim().split('\\n');\n    \n    rankings.push({\n      voiceoverText: lines[0] || `At number ${rankNumber}...`,\n      imagePrompt: lines[1] || 'Beautiful travel destination image',\n      lowerThirdText: lines[2] || `Item ${rankNumber}`\n    });\n  }\n});\n\nreturn {\n  rankings: rankings\n};"
+      },
+      "position": [
+        -48,
+        2112
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "acf282be-c687-4108-b89b-9d5cec498507",
+      "name": "Intro & Outro Creator",
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "# Travel Video Creator - Intro & Outro\n\nBạn tạo intro và outro hấp dẫn cho video du lịch Top 10.\n\n## Yêu cầu:\n\n### introVoiceoverText:\n- Chào đón nồng nhiệt\n- Giới thiệu chủ đề du lịch\n- Tạo sự tò mò và hứng thú\n- 2-3 câu, phong cách energetic\n- OUTPUT TIẾNG ANH\n\n### introImagePrompt:\n- Hình ảnh ấn tượng về chủ đề du lịch\n- Chi tiết, sống động, cinematic\n- Phù hợp với tone của video\n\n### outroVoiceoverText:\n- Tổng kết danh sách\n- Call-to-action (like, subscribe, comment)\n- Hỏi về trải nghiệm của viewer\n- Cảm ơn người xem\n- OUTPUT TIẾNG ANH\n\n### outroImagePrompt:\n- Hình ảnh kết thúc ấm áp\n- Có element 'Thank you'\n- Phù hợp với chủ đề du lịch\n\n## Ví dụ phong cách:\n\"Pack your bags and join us on an incredible journey as we explore the Top 10 most breathtaking destinations!\""
+        },
+        "promptType": "define",
+        "text": "=Chủ đề: {{ $('Get Video Topic').item.json.Subject }}"
+      },
+      "position": [
+        -112,
+        1712
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8
+    },
+    {
+      "id": "c3da1d34-9e72-4e8e-bfe7-866612f421b3",
+      "name": "Intro Outro Parser",
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"introVoiceoverText\": \"Welcome adventurers! Get ready for an incredible journey...\",\n  \"introImagePrompt\": \"Stunning montage of world's most beautiful travel destinations...\",\n  \"outroVoiceoverText\": \"There you have it! The Top 10 destinations that will take your breath away...\",\n  \"outroImagePrompt\": \"Warm sunset scene with 'Thanks for watching' message...\"\n}"
+      },
+      "position": [
+        32,
+        1952
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "48892a15-0334-4d19-b5ae-02adfa247e02",
+      "name": "Wait for Video",
+      "parameters": {
+        "amount": 150
+      },
+      "position": [
+        688,
+        1968
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "6c5d3a9b-a545-493d-aaea-c37ca1e2051b"
+    },
+    {
+      "id": "2436c0f5-79bd-4da6-b22f-71fc8708fcb5",
+      "name": "Get Video Status",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "url": "=https://api.json2video.com/v2/movies?id={{ $('Generate Video1').item.json.id }}"
+      },
+      "position": [
+        912,
+        1968
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "3f059dd5-c7c2-4990-bff0-fa61f18cc7bb",
+      "name": "Video Ready?",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "video-ready",
+              "leftValue": "={{ $json.movie.status }}",
+              "operator": {
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "done"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        1136,
+        1888
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "id": "6f0b57fb-7c46-4fe9-9993-c8df32595f83",
+      "name": "Update Sheet Status",
+      "parameters": {
+        "columns": {
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Subject"
+          ],
+          "value": {
+            "Creation Status": "Completed",
+            "Posted Date": "={{ new Date().toISOString() }}",
+            "Subject": "={{ $('Get Video Topic').item.json.Subject }}",
+            "Video URL": "={{ $('Upload to YouTube').item.json.url }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": ""
+        }
+      },
+      "position": [
+        1808,
+        1840
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "c08419bb-0ead-44ca-a062-4e45998cf0eb",
+      "name": "Retry Wait",
+      "parameters": {
+        "amount": 15
+      },
+      "position": [
+        1360,
+        2064
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "7fad3fc8-40a3-4a77-b41f-8bb80b5fddb7"
+    },
+    {
+      "id": "3fda0004-7b26-4b84-9615-b477604d558c",
+      "name": "OpenAI Model (Intro/Outro)",
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "position": [
+        -144,
+        1936
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1
+    },
+    {
+      "id": "fb323886-eaef-47ab-88cd-96dbd2937f7e",
+      "name": "Loop Through Topics",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        -208,
+        1392
+      ],
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3
+    },
+    {
+      "id": "",
+      "name": "Generate Video1",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={\n  \"template\": \"YOUR_TEMPLATE_ID\",\n  \"variables\": {\n    \"title\": \"{{ $('Get Video Topic').item.json.Subject }}\",\n    \"voiceModel\": \"elevenlabs\",\n    \"voice.ConnectionID\": \"my-elevenlabs-connection\",\n    \"voiceID\": \"21m00Tcm4TlvDq8ikWAM\",\n    \"imageModel\": \"flux-pro\",\n    \"introImagePrompt\": \"{{ $('Intro & Outro Creator').item.json.output.introImagePrompt }}\",\n    \"introVoiceoverText\": \"{{ $('Intro & Outro Creator').item.json.output.introVoiceoverText }}\",\n    \"outroImagePrompt\": \"{{ $('Intro & Outro Creator').item.json.output.outroImagePrompt }}\",\n    \"outroVoiceoverText\": \"{{ $('Intro & Outro Creator').item.json.output.outroVoiceoverText }}\",\n     \"ranking\": [\n      {\n        \"voiceoverText\": \"{{ $json.output[0].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[0].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[0].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[1].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[1].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[1].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[2].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[2].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[2].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[3].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[3].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[3].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[4].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[4].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[4].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[5].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[5].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[5].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[6].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[6].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[6].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[7].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[7].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[7].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[8].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[8].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[8].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[9].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[9].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[9].lowerThirdText }}\"\n      }\n    ]\n  }\n}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://api.json2video.com/v2/movies"
+      },
+      "position": [
+        464,
+        1968
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "267531c7-9a0b-4493-946b-8dd938e0a144",
+      "name": "Download Video1",
+      "parameters": {
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        },
+        "url": "={{ $('Get Video Status').item.json.movie.url }}"
+      },
+      "position": [
+        1360,
+        1840
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "c6991232-abc4-4cfe-9ac5-f55564c251f1",
+      "name": "Perplexity Research",
+      "parameters": {
+        "messages": {
+          "message": [
+            {
+              "content": "=Bạn là travel expert. Research và tạo Top 10 ranking cho chủ đề: {{ $('Get Video Topic').item.json.Subject }}\\n\\nYêu cầu:\\n1. Research thông tin MỚI NHẤT và CHÍNH XÁC\\n2. Mỗi item cần có thông tin độc đáo và hấp dẫn\\n3. Output phải bằng TIẾNG ANH\\n4. Phong cách viết engaging và informative\\n\\nFormat output theo cấu trúc:\\n- voiceoverText: Script 2-3 câu giới thiệu item (bắt đầu với ranking)\\n- imagePrompt: Mô tả hình ảnh chi tiết\\n- lowerThirdText: Tên ngắn gọn của item",
+              "role": "system"
+            },
+            {
+              "content": "=Hãy tạo Top 10 ranking cho: {{ $('Get Video Topic').item.json.Subject }}. Countdown từ 10 xuống 1. Mỗi item phải có facts thú vị, lý do nổi bật, và thông tin hữu ích cho du khách."
+            }
+          ]
+        },
+        "model": "sonar-pro",
+        "options": {},
+        "requestOptions": {}
+      },
+      "position": [
+        -336,
+        2112
+      ],
+      "type": "n8n-nodes-base.perplexity",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Merge",
+      "parameters": {},
+      "position": [
+        240,
+        1968
+      ],
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2
+    },
+    {
+      "id": "8afc2d05-ced9-430d-8947-07f5469e1f48",
+      "name": "Schedule Trigger2",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 10
+            }
+          ]
+        }
+      },
+      "position": [
+        -784,
+        2064
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 6,
+        "content": "# Workflow được tạo lập bởi The AI Growth - Vincent Do\n\n## https://theaigrowth.io/\n",
+        "height": 128,
+        "width": 912
+      },
+      "position": [
+        -800,
+        1216
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "createdAt": "2025-05-06T17:07:59.776Z",
+      "id": "QnPDekJYr5wskIzf",
+      "name": "marketing-automation",
+      "updatedAt": "2025-05-06T17:07:59.776Z"
+    },
+    {
+      "createdAt": "2025-05-06T17:07:59.776Z",
+      "id": "3THlsgtSV2xVrHZK",
+      "name": "content",
+      "updatedAt": "2025-05-06T17:07:59.776Z"
+    },
+    {
+      "createdAt": "2025-05-06T17:07:59.779Z",
+      "id": "mlhSbcxW9nhS7cX8",
+      "name": "seo",
+      "updatedAt": "2025-05-06T17:07:59.779Z"
+    }
+  ]
+}

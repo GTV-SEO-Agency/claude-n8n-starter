@@ -16,10 +16,10 @@ Folder này giúp người không rành kỹ thuật chạy n8n trên máy mình
 |---|---|---|
 | Luật | File này | Cách làm việc chung, việc phải hỏi trước |
 | Quy trình | Skill `cai-dat-n8n`: cài, bật lại, cập nhật, sao lưu n8n. Bộ skill chính chủ `n8n-skills`: dựng, sửa, gỡ lỗi workflow | Các bước của từng loại việc |
-| Nơi chạy việc | n8n chạy trong Docker. Claude điều khiển n8n qua MCP `n8n-mcp` của bộ `n8n-skills`, kiểm bằng `curl` tới `http://localhost:5678` | Workflow chạy theo lịch hoặc sự kiện, cho cùng kết quả mỗi lần |
+| Nơi chạy việc | n8n chạy trong Docker. Claude điều khiển n8n qua MCP `n8n-local` (khai báo trong `.mcp.json`, đăng nhập bằng Access token trong `.env`), kiểm bằng `curl` tới `http://localhost:5678` | Workflow chạy theo lịch hoặc sự kiện, cho cùng kết quả mỗi lần |
 
 - Khi n8n chưa cài, không mở được, hoặc người dùng vừa khởi động lại máy: dùng skill `cai-dat-n8n`.
-- Khi dựng, sửa hay gỡ lỗi workflow: dùng bộ `n8n-skills` và MCP `n8n-mcp`. Thiếu bộ này thì chạy bước 4 của skill `cai-dat-n8n` trước.
+- Khi dựng, sửa hay gỡ lỗi workflow: dùng bộ `n8n-skills` và MCP `n8n-local`. Thiếu bộ này thì chạy bước 4 của skill `cai-dat-n8n` trước.
 - Người dùng dán link `https://github.com/n8n-io/n8n`: đọc README của repo để biết bản mới nhất và cách chạy bằng Docker, rồi dùng `n8n/compose.yml` của folder này. Không clone repo về máy. Repo đó chứa mã nguồn cho người viết code n8n, nặng và không cần để chạy n8n.
 
 ## Việc tự động chạy trên n8n
@@ -83,7 +83,7 @@ Chưa đo được thì ghi "chưa kiểm" và cách kiểm.
 
 - Connector (Gmail, Google Drive, Notion…) cho **Claude** đọc dữ liệu. n8n không dùng được connector. n8n cần credential riêng, tạo trong giao diện n8n.
 - Trước khi dựng workflow đọc email hay Sheet, dùng connector xem một mẫu dữ liệu thật để chọn đúng trường. Không có connector thì xin người dùng dán một mẫu đã che thông tin riêng.
-- n8n trong folder này chạy ở `localhost`, nên connector n8n trên claude.ai không gọi tới được. Claude nối n8n qua MCP `n8n-mcp`.
+- n8n trong folder này chạy ở `localhost`, nên connector n8n trên claude.ai không gọi tới được. Claude nối n8n qua MCP `n8n-local`.
 - Danh sách connector nên bật: `HUONG-DAN.md` mục 5.
 
 ## Gợi ý việc nên tự động
@@ -96,3 +96,4 @@ Khi người dùng chưa biết làm gì, gợi ý các việc dưới đây và
 4. Nhắc công nợ hoặc lịch hẹn đến hạn: nhắc nội bộ trước, gửi khách sau khi người dùng duyệt.
 5. Lịch đăng bài: Sheet nội dung → bản nháp → người duyệt → đăng.
 6. Trợ lý trả lời câu hỏi thường gặp của khách. Có mẫu ở `workflows/mau/`.
+- Trước khi dựng workflow mới: đọc các mẫu gần nhất trong `workflows/mau/` (`tag-build/`, `cong-dong/`). Mẫu đã bỏ credential và key: gắn lại credential của người dùng trong n8n.

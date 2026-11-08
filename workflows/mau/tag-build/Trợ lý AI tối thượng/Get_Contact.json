@@ -1,0 +1,298 @@
+{
+  "active": false,
+  "connections": {
+    "Contact Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Response",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Try Again",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get contact": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Contact Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Contact Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Contact Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "update a contact": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Contact Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "p0SgjMYCFzUJ6NQd",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Get Contact",
+  "nodes": [
+    {
+      "id": "6545eca3-8d8e-4205-be22-9948cf75c5a3",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "gpt-4o-2024-11-20",
+          "mode": "list",
+          "value": "gpt-4o-2024-11-20"
+        },
+        "options": {}
+      },
+      "position": [
+        -660,
+        320
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "6f46f33e-814c-4457-9667-f880cd86b935",
+      "name": "Contact Agent",
+      "onError": "continueErrorOutput",
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Overview\nYou are a contact management assistant. Your responsibilities include looking up contacts, adding new contacts, or updating a contact's information.\n\nwhen you update the conacts,  you don't need to fill out all the information that is in database, just fill out the information that you are given\n\nAll the output need to be in Vietnamese.\n**Contact Management**  \n   - Use \"Get Contacts\" to retrieve contact information. \n   - Use \"Add or Update Contact\" to store new contact information or modify existing entries. \n   - Use \"notes\" when you need to leave some note that corresponding to the contact as the user request."
+        },
+        "promptType": "define",
+        "text": "={{ $json.query }}"
+      },
+      "position": [
+        -520,
+        80
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    },
+    {
+      "id": "2bdf1c85-80b5-4be1-a6b1-45f01723c690",
+      "name": "Response",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4f360190-a717-4a93-8336-d03ea65975d5",
+              "name": "response",
+              "type": "string",
+              "value": "={{ $json.output }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "05ece786-057b-4d30-a395-7aa82bdbf59d",
+      "name": "Try Again",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4f360190-a717-4a93-8336-d03ea65975d5",
+              "name": "response",
+              "type": "string",
+              "value": "An error occurred. Please try again."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        0,
+        180
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "9f59a38b-3469-4c05-a8e6-78596ce25d82",
+      "name": "When Executed by Another Workflow",
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "position": [
+        -740,
+        80
+      ],
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "e9fea435-250e-498e-a17f-50757a833877",
+      "name": "Get contact",
+      "parameters": {
+        "combineFilters": "OR",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Họ và Tên",
+              "lookupValue": "={{ $fromAI(\"name\") }}"
+            },
+            {
+              "lookupColumn": "Email",
+              "lookupValue": "={{ $fromAI(\"emailAdress\") }}"
+            }
+          ]
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        -440,
+        340
+      ],
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "f036f91f-5eff-4206-9ca9-e1843e1a0bf1",
+      "name": "update a contact",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Họ và Tên"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Họ và Tên",
+              "id": "Họ và Tên",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Email",
+              "id": "Email",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Công Ty",
+              "id": "Công Ty",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Số Điện Thoại",
+              "id": "Số Điện Thoại",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Note",
+              "id": "Note",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Công Ty": "={{ $fromAI(\"company\") }}",
+            "Email": "={{ $fromAI(\"emailAddress\") }}",
+            "Họ và Tên": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('H__v__T_n__using_to_match_', ``, 'string') }}",
+            "Note": "={{ $fromAI(\"notes\") }}",
+            "Số Điện Thoại": "={{ $fromAI(\"phonenumber\") }}"
+          }
+        },
+        "descriptionType": "manual",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "appendOrUpdate",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        -260,
+        340
+      ],
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

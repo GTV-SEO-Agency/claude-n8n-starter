@@ -1,0 +1,936 @@
+{
+  "connections": {
+    "Check Video Status": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Is In Progress",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Convert to Binary File": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Upload Video",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Create Folder": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Give Access to folder",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Create Slug": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Create Folder",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Create Video": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Extract Image ID from URL": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Create Video",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Image File": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Upload Original Image",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Remove Image Background",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Video Link": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Convert to Binary File",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Give Access to folder": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Image File",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Insert New Product": {
+      "main": [
+        []
+      ]
+    },
+    "Is In Progress": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Get Video Link",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "On Form Submission": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Create Slug",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Remove Image Background": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Upload Remove BG image",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Update Remove BG URL": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Extract Image ID from URL",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Update Video Link": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send E-Mail Notification",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Upload Original Image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Insert New Product",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Upload Remove BG image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update Remove BG URL",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Upload Video": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update Video Link",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Check Video Status",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_3d-product-video-from-2d-image_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Video sản phẩm 3D từ một ảnh 2D\n**Làm gì:** Từ một ảnh sản phẩm, tạo video xoay 3D ngắn để đăng sàn và social.\n**Trigger:** Form n8n\n**Credential cần:** Gmail, Google Drive, Google Sheets\n**Chi phí ước:** Tính theo video của dịch vụ AI.\n**Mở rộng gợi ý:** Mảng video của khoá; ghép với workflow POV/short của TAG.\n\n---\n**Nguồn:** n8n.io template #4987 của infyom\nhttps://n8n.io/workflows/4987\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -1680,
+        -260
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "a27f6012-7a92-436d-8c28-fa0ffca700f6",
+      "name": "Wait",
+      "parameters": {
+        "amount": 40
+      },
+      "position": [
+        1120,
+        180
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "4d338cdb-1534-43be-97dc-070299cd6278"
+    },
+    {
+      "id": "78761c5e-dfe1-4aab-bd0f-f2812d6c0b4e",
+      "name": "On Form Submission",
+      "parameters": {
+        "formDescription": "Give us a product photo, title and we'll get back to you with professional marketing 3D video. ",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Product Photo",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Product Title",
+              "placeholder": "Product Title",
+              "requiredField": true
+            }
+          ]
+        },
+        "formTitle": "Shopify 3D Product Video",
+        "options": {}
+      },
+      "position": [
+        -1080,
+        80
+      ],
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "webhookId": "7980414e-c599-45fe-98a7-4fd1d121154a"
+    },
+    {
+      "id": "",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "## 3D Product Video\n\nSample Google Sheet\n- https://docs.google.com/spreadsheets/d/<YOUR_FILE_ID>/edit?gid=0#gid=0",
+        "height": 140,
+        "width": 880
+      },
+      "position": [
+        -1080,
+        -160
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d615090d-236d-444a-add9-f9a429019088",
+      "name": "Give Access to folder",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "share",
+        "options": {},
+        "permissionsUi": {
+          "permissionsValues": {
+            "role": "reader",
+            "type": "anyone"
+          }
+        }
+      },
+      "position": [
+        -420,
+        80
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "alwaysOutputData": true,
+      "executeOnce": true,
+      "id": "29230056-71c0-4900-9d00-d017213fe856",
+      "name": "Get Image File",
+      "parameters": {
+        "jsCode": "let results = [];\nconst items = $(\"On Form Submission\").all()\n\nfor (item of items) {\n    for (key of Object.keys(item.binary)) {\n        results.push({\n            json: {\n                fileName: item.binary[key].fileName\n            },\n            binary: {\n                data: item.binary[key],\n            }\n        });\n    }\n}\n\nreturn results;"
+      },
+      "position": [
+        -200,
+        80
+      ],
+      "retryOnFail": true,
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "ee55f4d4-475f-4220-843a-4ad8b16bbad8",
+      "name": "Upload Remove BG image",
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "inputDataFieldName": "=no-bg.png",
+        "name": "=(no-bg){{ $('Create Folder').item.json.name }}",
+        "options": {}
+      },
+      "position": [
+        240,
+        180
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "33180073-9abe-4a92-9f82-2486a8b58eab",
+      "name": "Extract Image ID from URL",
+      "parameters": {
+        "jsCode": "const url = $input.first().json['BG Remove Image']\n\n// Extract the ID using a regular expression\nconst match = url.match(/\\/d\\/([^/]+)/);\n\nreturn {\n  json: {\n    fileId: match ? match[1] : null,\n  },\n};"
+      },
+      "position": [
+        680,
+        180
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "88d1f349-959a-498f-8f2f-ab45d3d9b25f",
+      "name": "Upload Video",
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "inputDataFieldName": "Video-file",
+        "name": "=Video-file",
+        "options": {}
+      },
+      "position": [
+        2220,
+        180
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "bf26fc49-f91c-40f1-83d3-d2330f242f56",
+      "name": "Create Folder",
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "name": "={{ $json.slug }}",
+        "options": {},
+        "resource": "folder"
+      },
+      "position": [
+        -640,
+        80
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "4eadd7af-a13d-40a8-b886-71c798acc547",
+      "name": "Create Slug",
+      "parameters": {
+        "jsCode": "const title = $json[\"Product Title\"] || \"default\";\nconst slug = title.toLowerCase().replace(/\\s+/g, '-') + '-' + Math.random().toString(36).substring(2, 8);\nreturn { slug };\n"
+      },
+      "position": [
+        -860,
+        80
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "e53cab81-e81c-412a-a8c1-bf889e6ee063",
+      "name": "Create Video",
+      "parameters": {
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "A product placed on a reflective surface slowly rotates 360 degrees with dramatic studio lighting, soft shadows, and a smooth camera pan. The background is clean, minimal, and cinematic, highlighting the product’s details and elegance"
+            },
+            {
+              "name": "image_url",
+              "value": "=https://drive.usercontent.google.com/download?id={{ $json.fileId }}&export=view&authuser=0"
+            }
+          ]
+        },
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<YOUR_API_KEY>"
+            }
+          ]
+        },
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "sendHeaders": true,
+        "url": "https://queue.fal.run/fal-ai/kling-video/v1/standard/image-to-video"
+      },
+      "position": [
+        900,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "037d6b30-34fe-4fd7-918a-c7d3025b5bfe",
+      "name": "Check Video Status",
+      "parameters": {
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<YOUR_API_KEY>"
+            }
+          ]
+        },
+        "options": {},
+        "sendHeaders": true,
+        "url": "={{ $json.status_url }}"
+      },
+      "position": [
+        1340,
+        105
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "2a74bdb2-efcb-4ede-ba3d-e0716a719c96",
+      "name": "Get Video Link",
+      "parameters": {
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<YOUR_API_KEY>"
+            }
+          ]
+        },
+        "options": {},
+        "sendHeaders": true,
+        "url": "={{ $json.response_url }}"
+      },
+      "position": [
+        1780,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "executeOnce": false,
+      "id": "fbf59ebf-991e-4b77-8987-77716c06af0f",
+      "name": "Remove Image Background",
+      "parameters": {
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "size",
+              "value": "auto"
+            },
+            {
+              "inputDataFieldName": "=data",
+              "name": "image_file",
+              "parameterType": "formBinaryData"
+            }
+          ]
+        },
+        "contentType": "multipart-form-data",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "<YOUR_API_KEY>"
+            }
+          ]
+        },
+        "method": "POST",
+        "options": {
+          "response": {
+            "response": {
+              "outputPropertyName": "no-bg.png",
+              "responseFormat": "file"
+            }
+          }
+        },
+        "sendBody": true,
+        "sendHeaders": true,
+        "url": "https://api.remove.bg/v1.0/removebg"
+      },
+      "position": [
+        20,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "4c10c26e-3caa-45f0-bf12-9779cd82d87c",
+      "name": "Upload Original Image",
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "name": "={{ $('Create Folder').item.json.name }}",
+        "options": {}
+      },
+      "position": [
+        20,
+        -20
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "",
+      "name": "Insert New Product",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Original Image",
+              "id": "Original Image",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "BG Remove Image",
+              "id": "BG Remove Image",
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Product Title",
+              "id": "Product Title",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Video Link",
+              "id": "Video Link",
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Slug",
+              "id": "Slug",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Original Image": "={{ $json.webViewLink }}",
+            "Product Title": "={{ $('On Form Submission').item.json['Product Title'] }}",
+            "Slug": "={{ $('Create Slug').item.json.slug }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        240,
+        -20
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "b3492513-e591-4106-a806-9fb1c43f513b",
+      "name": "Update Remove BG URL",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Slug"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Original Image",
+              "id": "Original Image",
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "BG Remove Image",
+              "id": "BG Remove Image",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Product Title",
+              "id": "Product Title",
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Video Link",
+              "id": "Video Link",
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Slug",
+              "id": "Slug",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "BG Remove Image": "={{ $json.webViewLink }}",
+            "Slug": "={{ $('Create Folder').item.json.name }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "appendOrUpdate",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        460,
+        180
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "cbc141e9-7cf5-4c57-a4b1-d719182cb997",
+      "name": "Is In Progress",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "8ada0859-b74f-4d48-ae95-30c34340e39f",
+              "leftValue": "={{ $json.status }}",
+              "operator": {
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "IN_PROGRESS"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        1560,
+        180
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "eb09040d-f4d9-419e-be9c-361a2ef65531",
+      "name": "Convert to Binary File",
+      "parameters": {
+        "options": {
+          "response": {
+            "response": {
+              "outputPropertyName": "Video-file",
+              "responseFormat": "file"
+            }
+          }
+        },
+        "url": "={{ $json.video.url }}"
+      },
+      "position": [
+        2000,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "b2c905dc-2743-4b5d-b850-facecd489166",
+      "name": "Update Video Link",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Slug"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Original Image",
+              "id": "Original Image",
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "BG Remove Image",
+              "id": "BG Remove Image",
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Product Title",
+              "id": "Product Title",
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Video Link",
+              "id": "Video Link",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Slug",
+              "id": "Slug",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Slug": "={{ $('Create Folder').item.json.name }}",
+            "Video Link": "={{ $('Get Video Link').item.json.video.url }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "appendOrUpdate",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        2440,
+        180
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "7adb552d-939f-42d1-b425-45b88d52aa71",
+      "name": "Send E-Mail Notification",
+      "parameters": {
+        "message": "=<p>Hi there! 👋</p>\n\n<p><b>We’re excited to share our latest product video with you! 🎉<b></p>\n\n<p>Watch it here to see the product video you’ll love:<br>\n<a href=\"{{ $('Get Video Link').item.json.video.url }}\">{{ $('Get Video Link').item.json.video.url }}</a></p>\n\n<p>Don’t miss out—this could be just what you’ve been looking for! ✨</p>\n\n<p><b>Thanks for being part of our community! 🙌<b></p>\n",
+        "options": {
+          "appendAttribution": false
+        },
+        "sendTo": "user@example.com",
+        "subject": "Product Video"
+      },
+      "position": [
+        2660,
+        180
+      ],
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "webhookId": "346e7266-8fb6-4b86-9b32-2ca6c1258566"
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

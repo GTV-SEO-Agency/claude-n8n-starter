@@ -1,0 +1,928 @@
+{
+  "active": false,
+  "connections": {
+    "Convert Word to Docs": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Doc",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set Resume",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Extract from File1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Recruiter Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Extract from File2": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set Resume",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Extract from File3": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set Resume",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "File Type": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Convert Word to Docs",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Get PDF",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Get TXT",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Doc": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Extract from File",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Job Description": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Extract from File1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get PDF": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Extract from File2",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get TXT": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Extract from File3",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Job Description",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Drive Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "File Type",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Append Data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Recruiter Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Information Extractor",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Set Resume": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get row(s) in sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "Recruiter Agent",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    },
+    "o4-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Recruiter Agent",
+            "type": "ai_languageModel"
+          },
+          {
+            "index": 0,
+            "node": "Information Extractor",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "nuRwhPzDvHZ9bLqv",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Resume cho HR",
+  "nodes": [
+    {
+      "id": "",
+      "name": "File Type",
+      "parameters": {
+        "options": {},
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "",
+                    "leftValue": "={{ $json.mimeType }}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                }
+              },
+              "outputKey": "Word Doc",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "dbb700a9-4c6a-4e60-8615-0a48d0556eba",
+                    "leftValue": "={{ $json.mimeType }}",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "application/pdf"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                }
+              },
+              "outputKey": "PDF",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "d0f51929-55da-414e-8b00-fa40da22d86e",
+                    "leftValue": "={{ $json.mimeType }}",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "text/plain"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                }
+              },
+              "outputKey": "Text",
+              "renameOutput": true
+            }
+          ]
+        }
+      },
+      "position": [
+        1232,
+        288
+      ],
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2
+    },
+    {
+      "id": "2903673d-fed2-4c96-a5e6-82bb7ea9885a",
+      "name": "Extract from File",
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "position": [
+        1872,
+        64
+      ],
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1
+    },
+    {
+      "id": "e39f8f0d-4212-4afa-9ee1-8c38839dc5bf",
+      "name": "Convert Word to Docs",
+      "parameters": {
+        "authentication": "predefinedCredentialType",
+        "method": "POST",
+        "nodeCredentialType": "googleDriveOAuth2Api",
+        "options": {},
+        "url": "=https://www.googleapis.com/drive/v2/files/{{ $json.id }}/copy?convert=true&supportsAllDrives=true"
+      },
+      "position": [
+        1552,
+        64
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "9102328b-9090-411d-8e6f-ffd0dc62c6f5",
+      "name": "Get Doc",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "download",
+        "options": {
+          "googleFileConversion": {
+            "conversion": {
+              "docsToFormat": "application/pdf"
+            }
+          }
+        }
+      },
+      "position": [
+        1712,
+        64
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "4309b25a-a436-4c86-83a7-3c4ccf279f96",
+      "name": "Get Job Description",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "url",
+          "value": ""
+        },
+        "operation": "download",
+        "options": {
+          "googleFileConversion": {
+            "conversion": {
+              "docsToFormat": "application/pdf"
+            }
+          }
+        }
+      },
+      "position": [
+        2624,
+        64
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "b7a7d6e8-70e7-47a4-845e-a6a62c2a2dbe",
+      "name": "Extract from File1",
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "position": [
+        2848,
+        64
+      ],
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1
+    },
+    {
+      "id": "65911955-d9d7-4910-8ef0-fa701b3878e1",
+      "name": "Recruiter Agent",
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Overview\nBạn là một chuyên gia tuyển dụng của công ty. Bạn đã được cung cấp mô tả công việc và CV của ứng viên. Nhiệm vụ của bạn là phân tích CV liên quan đến mô tả công việc và cung cấp báo cáo sàng lọc chi tiết.\nTập trung cụ thể vào mức độ phù hợp của ứng viên với các yêu cầu cốt lõi và hồ sơ lý tưởng được nêu trong mô tả công việc. Đánh giá cả sự phù hợp về kỹ năng kỹ thuật và hiểu biết về bối cảnh kinh doanh. Sử dụng lập luận dựa trên nội dung thực tế của CV và bài đăng tuyển dụng — tránh đưa ra các giả định.\n\n## Output\n\nĐầu ra của bạn phải tuân theo định dạng chính xác này:\n\n1. Điểm mạnh của ứng viên:\nLiệt kê những điểm mạnh hàng đầu hoặc trình độ liên quan mà ứng viên mang lại. Hãy cụ thể.\n\n2. Điểm yếu của ứng viên:\nLiệt kê những lĩnh vực mà ứng viên còn thiếu hoặc không phù hợp dựa trên mô tả công việc.\n\n3. Yếu tố rủi ro:\n- Gán điểm rủi ro (Thấp / Trung bình / Cao)\n- Giải thích tình huống xấu nhất nếu ứng viên này được tuyển dụng.\n\n4. Yếu tố lợi ích:\n- Gán điểm lợi ích (Thấp / Trung bình / Cao)\n- Mô tả tình huống tốt nhất — giá trị nào mà ứng viên này có thể mang lại?\n- Ứng viên có vẻ phù hợp ngắn hạn hay dài hạn?\n\n5. Xếp hạng tổng thể (0–10):\nGán một số từ 0 (không phù hợp) đến 10 (hoàn hảo). Không sử dụng số thập phân.\n\n6. Lý do cho việc xếp hạng:\nGiải thích rõ ràng tại sao ứng viên này nhận được điểm số đó. Tham chiếu nội dung CV cụ thể và cách nó phù hợp hoặc không phù hợp với mô tả công việc.\n\n## Mô tả công việc\n{{ $json.text }}"
+        },
+        "promptType": "define",
+        "text": "=[Hồ sơ ứng viên]: \n\n{{ $('Set Resume').item.json.resume }}\n\n[Note quan trọng về ứng viên tương ứng với vị trí mà tôi cần tìm kiếm]:\n\n{{ $('Get row(s) in sheet').item.json['Note ở vị trí tuyển'] }}\n\nOutput must be in Vietnamese"
+      },
+      "position": [
+        2032,
+        320
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2
+    },
+    {
+      "id": "76f37e16-0c42-4a28-a241-9be537cab4c8",
+      "name": "Structured Output Parser",
+      "parameters": {
+        "inputSchema": "{\n  \"name\": \"resume_screening_evaluation\",\n  \"description\": \"Analyzes a candidate's resume against a job description and outputs strengths, weaknesses, risk/reward assessment, and an overall fit score.\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"candidate_strengths\": {\n      \"type\": \"array\",\n      \"description\": \"A list of specific strengths or qualifications that match the job description.\",\n      \"items\": {\n        \"type\": \"string\"\n      }\n    },\n    \"candidate_weaknesses\": {\n      \"type\": \"array\",\n      \"description\": \"A list of areas where the candidate falls short or lacks alignment with the job requirements.\",\n      \"items\": {\n        \"type\": \"string\"\n      }\n    },\n    \"risk_factor\": {\n      \"type\": \"object\",\n      \"description\": \"An evaluation of the potential risks of hiring this candidate.\",\n      \"properties\": {\n        \"score\": {\n          \"type\": \"string\",\n          \"enum\": [\"Low\", \"Medium\", \"High\"],\n          \"description\": \"The risk level of hiring this candidate.\"\n        },\n        \"explanation\": {\n          \"type\": \"string\",\n          \"description\": \"A brief explanation of the worst-case scenario if the candidate is hired.\"\n        }\n      },\n      \"required\": [\"score\", \"explanation\"]\n    },\n    \"reward_factor\": {\n      \"type\": \"object\",\n      \"description\": \"An evaluation of the potential upside of hiring this candidate.\",\n      \"properties\": {\n        \"score\": {\n          \"type\": \"string\",\n          \"enum\": [\"Low\", \"Medium\", \"High\"],\n          \"description\": \"The reward level of hiring this candidate.\"\n        },\n        \"explanation\": {\n          \"type\": \"string\",\n          \"description\": \"A description of the best-case scenario and whether the candidate is a short-term or long-term fit.\"\n        }\n      },\n      \"required\": [\"score\", \"explanation\"]\n    },\n    \"overall_fit_rating\": {\n      \"type\": \"integer\",\n      \"description\": \"A rating from 0 to 10 indicating how well the candidate matches the job description.\",\n      \"minimum\": 0,\n      \"maximum\": 10\n    },\n    \"justification_for_rating\": {\n      \"type\": \"string\",\n      \"description\": \"A summary explaining why the candidate received the specific fit rating, referencing resume and job description alignment.\"\n    }\n  },\n  \"required\": [\n    \"candidate_strengths\",\n    \"candidate_weaknesses\",\n    \"risk_factor\",\n    \"reward_factor\",\n    \"overall_fit_rating\",\n    \"justification_for_rating\"\n  ]\n}\n",
+        "schemaType": "manual"
+      },
+      "position": [
+        2304,
+        560
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "803224b1-ddbb-47e2-89b9-70a71a73cc23",
+      "name": "o4-mini",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "o4-mini",
+          "mode": "list",
+          "value": "o4-mini"
+        },
+        "options": {}
+      },
+      "position": [
+        1984,
+        560
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "4bcd3a64-3327-4f11-bc3d-ceac8292ef17",
+      "name": "Information Extractor",
+      "parameters": {
+        "attributes": {
+          "attributes": [
+            {
+              "description": "Họ Và Tên Ứng Viên",
+              "name": "Name",
+              "required": true
+            },
+            {
+              "description": "candidate's email address",
+              "name": "Email Address",
+              "required": true
+            }
+          ]
+        },
+        "options": {},
+        "text": "={{ $('Set Resume').item.json.resume }}"
+      },
+      "position": [
+        2336,
+        320
+      ],
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "c3737da0-6da8-424c-9044-ea6c19d48e08",
+      "name": "Append Data",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Ngày",
+              "id": "Ngày",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "CV",
+              "id": "CV",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Họ và Tên",
+              "id": "Họ và Tên",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Email",
+              "id": "Email",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Điểm Mạnh",
+              "id": "Điểm Mạnh",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Điểm Yếu",
+              "id": "Điểm Yếu",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Yếu tố Rủi Ro",
+              "id": "Yếu tố Rủi Ro",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Ưu Điểm",
+              "id": "Ưu Điểm",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Đánh giá tổng quan",
+              "id": "Đánh giá tổng quan",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Đánh giá chi tiết",
+              "id": "Đánh giá chi tiết",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "CV": "={{ $('Google Drive Trigger').item.json.webContentLink }}",
+            "Email": "={{ $json.output['Email Address'] }}",
+            "Họ và Tên": "={{ $json.output.Name }}",
+            "Ngày": "={{ $now.format('dd-MM-yyyy hh:m a') }}",
+            "Yếu tố Rủi Ro": "=- {{ $('Recruiter Agent').item.json.output.risk_factor.score }}\n\n- {{ $('Recruiter Agent').item.json.output.risk_factor.explanation }}",
+            "Điểm Mạnh": "={{ $('Recruiter Agent').item.json.output.candidate_strengths.join(\"\\n\\n\") }}",
+            "Điểm Yếu": "={{ $('Recruiter Agent').item.json.output.candidate_weaknesses.join(\"\\n\\n\") }}",
+            "Đánh giá chi tiết": "={{ $('Recruiter Agent').item.json.output.justification_for_rating }}",
+            "Đánh giá tổng quan": "={{ $('Recruiter Agent').item.json.output.overall_fit_rating }}",
+            "Ưu Điểm": "=- {{ $('Recruiter Agent').item.json.output.reward_factor.score }}\n\n- {{ $('Recruiter Agent').item.json.output.reward_factor.explanation }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        2640,
+        320
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6
+    },
+    {
+      "id": "a4c25ee6-b9cd-46bf-b437-363391f03e75",
+      "name": "Extract from File2",
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "position": [
+        1712,
+        304
+      ],
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1
+    },
+    {
+      "id": "0abc4b1f-58bf-4a8d-9a8a-e6f840361d1e",
+      "name": "Get PDF",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "download",
+        "options": {}
+      },
+      "position": [
+        1536,
+        304
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "63b19833-a487-4939-8687-4b0a72f74fc8",
+      "name": "Get TXT",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "download",
+        "options": {}
+      },
+      "position": [
+        1552,
+        544
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "2d849cdd-7ae6-4212-ac91-9eee4027ba45",
+      "name": "Extract from File3",
+      "parameters": {
+        "destinationKey": "text",
+        "operation": "text",
+        "options": {}
+      },
+      "position": [
+        1712,
+        544
+      ],
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1
+    },
+    {
+      "id": "4bb938d6-26fa-4f7a-9a7b-baba240a6f91",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 2,
+        "content": "## Thu Thập CV",
+        "height": 220,
+        "width": 436
+      },
+      "position": [
+        736,
+        240
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "b3051ad4-e7aa-42cc-9bee-ea8c4bb11a89",
+      "name": "Sticky Note1",
+      "parameters": {
+        "color": 6,
+        "content": "## File Type",
+        "height": 220
+      },
+      "position": [
+        1184,
+        240
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "4d9dce38-4e09-426f-9047-c7b3e769d9b5",
+      "name": "Sticky Note2",
+      "parameters": {
+        "color": 4,
+        "content": "## Word Doc",
+        "height": 220,
+        "width": 640
+      },
+      "position": [
+        1440,
+        0
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "64230d28-fad5-4227-9722-77efc0cc8b25",
+      "name": "Sticky Note3",
+      "parameters": {
+        "color": 4,
+        "content": "## PDF",
+        "height": 220,
+        "width": 440
+      },
+      "position": [
+        1440,
+        240
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "38098dde-917e-4c3f-8f90-8ece5f142dbf",
+      "name": "Sticky Note4",
+      "parameters": {
+        "color": 4,
+        "content": "## Text File",
+        "height": 220,
+        "width": 440
+      },
+      "position": [
+        1440,
+        480
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "75b0a573-5eb6-449b-b9a0-d77ffcbdf4f2",
+      "name": "Sticky Note5",
+      "parameters": {
+        "color": 3,
+        "content": "## Chuẩn hoá đầu vào\n",
+        "height": 220
+      },
+      "position": [
+        2112,
+        0
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "fdf7b96b-388d-4b13-85da-1bf440da2823",
+      "name": "Sticky Note6",
+      "parameters": {
+        "content": "## Get Job Description",
+        "height": 220,
+        "width": 676
+      },
+      "position": [
+        2368,
+        0
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "4bdbeb33-9f58-454c-a0e3-45a0250acf29",
+      "name": "Sticky Note7",
+      "parameters": {
+        "color": 5,
+        "content": "## Analysis & Information Extract",
+        "height": 220,
+        "width": 880
+      },
+      "position": [
+        1904,
+        240
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "a706ee25-3d23-4550-acad-a92a8c8010d5",
+      "name": "Sticky Note8",
+      "parameters": {
+        "color": 7,
+        "content": "## Model & Parser",
+        "height": 220,
+        "width": 564
+      },
+      "position": [
+        1904,
+        480
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "2468b5eb-d0c7-40b4-98c7-8b15100507b0",
+      "name": "Google Drive Trigger",
+      "parameters": {
+        "event": "fileCreated",
+        "folderToWatch": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {},
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder"
+      },
+      "position": [
+        896,
+        304
+      ],
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "c72431ea-fdf9-4a6e-8f19-fede7e574282",
+      "name": "Set Resume",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0f9e36f9-60cb-4593-a586-723124d69ff8",
+              "name": "resume",
+              "type": "string",
+              "value": "={{ $json.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        2160,
+        64
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "69b308d6-86cf-492b-be33-445539ead691",
+      "name": "Get row(s) in sheet",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Tình trạng",
+              "lookupValue": "Run"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        2416,
+        64
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "createdAt": "2025-10-29T10:39:52.664Z",
+      "id": "QGofM3nwbULIAmUq",
+      "name": "hr",
+      "updatedAt": "2025-10-29T10:39:52.664Z"
+    }
+  ]
+}

@@ -1,0 +1,324 @@
+{
+  "connections": {
+    "Calculate Dynamic Re-order Quantity": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Search records",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Create purchase records in table": {
+      "main": [
+        []
+      ]
+    },
+    "Get Products with low stock": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get supplier Details for those low stock products",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Purchase Orders which are pending": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Group products with suppliers",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get supplier Details for those low stock products": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Calculate Dynamic Re-order Quantity",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get the record id's of PO": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update the PO status to sent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Group products with suppliers": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send PO to suppliers via Email",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Get the record id's of PO",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Remove Duplicate Product Orders": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Create purchase records in table",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Run Every Mid Night": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Products with low stock",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Purchase Orders which are pending",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Search records": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Remove Duplicate Product Orders",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send PO to suppliers via Email": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_inventory-po-supplier-emails_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Quản lý tồn kho: tự tạo PO và email nhà cung cấp\n**Làm gì:** Tồn kho dưới ngưỡng → tạo đơn đặt hàng → email nhà cung cấp → ghi Airtable.\n**Trigger:** Lịch (Schedule)\n**Credential cần:** Airtable\n**Chi phí ước:** 0 đồng.\n**Mở rộng gợi ý:** Đổi Airtable sang Sheets.\n\n---\n**Nguồn:** n8n.io template #5815 của iamvaar\nhttps://n8n.io/workflows/5815\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -3200,
+        -1080
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "fe401179-5a8b-4232-b148-9bf4d96ceb9b",
+      "name": "Get Products with low stock",
+      "parameters": {},
+      "position": [
+        -2340,
+        -540
+      ],
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1
+    },
+    {
+      "id": "46bfdc76-b244-41a9-a686-09c8eb140968",
+      "name": "Get supplier Details for those low stock products",
+      "parameters": {},
+      "position": [
+        -2120,
+        -540
+      ],
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1
+    },
+    {
+      "id": "836a5efb-0cad-4508-8703-911241f0b847",
+      "name": "Calculate Dynamic Re-order Quantity",
+      "parameters": {},
+      "position": [
+        -1900,
+        -540
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "7d04d71d-3d40-4575-b567-6e6bb8712e3a",
+      "name": "Run Every Mid Night",
+      "parameters": {},
+      "position": [
+        -2520,
+        -540
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "50c4223b-83d7-4204-a2ad-75b390b9298b",
+      "name": "Create purchase records in table",
+      "parameters": {},
+      "position": [
+        -2160,
+        -280
+      ],
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1
+    },
+    {
+      "alwaysOutputData": true,
+      "id": "87965ea3-6e2a-495d-a040-fcf15ba8bb2a",
+      "name": "Search records",
+      "parameters": {},
+      "position": [
+        -2500,
+        -280
+      ],
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1
+    },
+    {
+      "id": "",
+      "name": "Remove Duplicate Product Orders",
+      "parameters": {},
+      "position": [
+        -2340,
+        -280
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "cc7b13bc-d8f8-4c26-b503-5d9a8fcfd010",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        -2600,
+        -980
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "790b9e2e-63fb-4d15-b0e9-47d1ab6dfdd2",
+      "name": "Schedule Trigger",
+      "parameters": {},
+      "position": [
+        -1360,
+        -520
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "93b3ea8a-5b0a-41b6-863c-1c78bc6ec59d",
+      "name": "Get Purchase Orders which are pending",
+      "parameters": {},
+      "position": [
+        -1120,
+        -520
+      ],
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1
+    },
+    {
+      "id": "4ba6d12d-cbe6-418e-a9bb-102f54451b03",
+      "name": "Group products with suppliers",
+      "parameters": {},
+      "position": [
+        -900,
+        -520
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "ce853473-aa77-4215-a7e2-4b584f6b5986",
+      "name": "Get the record id's of PO",
+      "parameters": {},
+      "position": [
+        -720,
+        -400
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "275e3674-127b-4acf-92cd-c554b61239f9",
+      "name": "Update the PO status to sent",
+      "parameters": {},
+      "position": [
+        -500,
+        -540
+      ],
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1
+    },
+    {
+      "id": "fd03a9df-1892-465b-9dc5-6c13cb2c1f16",
+      "name": "Sticky Note1",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        -1420,
+        -980
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "e725f7f0-85a1-4cec-af79-fee429ff2667",
+      "name": "Send PO to suppliers via Email",
+      "parameters": {},
+      "position": [
+        -700,
+        -700
+      ],
+      "type": "n8n-nodes-base.sendInBlue",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,845 @@
+{
+  "active": false,
+  "connections": {
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Social Content Creation",
+            "type": "ai_languageModel"
+          },
+          {
+            "index": 0,
+            "node": "Email Content",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Content Examples": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Social Content Creation",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Email Content": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Append or update row in sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Email Examples": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Email Content",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Facebook Graph API": {
+      "main": [
+        []
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Social Content Creation",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Fal AI": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update Title",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Lấy URL link ảnh": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "download ảnh",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Perplexity": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Social Content Creation",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get row(s) in sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Social Content Creation": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Email Content",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "Title & Image Prompt Agent",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Social Content Creation",
+            "type": "ai_tool"
+          },
+          {
+            "index": 0,
+            "node": "Email Content",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Title & Image Prompt Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "HTTP Request - Fal AI",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Update Title": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Upload Image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "share quyền",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Lấy URL link ảnh",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "download ảnh": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Upload Image",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "share quyền": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "id": "pFplgcJdJIYq4sOo",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Content marketing Automation - News Version",
+  "nodes": [
+    {
+      "id": "ac851c04-da63-4b00-87c5-7cf15164a1b8",
+      "name": "Schedule Trigger",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "position": [
+        -940,
+        20
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "4c85ae14-0bd0-4fa7-bd97-42896a7f33a5",
+      "name": "Upload Image",
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "name": "={{ $('Edit Fields').item.json[\"Topic content\"] }}",
+        "options": {}
+      },
+      "position": [
+        1140,
+        940
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "",
+      "name": "Facebook Graph API",
+      "parameters": {
+        "binaryPropertyName": "data",
+        "edge": "photos",
+        "graphApiVersion": "v22.0",
+        "httpRequestMethod": "POST",
+        "node": "me",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $('Social Content Creation').item.json.output }}"
+              }
+            ]
+          }
+        },
+        "sendBinaryData": true
+      },
+      "position": [
+        1100,
+        -60
+      ],
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1
+    },
+    {
+      "id": "710d2567-4500-415e-9b1c-8b921b138ebe",
+      "name": "Sticky Note1",
+      "parameters": {
+        "color": 5,
+        "content": "# Generate Image\n",
+        "height": 520,
+        "width": 300
+      },
+      "position": [
+        600,
+        560
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "40736a0f-b19e-4e54-8d3b-0b02f6a20fe6",
+      "name": "Sticky Note4",
+      "parameters": {
+        "color": 3,
+        "content": "# Image Prompt\n",
+        "height": 260,
+        "width": 440
+      },
+      "position": [
+        520,
+        280
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "53b77d67-637c-4d89-9cf0-151e1d32c986",
+      "name": "Think",
+      "parameters": {},
+      "position": [
+        100,
+        300
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1
+    },
+    {
+      "id": "631033fe-74e5-452d-a19f-3aece7e48b3f",
+      "name": "Content Examples",
+      "parameters": {
+        "descriptionType": "manual",
+        "documentURL": "",
+        "operation": "get",
+        "toolDescription": "Use This Tool to look for content examples that were used before in order to emulate the writing style & the tone of voice of the brand/author."
+      },
+      "position": [
+        -260,
+        280
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "ec7cbe0c-c50f-45b8-ab67-c7181c6cbaa6",
+      "name": "share quyền",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "share",
+        "options": {},
+        "permissionsUi": {
+          "permissionsValues": {
+            "allowFileDiscovery": true,
+            "role": "writer",
+            "type": "anyone"
+          }
+        }
+      },
+      "position": [
+        1360,
+        940
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "e53f3e39-ac06-4aa4-a627-f7368c361625",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 6,
+        "content": "# Content Generation\n\n",
+        "height": 560,
+        "width": 960
+      },
+      "position": [
+        -500,
+        -120
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "7ced4eef-1c94-40c6-9e10-c4387f71bd90",
+      "name": "Anthropic Chat Model",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "Claude Sonnet 4",
+          "mode": "list",
+          "value": "claude-sonnet-4-20250514"
+        },
+        "options": {
+          "maxTokensToSample": 10000
+        }
+      },
+      "position": [
+        -80,
+        280
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "74725ca6-4a7d-4251-96e7-22b186aebe7c",
+      "name": "Perplexity",
+      "parameters": {
+        "messages": {
+          "message": [
+            {
+              "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message0_Text', ``, 'string') }}"
+            }
+          ]
+        },
+        "model": "sonar-pro",
+        "options": {},
+        "requestOptions": {},
+        "simplify": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify_Output', ``, 'boolean') }}"
+      },
+      "position": [
+        -440,
+        300
+      ],
+      "type": "n8n-nodes-base.perplexityTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "294ce127-e1e7-4be4-8a0b-fbbd3c1cfc13",
+      "name": "Title & Image Prompt Agent",
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Role\nYou are a visual marketing design expert and copywriter, specializing in creating emotionally compelling Facebook titles and AI image generation prompts for health/fitness content.\n\n## Mission\nBased on the provided article content, create:\n1. Facebook title with strong emotional trigger\n2. Complete AI image prompt for pure visual illustration (no text elements)\n\n## Available Tools\n1. **Think tool**: Use this tool to analyze the content and extract key emotional elements for title creation and develop comprehensive visual concepts for AI image generation\n\n## Title Creation Principles (Emotional Triggers)\n- **Fear**: Health concerns, negative consequences\n- **Curiosity**: Secrets, unknown information\n- **Urgency**: Limited time, immediate action needed\n- **Hope**: Solutions, improvement possibilities\n- **Confidence**: Self-affirmation, personal empowerment\n- **Belonging**: Community, acceptance\n- Maximum 120 characters\n- Avoid excessive clickbait\n- Maintain professional tone\n- Output title in Vietnamese\n\n## AI Image Prompt Principles\n- **Pure visual illustration**: NO text, NO words, NO letters in the image\n- **Dimensions**: Square format (1:1 ratio) for Facebook\n- **Style keywords**: Photorealistic, high-quality, detailed, professional\n- **Visual storytelling**: Convey the article's message through imagery alone\n- **Health/fitness theme**: Gym equipment, human anatomy, lifestyle elements\n- **Color palette**: Vibrant, energetic, health-focused colors\n- **Composition**: Clean, modern, engaging visual layout\n- **Quality modifiers**: Sharp focus, high resolution, professional photography style\n- **Negative prompts**: Include text, words, letters, low quality elements to avoid\n\n### AI Image Prompt Structure\n- Main visual concept and composition\n- Subject matter (people, objects, environment)\n- Art style and photographic approach\n- Color scheme and lighting setup\n- Mood and atmosphere\n- Technical quality specifications\n- Negative prompts (especially NO TEXT elements)\n\n### Output Format\nReturn result in JSON format:\n```json\n{\n  \"title\": \"Vietnamese Facebook title with emotional trigger\",\n  \"image_prompt\": \"Complete AI image generation prompt for pure visual illustration (no text)\"\n}"
+        },
+        "promptType": "define",
+        "text": "=Based on the following article content, create a Facebook title and AI image prompt:\nArticle Content:\n- Topic: \"{{ $('Get row(s) in sheet').item.json.Topic }}\"\n- The Content: [{{ $('Social Content Creation').item.json.output }}]. \n\n[Requirements]:\n\n- Title must have strong emotional trigger (fear, curiosity, urgency, hope, confidence, belonging)\n- Title output in Vietnamese language\n- Image prompt must be complete and ready for AI image models (Flux, Midjourney, DALL-E)\n- Image should be PURE VISUAL ILLUSTRATION with NO TEXT whatsoever\n- Focus on sharp, beautiful imagery that represents the article content\n- Health/fitness themed visual elements\n- Target Vietnamese fitness/health audience\n- Output format: JSON with keys \"title\" and \"image_prompt\"\n\nUse the Think tool to analyze the content and extract the most compelling emotional elements, then develop a text-free visual concept that illustrates the main message."
+      },
+      "position": [
+        620,
+        360
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "37ca383b-a0d5-41c3-9da8-13375bda66ee",
+      "name": "Structured Output Parser",
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"Title\": \"Vietnamese Facebook title with emotional trigger\",\n\t\"image_prompt\": \"Complete AI image generation prompt ready for Flux/Midjourney/DALL-E\"\n}"
+      },
+      "position": [
+        980,
+        560
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "6aa5eaf7-b7de-43cc-bc39-f1e662a1103b",
+      "name": "Update Title",
+      "parameters": {
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "locationChoice": "location",
+              "text": "={{ $('Title & Image Prompt Agent').item.json.output.Title }}"
+            }
+          ]
+        },
+        "documentURL": "={{ $('Update a document').item.json.documentId }}",
+        "operation": "update"
+      },
+      "position": [
+        920,
+        720
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "70c4f4b9-b0ad-4b50-a966-d93edca2b340",
+      "name": "HTTP Request - Fal AI",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={\n     \"prompt\": \"{{ $json.output.image_prompt }}\",\n\"image_size\": {\n  \"width\": 1280,\n  \"height\": 720\n}\n\n   }",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://queue.fal.run/fal-ai/flux-pro/v1.1"
+      },
+      "position": [
+        680,
+        720
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "74e55e95-8309-4cfc-9ec4-8330eb3a3595",
+      "name": "Wait",
+      "parameters": {
+        "amount": 15
+      },
+      "position": [
+        1140,
+        720
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "b106c754-616d-4e7c-bd02-4c4a76e01490"
+    },
+    {
+      "id": "abb23282-e001-4a01-8539-dc3d27ab9f65",
+      "name": "download ảnh",
+      "parameters": {
+        "options": {},
+        "url": "={{ $json.images[0].url }}"
+      },
+      "position": [
+        900,
+        940
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "8ce0b335-beaa-4df0-aadb-fae13e4c6970",
+      "name": "Lấy URL link ảnh",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "url": "=https://queue.fal.run/fal-ai/flux-pro/requests/{{ $('HTTP Request - Fal AI').item.json.request_id }}"
+      },
+      "position": [
+        680,
+        940
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "4b6b4f85-41a5-4dc2-9460-3eb3f77be16b",
+      "name": "Social Content Creation",
+      "parameters": {
+        "options": {
+          "systemMessage": "=[Brand & Author Information]:\n- Target Audience: {{ $json['Target audience'] }}\n- Brand name: {{ $json['Tên Brand'] }}\n- Brand description: \"{{ $json['Brand Description'] }}\"\n- Brand image: {{ $json['Brand image'] }}\n- Solution: {{ $json.Solution }}\n- Target market: {{ $json['Target Market'] }}\n[Role & Task]:\nYou are an expert social media content marketing specialist with 20 years of experience, specializing in transforming industry news into viral and engaging content of the brand \"{{ $json['Tên Brand'] }}\"\n\nYour mission is to:\n- Analyze and deeply understand the provided news content\n- Transform it into appropriate social media content for different lengths\n- Integrate the brand/author's unique POV to create distinctive perspectives\n- Ensure content is both informative and engaging\n- Output final content in Vietnamese while maintaining professional quality\n\n[Available Tools]:\n1. **Content Examples Tool**: Use this to review previous successful content examples for tone, style, and structure reference\n2. **Perplexity Tool**: Use this to research additional context, related information, or verify facts when needed\n3. **Think Tool**: Use this to analyze all the information you have gather and determine the best content approach, angle, and strategy before writing\n\n\n[Writing Style Reference]:\n\nWrite in a style that is conversational, empathetic, and approachable, using short to medium paragraphs and sentences. Start by posing a common question or myth, then explain with clear, practical examples and gently debunk misconceptions. Use bullet points or lists for emphasis, include direct rhetorical questions to engage readers, and highlight key points with icons or symbols. Infuse subtle humor and motivation, closing with a practical takeaway and a soft brand mention. Ensure explanations are clear, accessible, and supportive, prioritizing reader understanding and engagement through out. \n\n[Tone & Style Guidelines]:\n- Use \"mình\" and \"bạn\" pronouns\n- Tone: Expert but approachable, confident, slightly humorous\n- Write as if sharing in a conversation\n- Use power words to increase persuasiveness\n- Avoid complex jargon, explain simply for general audience\n- IMPORTANT: Final content must be in Vietnamese\n\n[Workflow Instructions]:\n1. First, Use Perplexity tool if additional research is needed\n2. Use Content Examples tool if you need reference materials\n3. use the THINK tool to analyze the news, all the information you have gathered and plan your content writing.\n4. Create the final Vietnamese content based on the specified format"
+        },
+        "promptType": "define",
+        "text": "=[Original News Content]:\n{{ $json['Markdown Content'] }}\n\n[topic of the content]:\n{{ $json.Topic }}\n\n\n[Author's POV/Notes]:\n{{ $json['lưu ý khi viết/POV của tác giả'] }}\n\nI want to transform this news into social media content with the following specifications:\n\n**Content Type**: {{ $json['Content type'] }} (SHORT CONTENT or LONG CONTENT)\n\n[Content Requirements]:\n\n**If SHORT CONTENT:**\n- Length: 80-120 words (in Vietnamese)\n- Focus on the main highlight of the news\n- Include brief brand POV\n- Strong hook to attract engagement\n- End with call-to-action or interactive question\n\n**If LONG CONTENT:**\n- Length: Maximum 250 words (in Vietnamese)\n- Structure: Hook → Detailed news → POV/Analysis → Call-to-action\n- Deep dive into impact and significance of the news\n- Share unique professional insights\n- Create discussion points to increase engagement\n\nRequirements:\n- Output content in Vietnamese language\n- Research latest scientific information about this topic\n- Reference writing style from content examples\n- Include specific statistics and data in the post\n- Ensure scientific accuracy\n- Target Vietnamese fitness/health audience\n- 3-5 relevant hashtags \n- Output only contain the content itself\n"
+      },
+      "position": [
+        -340,
+        20
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "dff4a87f-5cd6-46be-b819-6a514d195812",
+      "name": "Get row(s) in sheet",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Run"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        -680,
+        20
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "c80c3fd5-4ec3-428d-8534-359c27060dc5",
+      "name": "Email Content",
+      "parameters": {
+        "options": {
+          "systemMessage": "=[Brand & Author Information]:\n- Target Audience: {{ $('Get row(s) in sheet').item.json['Tên Brand'] }}\n- Brand name: {{ $('Get row(s) in sheet').item.json['Tên Brand'] }}\n- Brand description: {{ $('Get row(s) in sheet').item.json['Brand Description'] }}\n- Brand image: {{ $('Get row(s) in sheet').item.json['Brand image'] }}\n- Solution: {{ $('Get row(s) in sheet').item.json.Solution }}\n- Target market: {{ $('Get row(s) in sheet').item.json['Target Market'] }}\n\n[Role & Task]:\nYou are an expert email marketing specialist with 20 years of experience, specializing in transforming industry news into engaging newsletter content for the brand \"{{ $('Get row(s) in sheet').item.json['Tên Brand'] }}\".\n\nYour mission is to:\n- Analyze and deeply understand the provided news content\n- Transform it into compelling email newsletter format\n- Integrate the brand/author's unique POV and professional insights\n- Ensure content is both informative and actionable for subscribers\n- Output final content in Vietnamese while maintaining professional newsletter quality\n\n[Available Tools]:\n1. **Content Examples Tool**: Use this to review previous successful email newsletters for tone, style, and structure reference\n2. **Perplexity Tool**: Use this to research additional context, verify facts, get publication dates, and find authoritative sources\n3. **Think Tool**: Use this to analyze all gathered information and determine the best newsletter approach, angle, and strategy before writing\n\n[Writing Style Reference]:\nWrite in a conversational, expert tone that balances professionalism with approachability. Use short paragraphs optimized for mobile reading. When reporting news, use third-person narrative. When providing analysis and insights, switch to \"mình\" and \"bạn\" pronouns. Include subtle humor, practical examples, and actionable takeaways. Structure content with clear sections, bullet points for emphasis, and strategic emoji usage for engagement.\n\n[Newsletter Structure Guidelines]:\n- Hook/Opening: Engaging introduction that sets context\n- News Summary: 3-5 key points of the news (third-person narrative)\n- Source Attribution: Specific publication date and original source\n- Impact Analysis: Professional insights on implications (mình/bạn voice)\n- Actionable Takeaways: What subscribers should do with this information\n- CTA: Link to detailed source for further reading\n- Mobile-optimized: Short paragraphs, clear sections\n\n[Tone & Style Guidelines]:\n- Use \"mình\" and \"bạn\" pronouns for analysis sections\n- Tone: Expert but approachable, confident, slightly humorous\n- Write as if sharing insights in a conversation\n- Use power words to increase engagement\n- Avoid complex jargon, explain simply for target audience\n- Strategic emoji usage (2-4 per email)\n- IMPORTANT: Final content must be in Vietnamese\n[The social content that was crearted for refference]:\n\n{{ $json.output }}\n\n[Workflow Instructions]:\n1. First, Use Content Examples tool if you need reference materials for tone and structure\n2. Second, Look in the content social that was created for referrence\n3. Use the THINK tool to analyze the news, all gathered information, and plan your newsletter content strategy\n4. Create the final Vietnamese newsletter based on the specified requirements"
+        },
+        "promptType": "define",
+        "text": "=[Original News Content]:\n{{ $('Get row(s) in sheet').item.json['Markdown Content'] }}\n\n[Topic of the Content]:\n{{ $('Get row(s) in sheet').item.json.Topic }}\n\n[Author's POV/Notes]:\n{{ $('Get row(s) in sheet').item.json['lưu ý khi viết/POV của tác giả'] }}\n\nI want to transform this news into an email marketing newsletter with the following specifications:\n\n**Email Newsletter Requirements:**\n\n**Content Structure:**\n- **News Recap**: Summarize 3-5 key points of the news/event using third-person narrative\n- **Source Attribution**: Include specific publication date and original news source\n- **Impact Analysis**: Provide professional insights on how this news/update affects Webmasters, SEO professionals, and website content creators (use \"mình/bạn\" voice)\n- **Call-to-Action**: Include link reference to detailed source for readers who want to learn more\n- **Mobile Optimization**: Break content into small paragraphs for optimal mobile readability\n\n**Writing Guidelines:**\n- Use third-person when reporting the news facts\n- Switch to \"mình/bạn\" pronouns when providing analysis and insights\n- Conversational expert tone: professional, confident, slightly humorous\n- Maintain newsletter flow like a friendly conversation/sharing session\n- Include 2-4 strategic emojis throughout the content\n- Add power words for engagement\n- Ensure content is suitable for email marketing newsletter format\n\n**Process Requirements:**\n1. **Research first**: Use Perplexity to verify facts, get exact publication dates, and gather additional context\n2. **Check examples**: Review previous email newsletter examples for style reference if helpful\n3. **Think strategically**: Analyze all information and plan the best newsletter approach\n4. **Create newsletter**: Write the Vietnamese email content\n\n**Deliverables:**\n1. Complete email newsletter content (in Vietnamese)\n2. 5 optimized subject line options with clickbait/hook elements (in Vietnamese)\n\n**Additional Notes:** {{ $json['additional_notes'] }}\n\n**Remember:**\n- Content should inform while showcasing brand expertise\n- Create actionable value for email subscribers\n- Maintain conversational newsletter flow throughout\n- All final output must be in Vietnamese\n- Focus on practical implications for the target audience\n- The output only consist of the email subject/title and the content of the email only."
+      },
+      "position": [
+        140,
+        20
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "0af20a83-86ee-47de-8432-f15b3a550462",
+      "name": "Email Examples",
+      "parameters": {
+        "descriptionType": "manual",
+        "documentURL": "",
+        "operation": "get",
+        "toolDescription": "Use This Tool to look for content examples that were used before in order to emulate the writing style & the tone of voice of the brand/author."
+      },
+      "position": [
+        380,
+        280
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "4a173027-b485-458e-9db4-74dba1ee3fbc",
+      "name": "Append or update row in sheet",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Topic"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tên Brand",
+              "id": "Tên Brand",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand Description",
+              "id": "Brand Description",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand image",
+              "id": "Brand image",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Target audience",
+              "id": "Target audience",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Solution",
+              "id": "Solution",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Target Market",
+              "id": "Target Market",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Topic",
+              "id": "Topic",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Markdown Content",
+              "id": "Markdown Content",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "lưu ý khi viết/POV của tác giả",
+              "id": "lưu ý khi viết/POV của tác giả",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Content type",
+              "id": "Content type",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Social post",
+              "id": "Social post",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Email Marketing",
+              "id": "Email Marketing",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Facebook post ID",
+              "id": "Facebook post ID",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Drive ảnh",
+              "id": "Drive ảnh",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "bài content",
+              "id": "bài content",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Note",
+              "id": "Note",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Drive ảnh": "=",
+            "Email Marketing": "={{ $('Email Content').item.json.output }}",
+            "Social post": "={{ $('Social Content Creation').item.json.output }}",
+            "Status": "Complete",
+            "Topic": "={{ $('Get row(s) in sheet').item.json.Topic }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "appendOrUpdate",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        620,
+        20
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

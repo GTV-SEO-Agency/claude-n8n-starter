@@ -1,0 +1,698 @@
+{
+  "active": false,
+  "connections": {
+    "Claude Sonet 3.7": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Content Creation",
+            "type": "ai_languageModel"
+          },
+          {
+            "index": 0,
+            "node": "Image Prompt Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Content Creation": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Image Prompt Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Content Examples": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Creation",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Convert to Binary": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Upload Image",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Send Photo",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Content Creation",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Facebook Graph API": {
+      "main": [
+        []
+      ]
+    },
+    "Generate Image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Convert to Binary",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Image Prompt Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Generate Image",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Photo": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Content",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Tavily": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Creation",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Creation",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Upload Image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "share quyền",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "share quyền": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Sheets",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "3hCtvUydPRCkawqn",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "social content workflow",
+  "nodes": [
+    {
+      "id": "21bc71fe-0616-4f89-b086-e31eda0fa0a6",
+      "name": "Upload Image",
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "name": "={{ $('Execute Workflow Trigger').item.json.topic }}",
+        "options": {}
+      },
+      "position": [
+        880,
+        1300
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "ffc9e842-d1ff-4c62-923d-742a30b61810",
+      "name": "Facebook Graph API",
+      "parameters": {
+        "binaryPropertyName": "data",
+        "edge": "photos",
+        "graphApiVersion": "v22.0",
+        "httpRequestMethod": "POST",
+        "node": "me",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $('Content Creation').item.json.output }}"
+              }
+            ]
+          }
+        },
+        "sendBinaryData": true
+      },
+      "position": [
+        980,
+        1580
+      ],
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1
+    },
+    {
+      "id": "3e14763e-e2ae-4662-8329-9dfe35b637bb",
+      "name": "Tavily",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={\n  \"query\": \"{searchTerm}\",\n  \"topic\": \"general\",\n  \"search_depth\": \"advanced\",\n  \"chunks_per_source\": 5,\n  \"max_results\": 1,\n  \"time_range\": null,\n  \"include_answer\": \"advanced\",\n  \"include_answer\": true,\n  \"include_raw_content\": false,\n  \"include_images\": false,\n  \"include_image_descriptions\": false,\n  \"include_domains\": [\"thanhnien.vn\", \"tuoitre.vn\"]\n}",
+        "method": "POST",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "description": "What the user is searching for. ",
+              "name": "searchTerm"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "toolDescription": "Use this tool to search the web. ",
+        "url": "https://api.tavily.com/search"
+      },
+      "position": [
+        -260,
+        1040
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "56760ea8-5ae9-4bcb-a2a6-f39821298e21",
+      "name": "Image Prompt Agent",
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Overview\nYou are an advanced prompt-generation AI Agent that transforms Facebook/LinkedIn posts into visual prompt descriptions for generating graphic marketing materials. These visuals are designed to be paired with the post on LinkedIn, helping communicate the message in a visually engaging, brand-aligned way.\n\n## Objective:\n- Read and analyze the given  post.\n- Identify the main message, insight, or takeaway from the post.\n- Create a clear and compelling graphic prompt that can be used with a text-to-image generator.\n- The result should be a marketing-style graphic — not a literal scene or hyperrealistic photo — that:\n1) Visually supports or illustrates the key idea of the post\n2) Looks appropriate for use in a professional Facebook/LinkedIn feed\n3) Feels polished, modern, and engaging\n4) try to have statistic or text like infographic in the image\n\n## Output Instructions:\n- Output only the final image prompt. Do not output quotation marks.\n\n## Style Guidelines:\n- Think like a brand designer or marketing creative.\n- Infographic or image with insightful text is preferred but The text only maximum cover 20% of the image, less text but still convey the message is preferred.\n- The Color of brand mainly or colors that are similar(which are Start Color (Purple): `#850DBA` & End Color (Turquoise Blue): `#00CCFF`)\n- Theme: technology, futuristic.\n- Detailed guideline brief for the image AI model to generate."
+        },
+        "promptType": "define",
+        "text": "=[Context]:\n- Dựa trên chủ đề bài: \"{{ $('Execute Workflow Trigger').item.json.topic }}\"\n- Nội dung bài viết: [{{ $json.output }}]. \n\n[intruction]:\nHãy tạo một image prompt để tôi có thể bỏ vào Image AI Model để tạo ra ảnh minh họa sắc nét cho bài viết đăng trên facebook của tôi. Ảnh sắc nét - chi tiết và có những chữ hoặc logo để trong hình ảnh để minh họa tốt nhất.\n\nSize của bài facebook sẽ là 1024x1024\n\n[reminder]: \n- chữ trong hình chỉ chiếm tối đa 20% diện tích, vì vậy bố cục sao cho phù hợp các hình infographic hoặc hình ảnh viral, chuẩn kích thước của facebook.\n- Không nên có logo facebook hay linkedin. \n- Càng ít chữ nhưng vẫn truyền tải được thông điệp thì càng tốt.\n- Khi sử dụng chữ, nếu như chữ cùng một nội dung thì đừng hiển thị chung vào một hình, text trong hình ảnh ít và nếu bổ sung thì là các text bổ trợ nha. (Ví dụ: lợi ích của giấc ngủ là header text, các text con là: cải thiện trí nhớ, tăng mood,...)\n"
+      },
+      "position": [
+        480,
+        760
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "3853b982-dbcb-472d-95de-bd0134c46386",
+      "name": "Convert to Binary",
+      "parameters": {
+        "operation": "toBinary",
+        "options": {},
+        "sourceProperty": "data[0].b64_json"
+      },
+      "position": [
+        560,
+        1300
+      ],
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "cf2fabba-3ac1-42a6-90d7-97468fd94485",
+      "name": "Sticky Note1",
+      "parameters": {
+        "color": 5,
+        "content": "# Generate Image\n",
+        "height": 520,
+        "width": 300
+      },
+      "position": [
+        460,
+        980
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "f5beff03-5c76-47c4-a38c-f932e1d2198b",
+      "name": "Sticky Note4",
+      "parameters": {
+        "color": 3,
+        "content": "# Image Prompt\n",
+        "height": 260,
+        "width": 440
+      },
+      "position": [
+        400,
+        680
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d4118b5b-223b-47a8-9e2b-b95fe868eb03",
+      "name": "Think",
+      "parameters": {},
+      "position": [
+        220,
+        1040
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Content Examples",
+      "parameters": {
+        "descriptionType": "manual",
+        "documentURL": "",
+        "operation": "get",
+        "toolDescription": "Use This Tool to look for content examples that were used before in order to emulate the writing style & the tone of voice of the brand/author."
+      },
+      "position": [
+        -80,
+        1040
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "a253c4c6-0a46-47dc-b0cc-4c106c8bd8c3",
+      "name": "Generate Image",
+      "parameters": {
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "gpt-image-1"
+            },
+            {
+              "name": "prompt",
+              "value": "={{ $json.output }}"
+            },
+            {
+              "name": "size",
+              "value": "1024x1024"
+            },
+            {
+              "name": "quality",
+              "value": "high"
+            }
+          ]
+        },
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<YOUR_API_KEY>"
+            }
+          ]
+        },
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "sendHeaders": true,
+        "url": "https://api.openai.com/v1/images/generations"
+      },
+      "position": [
+        560,
+        1040
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "aea90999-6b80-4096-a980-3fa23568228a",
+      "name": "share quyền",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "share",
+        "options": {},
+        "permissionsUi": {
+          "permissionsValues": {
+            "allowFileDiscovery": true,
+            "role": "writer",
+            "type": "anyone"
+          }
+        }
+      },
+      "position": [
+        1080,
+        1300
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "3e4e97a5-b98d-4bcf-9615-371486d23ac6",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 6,
+        "content": "# Content Generation\n\n",
+        "height": 560,
+        "width": 640
+      },
+      "position": [
+        -300,
+        660
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "b91fe695-aceb-4a83-8e9f-d1887850770a",
+      "name": "Execute Workflow Trigger",
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "topic"
+            },
+            {
+              "name": "target_audience"
+            },
+            {
+              "name": "chatID"
+            },
+            {
+              "name": "Note_for_research"
+            }
+          ]
+        }
+      },
+      "position": [
+        -540,
+        780
+      ],
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "61d9971c-0846-4065-b5f9-2fea8cf623be",
+      "name": "Send Photo",
+      "parameters": {
+        "additionalFields": {},
+        "binaryData": true,
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chatID }}",
+        "operation": "sendPhoto"
+      },
+      "position": [
+        880,
+        1120
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "8fcbda9c-8396-41f7-8f2d-39e4ae4337c7"
+    },
+    {
+      "id": "3d24e61c-8ebc-4944-af1d-1debf4b6e940",
+      "name": "Content Creation",
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Overview\nYou are a professional content marketer with 10 years of knowledge.\n\nBased on the knowledge that is given, your task is to create engaging & informative content for the Facebook post of the brand. The content also needs to match the guideline/requirements that are given.\n\nYou need to read some of the examples of the content to emulate its writing style.\n\nYou are an AI agent specialized in creating professional, educational, and engaging social media posts (Facebook, Linkedin) based on any topic provided by the user.\n\n## Tools\n1. Tavily: Use this tool to search the latest, accurate & in-depth information about the user's topic request (limit to 2 researches only)\n2. Content Examples: Use this tool to retrieve content examples from the brand or author, in order to emulate their tone of voice and writing style.\n3. Think: Use this tool before generating the content (before the final step) to analyze the data and consider the approach to create the best content.\n\n## Brand information:\n- Target Audience: CEO, Managers, Digital Marketer, SEO-er.\n- Brand name: The AI Growth (or TAG)\n- Brand description: The AI Growth định vị là nền tảng tiên phong và đáng tin cậy tại Việt Nam, cung cấp các giải pháp AI và Automation để tiếp cận cho các doanh nghiệp SMEs, nhà quản lý marketing, và các nhà sáng tạo nội dung. The AI Growth mang đến kiến thức chuyên sâu, các công cụ hiện đại và ứng dụng thực tế, giúp khách hàng đạt được hiệu suất tối ưu trong hoạt động marketing, giảm chi phí, và mở rộng tăng trưởng nhanh chóng.\n- Brand image: Dành cho doanh nghiệp và marketer Việt Nam đang đối mặt với chi phí vận hành cao và hiệu quả marketing chưa tối ưu, The AI Growth là nền tảng đào tạo AI & Automation tiên phong mang đến giải pháp thực tiễn với cam kết hiệu quả trong 24 giờ thông qua phương châm 'Learning by Doing' - khác biệt với các khóa học marketing truyền thống chỉ cung cấp kiến thức lý thuyết.\n- Solution: Khóa học AI & Automation\n- Target market: Việt Nam\n## Objectives:\n\nAlways begin by conducting a real-time search using the Tavily tool to gather the most accurate, up-to-date information on the topic. After that, analyze the Content Examples to Emulate the writing style and the tone.\n\nThe post should be written to appeal to the provided target audience.\n\nBased on your research, generate a well-structured Facebook post that:\n1. Starts with an engaging, professional and emotional trigger hook (do not use hey, hi or hello at the beginning) \n - This hook will be the title of the post, so it should have emotional trigger and a line break between the content and the title.\n2. Sử dụng xưng hô \"mình\" và \"bạn\" hoặc \"TAG\" và \"bạn\".\n3. Sử dụng vài emoji cho bài facebook. (use only when highly relevant and minimal)\n4. Mô phỏng lại giọng văn đã được học ở trước.\n5. Bài viết nên đưa ra nhiều số liệu, statistic, facts hoặc case study càng nhiều càng tốt cho việc chứng minh luận điểm/luận cử. (nếu có).\n6. Cho 3 Hashtag liên quan cuối bài.\n7. Bài viết được chia thành nhiều đoạn nhỏ để tối ưu readability trên điện thoại.  \n8. Kết thúc với một CTA (e.g., asking for thoughts, feedback, or shares)Ends with a clear call to action (e.g., asking for thoughts, feedback, or shares)\n9. The content should be around 150 - 300 words. If the topic need to go to detailed, try explain it cleary.\n10. {speak conversational throughout} \n{Use Vietnamese language & grammar}{Add power words}\n\n## Output Instructions:\n- Your ONLY output should be the final Facebook/Linkedin post text without the markdown format (format text only)\n- Do not include explanations, notes, or anything beyond the post itself.\n\n## Example Workflow:\n1) Receive a topic (e.g., “The ROI of warehouse automation”)\n2) Use Tavily to search and gather recent information or case studies\n3) Retrieve the Content examples of the brand/author from \"Content Examples\" \n4) Analyze the Writing style, tone of voice and everything relate.\n5) Draft a Facebook/Linkedin post using all the information that you have garthered.\n6) Format it with source citations, clean structure, optional hashtags, a CTA and follow the content guidlines.\n\n## final reminder:\n\nThe content only focus on giving value, do not sell or introduce the brand. Just mention the brand is enough."
+        },
+        "promptType": "define",
+        "text": "=\n- Topic of Post: {{ $json.topic }}\n- Note for Researching: {{ $json.Note_for_research}}.\n- Viết bằng tiếng Việt.\n- Đưa những statistic, dữ liệu, fact vào trong bài."
+      },
+      "position": [
+        -100,
+        780
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "8342d92a-8a27-4067-9c03-b1496e157a16",
+      "name": "Send Content",
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chatID }}",
+        "text": "={{ $('Content Creation').item.json.output }}"
+      },
+      "position": [
+        1080,
+        1120
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "94fa70af-f2fc-4c05-8fa1-d9f55637485f"
+    },
+    {
+      "id": "",
+      "name": "Google Sheets",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Brief topic"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tên Brand",
+              "id": "Tên Brand",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand Description",
+              "id": "Brand Description",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand image",
+              "id": "Brand image",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Target audience",
+              "id": "Target audience",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Solution",
+              "id": "Solution",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Target Market",
+              "id": "Target Market",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brief topic",
+              "id": "Brief topic",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Note Research",
+              "id": "Note Research",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "lưu ý khi viết",
+              "id": "lưu ý khi viết",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Facebook post ID",
+              "id": "Facebook post ID",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Drive ảnh",
+              "id": "Drive ảnh",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "bài content",
+              "id": "bài content",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Note",
+              "id": "Note",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Drive ảnh": "={{ $('Upload Image').item.json.webContentLink }}",
+            "bài content": "={{ $('Content Creation').item.json.output }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        1300,
+        1300
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "55301ccd-c504-4ac7-a142-3c16e9492707",
+      "name": "Claude Sonet 3.7",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "Claude 3.7 Sonnet",
+          "mode": "list",
+          "value": "claude-3-7-sonnet-20250219"
+        },
+        "options": {}
+      },
+      "position": [
+        80,
+        1040
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

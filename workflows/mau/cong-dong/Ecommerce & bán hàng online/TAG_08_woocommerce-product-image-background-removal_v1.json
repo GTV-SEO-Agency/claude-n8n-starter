@@ -1,0 +1,445 @@
+{
+  "connections": {
+    "FTP": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "New Image Url",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Ger Products": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Filename": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "FTP",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "index": 0,
+            "node": "Set Product Fields",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "New Image Url": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update product",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Remove from Image URL": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Filename",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Set Product Fields": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Remove from Image URL",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Update Sheet": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Update product": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update Sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Ger Products",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_woocommerce-product-image-background-removal_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Xoá nền ảnh sản phẩm WooCommerce hàng loạt\n**Làm gì:** Quét ảnh sản phẩm, gọi API xoá nền, cập nhật lại ảnh, ghi log Sheets.\n**Trigger:** Bấm tay (Execute workflow)\n**Credential cần:** API key (Header Auth), Google Sheets, WooCommerce, ftp\n**Chi phí ước:** API xoá nền tính theo ảnh (có bậc miễn phí).\n**Mở rộng gợi ý:** Thêm bước tạo ảnh nền studio bằng Nano Banana.\n\n---\n**Nguồn:** n8n.io template #4488 của n3witalia\nhttps://n8n.io/workflows/4488\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -1220,
+        -580
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "7b97db40-96b7-4f7d-a26f-14e2416d4730",
+      "name": "When clicking ‘Execute workflow’",
+      "parameters": {},
+      "position": [
+        -620,
+        100
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "b1a25e04-37e1-425e-b146-090a8f49e43f",
+      "name": "Remove from Image URL",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "image_file_url",
+              "value": "={{ $json.image_url }}"
+            }
+          ]
+        },
+        "contentType": "multipart-form-data",
+        "genericAuthType": "httpHeaderAuth",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "url": "https://api.backgroundcut.co/v2/cut/"
+      },
+      "position": [
+        360,
+        120
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "383e0206-3cbe-4d4c-9e01-6ca857d3092b",
+      "name": "Sticky Note2",
+      "parameters": {
+        "content": "## PRELIMINARY STEP\n- Clone [this Sheet](https://docs.google.com/spreadsheets/d/<YOUR_FILE_ID>/edit?usp=sharing) and set the columns ID and IMAGE\n- Get API_KEY from [BackgroundCut.co](https://backgroundcut.co)\n- Set Header Auth in \"Remove from Image URL\" node (Name: Authorization - Value: API_KEY)\n- Get WooCommerce API and set it in \"Update product\" node\n- Set YOUR_FTP_URL in the node \"New Image Url\"",
+        "height": 180,
+        "width": 720
+      },
+      "position": [
+        -620,
+        -180
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "0591f51b-4ac3-4613-b78f-8fcafd0a5893",
+      "name": "FTP",
+      "parameters": {
+        "operation": "upload",
+        "path": "=/test/{{ $json.fileName }}"
+      },
+      "position": [
+        920,
+        120
+      ],
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1
+    },
+    {
+      "id": "ca4a2fd6-cf8d-4dac-860d-f890ed482029",
+      "name": "Loop Over Items",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        -180,
+        100
+      ],
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3
+    },
+    {
+      "id": "cbcb21e3-9d5c-482f-b630-6fb693a32491",
+      "name": "Get Filename",
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'fileName' to the JSON of each one\nfor (const item of $input.all()) {\n  const url = item.json.image_url;\n  const fileName = url.split('/').pop(); // Estrae l'ultima parte dell'URL\n  item.json.fileName = fileName;\n}\n\nreturn $input.all();\n"
+      },
+      "position": [
+        640,
+        120
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "0604040e-b6bb-444c-ba17-3b776a388826",
+      "name": "New Image Url",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0a6e53bf-3d3d-42b3-a08f-b7d2329a987b",
+              "name": "image_url",
+              "type": "string",
+              "value": "=https://YOUR_FTP_URL/{{ $json.fileName }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        360,
+        380
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "d3fd2786-7218-4b60-a287-3fdf5621df0a",
+      "name": "Update product",
+      "parameters": {
+        "dimensionsUi": {},
+        "imagesUi": {
+          "imagesValues": [
+            {
+              "alt": "",
+              "name": "",
+              "src": "={{ $json.image_url }}"
+            }
+          ]
+        },
+        "metadataUi": {},
+        "operation": "update",
+        "productId": "={{ $('Set Product Fields').item.json.ID }}",
+        "resource": "product",
+        "updateFields": {}
+      },
+      "position": [
+        640,
+        380
+      ],
+      "type": "n8n-nodes-base.wooCommerce",
+      "typeVersion": 1
+    },
+    {
+      "id": "4b5b75d1-2d7b-418b-938a-4f75c0ed84ea",
+      "name": "Set Product Fields",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7510c8a8-77e4-4985-a83e-eb313c8b3da9",
+              "name": "image_url",
+              "type": "string",
+              "value": "={{ $json.IMAGE }}"
+            },
+            {
+              "id": "ed48e2f6-8423-4317-a746-b6dfa22c7f7c",
+              "name": "product_id",
+              "type": "string",
+              "value": "={{ $json.ID }}"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "position": [
+        100,
+        120
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "a5056024-b941-4078-a859-8e83dc0a28a5",
+      "name": "Ger Products",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "DONE"
+            }
+          ]
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        -400,
+        100
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6
+    },
+    {
+      "id": "badead5e-2ce6-4b21-a859-ebc6af0110ae",
+      "name": "Update Sheet",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ID",
+              "id": "ID",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "IMAGE",
+              "id": "IMAGE",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "NEW IMAGE",
+              "id": "NEW IMAGE",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "DONE",
+              "id": "DONE",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "DONE": "x",
+            "NEW IMAGE": "={{ $('New Image Url').item.json.image_url }}",
+            "row_number": "={{ $('Set Product Fields').item.json.row_number }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        920,
+        380
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6
+    },
+    {
+      "id": "b7752651-e5b0-4202-9647-c68dc86ffaa3",
+      "name": "Sticky Note7",
+      "parameters": {
+        "color": 3,
+        "content": "# Remove background from WooCommerce product images\nThis workflow automates the process of removing backgrounds from WooCommerce product images using the BackgroundCut API, and then updates the product images in both WooCommerce and a Google Sheet.\n\nOnce set up, the workflow processes product images in bulk, removing backgrounds and updating WooCommerce seamlessly.",
+        "height": 260,
+        "width": 720
+      },
+      "position": [
+        -620,
+        -480
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

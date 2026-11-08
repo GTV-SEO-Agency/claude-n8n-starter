@@ -1,0 +1,1017 @@
+{
+  "active": false,
+  "connections": {
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Content Creation post",
+            "type": "ai_languageModel"
+          },
+          {
+            "index": 0,
+            "node": "Title & Image Prompt Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Content Creation post": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Create a document",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Content Examples": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Creation post",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Create a document": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update a document",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Content Creation post",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Facebook Graph API": {
+      "main": [
+        []
+      ]
+    },
+    "Generate Image": {
+      "main": [
+        []
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request - Fal AI": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update Title",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Lấy URL link ảnh": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "download ảnh",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Edit Fields",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Perplexity": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Creation post",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Sheets",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "Title & Image Prompt Agent",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    },
+    "Tavily": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Message a model",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Creation post",
+            "type": "ai_tool"
+          },
+          {
+            "index": 0,
+            "node": "Title & Image Prompt Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Title & Image Prompt Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "HTTP Request - Fal AI",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Update Title": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Update a document": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Title & Image Prompt Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Upload Image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "share quyền",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Upload file": {
+      "main": [
+        []
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Lấy URL link ảnh",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "download ảnh": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Upload Image",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "share quyền": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Sheets1",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "JIUnkFhcSJrVAXf6",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Social Content Automation - chatbot version",
+  "nodes": [
+    {
+      "id": "903685f7-9075-40c7-ba08-42d8ce7841ac",
+      "name": "Schedule Trigger",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "position": [
+        -1080,
+        240
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "4b477f80-1980-4d7a-9486-4db084c2a9ed",
+      "name": "Google Sheets",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Run"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        -820,
+        240
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "2d170caa-3b67-4036-98de-49d797173370",
+      "name": "Upload Image",
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "name": "={{ $('Edit Fields').item.json[\"Topic content\"] }}",
+        "options": {}
+      },
+      "position": [
+        1240,
+        600
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "985464ae-fa2c-4ba0-982f-228e3a506377",
+      "name": "Facebook Graph API",
+      "parameters": {
+        "binaryPropertyName": "data",
+        "edge": "photos",
+        "graphApiVersion": "v22.0",
+        "httpRequestMethod": "POST",
+        "node": "me",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $('Content Creation post').item.json.output }}"
+              }
+            ]
+          }
+        },
+        "sendBinaryData": true
+      },
+      "position": [
+        880,
+        840
+      ],
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1
+    },
+    {
+      "id": "cec6bf77-51d9-4c6a-8ae4-616761cf6f32",
+      "name": "Tavily",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={\n  \"query\": \"{searchTerm}\",\n  \"topic\": \"general\",\n  \"search_depth\": \"advanced\",\n  \"chunks_per_source\": 5,\n  \"max_results\": 1,\n  \"time_range\": null,\n  \"include_answer\": \"advanced\",\n  \"include_answer\": true,\n  \"include_raw_content\": false,\n  \"include_images\": false,\n  \"include_image_descriptions\": false,\n  \"include_domains\": [\"thanhnien.vn\", \"tuoitre.vn\"]\n}",
+        "method": "POST",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "description": "What the user is searching for. ",
+              "name": "searchTerm"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "toolDescription": "Use this tool to search the web. ",
+        "url": "https://api.tavily.com/search"
+      },
+      "position": [
+        -360,
+        340
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "c671ec4d-1536-4121-b2c8-86664aee118e",
+      "name": "Sticky Note1",
+      "parameters": {
+        "color": 5,
+        "content": "# Generate Image\n",
+        "height": 520,
+        "width": 300
+      },
+      "position": [
+        700,
+        220
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "8155a245-79d9-4ec4-ae95-8c6f08b76ddd",
+      "name": "Sticky Note4",
+      "parameters": {
+        "color": 3,
+        "content": "# Image Prompt\n",
+        "height": 260,
+        "width": 440
+      },
+      "position": [
+        580,
+        -80
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "644f6714-9c53-4f66-9683-b765ab3582a6",
+      "name": "Content Creation post",
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Role\nYou are a professional content marketing expert with 10 years of experience in health and fitness industry. You specialize in creating engaging, educational Facebook posts that align with gym/fitness brand identity.\n\n## Mission\nCreate Facebook content based on provided topics, following the writing style learned from content examples in Google Docs.\n\n## Available Tools\n1. **Perplexity**: Use this tool to research latest information, scientific data, and statistics about the given topic\n2. **Google Docs (Content examples)**: Use this tool to reference content examples and learn the writing style patterns\n3. **Think tool**: Use this tool to synthesize and analyze information to create high-quality content\n\n## Writing Style Requirements\n- Start with common questions or concerns from readers\n- Use emojis to highlight important sections (🔴, ❌, ✅)\n- Clear structure: hook → scientific explanation → numbered key points → conclusion\n- Include specific data, scientific statistics\n- Friendly yet professional tone\n- Always end with brand-related call-to-action\n\n## Workflow Process\n1. Use Google Docs tool to reference writing style from content examples\n2. Use Perplexity tool to research latest scientific information and statistics about the topic\n3. Use Think tool to synthesize and structure the information\n4. Create content following the format learned from examples\n\n### Standard Post Structure\n- **Hook**: Common questions/concerns (1-2 sentences)\n- **Context**: Brief explanation of the issue\n- **🔴 Initial Answer**: With scientific explanation\n- **❌ Problems/Risks**: Detailed numbered points\n- **🔴 Conclusion**: With practical advice\n- **Call-to-action**: Brand-related closing\n\n### Important Notes\n- Always mention the brand naturally in the conclusion\n- Use scientific language but keep it understandable\n- Avoid unsupported medical claims\n- Target length: 300-500 words suitable for Facebook\n- Content output must be in Vietnamese\n- Target audience: Vietnamese fitness enthusiasts"
+        },
+        "promptType": "define",
+        "text": "=Create Facebook content about topic: \"{{ $json['Topic content'] }}\"\n\nAdditional information to research: \"{{ $json['Topic content'] }}\"\n\nWriting guidelines/notes: [{{ $json['Lưu ý khi viết bài'] }}]\n\nRequirements:\n- Output content in Vietnamese language\n- Research latest scientific information about this topic\n- Reference writing style from content examples\n- Include specific statistics and data in the post\n- Ensure scientific accuracy\n- Target Vietnamese fitness/health audience\n- Output only contain the content itself\n"
+      },
+      "position": [
+        80,
+        20
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "af5a0893-a96c-4c1f-a706-bdbad8612cf3",
+      "name": "Think",
+      "parameters": {},
+      "position": [
+        460,
+        280
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1
+    },
+    {
+      "id": "0bdbaa43-dd7b-459a-a706-15d4ce16e748",
+      "name": "Content Examples",
+      "parameters": {
+        "descriptionType": "manual",
+        "documentURL": "",
+        "operation": "get",
+        "toolDescription": "Use This Tool to look for content examples that were used before in order to emulate the writing style & the tone of voice of the brand/author."
+      },
+      "position": [
+        140,
+        280
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "7d5ecea0-249d-45d1-b8ac-b6cd058c74c0",
+      "name": "Generate Image",
+      "parameters": {
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "gpt-image-1"
+            },
+            {
+              "name": "prompt",
+              "value": "={{ $json.output }}"
+            },
+            {
+              "name": "size",
+              "value": "1024x1024"
+            },
+            {
+              "name": "quality",
+              "value": "high"
+            }
+          ]
+        },
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer <YOUR_API_KEY>"
+            }
+          ]
+        },
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "sendHeaders": true,
+        "url": "https://api.openai.com/v1/images/generations"
+      },
+      "position": [
+        1600,
+        -60
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "cd94ad6a-c2bf-485b-9408-b0bb60b256eb",
+      "name": "share quyền",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "share",
+        "options": {},
+        "permissionsUi": {
+          "permissionsValues": {
+            "allowFileDiscovery": true,
+            "role": "writer",
+            "type": "anyone"
+          }
+        }
+      },
+      "position": [
+        1460,
+        600
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "713808a8-4205-412c-a730-32f0212633c0",
+      "name": "Google Sheets1",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Brief topic"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tên Brand",
+              "id": "Tên Brand",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand Description",
+              "id": "Brand Description",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand image",
+              "id": "Brand image",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Target audience",
+              "id": "Target audience",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Solution",
+              "id": "Solution",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Target Market",
+              "id": "Target Market",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brief topic",
+              "id": "Brief topic",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Note Research",
+              "id": "Note Research",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "lưu ý khi viết",
+              "id": "lưu ý khi viết",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Facebook post ID",
+              "id": "Facebook post ID",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Drive ảnh",
+              "id": "Drive ảnh",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Brief topic": "={{ $('Google Sheets').item.json['Brief topic'] }}",
+            "Drive ảnh": "={{ $('Upload Image').item.json.webViewLink }}",
+            "Status": "Complete"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "appendOrUpdate",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        1680,
+        600
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "06a602a2-b699-4621-bcc7-a3525fc9a374",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 6,
+        "content": "# Content Generation\n\n",
+        "height": 560,
+        "width": 640
+      },
+      "position": [
+        -80,
+        -100
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "db317bbf-be12-4bd6-a412-475bfcb8fc31",
+      "name": "Anthropic Chat Model",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "Claude Sonnet 4",
+          "mode": "list",
+          "value": "claude-sonnet-4-20250514"
+        },
+        "options": {
+          "maxTokensToSample": 10000
+        }
+      },
+      "position": [
+        280,
+        280
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "f42470cc-d3b5-4c88-ad85-39c72b6884d3",
+      "name": "Telegram Trigger",
+      "parameters": {
+        "additionalFields": {},
+        "updates": [
+          "message"
+        ]
+      },
+      "position": [
+        -760,
+        20
+      ],
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "webhookId": "00e5b990-59ae-4dd9-8225-15f0c7a7b985"
+    },
+    {
+      "id": "fd467e1f-363a-4ad3-a58c-975b0e609254",
+      "name": "Edit Fields",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c6de9190-0c27-4779-b4f8-6c2b4ea2659e",
+              "name": "Lưu ý khi research",
+              "type": "string",
+              "value": "={{ $json.message.content.luu_y_research }}"
+            },
+            {
+              "id": "64b74e51-d48a-46e2-bb64-00aca16c90f3",
+              "name": "Topic content",
+              "type": "string",
+              "value": "={{ $json.message.content.chu_de }}"
+            },
+            {
+              "id": "e75468c7-93d0-4f11-b428-45ec9bd092d7",
+              "name": "Lưu ý khi viết bài",
+              "type": "string",
+              "value": "={{ $json.message.content.luu_y_viet_bai }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -200,
+        20
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "e78b9206-2b43-487f-9fc3-bcafe39e049d",
+      "name": "Message a model",
+      "parameters": {
+        "jsonOutput": true,
+        "messages": {
+          "values": [
+            {
+              "content": "=Bạn là một AI chuyên phân tích yêu cầu viết content. Nhiệm vụ của bạn là nhận input từ người dùng về yêu cầu viết bài và phân tích thành 3 phần cụ thể.\n\nINPUT: [{{$json[\"message\"][\"text\"]}}]\n\nHãy phân tích input trên và trích xuất thông tin thành đúng 3 phần sau:\n\n1. **Chủ đề bài viết**: Xác định chính xác chủ đề, topic chính mà người dùng muốn viết về\n2. **Lưu ý khi Research**: Những điểm cần chú ý, tìm hiểu, góc độ cần research khi thu thập thông tin cho bài viết này\n3. **Lưu ý khi viết bài**: Tone, style, độ dài, target audience, format và các yêu cầu cụ thể khác khi viết bài\n\nOUTPUT FORMAT (trả về dưới dạng JSON):\n{\n  \"chu_de\": \"Chủ đề bài viết cụ thể\",\n  \"luu_y_research\": \"Các điểm cần lưu ý khi research thông tin\",\n  \"luu_y_viet_bai\": \"Các yêu cầu về tone, style, format khi viết bài\"\n}\n\nLưu ý:\n- Nếu input không rõ ràng, hãy đưa ra phân tích hợp lý nhất\n- Mỗi phần phải cụ thể và actionable\n- Không bỏ sót thông tin quan trọng từ input\n- Trả về chính xác format JSON như yêu cầu"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "GPT-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "position": [
+        -540,
+        20
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8
+    },
+    {
+      "id": "874181ac-3943-454e-8a92-c0e8b9d535e6",
+      "name": "Create a document",
+      "parameters": {
+        "folderId": "",
+        "title": "={{ $('Edit Fields').item.json['Topic content'] }} - Social content"
+      },
+      "position": [
+        420,
+        20
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "497ad035-60a6-4406-a4c7-01294536d690",
+      "name": "Update a document",
+      "parameters": {
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ $('Content Creation post').item.json.output }}"
+            }
+          ]
+        },
+        "documentURL": "={{ $json.id }}",
+        "operation": "update"
+      },
+      "position": [
+        660,
+        20
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "855e76f3-643a-4f48-bf7a-e6dfbaf1fd3a",
+      "name": "Perplexity",
+      "parameters": {
+        "messages": {
+          "message": [
+            {
+              "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message0_Text', ``, 'string') }}"
+            }
+          ]
+        },
+        "model": "sonar-pro",
+        "options": {},
+        "requestOptions": {},
+        "simplify": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify_Output', ``, 'boolean') }}"
+      },
+      "position": [
+        -40,
+        280
+      ],
+      "type": "n8n-nodes-base.perplexityTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "2c2f3739-cf33-4678-b1a5-66995b11dbc6",
+      "name": "Title & Image Prompt Agent",
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Role\nYou are a visual marketing design expert and copywriter, specializing in creating emotionally compelling Facebook titles and AI image generation prompts for health/fitness content.\n\n## Mission\nBased on the provided article content, create:\n1. Facebook title with strong emotional trigger\n2. Complete AI image prompt for pure visual illustration (no text elements)\n\n## Available Tools\n1. **Think tool**: Use this tool to analyze the content and extract key emotional elements for title creation and develop comprehensive visual concepts for AI image generation\n\n## Title Creation Principles (Emotional Triggers)\n- **Fear**: Health concerns, negative consequences\n- **Curiosity**: Secrets, unknown information\n- **Urgency**: Limited time, immediate action needed\n- **Hope**: Solutions, improvement possibilities\n- **Confidence**: Self-affirmation, personal empowerment\n- **Belonging**: Community, acceptance\n- Maximum 120 characters\n- Avoid excessive clickbait\n- Maintain professional tone\n- Output title in Vietnamese\n\n## AI Image Prompt Principles\n- **Pure visual illustration**: NO text, NO words, NO letters in the image\n- **Dimensions**: Square format (1:1 ratio) for Facebook\n- **Style keywords**: Photorealistic, high-quality, detailed, professional\n- **Visual storytelling**: Convey the article's message through imagery alone\n- **Health/fitness theme**: Gym equipment, human anatomy, lifestyle elements\n- **Color palette**: Vibrant, energetic, health-focused colors\n- **Composition**: Clean, modern, engaging visual layout\n- **Quality modifiers**: Sharp focus, high resolution, professional photography style\n- **Negative prompts**: Include text, words, letters, low quality elements to avoid\n\n### AI Image Prompt Structure\n- Main visual concept and composition\n- Subject matter (people, objects, environment)\n- Art style and photographic approach\n- Color scheme and lighting setup\n- Mood and atmosphere\n- Technical quality specifications\n- Negative prompts (especially NO TEXT elements)\n\n### Output Format\nReturn result in JSON format:\n```json\n{\n  \"title\": \"Vietnamese Facebook title with emotional trigger\",\n  \"image_prompt\": \"Complete AI image generation prompt for pure visual illustration (no text)\"\n}"
+        },
+        "promptType": "define",
+        "text": "=Based on the following article content, create a Facebook title and AI image prompt:\nArticle Content:\n- Topic: \"{{ $('Edit Fields').item.json['Topic content'] }}\"\n- The Content: [{{ $('Content Creation post').item.json.output }}]. \n\n[Requirements]:\n\n- Title must have strong emotional trigger (fear, curiosity, urgency, hope, confidence, belonging)\n- Title output in Vietnamese language\n- Image prompt must be complete and ready for AI image models (Flux, Midjourney, DALL-E)\n- Image should be PURE VISUAL ILLUSTRATION with NO TEXT whatsoever\n- Focus on sharp, beautiful imagery that represents the article content\n- Health/fitness themed visual elements\n- Target Vietnamese fitness/health audience\n- Output format: JSON with keys \"title\" and \"image_prompt\"\n\nUse the Think tool to analyze the content and extract the most compelling emotional elements, then develop a text-free visual concept that illustrates the main message."
+      },
+      "position": [
+        920,
+        20
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "478b42af-4d36-448e-aefa-72f5c79178c1",
+      "name": "Structured Output Parser",
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"Title\": \"Vietnamese Facebook title with emotional trigger\",\n\t\"image_prompt\": \"Complete AI image generation prompt ready for Flux/Midjourney/DALL-E\"\n}"
+      },
+      "position": [
+        1180,
+        200
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "",
+      "name": "Update Title",
+      "parameters": {
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "locationChoice": "location",
+              "text": "={{ $('Title & Image Prompt Agent').item.json.output.Title }}"
+            }
+          ]
+        },
+        "documentURL": "={{ $('Update a document').item.json.documentId }}",
+        "operation": "update"
+      },
+      "position": [
+        1020,
+        380
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "32a48474-066a-47f1-8ce6-f33afbfc72ae",
+      "name": "HTTP Request - Fal AI",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={\n     \"prompt\": \"{{ $json.output.image_prompt }}\",\n\"image_size\": {\n  \"width\": 1280,\n  \"height\": 720\n}\n\n   }",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://queue.fal.run/fal-ai/flux-pro/v1.1"
+      },
+      "position": [
+        780,
+        380
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "7959fe84-3bc2-470c-a32c-3ae8ae211aeb",
+      "name": "Wait",
+      "parameters": {
+        "amount": 15
+      },
+      "position": [
+        1240,
+        380
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "338a629e-06c0-4fa6-a778-ad792f5d270f"
+    },
+    {
+      "id": "2cf4a515-400b-4789-a74f-7991473717d1",
+      "name": "Upload file",
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {}
+      },
+      "position": [
+        1600,
+        400
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "299f4478-4e27-4644-bc06-8ece479e4346",
+      "name": "download ảnh",
+      "parameters": {
+        "options": {},
+        "url": "={{ $json.images[0].url }}"
+      },
+      "position": [
+        1000,
+        600
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "68feae42-0546-459a-a515-e3db0e51d8b5",
+      "name": "Lấy URL link ảnh",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "url": "=https://queue.fal.run/fal-ai/flux-pro/requests/{{ $('HTTP Request - Fal AI').item.json.request_id }}"
+      },
+      "position": [
+        780,
+        600
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

@@ -1,0 +1,317 @@
+{
+  "active": false,
+  "connections": {
+    "Calendar Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Success",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Try Again",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Create Event": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Calendar Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Create Event with Attendee": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Calendar Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Delete Event": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Calendar Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get Events": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Calendar Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Calendar Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Update Event": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Calendar Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Calendar Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "fWghMjWWOLfsNbwg",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Calendar Agent 1.0",
+  "nodes": [
+    {
+      "id": "01b96f53-14cd-4603-bc75-e17504372d12",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": "gpt-4o-2024-11-20",
+        "options": {}
+      },
+      "position": [
+        -920,
+        360
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1
+    },
+    {
+      "id": "2be283a5-0840-47a0-b841-82589a19f4e5",
+      "name": "Try Again",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7ab380a2-a8d3-421c-ab4e-748ea8fb7904",
+              "name": "response",
+              "type": "string",
+              "value": "Unable to perform task. Please try again."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        0,
+        200
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "d1df69b3-b714-44ed-8791-c62773472e44",
+      "name": "Success",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "39c2f302-03be-4464-a17a-d7cc481d6d44",
+              "name": "=response",
+              "type": "string",
+              "value": "={{$json.output}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "c5cb0ac1-e08f-4420-bc09-d39ff19a21d5",
+      "name": "Calendar Agent",
+      "onError": "continueErrorOutput",
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Overview\nYou are a calendar assistant. Your responsibilities include creating, getting, and deleting events in the user's calendar.\n\nAll the output need to be in Vietnamese.\n\n**Calendar Management Tools**  \n   - Use \"Create Event with Attendee\" when an event includes a participant.  \n   - Use \"Create Event\" for solo events.   \n   - Use \"Get Events\" to fetch calendar schedules when requested.\n   - Use \"Delete Event\" to delete an event. You must use \"Get Events\" first to get the ID of the event to delete.\n   - Use \"Update Event\" to update an event. You must use \"Get Events\" first to get the ID of the event to update.\n\n## Final Notes\nHere is the current date/time: {{ $now }}\nIf a duration for an event isn't specified, assume it will be one hour."
+        },
+        "promptType": "define",
+        "text": "={{ $json.query }}"
+      },
+      "position": [
+        -680,
+        100
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6
+    },
+    {
+      "id": "5e56259d-e641-4b17-8f2d-bbb764536abe",
+      "name": "Create Event with Attendee",
+      "parameters": {
+        "additionalFields": {
+          "attendees": [
+            "={{ $fromAI(\"eventAttendeeEmail\") }}"
+          ],
+          "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', `Mô tả của event là nội dung của lịch đấy một cách chi tiết hơn, giới hạn trong 20 words đổ lại.`, 'string') }}",
+          "summary": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Summary', `Nội dung buổi họp (title cuộc họp) là chủ đề của cuộc họp một cách vắn tắt, không nên quá 10 chữ (10 words).`, 'string') }}"
+        },
+        "calendar": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "end": "={{ $fromAI(\"eventEnd\") }}",
+        "start": "={{ $fromAI(\"eventStart\") }}"
+      },
+      "position": [
+        -220,
+        360
+      ],
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "ce58a648-9e4f-48f1-81b8-a51ca7059268",
+      "name": "Create Event",
+      "parameters": {
+        "additionalFields": {
+          "attendees": [],
+          "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', `Mô tả của event là nội dung của lịch đấy một cách chi tiết hơn, giới hạn trong 20 words đổ lại.`, 'string') }}",
+          "summary": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Summary', `Nội dung buổi họp (title cuộc họp) là chủ đề của cuộc họp một cách vắn tắt, không nên quá 10 chữ (10 words).`, 'string') }}"
+        },
+        "calendar": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "end": "={{ $fromAI(\"eventEnd\") }}",
+        "start": "={{ $fromAI(\"eventStart\") }}",
+        "useDefaultReminders": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Use_Default_Reminders', `nhắc nhở 10 phút trước khi có task`, 'boolean') }}"
+      },
+      "position": [
+        -360,
+        460
+      ],
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "54087c73-c0f9-4390-b029-b3044db4672a",
+      "name": "Get Events",
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "getAll",
+        "options": {},
+        "timeMax": "={{ $fromAI(\"dayAfter\",\"the day after the date the user requested\") }}",
+        "timeMin": "={{ $fromAI(\"dayBefore\",\"the day before the date the user requested\") }}"
+      },
+      "position": [
+        -500,
+        500
+      ],
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "ba593ef9-cf03-4fb0-80b0-c9ecac5029f4",
+      "name": "Delete Event",
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "eventId": "={{ $fromAI(\"eventID\") }}",
+        "operation": "delete",
+        "options": {}
+      },
+      "position": [
+        -640,
+        480
+      ],
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "b0be5e4f-3b0b-45ab-a569-b9df563f519b",
+      "name": "Update Event",
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "eventId": "={{ $fromAI(\"eventID\") }}",
+        "operation": "update",
+        "updateFields": {
+          "end": "={{ $fromAI(\"endTime\") }}",
+          "start": "={{ $fromAI(\"startTime\") }}"
+        }
+      },
+      "position": [
+        -780,
+        440
+      ],
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "c173779e-3153-420b-aa8b-eb11f709ea13",
+      "name": "When Executed by Another Workflow",
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "position": [
+        -920,
+        100
+      ],
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

@@ -1,0 +1,1087 @@
+{
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Format Fields",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Airtable Trigger: New Record": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait 1 Minute",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Background Info": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Format Fields": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Post Caption into Airtable Record",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Airtable Record Data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Wait 1 Minute": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Airtable Record Data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_memory"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_05_social-caption-creator_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Viết caption social hàng loạt vào bảng\n**Làm gì:** Từ mô tả ảnh/sản phẩm trong bảng, AI viết caption nhiều giọng.\n**Trigger:** Airtable\n**Credential cần:** Airtable, OpenAI\n**Chi phí ước:** Token rất thấp.\n**Mở rộng gợi ý:** Đổi Airtable sang Sheets.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/OpenAI_and_LLMs/AI%20Social%20Media%20Caption%20Creator%20creates%20social%20media%20post%20captions%20in%20Airtable.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -1280,
+        -220
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "AI Agent",
+      "parameters": {
+        "options": {
+          "systemMessage": "=<system_prompt> \nYOU ARE AN EXPERT CAPTION CREATOR AGENT FOR INSTAGRAM, DESIGNED FOR USE IN N8N WORKFLOWS. YOUR TASK IS TO CREATE A CREATIVE, TARGET AUDIENCE-ORIENTED, AND MEMORABLE CAPTION BASED ON THE BRIEFING: `{{ $json['Briefing'] }}`. YOU SHOULD RETRIEVE ADDITIONAL INFORMATION ABOUT THE TARGET AUDIENCE AND PREFERRED WORDING USING THE TOOL \"BACKGROUND INFO\" TO MAXIMIZE THE QUALITY AND RELEVANCE OF THE CAPTION. \n\n###INSTRUCTIONS### \n\n- YOU MUST: \n 1. READ AND UNDERSTAND THE BRIEFING CAREFULLY. \n 2. RETRIEVE ADDITIONAL DATA ABOUT THE TARGET AUDIENCE AND COMMUNICATION STYLE USING THE \"BACKGROUND INFO\" TOOL. \n 3. CREATE A CAPTION THAT IS CREATIVE, ENGAGING, AND TAILORED TO THE TARGET AUDIENCE. \n 4. ENSURE THAT THE CAPTION INCLUDES A CLEAR CALL-TO-ACTION (CTA) THAT ENCOURAGES USERS TO TAKE ACTION (E.G., LIKE, COMMENT, OR CLICK). \n 5. OUTPUT ONLY THE FINAL CAPTION WITHOUT ANY ACCOMPANYING EXPLANATIONS, FEEDBACK, OR COMMENTS. \n\n###CHAIN OF THOUGHTS### \n\n1. **UNDERSTANDING THE BRIEFING**: \n - THOROUGHLY READ THE BRIEFING PROVIDED UNDER `{{ $json['Briefing/Notizen'] }}`. \n - IDENTIFY THE MAIN FOCUS OF THE POST (E.G., PRODUCT PROMOTION, INSPIRATION, INFORMATION). \n - NOTE THE KEY THEMES, MOOD, AND DESIRED IMPACT. \n\n2. **TARGET AUDIENCE ANALYSIS**: \n - USE THE \"BACKGROUND INFO\" TOOL TO: \n - RETRIEVE THE TARGET AUDIENCE'S AGE, INTERESTS, AND NEEDS. \n - DEFINE THE APPROPRIATE TONE (FRIENDLY, PROFESSIONAL, INSPIRATIONAL, ETC.). \n\n3. **CREATIVE CAPTION DEVELOPMENT**: \n - DEVELOP AN OPENING SENTENCE THAT GRABS THE TARGET AUDIENCE'S ATTENTION. \n - WRITE A BODY THAT CONVEYS THE CORE MESSAGE OF THE POST AND RESONATES WITH THE TARGET AUDIENCE. \n - ADD AN INVITING CTA (E.G., \"What do you think? Share your thoughts in the comments!\" OR \"Click the link in our bio!\"). \n\n4. **FINALIZATION**: \n - CHECK THE CAPTION FOR CLARITY, CONSISTENCY, AND GRAMMAR. \n - ENSURE THAT IT ALIGNS WITH THE TARGET AUDIENCE AND THE IDENTIFIED TONE. \n - MAXIMIZE CREATIVITY AND ENTERTAINMENT VALUE WITHOUT LOSING THE ESSENTIAL MESSAGE. \n\n5. **OUTPUT**: \n - OUTPUT ONLY THE FINAL CAPTION WITHOUT ANY ACCOMPANYING COMMENTS, FEEDBACK, OR EXPLANATIONS. \n\n###WHAT NOT TO DO### \n\n- **DO NOT OUTPUT ANY ACCOMPANYING TEXTS, EXPLANATIONS, OR FEEDBACK** ABOUT THE CAPTION. \n- **DO NOT WORK WITHOUT PRIOR TARGET AUDIENCE ANALYSIS**. \n- **DO NOT USE CLICHÉ PHRASES** THAT HAVE NO RELEVANCE TO THE TARGET AUDIENCE. \n- **DO NOT ALLOW ANY SPELLING OR GRAMMATICAL ERRORS**. \n\n</system_prompt>\n"
+        },
+        "promptType": "define",
+        "text": "={{ $json['Briefing'] }}"
+      },
+      "position": [
+        120,
+        -120
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    },
+    {
+      "id": "3a6fcc4e-46ed-4f80-a9ce-f955e3d47222",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {}
+      },
+      "position": [
+        80,
+        100
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "",
+      "name": "Window Buffer Memory",
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.id }}"
+      },
+      "position": [
+        220,
+        100
+      ],
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "a4972690-5fa5-48bd-b5fd-b1899076b6c0",
+      "name": "Get Airtable Record Data",
+      "parameters": {
+        "base": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "id": "={{ $json.id }}",
+        "options": {},
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        -40,
+        -120
+      ],
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1
+    },
+    {
+      "id": "27519b09-7ce7-4a8b-abe7-dc630eea24b0",
+      "name": "Wait 1 Minute",
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "position": [
+        -200,
+        -120
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "757986ac-2e3f-4a5b-993d-b53b8ae12258"
+    },
+    {
+      "id": "b9e7c19a-e468-4f83-b1a4-2013af36caa0",
+      "name": "Format Fields",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c7243724-463f-4732-8866-efdf19837f17",
+              "name": "SoMe Text",
+              "type": "string",
+              "value": "={{ $json.output }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        440,
+        -120
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "5d4e6149-20a5-42bf-be6b-6ebaa31c517e",
+      "name": "Post Caption into Airtable Record",
+      "parameters": {
+        "base": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "id",
+            "SoMe_Text_KI"
+          ],
+          "schema": [
+            {
+              "defaultMatch": true,
+              "display": true,
+              "displayName": "id",
+              "id": "id",
+              "readOnly": true,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Beitragsname",
+              "id": "Beitragsname",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Marke",
+              "id": "Marke",
+              "options": [
+                {
+                  "name": "E&P",
+                  "value": "E&P"
+                },
+                {
+                  "name": "SER",
+                  "value": "SER"
+                },
+                {
+                  "name": "SBW",
+                  "value": "SBW"
+                },
+                {
+                  "name": "SZO",
+                  "value": "SZO"
+                },
+                {
+                  "name": "UCH",
+                  "value": "UCH"
+                }
+              ],
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "options"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Netzwerk",
+              "id": "Netzwerk",
+              "options": [
+                {
+                  "name": "Facebook",
+                  "value": "Facebook"
+                },
+                {
+                  "name": "Instagram",
+                  "value": "Instagram"
+                },
+                {
+                  "name": "Threads",
+                  "value": "Threads"
+                },
+                {
+                  "name": "TikTok",
+                  "value": "TikTok"
+                },
+                {
+                  "name": "YouTube Shorts",
+                  "value": "YouTube Shorts"
+                },
+                {
+                  "name": "MyBusiness",
+                  "value": "MyBusiness"
+                },
+                {
+                  "name": "Push",
+                  "value": "Push"
+                },
+                {
+                  "name": "WhatsApp",
+                  "value": "WhatsApp"
+                },
+                {
+                  "name": "LinkedIn",
+                  "value": "LinkedIn"
+                },
+                {
+                  "name": "CleverPush",
+                  "value": "CleverPush"
+                },
+                {
+                  "name": "SBW",
+                  "value": "SBW"
+                }
+              ],
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "array"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "options": [
+                {
+                  "name": "Brainstorming",
+                  "value": "Brainstorming"
+                },
+                {
+                  "name": "Bitte formulieren",
+                  "value": "Bitte formulieren"
+                },
+                {
+                  "name": "Bitte checken/freigeben",
+                  "value": "Bitte checken/freigeben"
+                },
+                {
+                  "name": "Bitte ändern",
+                  "value": "Bitte ändern"
+                },
+                {
+                  "name": "Warten auf externe Rückmeldung",
+                  "value": "Warten auf externe Rückmeldung"
+                },
+                {
+                  "name": "Freigabe erteilt/Bitte einplanen",
+                  "value": "Freigabe erteilt/Bitte einplanen"
+                },
+                {
+                  "name": "Geplant/Veröffentlicht",
+                  "value": "Geplant/Veröffentlicht"
+                }
+              ],
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "options"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Zuständigkeit",
+              "id": "Zuständigkeit",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "KW",
+              "id": "KW",
+              "options": [
+                {
+                  "name": "KW 1",
+                  "value": "KW 1"
+                },
+                {
+                  "name": "KW 2",
+                  "value": "KW 2"
+                },
+                {
+                  "name": "KW 3",
+                  "value": "KW 3"
+                },
+                {
+                  "name": "KW 4",
+                  "value": "KW 4"
+                },
+                {
+                  "name": "KW 5",
+                  "value": "KW 5"
+                },
+                {
+                  "name": "KW 6",
+                  "value": "KW 6"
+                },
+                {
+                  "name": "KW 7",
+                  "value": "KW 7"
+                },
+                {
+                  "name": "KW 8",
+                  "value": "KW 8"
+                },
+                {
+                  "name": "KW 9",
+                  "value": "KW 9"
+                },
+                {
+                  "name": "KW 10",
+                  "value": "KW 10"
+                },
+                {
+                  "name": "KW 11",
+                  "value": "KW 11"
+                },
+                {
+                  "name": "KW 12",
+                  "value": "KW 12"
+                },
+                {
+                  "name": "KW 13",
+                  "value": "KW 13"
+                },
+                {
+                  "name": "KW 14",
+                  "value": "KW 14"
+                },
+                {
+                  "name": "KW 15",
+                  "value": "KW 15"
+                },
+                {
+                  "name": "KW 16",
+                  "value": "KW 16"
+                },
+                {
+                  "name": "KW 17",
+                  "value": "KW 17"
+                },
+                {
+                  "name": "KW 18",
+                  "value": "KW 18"
+                },
+                {
+                  "name": "KW 19",
+                  "value": "KW 19"
+                },
+                {
+                  "name": "KW 20",
+                  "value": "KW 20"
+                },
+                {
+                  "name": "KW 21",
+                  "value": "KW 21"
+                },
+                {
+                  "name": "KW 22",
+                  "value": "KW 22"
+                },
+                {
+                  "name": "KW 23",
+                  "value": "KW 23"
+                },
+                {
+                  "name": "KW 24",
+                  "value": "KW 24"
+                },
+                {
+                  "name": "KW 25",
+                  "value": "KW 25"
+                },
+                {
+                  "name": "KW 26",
+                  "value": "KW 26"
+                },
+                {
+                  "name": "KW 27",
+                  "value": "KW 27"
+                },
+                {
+                  "name": "KW 28",
+                  "value": "KW 28"
+                },
+                {
+                  "name": "KW 29",
+                  "value": "KW 29"
+                },
+                {
+                  "name": "KW 30",
+                  "value": "KW 30"
+                },
+                {
+                  "name": "KW 31",
+                  "value": "KW 31"
+                },
+                {
+                  "name": "KW 32",
+                  "value": "KW 32"
+                },
+                {
+                  "name": "KW 33",
+                  "value": "KW 33"
+                },
+                {
+                  "name": "KW 34",
+                  "value": "KW 34"
+                },
+                {
+                  "name": "KW 35",
+                  "value": "KW 35"
+                },
+                {
+                  "name": "KW 36",
+                  "value": "KW 36"
+                },
+                {
+                  "name": "KW 37",
+                  "value": "KW 37"
+                },
+                {
+                  "name": "KW 38",
+                  "value": "KW 38"
+                },
+                {
+                  "name": "KW 39",
+                  "value": "KW 39"
+                },
+                {
+                  "name": "KW 40",
+                  "value": "KW 40"
+                },
+                {
+                  "name": "KW 41",
+                  "value": "KW 41"
+                },
+                {
+                  "name": "KW 42",
+                  "value": "KW 42"
+                },
+                {
+                  "name": "KW 43",
+                  "value": "KW 43"
+                },
+                {
+                  "name": "KW 44",
+                  "value": "KW 44"
+                },
+                {
+                  "name": "KW 45",
+                  "value": "KW 45"
+                },
+                {
+                  "name": "KW 46",
+                  "value": "KW 46"
+                },
+                {
+                  "name": "KW 47",
+                  "value": "KW 47"
+                },
+                {
+                  "name": "KW 48",
+                  "value": "KW 48"
+                },
+                {
+                  "name": "KW 49",
+                  "value": "KW 49"
+                },
+                {
+                  "name": "KW 50",
+                  "value": "KW 50"
+                },
+                {
+                  "name": "KW 51",
+                  "value": "KW 51"
+                },
+                {
+                  "name": "KW 52",
+                  "value": "KW 52"
+                },
+                {
+                  "name": "47",
+                  "value": "47"
+                }
+              ],
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "options"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Veröffentlichungsdatum SoMe",
+              "id": "Veröffentlichungsdatum SoMe",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "dateTime"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Destination/Haus",
+              "id": "Destination/Haus",
+              "options": [
+                {
+                  "name": "1: Allgemein",
+                  "value": "1: Allgemein"
+                },
+                {
+                  "name": "Ahrntal - Bruggerhof",
+                  "value": "Ahrntal - Bruggerhof"
+                },
+                {
+                  "name": "Ahrntal - Christiler",
+                  "value": "Ahrntal - Christiler"
+                },
+                {
+                  "name": "Ahrntal - Griesfeld",
+                  "value": "Ahrntal - Griesfeld"
+                },
+                {
+                  "name": "Davos - Allgemein",
+                  "value": "Davos - Allgemein"
+                },
+                {
+                  "name": "Davos - Schweizerhaus",
+                  "value": "Davos - Schweizerhaus"
+                },
+                {
+                  "name": "Davos - Schwendi",
+                  "value": "Davos - Schwendi"
+                },
+                {
+                  "name": "Davos - Waldschlössli",
+                  "value": "Davos - Waldschlössli"
+                },
+                {
+                  "name": "Kleinwalsertal - Heuberghaus",
+                  "value": "Kleinwalsertal - Heuberghaus"
+                },
+                {
+                  "name": "L2A - SZO",
+                  "value": "L2A - SZO"
+                },
+                {
+                  "name": "L2A - UCH",
+                  "value": "L2A - UCH"
+                },
+                {
+                  "name": "Lenzerheide - Jenatsch",
+                  "value": "Lenzerheide - Jenatsch"
+                },
+                {
+                  "name": "Montafon - Josefsheim",
+                  "value": "Montafon - Josefsheim"
+                },
+                {
+                  "name": "Montafon - Klein Tirol",
+                  "value": "Montafon - Klein Tirol"
+                },
+                {
+                  "name": "PdS - Jolimont",
+                  "value": "PdS - Jolimont"
+                },
+                {
+                  "name": "PdS - Victoria",
+                  "value": "PdS - Victoria"
+                },
+                {
+                  "name": "Saalbach - Allgemein",
+                  "value": "Saalbach - Allgemein"
+                },
+                {
+                  "name": "Saalbach - Steinachhof",
+                  "value": "Saalbach - Steinachhof"
+                },
+                {
+                  "name": "Schweiz - Allgemein",
+                  "value": "Schweiz - Allgemein"
+                },
+                {
+                  "name": "Stubaital - Ranalt",
+                  "value": "Stubaital - Ranalt"
+                },
+                {
+                  "name": "Team",
+                  "value": "Team"
+                },
+                {
+                  "name": "VT - SBW",
+                  "value": "VT - SBW"
+                },
+                {
+                  "name": "SurfZone",
+                  "value": "SurfZone"
+                },
+                {
+                  "name": "lenzerheide - allgemein",
+                  "value": "lenzerheide - allgemein"
+                },
+                {
+                  "name": "Family",
+                  "value": "Family"
+                },
+                {
+                  "name": "Jobs",
+                  "value": "Jobs"
+                },
+                {
+                  "name": "L2A",
+                  "value": "L2A"
+                },
+                {
+                  "name": "Davos - Spinabad",
+                  "value": "Davos - Spinabad"
+                }
+              ],
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "array"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Content Art",
+              "id": "Content Art",
+              "options": [
+                {
+                  "name": "Bild(er)",
+                  "value": "Bild(er)"
+                },
+                {
+                  "name": "Video",
+                  "value": "Video"
+                },
+                {
+                  "name": "Carousel",
+                  "value": "Carousel"
+                },
+                {
+                  "name": "Story",
+                  "value": "Story"
+                },
+                {
+                  "name": "Reel",
+                  "value": "Reel"
+                },
+                {
+                  "name": "Link",
+                  "value": "Link"
+                },
+                {
+                  "name": "Bilderalbum",
+                  "value": "Bilderalbum"
+                },
+                {
+                  "name": "Text",
+                  "value": "Text"
+                },
+                {
+                  "name": "Push",
+                  "value": "Push"
+                }
+              ],
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "options"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Briefing/Notizen",
+              "id": "Briefing/Notizen",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Linkmanager-Link",
+              "id": "Linkmanager-Link",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Short Link",
+              "id": "Short Link",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Story",
+              "id": "Story",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "MyBusiness Link",
+              "id": "MyBusiness Link",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SoMe Text",
+              "id": "SoMe Text",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Anzahl Hashtags",
+              "id": "Anzahl Hashtags",
+              "readOnly": true,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Anzahl Zeichen",
+              "id": "Anzahl Zeichen",
+              "readOnly": true,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SoMe Media",
+              "id": "SoMe Media",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "array"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Link zum Canva Layout",
+              "id": "Link zum Canva Layout",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Storylink Canva",
+              "id": "Storylink Canva",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "MyBusiness Layout",
+              "id": "MyBusiness Layout",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Posten",
+              "id": "Posten",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "boolean"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "created_at",
+              "id": "created_at",
+              "readOnly": true,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SoMe_Text_KI",
+              "id": "SoMe_Text_KI",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Werbeanzeige",
+              "id": "Werbeanzeige",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "boolean"
+            }
+          ],
+          "value": {
+            "Posten": false,
+            "SoMe_Text_KI": "={{ $json['SoMe Text'] }}",
+            "Werbeanzeige": false,
+            "id": "={{ $('Get Airtable Record Data').item.json.id }}"
+          }
+        },
+        "operation": "update",
+        "options": {},
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        600,
+        -120
+      ],
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1
+    },
+    {
+      "id": "ddc9159e-0da7-4844-84c5-eca981b9d52f",
+      "name": "Airtable Trigger: New Record",
+      "parameters": {
+        "additionalFields": {},
+        "authentication": "airtableTokenApi",
+        "baseId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "appXvZviYORVbPEaS"
+        },
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "tableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "tblxsKj5PtumCR9um"
+        },
+        "triggerField": "created_at"
+      },
+      "position": [
+        -360,
+        -120
+      ],
+      "type": "n8n-nodes-base.airtableTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "a71626b0-43ba-430b-bd2f-8cc121676e46",
+      "name": "Background Info",
+      "parameters": {
+        "base": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "descriptionType": "manual",
+        "id": "reckd97lgylz93Ht5",
+        "options": {},
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "toolDescription": "Read data from Airtable"
+      },
+      "position": [
+        360,
+        100
+      ],
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1
+    },
+    {
+      "id": "9c422e74-155c-4714-87aa-16b31bd73e5b",
+      "name": "Sticky Note1",
+      "parameters": {
+        "content": "# Welcome to my AI Social Media Caption Creator Workflow!\n\nThis workflow automatically creates a social media post caption in an editorial plan in Airtable. It also uses background information on the target group, tonality, etc. stored in Airtable.\n\n## This workflow has the following sequence:\n\n1. Airtable trigger (scan for new records every minute)\n2. Wait 1 Minute so the Airtable record creator has time to write the Briefing field\n3. retrieval of Airtable record data\n4. AI Agent to write a caption for a social media post. The agent is instructed to use background information stored in Airtable (such as target group, tonality, etc.) to create the post.\n5. Format the output and assign it to the correct field in Airtable.\n6. Post the caption into Airtable record.\n\n## The following accesses are required for the workflow:\n- Airtable Database: [Documentation](https://docs.n8n.io/integrations/builtin/credentials/airtable)\n- AI API access (e.g. via OpenAI, Anthropic, Google or Ollama)\n\n### Example of an editorial plan in Airtable: https://airtable.com/appIXeIkDPjQefHXN/shrwcY45g48RpcvvC\nFor this workflow you need the Airtable fields \"created_at\", \"Briefing\" and \"SoMe_Text_AI\"\n\nYou can contact me via LinkedIn, if you have any questions: https://www.linkedin.com/in/friedemann-schuetz",
+        "height": 680,
+        "width": 660
+      },
+      "position": [
+        -680,
+        80
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

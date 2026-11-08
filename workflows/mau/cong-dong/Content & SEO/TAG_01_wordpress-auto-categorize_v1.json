@@ -1,0 +1,206 @@
+{
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wordpress",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get All Wordpress Posts": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get All Wordpress Posts",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_01_wordpress-auto-categorize_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Tự gắn chuyên mục cho bài WordPress\n**Làm gì:** Quét bài WordPress, AI đọc nội dung và gán đúng chuyên mục có sẵn trên site.\n**Trigger:** Bấm tay (Execute workflow)\n**Credential cần:** OpenAI, WordPress\n**Chi phí ước:** Token rất thấp (chỉ phân loại).\n**Mở rộng gợi ý:** Chạy theo lịch mỗi đêm cho bài mới; thêm bước gắn tag.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/WordPress/Auto-Categorize%20blog%20posts%20in%20wordpress%20using%20A.I..json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        20,
+        -200
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "2017403c-7496-48f8-a487-8a017c7adfe3",
+      "name": "When clicking ‘Test workflow’",
+      "parameters": {},
+      "position": [
+        680,
+        320
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "82ff288f-4234-4192-9046-33e5ffee5264",
+      "name": "Wordpress",
+      "parameters": {
+        "operation": "update",
+        "postId": "={{ $('Get All Wordpress Posts').item.json.id }}",
+        "updateFields": {
+          "categories": "={{ $json.output }}"
+        }
+      },
+      "position": [
+        1500,
+        320
+      ],
+      "type": "n8n-nodes-base.wordpress",
+      "typeVersion": 1
+    },
+    {
+      "id": "521deb22-62dd-4b5f-8b9a-aab9777821da",
+      "name": "Sticky Note1",
+      "parameters": {
+        "content": "## How to Auto-Categorize 82 Blog Posts in 2 Minutes using A.I. (No Coding Required)\n\n💡 Read the [case study here](https://rumjahn.com/how-to-use-a-i-to-categorize-wordpress-posts-and-streamline-your-content-organization-process/).\n\n📺 Watch the [youtube tutorial here](https://www.youtube.com/watch?v=IvQioioVqhw)\n\n",
+        "width": 504.8863636363632
+      },
+      "position": [
+        620,
+        -100
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "4090d827-f8cd-47ef-ad4f-654ee58216f6",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 3,
+        "content": "### Get wordpress posts\n\nTurn off return all if you're running into issues.\n",
+        "height": 327.3400673400663,
+        "width": 188.14814814814804
+      },
+      "position": [
+        860,
+        180
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "71585d54-fdcc-42a5-8a0e-0fac3adc1809",
+      "name": "Sticky Note2",
+      "parameters": {
+        "color": 4,
+        "content": "### A.I. Categorization\n\n1. you need to set up the categories first in wordpress\n\n2. Edit the message prompt and change the categories and category numbers",
+        "height": 416.90235690235625,
+        "width": 315.1464152082392
+      },
+      "position": [
+        1080,
+        80
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "29354054-8600-4e45-99d0-6f30f779a505",
+      "name": "Sticky Note3",
+      "parameters": {
+        "color": 5,
+        "content": "### Update category",
+        "height": 269.59595959595947,
+        "width": 171.64983164983155
+      },
+      "position": [
+        1480,
+        240
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d9fe6289-6b97-4830-80aa-754ac4d4b3e0",
+      "name": "Get All Wordpress Posts",
+      "parameters": {
+        "operation": "getAll",
+        "options": {},
+        "returnAll": true
+      },
+      "position": [
+        900,
+        320
+      ],
+      "type": "n8n-nodes-base.wordpress",
+      "typeVersion": 1
+    },
+    {
+      "id": "ed40bf13-8294-4b4e-a8b6-5749989d3420",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        1080,
+        540
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1
+    },
+    {
+      "id": "dafeb935-532e-4067-9dfb-7e9a6bbc4e5a",
+      "name": "AI Agent",
+      "parameters": {
+        "options": {},
+        "promptType": "define",
+        "text": "=You are an expert content strategist and taxonomy specialist with extensive experience in blog categorization and content organization.\n\nI will provide you with a blog post's title. Your task is to assign ONE primary category ID from this fixed list:\n\n13 = Content Creation\n14 = Digital Marketing\n15 = AI Tools\n17 = Automation & Integration\n18 = Productivity Tools\n19 = Analytics & Strategy\n\nAnalyze the title and return only the single most relevant category ID number that best represents the main focus of the post. While a post might touch on multiple topics, select the dominant theme that would be most useful for navigation purposes.\n\n{{ $json.title.rendered }}\n\nOutput only the category number"
+      },
+      "position": [
+        1100,
+        320
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

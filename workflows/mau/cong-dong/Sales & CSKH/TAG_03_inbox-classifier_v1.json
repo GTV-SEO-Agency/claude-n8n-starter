@@ -1,0 +1,209 @@
+{
+  "connections": {
+    "AI: Classify": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Merge Result",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Gmail: New Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Parse Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Merge Result": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Log to Sheets",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Parse Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "AI: Classify",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_03_inbox-classifier_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Phân loại email vào nhóm và ghi log\n**Làm gì:** Mỗi email mới được AI gắn nhóm (khách, hoá đơn, spam…) và ghi vào Sheets, chưa tự hành động.\n**Trigger:** Gmail có mail mới\n**Credential cần:** Gmail, Google Sheets, OpenAI\n**Chi phí ước:** Token rất thấp.\n**Mở rộng gợi ý:** Bật hành động: gắn nhãn Gmail, chuyển tiếp cho đúng người.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/Gmail_and_Email_Automation/InboxZero%20Lite%20-%20AI%20Email%20Classifier.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -480,
+        80
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "trigger-gmail",
+      "name": "Gmail: New Email",
+      "parameters": {
+        "filters": {
+          "readStatus": "unread"
+        },
+        "pollTimes": {
+          "item": [
+            {
+              "minute": 5,
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "simple": false
+      },
+      "position": [
+        200,
+        400
+      ],
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "parse",
+      "name": "Parse Email",
+      "parameters": {
+        "jsCode": "try {\n  const e = $input.first().json;\n  return [{ json: { messageId: e.id || '', from: e.from?.value?.[0]?.address || '', fromName: e.from?.value?.[0]?.name || '', subject: e.subject || '', snippet: (e.snippet || '').substring(0, 500), date: e.date || new Date().toISOString() } }];\n} catch (e) {\n  throw new Error('Failed to parse email: ' + e.message);\n}"
+      },
+      "position": [
+        420,
+        400
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "ai-classify",
+      "maxTries": 3,
+      "name": "AI: Classify",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "Classify this email as: urgent, important, informational, or spam. Also write a 1-sentence summary. JSON: { \"category\": \"...\", \"summary\": \"...\" }",
+              "role": "system"
+            },
+            {
+              "content": "=From: {{$json.fromName}} <{{$json.from}}>\nSubject: {{$json.subject}}\n\n{{$json.snippet}}",
+              "role": "user"
+            }
+          ]
+        },
+        "model": "gpt-4o-mini",
+        "options": {
+          "maxTokens": 200,
+          "responseFormat": "json_object",
+          "temperature": 0.2
+        }
+      },
+      "position": [
+        640,
+        400
+      ],
+      "retryOnFail": true,
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.8,
+      "waitBetweenTries": 2000
+    },
+    {
+      "id": "merge",
+      "name": "Merge Result",
+      "parameters": {
+        "jsCode": "const email = $('Parse Email').first().json;\nconst aiRaw = $input.first().json;\nlet ai;\ntry { ai = JSON.parse(aiRaw.message?.content || '{}'); } catch(e) { ai = { category: 'informational', summary: '' }; }\nreturn [{ json: { ...email, category: ai.category || 'informational', summary: ai.summary || '', classifiedAt: new Date().toISOString() } }];"
+      },
+      "position": [
+        860,
+        400
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "log-sheets",
+      "maxTries": 2,
+      "name": "Log to Sheets",
+      "parameters": {
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Category": "={{ $json.category }}",
+            "Date": "={{ $json.date }}",
+            "From": "={{ $json.from }}",
+            "Subject": "={{ $json.subject }}",
+            "Summary": "={{ $json.summary }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": ""
+        }
+      },
+      "position": [
+        1080,
+        400
+      ],
+      "retryOnFail": true,
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "note",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 6,
+        "content": "## InboxZero Lite — Classify Only\n\nSimplest version: classify + log.\nNo auto-actions, no Slack, no drafts.\n\nPerfect for trying InboxZero before\nenabling auto-actions.",
+        "height": 180,
+        "width": 300
+      },
+      "position": [
+        120,
+        180
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true
+  }
+}

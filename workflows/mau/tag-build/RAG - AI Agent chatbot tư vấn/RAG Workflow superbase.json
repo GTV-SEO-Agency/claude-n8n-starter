@@ -1,0 +1,335 @@
+{
+  "active": false,
+  "connections": {
+    "Chat": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "RAG Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Default Data Loader1": {
+      "ai_document": [
+        [
+          {
+            "index": 0,
+            "node": "Supabase Vector Store2",
+            "type": "ai_document"
+          }
+        ]
+      ]
+    },
+    "Downloading File": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Supabase Vector Store2",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "index": 0,
+            "node": "Supabase Vector Store2",
+            "type": "ai_embedding"
+          },
+          {
+            "index": 0,
+            "node": "Supabase1",
+            "type": "ai_embedding"
+          }
+        ]
+      ]
+    },
+    "Get a document": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set ID",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "RAG Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "index": 0,
+            "node": "RAG Agent",
+            "type": "ai_memory"
+          }
+        ]
+      ]
+    },
+    "Set ID": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Downloading File",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Supabase1": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "RAG Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get a document",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "HwgVqsNBezfM7oDi",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "RAG Workflow",
+  "nodes": [
+    {
+      "id": "704356b9-9039-4578-b5bd-089dcb0261b3",
+      "name": "Chat",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        1152,
+        -192
+      ],
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "webhookId": "52c364ad-eb8d-4b81-bc06-f954b1fcd475"
+    },
+    {
+      "id": "",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": "gpt-4.1-mini",
+        "options": {}
+      },
+      "position": [
+        1280,
+        0
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1
+    },
+    {
+      "id": "6380499c-6ebe-4623-9c3d-011ef8f90aed",
+      "name": "RAG Agent",
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistant. You will use the superbase1 Tool to retrieve relevant information and respond to the user's query."
+        },
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}"
+      },
+      "position": [
+        1456,
+        -192
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    },
+    {
+      "id": "418b3de5-cf81-4e0c-a291-10046cf08a17",
+      "name": "Downloading File",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "download",
+        "options": {
+          "googleFileConversion": {
+            "conversion": {
+              "docsToFormat": "text/plain"
+            }
+          }
+        }
+      },
+      "position": [
+        1552,
+        400
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "ce9f6ff4-af09-439c-a2af-f02d021b3efe",
+      "name": "Embeddings OpenAI",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        1728,
+        608
+      ],
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "a635053e-c217-43cf-a044-81b532bd7bea",
+      "name": "When clicking ‘Execute workflow’",
+      "parameters": {},
+      "position": [
+        848,
+        400
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "e2f18134-4051-45f9-9e1e-674d06a201d0",
+      "name": "Get a document",
+      "parameters": {
+        "documentURL": "",
+        "operation": "get"
+      },
+      "position": [
+        1056,
+        400
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "40acf08b-9510-458f-b8c1-8d59082f94f9",
+      "name": "Set ID",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "02e314e8-2989-4381-a528-01d242fa6f9a",
+              "name": "ID",
+              "type": "string",
+              "value": "={{ $json.documentId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        1296,
+        400
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "d2da3912-c239-4476-8963-feae3b7bc57f",
+      "name": "Postgres Chat Memory",
+      "parameters": {
+        "contextWindowLength": 10,
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}"
+      },
+      "position": [
+        1424,
+        32
+      ],
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "9fac7f4e-6609-4286-87d2-6ba09d802fd9",
+      "name": "Default Data Loader1",
+      "parameters": {
+        "dataType": "binary",
+        "options": {}
+      },
+      "position": [
+        2048,
+        592
+      ],
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "",
+      "name": "Supabase Vector Store2",
+      "parameters": {
+        "mode": "insert",
+        "options": {
+          "queryName": "match_documents"
+        },
+        "tableName": {
+          "__rl": true,
+          "cachedResultName": "documents",
+          "mode": "list",
+          "value": "documents"
+        }
+      },
+      "position": [
+        1840,
+        400
+      ],
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "cd87c9b5-49cd-45f3-b02f-4bc118bbab07",
+      "name": "Supabase1",
+      "parameters": {
+        "includeDocumentMetadata": false,
+        "mode": "retrieve-as-tool",
+        "options": {},
+        "tableName": {
+          "__rl": true,
+          "cachedResultName": "documents",
+          "mode": "list",
+          "value": "documents"
+        },
+        "toolDescription": "Call this tool to look up the HR policy of the company"
+      },
+      "position": [
+        1728,
+        0
+      ],
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

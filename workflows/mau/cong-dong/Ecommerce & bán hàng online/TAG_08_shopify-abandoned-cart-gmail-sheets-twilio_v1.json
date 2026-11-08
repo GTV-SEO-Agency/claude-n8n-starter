@@ -1,0 +1,948 @@
+{
+  "connections": {
+    "Apply Global Discount Code": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Email (Gmail)",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Completed Checkout?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Mark as \"Recovered Naturally\"",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Fetch Cart",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Extract Key Values": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait some hours",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch Cart": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Apply Global Discount Code",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "GET Checkout Status": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Completed Checkout?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "GET Checkout Status1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Log to Google Sheet": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait some days",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "index": 0,
+            "node": "GET Checkout Status1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Mark as \"Recovered Naturally\"": {
+      "main": [
+        []
+      ]
+    },
+    "Send Email (Gmail)": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Log to Google Sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send SMS (Twilio)": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait 24 Hours",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Shopify Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Extract Key Values",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait some days": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send SMS (Twilio)",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Ready to take this to the next level? We at Innovatio are cheering for you!!! Best of luck and great successes to you all <3 Velebit from Innovatio",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait some hours": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "GET Checkout Status",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_shopify-abandoned-cart-gmail-sheets-twilio_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Cứu giỏ hàng bỏ dở không cần AI (Gmail + Sheets + Twilio)\n**Làm gì:** Chuỗi nhắc 3 lần qua email và SMS, theo dõi trong Sheets. 60 node, nhiều nhánh, đáng đọc để học cấu trúc.\n**Trigger:** Shopify có đơn/sản phẩm mới, Webhook\n**Credential cần:** Airtable, Gmail, Google Sheets, Shopify, Twilio\n**Chi phí ước:** Phí SMS Twilio.\n**Mở rộng gợi ý:** Cắt còn 1 kênh cho gọn; đổi Shopify thành Haravan.\n\n---\n**Nguồn:** n8n.io template #3415 của innovatio\nhttps://n8n.io/workflows/3415\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -2240,
+        -1700
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "dbcb5a20-ffab-448c-a3ac-1d7b1266a161",
+      "name": "Fetch Cart",
+      "parameters": {},
+      "position": [
+        1480,
+        -140
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2
+    },
+    {
+      "id": "41ac1023-1875-4036-8f5a-61002acecc83",
+      "name": "Send Email (Gmail)",
+      "parameters": {},
+      "position": [
+        2360,
+        -140
+      ],
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1
+    },
+    {
+      "disabled": true,
+      "id": "",
+      "name": "Wait 24 Hours",
+      "parameters": {},
+      "position": [
+        2900,
+        460
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "webhookId": "88efe41a-61e6-446a-8dd4-2d6ecbc9f4e4"
+    },
+    {
+      "disabled": true,
+      "id": "d8ed04f0-2860-4ba6-9b60-b04dc2ff047e",
+      "name": "Send SMS (Twilio)",
+      "parameters": {},
+      "position": [
+        2700,
+        460
+      ],
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1
+    },
+    {
+      "id": "75a6bdf0-a76d-4e69-b0f1-43fb9858e13c",
+      "name": "Log to Google Sheet",
+      "parameters": {},
+      "position": [
+        2840,
+        -140
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 3
+    },
+    {
+      "id": "0843ecb9-1ee5-4d7b-8218-31fab02cd2cf",
+      "name": "Shopify Trigger",
+      "parameters": {},
+      "position": [
+        -460,
+        -140
+      ],
+      "type": "n8n-nodes-base.shopifyTrigger",
+      "typeVersion": 1,
+      "webhookId": "ba10bbdd-dc67-4eae-919c-8eff9e197b00"
+    },
+    {
+      "id": "a05b26e8-81c5-434c-b66c-073601f4110d",
+      "name": "GET Checkout Status",
+      "parameters": {},
+      "position": [
+        860,
+        -140
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "5ea4e065-2a7a-4104-a2b0-c773f47c9d74",
+      "name": "Completed Checkout?",
+      "parameters": {},
+      "position": [
+        1080,
+        -140
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "disabled": true,
+      "id": "a2650e46-464b-4781-93a5-03a3e5464bf7",
+      "name": "Mark as \"Recovered Naturally\"",
+      "parameters": {},
+      "position": [
+        800,
+        840
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "84ae9b4f-0dfc-4082-92f2-2e38bf176424",
+      "name": "Extract Key Values",
+      "parameters": {},
+      "position": [
+        140,
+        -140
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "f5f92cb4-2877-407c-b70d-18b764f18ea2",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        -840,
+        -580
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Sticky Note1",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        -240,
+        -660
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "88e3aa40-3a4a-459e-8602-9c1d20cbbc04",
+      "name": "Sticky Note2",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        -1640,
+        -820
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "97a284e8-dd3f-438b-a1fc-5ec69662c9e1",
+      "name": "Sticky Note3",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        -840,
+        20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "disabled": true,
+      "id": "848abc27-e2e4-4b64-a8d4-8ecd27b9bcff",
+      "name": "Webhook",
+      "parameters": {},
+      "position": [
+        -640,
+        500
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "webhookId": "e0e91b87-88af-4815-92a9-49db03c9a6bb"
+    },
+    {
+      "id": "f84d8c8a-66d4-4fdc-a5e8-c8b3b877dd09",
+      "name": "Sticky Note4",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        -240,
+        20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "7330df7b-49af-4d8e-8150-e5a746d5fc01",
+      "name": "Sticky Note5",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        -820,
+        -200
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "3de41525-1e55-4841-8376-32d73c21f031",
+      "name": "Sticky Note6",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        80,
+        -400
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "23ce859c-ada9-4146-853d-e91747fffc75",
+      "name": "Sticky Note7",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        -520,
+        -200
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "61a233e5-9c8d-46c0-b3e5-f6e36d5efcc8",
+      "name": "Sticky Note9",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        80,
+        -200
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "090bb1ac-8169-46fa-8b38-7fad10b9d328",
+      "name": "Sticky Note10",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        360,
+        -740
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "814a3f7b-3e5b-4cfa-8c2a-04150e8e9649",
+      "name": "Sticky Note11",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        420,
+        -200
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "24dc49f2-2253-4787-ba16-a2c6d1df500f",
+      "name": "Sticky Note12",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        420,
+        -400
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "94e7faa2-6496-4a17-834a-ce8345ebdfdd",
+      "name": "Sticky Note13",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        760,
+        -1000
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "f62ce466-2417-483b-8118-0e30c585ee80",
+      "name": "Sticky Note14",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        760,
+        20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "7ceb6745-5581-4ccb-9c01-89e3d661aebb",
+      "name": "Sticky Note15",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        800,
+        -200
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "52b21512-635e-4655-814b-9f11e91941cd",
+      "name": "Sticky Note16",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        780,
+        -640
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "c0191d35-5107-47fe-b573-d660392d3139",
+      "name": "Sticky Note17",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        1040,
+        -520
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Sticky Note18",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        -520,
+        -200
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "6bc23e15-de2b-4b15-8fcb-4e0b04c297c1",
+      "name": "Sticky Note19",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        760,
+        420
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "disabled": true,
+      "id": "cb906b46-aa88-4373-8106-4c33fba5f0e8",
+      "name": "Airtable",
+      "parameters": {},
+      "position": [
+        1120,
+        840
+      ],
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1
+    },
+    {
+      "id": "9b237c7c-567c-404b-8d03-738061457925",
+      "name": "Sticky Note20",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        1340,
+        -1120
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "9a3f776b-6e1f-4313-8e88-8f0fe62870f1",
+      "name": "Sticky Note21",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        1420,
+        -200
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "fa1ba6f9-8a00-472f-a731-5711bb27f3ca",
+      "name": "Sticky Note22",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        1360,
+        -640
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "068a63c5-ab3e-405d-b61a-29e46a791c0b",
+      "name": "Sticky Note23",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        1340,
+        20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "36dcbbda-2c4a-4e1d-a5a5-c1509a154e71",
+      "name": "Sticky Note24",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        1780,
+        -1260
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "fde98405-859a-4022-8a79-e2f550833ff8",
+      "name": "Sticky Note25",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        1860,
+        -200
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "22cfecf9-1988-4016-8b07-3fec67082457",
+      "name": "Sticky Note26",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        1800,
+        -760
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "9b721f12-ca57-44df-a84b-a9500bb546a2",
+      "name": "Sticky Note27",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        1780,
+        20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "fa06a2f6-9209-4608-b5be-66e77164ed97",
+      "name": "Sticky Note28",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        1780,
+        600
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "50bceea4-ca69-4c5f-8500-3057c1814b27",
+      "name": "Sticky Note29",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        1780,
+        1180
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "c7b6737c-d7a6-47cb-8e32-0c46465e1717",
+      "name": "Apply Global Discount Code",
+      "notesInFlow": false,
+      "parameters": {},
+      "position": [
+        1920,
+        -140
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "9f42e402-4850-4a34-bbb0-585f26f6a8cc",
+      "name": "Sticky Note30",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        2220,
+        -1380
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "fbc42590-c833-436a-8f48-8846cef0cbe8",
+      "name": "Sticky Note31",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        2300,
+        -200
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "c2859ff4-4867-472a-a790-6a5f10776550",
+      "name": "Sticky Note32",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        2240,
+        -820
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "a01cbb1a-f02e-4c95-998f-96c3e28b2cee",
+      "name": "Sticky Note33",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        2220,
+        20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d9d57bb6-4a96-4bd2-a1f0-3afd87b2cb2c",
+      "name": "Sticky Note34",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        2220,
+        640
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "3dbc18de-6e44-4805-be96-f3a40b13a854",
+      "name": "Sticky Note35",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        2660,
+        -1600
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "0305e2f6-3212-4172-8731-7e43df65962a",
+      "name": "Sticky Note36",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        2740,
+        -200
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "971196b7-d84a-41cb-997d-a339d2a7f123",
+      "name": "Sticky Note37",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        2680,
+        -1180
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "20dc36d2-74cb-484e-9a2e-829888ab4dfe",
+      "name": "Sticky Note38",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        3140,
+        -560
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "f36e17cf-ff68-4d3b-800b-a1faff1b7f12",
+      "name": "Sticky Note39",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        2660,
+        20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Sticky Note40",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        2660,
+        640
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "6515c0ff-09aa-4d35-a999-be06198cf02d",
+      "name": "Wait some hours",
+      "parameters": {},
+      "position": [
+        480,
+        -140
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "8d36d0c3-ea44-47a7-a1c1-e3f128dcc82e"
+    },
+    {
+      "id": "aa2b3690-c86f-473b-a908-3f81e660db7a",
+      "name": "Wait some days",
+      "parameters": {},
+      "position": [
+        3220,
+        -160
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "8d36d0c3-ea44-47a7-a1c1-e3f128dcc82e"
+    },
+    {
+      "disabled": true,
+      "id": "70381b8c-0553-4104-ba61-fc18d3f86900",
+      "name": "Loop Over Items",
+      "parameters": {},
+      "position": [
+        2840,
+        1080
+      ],
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3
+    },
+    {
+      "disabled": true,
+      "id": "53ef93d0-4a1d-4b07-8f88-3487b2a391db",
+      "name": "GET Checkout Status1",
+      "parameters": {},
+      "position": [
+        3040,
+        1180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "disabled": true,
+      "id": "03231319-5aa5-48e9-aaa8-fb210ad17c21",
+      "name": "Ready to take this to the next level? We at Innovatio are cheering for you!!! Best of luck and great successes to you all <3 Velebit from Innovatio",
+      "parameters": {},
+      "position": [
+        3540,
+        -160
+      ],
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1
+    },
+    {
+      "id": "007fe0ad-d301-49c4-8039-4909baff7ff6",
+      "name": "Sticky Note8",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        3720,
+        -820
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "c743633f-ad54-4dc0-81c6-3e3049ab2e66",
+      "name": "Sticky Note41",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        -260,
+        -820
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

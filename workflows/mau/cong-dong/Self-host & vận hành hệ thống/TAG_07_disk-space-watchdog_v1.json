@@ -1,0 +1,197 @@
+{
+  "connections": {
+    "Any alerts?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Telegram Alert",
+            "type": "main"
+          }
+        ],
+        []
+      ]
+    },
+    "Check Disk Usage (SSH)": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Parse & Evaluate",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Parse & Evaluate": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Any alerts?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Check Disk Usage (SSH)",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Telegram Alert": {
+      "main": [
+        [],
+        [
+          {
+            "index": 0,
+            "node": "Send Email Fallback",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_07_disk-space-watchdog_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Cảnh báo VPS sắp đầy ổ\n**Làm gì:** Chạy lệnh trên VPS qua SSH, ổ đĩa quá ngưỡng thì báo.\n**Trigger:** Lịch (Schedule)\n**Credential cần:** SSH tới VPS, Telegram bot, smtp\n**Chi phí ước:** 0 đồng.\n**Mở rộng gợi ý:** Thêm tự dọn log Docker khi quá ngưỡng.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/devops/disk-space-watchdog.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -600,
+        -180
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "f2b10000-0000-4000-8000-000000000001",
+      "name": "Schedule Trigger",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 30
+            }
+          ]
+        }
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "f2b10000-0000-4000-8000-000000000002",
+      "name": "Check Disk Usage (SSH)",
+      "parameters": {
+        "command": "df -P",
+        "resource": "command"
+      },
+      "position": [
+        220,
+        0
+      ],
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1
+    },
+    {
+      "id": "f2b10000-0000-4000-8000-000000000003",
+      "name": "Parse & Evaluate",
+      "parameters": {
+        "jsCode": "// Parses the output of \"df -P\", compares it against tiered thresholds (WARN/CRIT)\n// and only reports when a mountpoint CHANGES level. The de-duplication uses n8n's\n// workflow static data, so a disk sitting at 85% for a week alerts once, not 336 times.\n// Thresholds are read from environment variables so the workflow needs no editing.\nconst warnPct = parseInt($env.DISK_WARN_PCT || '80', 10);\nconst critPct = parseInt($env.DISK_CRIT_PCT || '90', 10);\n\nconst raw = $input.first().json.stdout || '';\nconst lines = raw.trim().split('\\n').slice(1);\n\nconst staticData = $getWorkflowStaticData('node');\nif (!staticData.lastLevel) staticData.lastLevel = {};\n\nconst alerts = [];\nfor (const line of lines) {\n  const parts = line.trim().split(/\\s+/);\n  if (parts.length < 6) continue;\n  const filesystem = parts[0];\n  const capacityStr = parts[parts.length - 2];\n  const mount = parts[parts.length - 1];\n  const usedPct = parseInt(capacityStr.replace('%', ''), 10);\n  if (Number.isNaN(usedPct)) continue;\n\n  let level = 'ok';\n  if (usedPct >= critPct) level = 'critical';\n  else if (usedPct >= warnPct) level = 'warning';\n\n  const prevLevel = staticData.lastLevel[mount] || 'ok';\n  if (level !== prevLevel) {\n    staticData.lastLevel[mount] = level;\n    const availGB = (parseInt(parts[parts.length - 3], 10) / 1024 / 1024).toFixed(1);\n    if (level !== 'ok') {\n      alerts.push({ mount, filesystem, usedPct, level, availGB });\n    } else {\n      // Recovery is reported too, so a silent channel means \"nothing changed\",\n      // not \"the workflow died\".\n      alerts.push({ mount, filesystem, usedPct, level, availGB, recovered: true });\n    }\n  }\n}\n\nconst hasAlerts = alerts.length > 0;\nlet message = null;\nif (hasAlerts) {\n  message = alerts.map(a => a.recovered\n    ? `[OK] ${a.mount} back below threshold (${a.usedPct}%)`\n    : `${a.level === 'critical' ? '[CRITICAL]' : '[WARNING]'} ${a.mount} (${a.filesystem}): ${a.usedPct}% used, ${a.availGB} GB free`\n  ).join('\\n');\n}\n\nreturn [{ json: { hasAlerts, message, alerts } }];"
+      },
+      "position": [
+        440,
+        0
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "f2b10000-0000-4000-8000-000000000004",
+      "name": "Any alerts?",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "cond1",
+              "leftValue": "={{$json.hasAlerts}}",
+              "operator": {
+                "operation": "true",
+                "singleValue": true,
+                "type": "boolean"
+              },
+              "rightValue": ""
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          }
+        }
+      },
+      "position": [
+        660,
+        0
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "f2b10000-0000-4000-8000-000000000005",
+      "name": "Send Telegram Alert",
+      "onError": "continueErrorOutput",
+      "parameters": {
+        "additionalFields": {},
+        "chatId": "={{$env.TG_CHAT_ID}}",
+        "text": "={{$json.message}}"
+      },
+      "position": [
+        880,
+        -80
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "f2b10000-0000-4000-8000-000000000006",
+      "name": "Send Email Fallback",
+      "parameters": {
+        "fromEmail": "={{$env.SMTP_FROM}}",
+        "subject": "Disk space watchdog alert",
+        "text": "={{$json.message}}",
+        "toEmail": "={{$env.SMTP_TO}}"
+      },
+      "position": [
+        1100,
+        -80
+      ],
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

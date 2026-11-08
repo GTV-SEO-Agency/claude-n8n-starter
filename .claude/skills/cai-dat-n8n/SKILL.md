@@ -64,16 +64,23 @@ Xong khi: người dùng thấy trang danh sách workflow của n8n.
    - App hỏi `n8n Base Url`: nhập `http://localhost:5678`, không thêm đường dẫn phía sau.
    - Nếu máy có lệnh `claude`: bạn chạy được thay người dùng: `claude plugin install n8n-skills@n8n-io --scope project --config n8n_url=http://localhost:5678`.
    - Cài xong, nhờ người dùng mở phiên mới trong cùng folder để plugin nạp.
-3. **Đăng nhập.** MCP `n8n-mcp` dùng OAuth. App hiện nút Authenticate hoặc Connect. Trình duyệt mở trang của n8n: người dùng tick "I recognize and trust this URL" rồi bấm Allow.
+3. **Nối bằng kết nối riêng `n8n-local`, đăng nhập bằng Access Token.** Không dùng `n8n-mcp` của plugin để đăng nhập. Hộp `/mcp` đọc bản plugin của tổ chức nên báo "points at a different server URL". Cũng không dùng OAuth: app chỉ mở trang đăng nhập https, còn n8n chạy http://localhost, nên app báo "URL phải dùng https".
+   - `.mcp.json` khai báo `n8n-local`: `type` là `http`, `url` là `http://localhost:5678/mcp-server/http`, `headersHelper` là `sh <đường dẫn tuyệt đối của folder>/n8n/mcp-headers.sh`. Bản tải từ GitHub ghi `sh n8n/mcp-headers.sh`: đổi sang đường dẫn tuyệt đối của folder trên máy người dùng (lấy bằng `pwd`) trước khi nhờ người dùng kết nối.
+   - `.claude/settings.json` có `"enabledMcpjsonServers": ["n8n-local"]`.
+   - Lấy token: người dùng mở n8n → Settings → Instance-level MCP → **Connect** → tab **API key** → bấm copy cạnh Access token. Nếu token hiện dạng `******abcd`, bấm nút mũi tên xoay vòng để tạo token mới rồi copy. n8n chỉ cho xem đầy đủ một lần.
+   - Cất token vào `.env`, dòng `N8N_MCP_TOKEN=<token>`. Tạo `.env` từ `.env.example` nếu chưa có. Không in token. Kiểm bằng cách gọi `initialize` tới `/mcp-server/http` với header từ `n8n/mcp-headers.sh`: phải trả 200. Nếu người dùng dán token vào chat, nhắc họ tạo token mới sau buổi học.
+   - Người dùng gõ `/mcp` → chọn **n8n-local** → bấm **Kết nối lại** (không bấm Kết nối). Nếu tool `n8n-local` vẫn chưa có, nhờ người dùng mở phiên mới trong folder này.
 
-Xong khi: tool `mcp__plugin_n8n-skills_n8n-mcp__search_workflows` chạy được và trả về danh sách, kể cả danh sách rỗng.
+Xong khi: tool `mcp__n8n-local__search_workflows` chạy được và trả về danh sách, kể cả danh sách rỗng.
 
-Nếu MCP báo chưa nối được: kiểm healthz, kiểm MCP đã bật trong n8n, rồi nhờ người dùng bấm Authenticate lại. Ghi lỗi và cách sửa vào `BAI-HOC.md`.
+Nếu MCP báo chưa nối được: kiểm healthz, kiểm MCP đã bật trong n8n, kiểm `.env` có `N8N_MCP_TOKEN` (chỉ in "có" hoặc "không"), rồi nhờ người dùng bấm Kết nối lại. Ghi lỗi và cách sửa vào `BAI-HOC.md`.
+
+Workflow nhập bằng CLI hoặc tạo trên giao diện có thể chưa bật quyền MCP. Lúc đó `get_workflow_details` báo "Workflow is not available in MCP". Nhờ người dùng mở `http://localhost:5678/workflow/<id>?settings=true`, bật MCP access rồi Save. Workflow tạo qua MCP thì đã bật sẵn.
 
 ## Bước 5 — Chạy thử
 
 1. Dựng workflow "Xin chào" bằng bộ `n8n-skills`: Manual Trigger → Set (trường `loi_chao` = "Xin chào từ n8n").
-2. Chạy thử bằng tool test của MCP.
+2. Chạy thử bằng tool của MCP: `execute_workflow` với `executionMode: "manual"`, rồi `get_workflow_execution` để xem trạng thái.
 3. Gửi người dùng link workflow và id execution.
 
 Xong khi: execution có trạng thái `success`. Cập nhật `TIEN-DO.md` thành "đã cài xong", rồi gợi ý người dùng chọn một việc trong mục "Gợi ý việc nên tự động" của `AGENTS.md`.

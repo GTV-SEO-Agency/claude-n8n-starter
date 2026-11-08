@@ -1,0 +1,1217 @@
+{
+  "active": false,
+  "connections": {
+    "3 part": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "Idea POV video",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    },
+    "30 Seconds": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Download Video",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "OpenAI",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Merge",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Text to Sound",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Download Video": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Video",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Basic LLM Chain",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Idea POV video": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Sheets",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Image to Video - Kling AI": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Item List Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    },
+    "Item List Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "Basic LLM Chain1",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    },
+    "List element": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Render Video",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Lấy Video": {
+      "main": [
+        [
+          {
+            "index": 1,
+            "node": "Merge",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Basic LLM Chain1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Lấy image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Image to Video - Kling AI",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "List element",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Tạo image qua Flux",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Idea POV video",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Basic LLM Chain1",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Render Video": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "30 Seconds",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Video": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Title",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Text to Sound": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "upload Google Drive",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Title": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Log Video",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Tạo image qua Flux": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Lấy image",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Lấy Video",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Idea POV video",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "share quyền": {
+      "main": [
+        [
+          {
+            "index": 3,
+            "node": "Merge",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "upload Google Drive": {
+      "main": [
+        [
+          {
+            "index": 2,
+            "node": "Merge",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "share quyền",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "cxgHrZzP8oJLk4OZ",
+  "meta": {},
+  "name": "video faceless - marketing automation",
+  "nodes": [
+    {
+      "id": "66f16392-1e5f-4790-9540-6b57098ad2c9",
+      "name": "Download Video",
+      "parameters": {
+        "options": {},
+        "url": "={{ $json.url }}"
+      },
+      "position": [
+        940,
+        700
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "",
+      "name": "Send Video",
+      "parameters": {
+        "additionalFields": {},
+        "binaryData": true,
+        "chatId": "=5443285991",
+        "operation": "sendVideo"
+      },
+      "position": [
+        1100,
+        700
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "cdeb2987-d275-480b-8532-f69bbed64999"
+    },
+    {
+      "id": "778c3a39-1541-4e72-8c68-5feba2962fce",
+      "name": "Title",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=Video: {{ $('When Executed by Another Workflow').first().json.videoTopic }}"
+            },
+            {
+              "content": "Create a 3-4 word title for the given video",
+              "role": "system"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "GPT-4.1-MINI",
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "position": [
+        1280,
+        700
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8
+    },
+    {
+      "id": "9de7213e-99be-458d-a249-5d8deb84c646",
+      "name": "Log Video",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Idea"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": true,
+              "display": true,
+              "displayName": "id",
+              "id": "id",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Idea",
+              "id": "Idea",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Caption",
+              "id": "Caption",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Production",
+              "id": "Production",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Environment_Prompt",
+              "id": "Environment_Prompt",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status Publishing",
+              "id": "Status Publishing",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Final_Output",
+              "id": "Final_Output",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Final_Output": "={{ $('Download Video').item.json.url }}",
+            "Idea": "={{ $('Google Sheets').item.json.Idea }}",
+            "Status Publishing": "for publishing"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        1600,
+        700
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "7e9c0e50-bd9a-48d6-97a1-bcbeebf6725d",
+      "name": "Google Sheets",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": true,
+              "display": true,
+              "displayName": "id",
+              "id": "id",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Idea",
+              "id": "Idea",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Caption",
+              "id": "Caption",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Production",
+              "id": "Production",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Environment_Prompt",
+              "id": "Environment_Prompt",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status Publishing",
+              "id": "Status Publishing",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Final_Output",
+              "id": "Final_Output",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Caption": "={{ $json.output.Caption }}",
+            "Environment_Prompt": "={{ $json.output.Environment_Prompt }}",
+            "Idea": "={{ $json.output.Idea }}",
+            "Production": "for production",
+            "Status Publishing": "pending"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        -800,
+        540
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "40acb5d2-41eb-47f7-a4ba-208b4209a135",
+      "name": "Basic LLM Chain",
+      "parameters": {
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=\n## Role & Context:\n\nYou are an advanced **prompt-generation AI** specializing in crafting **highly detailed and hyper-realistic POV (point of view) image prompt ideas**. Your task is to:\n\n-  **Generate concise, action-driven, immersive prompt ideas** that follow a **sequential narrative**, depicting a **\"day in the life\" experience** based on a given video topic.\n\n## Output Rules:\n- **Never include double quotes** in any output.\n- **Skip waking up from bed** – do not include this action.\n- **Do not include actions related to wearing clothing**.\n- **Do not include actions related to using feet**.\n- **Prioritize more sensational and unique scenes** for a given scenario rather than common daily actions.\n- The first output should be \"POV: You are a....\".\n- The next outputs after the first, must follow a logical sequence, covering a full day in life.\n\n## Guidelines for Output Generation:\n1. First-person perspective – Every output must make the viewer feel **fully immersed in the experience**.\n2. Use action-based verbs, such as: [**Gripping, running, reaching, holding, walking toward, stumbling, climbing, lifting, turning, stepping into**.]\n3. Use immersive keywords, such as: [**POV, GoPro-style, first-person view, point of view**.]\n4. Keep all outputs between 5 to 10 words long.\n5. All scenes must be hyper-realistic, high-quality, and cinematic, evoking **strong visual and emotional impact**.\n6. Never use double quotes in any output.\n7. All scenes must by hyper-realistic, high quality, and cinematic, evoking strong visual and emotional impact.\n8. Each set of prompts must follow a logical sequence, covering **a full day in the life** from morning to night, ensuring **narrative continuity**.\n9. Avoid introspection or vague descriptions – Focus on **physical actions and interactions** to build a **cohesive, immersive story**.\n---\n\n## **Example Prompts**\n\n### **Topic: A Peasant’s Day in Medieval Europe**\n- Pushing open a wooden cottage door  \n- Scooping water from a village well  \n- Kneeling to tie worn leather shoes  \n- Walking through a bustling market square  \n- Handing a silver coin to a merchant  \n- Carrying a sack of wheat up a hill  \n- Placing a candle by the bedside  \n\n### **Topic: A Cyberpunk Mercenary’s Routine**\n- Waking up to flickering neon ceiling lights  \n- Pushing aside tangled wires on a desk  \n- Scanning a wrist implant for mission updates  \n- Loading a plasma pistol in a dim alley  \n- Stepping onto a hover bike in the rain  \n- Swiping a keycard through a vault scanner  \n- Ducking behind cover as drones patrol ahead  \n- Hacking a neon-lit terminal with gloved fingers  \n- Collapsing onto a metal cot in exhaustion  \n\n### **Topic: A Soldier’s Day in World War I**\n- Wiping dirt from a battered helmet  \n- Climbing out of a damp trench at dawn  \n- Holding a rusted rifle with trembling hands  \n- Walking through thick fog past barbed wire  \n- Rushing toward an enemy bunker under fire  \n- Reloading behind sandbags as shells explode  \n- Bandaging a soldier’s wound with torn cloth  \n- Lighting a cigarette under a moonlit sky  \n- Resting against a wooden crate in the trenches  \n\nEach generated sequence tells a **visual story**, pulling the viewer into a **cohesive first-person experience from start to finish.**"
+            }
+          ]
+        },
+        "promptType": "define",
+        "text": "={{ $json.Idea }}"
+      },
+      "position": [
+        -560,
+        540
+      ],
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5
+    },
+    {
+      "id": "e24762d2-5704-447a-90f9-86d3398aca5e",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "gpt-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {
+          "maxTokens": -1
+        }
+      },
+      "position": [
+        -1280,
+        800
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "f4e304b6-1613-4d15-9ca0-3275f95a6374",
+      "name": "Item List Output Parser",
+      "parameters": {
+        "options": {
+          "numberOfItems": 4
+        }
+      },
+      "position": [
+        -300,
+        800
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserItemList",
+      "typeVersion": 1
+    },
+    {
+      "id": "80bc2944-8117-441e-897d-a1b48ea7f1de",
+      "name": "OpenAI",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=## Role & Context\n\nYou are an advanced prompt-generation AI specializing in expanding short POV (point-of-view) image prompt ideas into detailed, hyper-realistic prompts optimized for image-generation models like Flux and MidJourney.  \n\nYour task is to take a brief input and transform it into a rich, cinematic, immersive prompt that strictly adheres to a first-person perspective, making the viewer feel as if they are physically present in the scene.\n\nThis is the Short prompt input to expand upon: [ {{ $json.text }} ]\n \n\nEvery prompt must use this to describe the environment of the image:  [{{ $('Google Sheets').item.json.Environment_Prompt }} ]\n\n---\n\n## Prompt Structure\nEvery prompt must have two sections:\n\n1. Foreground:  Show and describe the **hands, limbs, or feet of the viewer**. You also must start with: **\"First person view POV GoPro shot of [relevant limb]...\"**\n\n2. Background: Describe the **scenery and environment**. You also must start with:  \"In the background, [describe scenery]\"\n\n---\n\n## Most Important Guidelines \n- Every image must be a **first-person perspective shot** – The viewer must feel like they are **experiencing the moment themselves**, not just observing it.\n- A visible limb (hands or feet) must always be present and actively engaged in the environment, for examples: gripping, reaching, pushing, lifting, or interacting in a natural way.\n- The framing must be dynamic and interactive, mimicking real-world human vision to ensure motion, depth & immersion similar to a GoPro or head-mounted camera shot.\n- Must limited to 450 characters\n\n### **Other Key Guidelines**\n- Full-body awareness: The prompt should subtly remind the viewer that they have a physical presence by mentioning sensations like: Weight shifting, Breath fogging in the cold, Fingers trembling from adrenaline\n- Sensory depth: The prompt should engage multiple senses to heighten realism (Sight, touch, temperature, sound, and even smell).\n- World interaction: The hands or feet should not just be present but actively interacting with the scene (examples: Clutching, adjusting, stepping forward, brushing against surfaces.)\n- Keep prompts under 450 characters in a single cinematic sentence, no extra formatting, explanations, or unnecessary output.\n\n---\n\n## **Example Prompts**\n### **Input:** Climbing a fire escape over neon streets  \n**Output:** *POV of gloved hands straining to pull up against the slick, rusted fire escape ladder, neon lights dancing in the puddles below, cold rain sliding down trembling fingers, distant sirens wailing as my breath fogs the damp air, a rooftop edge just within reach.*\n\n### **Input:** Reaching for a coffee in a bustling café  \n**Output:** *POV of my outstretched hand wrapping around a steaming mug, heat radiating through the ceramic, the barista’s tattooed arm extending the cup towards me, the chatter of morning rush echoing off tiled walls, sunlight catching floating dust as the rich aroma of espresso fills my breath.*\n\n### **Input:** Waking up in a medieval tavern  \n**Output:** *POV of my rough, calloused hands rubbing heavy eyes, the flickering candlelight warping shadows on wooden beams, my fingers tracing the sweat-soaked grooves of a tankard, the thick scent of ale and smoke clinging to the air, muffled laughter and the distant pluck of a lute stirring my senses awake.*\n"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "GPT-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "position": [
+        80,
+        60
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8
+    },
+    {
+      "id": "8525d25f-be34-4c56-92f0-704146fa7b72",
+      "name": "Wait",
+      "parameters": {
+        "amount": 80
+      },
+      "position": [
+        300,
+        320
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "e8a2b29e-7051-479d-a2dc-a7368be4de9a"
+    },
+    {
+      "id": "91cc2891-0b57-4cf6-b860-085213190548",
+      "name": "Tạo image qua Flux",
+      "parameters": {
+        "body": "={\n     \"prompt\": \"{{ $json.message.content }}\",\n     \"image_size\": \"1024x1536\",\n     \"num_images\": 1,\n     \"quality\": \"auto\",\n     \"background\": \"auto\",\n     \"openai_api_key\": \"<YOUR_API_KEY>\"\n   }\n",
+        "contentType": "raw",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<YOUR_API_KEY>"
+            }
+          ]
+        },
+        "method": "POST",
+        "options": {},
+        "rawContentType": "application/json",
+        "sendBody": true,
+        "sendHeaders": true,
+        "url": "https://queue.fal.run/fal-ai/gpt-image-1/text-to-image/byok"
+      },
+      "position": [
+        80,
+        320
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "",
+      "name": "Lấy image",
+      "parameters": {
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<YOUR_API_KEY>"
+            }
+          ]
+        },
+        "options": {},
+        "sendHeaders": true,
+        "url": "=https://queue.fal.run/fal-ai/gpt-image-1/requests/{{ $json.request_id }}"
+      },
+      "position": [
+        520,
+        320
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "3ea0e00e-9643-4406-9428-a8a48cf194fb",
+      "name": "Image to Video - Kling AI",
+      "parameters": {
+        "body": "={\n     \"prompt\": \"{{ $('OpenAI').item.json.message.content }}\",\n     \"image_url\": \"{{ $json.images[0].url }}\",\n  \"duration\": \"5\",\n  \"negative_prompt\": \"blur, distort, bad quality and low quality\",\n  \"cfg_scale\": 0.65,\n\"camera_control\": {\n\"type\": \"simple\",\n\"config\":{\n\"horizontal\": 0,\n\"vertical\": 0,\n\"pan\": 0,\n\"tilt\": 0,\n\"roll\": 0,\n\"zoom\": 0\n}\n}\n   }",
+        "contentType": "raw",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<YOUR_API_KEY>"
+            }
+          ]
+        },
+        "method": "POST",
+        "options": {},
+        "rawContentType": "application/json",
+        "sendBody": true,
+        "sendHeaders": true,
+        "url": "=https://queue.fal.run/fal-ai/wan-i2v/requests/{{ $json.request_id }}"
+      },
+      "position": [
+        80,
+        620
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "b8c52065-dee3-4bac-9a57-f77eb73aabb9",
+      "name": "Wait1",
+      "parameters": {
+        "amount": 6,
+        "unit": "minutes"
+      },
+      "position": [
+        300,
+        620
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "e8a2b29e-7051-479d-a2dc-a7368be4de9a"
+    },
+    {
+      "id": "2e6b6145-c263-4228-b8b8-d6fa8b5db830",
+      "name": "Lấy Video",
+      "parameters": {
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<YOUR_API_KEY>"
+            }
+          ]
+        },
+        "options": {},
+        "sendHeaders": true,
+        "url": "=https://queue.fal.run/fal-ai/wan-i2v/requests/{{ $json.request_id }}"
+      },
+      "position": [
+        500,
+        620
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "e11499a7-80e4-46df-ae4d-b6976c896de8",
+      "name": "Text to Sound",
+      "parameters": {
+        "body": "={\n  \"text\": \"No Voice:[{{ $json.text }}]\",\n\"duration_seconds\": 5,\n  \"prompt_influence\": 0.6\n}",
+        "contentType": "raw",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "xi-api-key",
+              "value": "<YOUR_API_KEY>"
+            }
+          ]
+        },
+        "method": "POST",
+        "options": {},
+        "rawContentType": "application/json",
+        "sendBody": true,
+        "sendHeaders": true,
+        "url": "https://api.elevenlabs.io/v1/sound-generation"
+      },
+      "position": [
+        60,
+        840
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "d1506db9-1a5a-423f-8f17-cf9ad257b5d2",
+      "name": "upload Google Drive",
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "name": "={{ $json.message.content }}",
+        "options": {}
+      },
+      "position": [
+        300,
+        840
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "61146c2b-cfd8-429e-a3bf-9da4cc5eaaed",
+      "name": "share quyền",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "share",
+        "options": {},
+        "permissionsUi": {
+          "permissionsValues": {
+            "allowFileDiscovery": true,
+            "role": "writer",
+            "type": "anyone"
+          }
+        }
+      },
+      "position": [
+        580,
+        840
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "afa69b9f-d893-4f24-a9c7-6bd2132d823e",
+      "name": "List element",
+      "parameters": {
+        "jsCode": "return [\n  {\n    scene_titles: items.map(item => item.json.text),\n    video_urls: items.map(item => item.json.video.url),\n    sound_urls: items.map(item => item.json.webContentLink)\n  }\n];"
+      },
+      "position": [
+        1120,
+        480
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "6e468c64-134a-41b1-b819-0f18e55095b4",
+      "name": "Basic LLM Chain1",
+      "parameters": {
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=## Role & Intrusction\n\nYou are an advanced prompt-generation AI specializing in transforming the exsiting Image AI prompt into the great sound effect in the background for elevenlab API - sound effect.\n\nThe  prompts you recieve will be a logical sequence, covering a full day in life of A POV Short video.\n\nYour task is to take the prompt you receive and you transform it into great sound effect prompt that suitable, the output need to limit to 400 characters. \n\n## Output Rules:\n- The next outputs after the first, must follow a logical sequence, covering a full day in life.\n- the output need to limit to 400 characters.\n- The sound effect should be smooth between each scenes."
+            }
+          ]
+        },
+        "promptType": "define",
+        "text": "={{ $('OpenAI').item.json.message.content }}"
+      },
+      "position": [
+        -420,
+        1100
+      ],
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5
+    },
+    {
+      "id": "c71cb4ab-43fe-47db-af7c-91c8499c67d6",
+      "name": "OpenAI Chat Model1",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "gpt-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {
+          "maxTokens": -1
+        }
+      },
+      "position": [
+        -500,
+        1320
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "",
+      "name": "Item List Output Parser1",
+      "parameters": {
+        "options": {
+          "numberOfItems": 1
+        }
+      },
+      "position": [
+        -180,
+        1300
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserItemList",
+      "typeVersion": 1
+    },
+    {
+      "id": "2ce5c268-28ac-4395-bbe5-6bf45dbd0c48",
+      "name": "Sticky Note7",
+      "parameters": {
+        "content": "## Combine & Render video\n",
+        "height": 560,
+        "width": 880
+      },
+      "position": [
+        840,
+        320
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "f4beaf61-2975-4d96-b7ff-4391405e6654",
+      "name": "Sticky Note8",
+      "parameters": {
+        "content": "## Tạo Prompts",
+        "height": 200,
+        "width": 440
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "6df75ccc-4813-4195-9cb7-5237bcaa8bc9",
+      "name": "Sticky Note9",
+      "parameters": {
+        "color": 4,
+        "content": "## Tạo Images",
+        "height": 220,
+        "width": 840
+      },
+      "position": [
+        -40,
+        280
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "7c8542ad-1fa0-4826-a1be-d68ecab65bb4",
+      "name": "Sticky Note10",
+      "parameters": {
+        "color": 4,
+        "content": "## Tạo Videos\n",
+        "height": 220,
+        "width": 840
+      },
+      "position": [
+        -60,
+        560
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "2755a873-d533-4b60-9da8-07947de9ebf1",
+      "name": "Sticky Note11",
+      "parameters": {
+        "content": "## Video Ideas & Brief\n",
+        "height": 500,
+        "width": 1340
+      },
+      "position": [
+        -1500,
+        440
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "b47cca3e-fb81-4ddc-8be5-2c84da1491d1",
+      "name": "Sticky Note6",
+      "parameters": {
+        "color": 4,
+        "content": "## Tạo Sounds\n",
+        "height": 220,
+        "width": 840
+      },
+      "position": [
+        -60,
+        800
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "73016c7a-e2df-425b-8b91-6583b9121b2b",
+      "name": "When Executed by Another Workflow",
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "videoTopic"
+            },
+            {
+              "name": "chatID"
+            }
+          ]
+        }
+      },
+      "position": [
+        -1340,
+        540
+      ],
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "8aa35000-9680-48c9-b6a0-695d1f756359",
+      "name": "Idea POV video",
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=## Role & Context:\n\nYour output is always in a table format\n\nYou are an AI designed to generate viral POV video ideas in a structured list format. Your output should always be follow by this structure.\n\n\nidea - POV: {engaging scenario based on request, should be less than 13 words}. \nCaption - {short, viral - friendly caption}\nenvironment_prompt - {max 20 words scene descriptor}\n\n### Guidelines\n\n1. idea:{ must start with \"POV:\" and describe an immersive, engaging, and potentially viral scenario. Idea should be based on the user’s theme or prompt }\n2. caption should be a short, eye-catching text optimized for virality.\n3. environment_prompt is a concise, max 20-word description of the scene, time period, etc. This must always define the socio-economic context or the environment context, for example clarify whether the person whose POV we’re seeing is rich or poor.\n4. note:\n- Ensure **hyper-realistic detail** in descriptions (**pending**).\n- **Example settings:** Post-apocalyptic abandoned city (**pending**).\n- **Atmosphere & props:** Stone walls, chains (**pending**).\n\n### Example Output:\nReturn your response structured into four fields:\n\n- idea: POV: you wake up as a coal miner in Pennsylvania 1905\n- Caption: POV caption\n- environment_prompt: Dark, stone walls, chains\n\n\nOnly output the fields listed above.\n"
+        },
+        "promptType": "define",
+        "text": "=Give me an idea for p[ {{ $('When Executed by Another Workflow').item.json.videoTopic }} ]"
+      },
+      "position": [
+        -1160,
+        540
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "a7e61cd9-71cd-4939-8fa1-0d06b1eb025c",
+      "name": "3 part",
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"Idea\": \"The Idea Video POV\",\n  \"Caption\": \"The Caption of the video\",\n  \"Environment_Prompt\": \"The environment prompt\"\n}\n"
+      },
+      "position": [
+        -960,
+        800
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2
+    },
+    {
+      "alwaysOutputData": true,
+      "id": "4f194101-a0de-4755-8eb7-dac18e3419b6",
+      "name": "Merge",
+      "parameters": {
+        "combineBy": "combineByPosition",
+        "mode": "combine",
+        "numberInputs": 4,
+        "options": {}
+      },
+      "position": [
+        940,
+        460
+      ],
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3
+    },
+    {
+      "executeOnce": true,
+      "id": "473aa24b-91fc-4777-b462-2edce4a9c1e7",
+      "name": "Render Video",
+      "parameters": {
+        "body": "={\n  \"template_id\": \"7c08d87a-0166-40ca-8bad-711616dab8c9\",\n  \"modifications\": {\n    \"Audio-1.source\": \"{{ $json.sound_urls[0] }}\",\n    \"Audio-2.source\": \"{{ $json.sound_urls[1] }}\",\n    \"Audio-3.source\": \"{{ $json.sound_urls[2] }}\",\n    \"Audio-4.source\": \"{{ $json.sound_urls[3] }}\",\n\n\n    \"Video-1.source\": \"{{ $json.video_urls[0] }}\",\n    \"Video-2.source\": \"{{ $json.video_urls[1] }}\",\n    \"Video-3.source\": \"{{ $json.video_urls[2] }}\",\n    \"Video-4.source\": \"{{ $json.video_urls[3] }}\",\n\n    \"Text-1.text\": \"{{ $json.scene_titles[0] }}\",\n    \"Text-2.text\": \"{{ $json.scene_titles[1] }}\",\n    \"Text-3.text\": \"{{ $json.scene_titles[2] }}\",\n    \"Text-4.text\": \"{{ $json.scene_titles[3] }}\"\n  }\n}\n",
+        "contentType": "raw",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<YOUR_API_KEY>"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "method": "POST",
+        "options": {},
+        "rawContentType": "application/json",
+        "sendBody": true,
+        "sendHeaders": true,
+        "url": "https://api.creatomate.com/v1/renders"
+      },
+      "position": [
+        1320,
+        480
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "2d5bb652-1a86-4102-891b-f60210452ecb",
+      "name": "30 Seconds",
+      "parameters": {
+        "amount": 30
+      },
+      "position": [
+        1540,
+        480
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "d5cd29e8-d3f7-491c-a6b6-2d705aa47931"
+    },
+    {
+      "id": "3d55f58b-11f5-40cd-9e14-4a961d0a0c91",
+      "name": "Anthropic Chat Model",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "Claude 3.7 Sonnet",
+          "mode": "list",
+          "value": "claude-3-7-sonnet-20250219"
+        },
+        "options": {}
+      },
+      "position": [
+        -700,
+        780
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

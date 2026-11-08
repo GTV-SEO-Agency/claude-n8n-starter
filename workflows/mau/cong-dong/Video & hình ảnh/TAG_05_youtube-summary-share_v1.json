@@ -1,0 +1,254 @@
+{
+  "connections": {
+    "Caption File Conversion": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Caption Summary with ChatGPT",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Caption Summary with ChatGPT": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Post to Discord",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Download Captions": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Caption File Conversion",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Find English Captions": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Download Captions",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Retrieve Caption Data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Find English Captions",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "YouTube Video Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Retrieve Caption Data",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_05_youtube-summary-share_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Tóm tắt video YouTube rồi chia sẻ\n**Làm gì:** Có video mới, AI đọc transcript và viết tóm tắt đăng lên kênh.\n**Trigger:** RSS\n**Credential cần:** Discord, Discord webhook, OpenAI, YouTube\n**Chi phí ước:** Token thấp.\n**Mở rộng gợi ý:** Đổi Discord sang Telegram hoặc Facebook Page; dùng cho kênh YouTube của bạn.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/Discord/Share%20YouTube%20Videos%20with%20AI%20Summaries%20on%20Discord.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -100,
+        -120
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "48c87027-7eea-40b9-a73c-4e002b748783",
+      "name": "YouTube Video Trigger",
+      "parameters": {
+        "feedUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UC08Fah8EIryeOZRkjBRohcQ",
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        }
+      },
+      "position": [
+        560,
+        220
+      ],
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "56166228-b365-4043-b48c-098b4de71f6f",
+      "name": "Retrieve Caption Data",
+      "parameters": {
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "youTubeOAuth2Api",
+        "options": {},
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "videoId",
+              "value": "={{ $json.id.match(/(?:[^:]*:){2}\\s*(.*)/)[1] }}"
+            },
+            {
+              "name": "part",
+              "value": "snippet"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "url": "https://www.googleapis.com/youtube/v3/captions"
+      },
+      "position": [
+        780,
+        220
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "c029ac6f-3071-4045-83f6-2dede0c1f358",
+      "name": "Download Captions",
+      "parameters": {
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "youTubeOAuth2Api",
+        "options": {},
+        "url": "=https://www.googleapis.com/youtube/v3/captions/{{ $json.caption.id }}"
+      },
+      "position": [
+        1220,
+        220
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "8b45dc14-f10f-4b50-8ca6-a9d0ccfee4dc",
+      "name": "Caption File Conversion",
+      "parameters": {
+        "destinationKey": "content",
+        "operation": "text",
+        "options": {}
+      },
+      "position": [
+        1440,
+        220
+      ],
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1
+    },
+    {
+      "id": "6527adb4-9087-40eb-b63a-8c4cdf5d0a40",
+      "name": "Caption Summary with ChatGPT",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=Summarise this transcript into three bullet points to sum up what the video is about and why someone should watch it: {{ $json[\"content\"] }}"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "GPT-3.5-TURBO",
+          "mode": "list",
+          "value": "gpt-3.5-turbo"
+        },
+        "options": {}
+      },
+      "position": [
+        1660,
+        220
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "2c83f230-bc37-4efb-9ee9-842bcefa0ef4",
+      "name": "Post to Discord",
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=🌟 New Video Alert! 🌟\n\n**{{ $('YouTube Video Trigger').item.json[\"title\"] }}**\n\n*What’s it about?*\n\n{{ $json[\"message\"][\"content\"] }}\n\n[Watch NOW]({{ $('YouTube Video Trigger').item.json[\"link\"] }}) and remember to share your thoughts!",
+        "options": {}
+      },
+      "position": [
+        2000,
+        220
+      ],
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2
+    },
+    {
+      "id": "8408887e-1d89-402c-b350-93d5f96f4dea",
+      "name": "Find English Captions",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "eaf7dcb5-91cf-4405-917b-38845f0ef78d",
+              "name": "caption",
+              "type": "object",
+              "value": "={{ $jmespath( $json.items, \"[?snippet.language == 'en'] | [0]\" ) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        1000,
+        220
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3
+    },
+    {
+      "id": "71cc0977-1695-4797-9df2-b0a98e41d3de",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "### Summarise Your YouTube Videos with AI for Discord\n\n📽️ [Watch the Video Tutorial](https://mrc.fm/ai2d)\n\n* Add your [YouTube channel ID](https://www.youtube.com/account_advanced) to the URL in the first node: `https://www.youtube.com/feeds/videos.xml?channel_id=YOUR_CHANNEL_ID`.\n\n* Ensure authorization with the YouTube channel that you want to download captions from.",
+        "height": 417.2722371967648,
+        "width": 448.1185983827491
+      },
+      "position": [
+        500,
+        -20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

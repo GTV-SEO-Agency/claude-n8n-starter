@@ -1,0 +1,1066 @@
+{
+  "active": false,
+  "connections": {
+    "Anthropic Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writing Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Content Writing Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Create a document",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Create a document": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update GG Doc",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wordpress1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get a document": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writing Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Process Form Data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "HTML version": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Image Covers1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Image Covers1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Edit Fields",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Perplexity": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writing Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Process Form Data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get a document",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get row(s) in sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Think1": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writing Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Update GG Doc": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update lên Sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Update lên Sheet": {
+      "main": [
+        []
+      ]
+    },
+    "Wordpress1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update tình trạng lên sheet1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "checklist_tranh_loi_khi_viet_content_ai": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writing Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "content_example": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writing Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "optimized_semantic_seo_content_checklist": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writing Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "fTUWfSO9ixKKqGh7",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Blog Semantic content - SEO workflow - TAG - AI Agent",
+  "nodes": [
+    {
+      "id": "cc5b6ab4-d731-4074-a5d4-b25e3526ba48",
+      "name": "Schedule Trigger1",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "0d611140-5ea7-4b57-b3b7-51b5915a06f1",
+      "name": "Update lên Sheet",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand Name",
+              "id": "Brand Name",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand information",
+              "id": "Brand information",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand solution",
+              "id": "Brand solution",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Query",
+              "id": "Query",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Query in English",
+              "id": "Query in English",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "outline focus",
+              "id": "outline focus",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Title",
+              "id": "Title",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Top 3 URL",
+              "id": "Top 3 URL",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Output language",
+              "id": "Output language",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Mục đích tìm kiếm",
+              "id": "Mục đích tìm kiếm",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Outline Result ",
+              "id": "Outline Result ",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Link outline",
+              "id": "Link outline",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Title Content",
+              "id": "Title Content",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Slug",
+              "id": "Slug",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Meta Description",
+              "id": "Meta Description",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Style of Writing",
+              "id": "Style of Writing",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tone of Voice",
+              "id": "Tone of Voice",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status Writing",
+              "id": "Status Writing",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Content Final",
+              "id": "Content Final",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Content Final": "=https://docs.google.com/document/d/{{ $json.documentId }}/edit",
+            "Link outline": "={{ $('Get a document').item.json.documentId }}",
+            "Outline Result ": "=",
+            "Status": "Processing",
+            "Status Writing": "Complete Writing",
+            "row_number": "={{ $('Get row(s) in sheet').item.json.row_number }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        1720,
+        0
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "0f877ced-e3e4-44f7-b861-4c76c34fd93a",
+      "name": "Process Form Data",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5e8d95c1-407c-4adc-b61a-a8ded2aed84a",
+              "name": "formData",
+              "type": "object",
+              "value": "={{ $json }}"
+            },
+            {
+              "id": "31fe2c22-f140-4a89-8f98-af0eff940e82",
+              "name": "projectId",
+              "type": "string",
+              "value": "={{ $now.valueOf() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        420,
+        0
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "4742284a-7b3f-4411-8b98-4b0532ff7d7a",
+      "name": "Update GG Doc",
+      "parameters": {
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ $('Content Writing Agent').item.json.output }}"
+            }
+          ]
+        },
+        "documentURL": "={{ $json.id }}",
+        "operation": "update"
+      },
+      "position": [
+        1520,
+        0
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "8009e849-f17d-4215-998f-08633939e2c6",
+      "name": "Get row(s) in sheet",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Run"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        220,
+        0
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "44359f22-7ff3-473a-bab3-8786cfe8218b",
+      "name": "Get a document",
+      "parameters": {
+        "documentURL": "={{ $json.formData['Link outline'] }}",
+        "operation": "get"
+      },
+      "position": [
+        660,
+        0
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "650111a3-d953-491b-aa38-4a02e980cb6d",
+      "name": "Create a document",
+      "parameters": {
+        "folderId": "",
+        "title": "={{ $('Get row(s) in sheet').item.json.Query }} - Content detail"
+      },
+      "position": [
+        1320,
+        0
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "250f592d-7b27-41db-bf54-7135c8bae336",
+      "name": "Perplexity",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={\n  \"model\": \"sonar-pro\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a deep researcher who have both marketing and research expertise. Your task is research the latest and the accurate infromation base on the user request./n You will prioriztie trustworthy website or orginal brand, for example, if you are research iphone product, you will look in apple website first. If you look for the review, choose the reddits or popular review website.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{query}\"\n    }\n  ],\n\"search_domain_filter\": [\n        \"apple.com\",\n        \"reddit.com\"\n    ],\n  \"options\": {\n    \"temperature\": 1,\n    \"max_tokens\": 20000\n  }\n}",
+        "method": "POST",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "description": "Performs search using Perplexity based on the provided query, which can include text and URLs. ",
+              "name": "query",
+              "type": "string"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "toolDescription": "Use this tool to Research the newest and accurate information based on user request.",
+        "url": "https://api.perplexity.ai/chat/completions"
+      },
+      "position": [
+        1020,
+        240
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "3a1d2f81-febe-41dc-b429-e00fc135e17f",
+      "name": "Content Writing Agent",
+      "parameters": {
+        "options": {
+          "systemMessage": "=[Overview & context]:\n\nYou are a content marketing for the brand \"{{ $('Get row(s) in sheet').item.json['Brand Name'] }}\" \n\nYou task is write a SEO-Friendly Content for the website of the brand. You will use the tools that are provided below and the content output quality must follow the guidelines/standards.\n\n\n[Brand information]:\n\n1. Brand Name: {{ $('Get row(s) in sheet').item.json['Brand Name'] }}\n2. Brand description: {{ $('Get row(s) in sheet').item.json['Brand information'] }}\n3. Brand Solution: {{ $('Get row(s) in sheet').item.json['Brand solution'] }}\n4. Style of writing: {{ $('Get row(s) in sheet').item.json['Style of Writing'] }}\n\n[tools]:\n\n1. content_example: Use this tool to look for the example content of the website and to replicate the writing style, content output.\n\n2. optimized_semantic_seo_content_checklist: Use this tool to know the checklist, standards and guidelines of the content of the website brand and Google standards on Content. Then, ensure the output of the content must meet these standards\n\n3. checklist_tranh_loi_khi_viet_content_ai: Use this tool to know common content mistakes to avoid, mistakes that usually when people / AI tools like you create the content, you will meet it. Then, adjust or ensure the content output do not have it.\n\n4. Perplexity: Always use this tool first in order to search the web , gather all the information that need to write the content. Use the tool to research and organize the research, while keeping facts, statistics, and keypoint - Avoid the use of personal pronouns. (limit the use of this tool to 2 times only)\n\n5. Think: Use the tool to think and ensure the final output will try its best to fulfill the search intent, the guidlines and all the checklists/guidelines that you have.\n\n\n[Example workflow - step by step workflow]:\n\n1.  Receive a topic (e.g., “Iphone 16 pro”)\n  \n2.  Conducting a real-time search using the Perplexity tool** to gather all the information that need to write the content, all the information must be accurate, up-to-date information. For examples, the query you research will step by step look like this: \n - \"Research the [Query] and use shorthand to organize the research, while keeping facts, statistics, and key points. Avoid the use of personal pronouns. If you make groups to help with the organization (though groups are not required), each group should begin with three hashtags (e.g., ###).\"\n\nThe research should include details about the business, including its address, hours of operation, and phone number.\"\n\n\n3.  Then, you will **retrieve and read carefully the checklists** (that is in markdown format) from the optimized_semantic_seo_content_checklist tool:\n <thinking>`\n        Tôi đã xem xét cẩn thận tất cả các checklist và hướng dẫn.\n        Bây giờ, tôi cần tham khảo các ví dụ về nội dung và phong cách viết của thương hiệu \"{{ $('Get row(s) in sheet').item.json['Brand Name'] }}\". Tôi sẽ sử dụng công cụ `content_example` để xem xét các ví dụ này và hiểu rõ hơn về văn phong  cũng như cấu trúc nội dung mong muốn.\n        `</thinking>`\n4.  After that, you will **use the \"content\\_example\" tool** to see\n    *   `<thinking>`\n        Tôi đã xem xét các ví dụ nội dung từ `content_example`.\n        Bước tiếp theo là sử dụng công cụ \"Think\". Công cụ này sẽ giúp tôi phân tích tất cả thông tin đã thu thập được (thông tin sản phẩm từ Perplexity, nội dung các checklist, các ví dụ về phong cách viết) và quyết định cách tiếp cận tối ưu nhất để xây dựng nội dung. Tôi cũng sẽ tích hợp các yêu cầu cụ thể từ User Prompt, bao gồm outline, các hướng dẫn viết và ghi chú.\n        `</thinking>`\n\n5.  Then, **Use the \"think\" tool** to analyze all the information above and decide the approach to build the content from all the information that you have gather.\n    *   `<thinking>`\n        Sau khi sử dụng công cụ \"Think\" (hoặc hoàn thành quá trình phân tích và lập kế hoạch chi tiết dựa trên logic của công cụ \"Think\"), tôi đã có một chiến lược rõ ràng để tạo nội dung.\n        Bây giờ là lúc tổng hợp lại lần cuối tất cả các yêu cầu và chuẩn bị cho việc viết nội dung cuối cùng. Tôi sẽ đảm bảo nội dung tuân thủ chặt chẽ:\n        - Outline và brief chi tiết được cung cấp.\n        - Tất cả các [Writing Guidelines] trong User Prompt (tiếng Việt, SEO friendly, NLP-friendly, Hemingway, không bịa đặt, súc tích, giữ nguyên heading dạng câu hỏi, đoạn giới thiệu trước/sau bảng, đoạn giới thiệu giữa các heading, không dùng Nuke AI Words, có văn bản phụ giữa hai heading).\n        - Các lưu ý khi viết (nếu có)\n        - Đảm bảo chất lượng nội dung đáp ứng cả 3 checklist đã được xem xét.\n        - Thông tin ngày hiện tại: {{ $now }}.\n        - Chỉ output phần văn bản của bài viết blog, không có giải thích hay ghi chú thừa.\n        `</thinking>`\n\n6.  **Finally, create the content** that ensure meet the standards, checklist and guidelines.\n\n[Output Instructions]:\n- Your ONLY output should be the final Content article text.\n- Do not include explanations, notes, or anything beyond the blog content itself.\n- Nội dung bài viết cuối phải có chất lượng đảm bảo từ các checklist và bằng Tiếng Việt.\n\n"
+        },
+        "promptType": "define",
+        "text": "=[Context]:\nTôi muốn viết một nội dung cho blog ở website, bài viết về chủ đề: \"{{ $('Get row(s) in sheet').item.json.Query }}\".\n\nKhi tạo dựng nội dung, hãy follow theo những guidelines và \"outline, brief chi tiết\" được đính kèm.\n\n[Writing Guidelines]: \n### [The content in Vietnamese, use Vietnamese languages and Grammar] \n### [The content in an SEO friendly] \n### [The content in an NLP-friendly format] \n### [Apply Hemingway's Rules]\n### [Don’t make up facts. The content needs to be written to give the most comprehensive information, but at the same time, the content needs to be more concise & short.]\n### [Keep the outline headings the same and keep them in question form.]\n### [Before each table should have introductory paragraph describing the content in the table limited to 20 words]\n### [After each table should have subordinate text limited to 20 words]\n### [Between each heading should have an introductory paragraph limited to 20 words]\n### [Prohibit to use the words and sentences structures in Nuke AI Words file]\n### [Between two headings, there must be subordinate text]\n### [Add synonyms]\n### [Employ archetype: The Sage. Without mentioning it directly]\n### [Brand: ‘{{ $('Get row(s) in sheet').item.json['Brand Name'] }}’]\n### [Minimize the use of adjectives and adverbs]\n### [Enhance content relevance]\n\nViết nội dung bằng tiếng Việt.\n[Outline, brief chi tiết]:\n\n{{ $json.content }}\n\n[Notes when writing]:\nNgoài ra, có những lưu ý như sau khi tạo nội dung: \n - Lưu ý khi viết (nếu có): {{ $('Get row(s) in sheet').item.json['Lưu ý khi viết'] }}\n - Hôm nay là ngày: {{ $now }}\n\n"
+      },
+      "position": [
+        900,
+        0
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "4e296709-85bc-41d7-bfe1-88a9d5b05f05",
+      "name": "Think1",
+      "parameters": {},
+      "position": [
+        1360,
+        240
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1
+    },
+    {
+      "id": "4384e998-009c-4300-aa09-41de78b20c14",
+      "name": "Anthropic Chat Model1",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "Claude Sonnet 4",
+          "mode": "list",
+          "value": "claude-sonnet-4-20250514"
+        },
+        "options": {
+          "maxTokensToSample": 64000,
+          "thinking": false
+        }
+      },
+      "position": [
+        500,
+        240
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "cad75a78-0472-4227-8335-1ce2d4bfa33f",
+      "name": "checklist_tranh_loi_khi_viet_content_ai",
+      "parameters": {
+        "documentURL": "",
+        "operation": "get",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}"
+      },
+      "position": [
+        1200,
+        240
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "50b57a4b-ade5-49f2-bc40-fb38ce08a5b6",
+      "name": "content_example",
+      "parameters": {
+        "documentURL": "",
+        "operation": "get",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}"
+      },
+      "position": [
+        680,
+        260
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "30c94b50-e475-41d2-969c-03204ab4bfeb",
+      "name": "optimized_semantic_seo_content_checklist",
+      "parameters": {
+        "documentURL": "",
+        "operation": "get",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}"
+      },
+      "position": [
+        840,
+        240
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "2a0ecb70-ef5c-40a2-9b57-35e04cf3dcdc",
+      "name": "HTML version",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=DO NOT OUTPUT ANYTHING OTHER THAN THE CODE. I want you to follow the layout of the template as a guide to generate the WordPress code for a blog post. Here are the rules to follow:\n\nThe blog post should have a title, estimated reading time, key takeaways, table of contents, body, and FAQ in this order.\nMake it engaging by using italics, dot points, quotes, bold, spaces, and sometimes new lines. Never use emojis.\nThe blog post will have some URLs referenced next to certain keyphrases to show where the info came from. You must hyperlink the keyphrase with the provided URL so that the reader can click on the referenced URL. It is critical you get this right.\nWrap the entire content in a container <div> with inline CSS that sets the text color to black (#000000), uses a legible font such as Arial, sans-serif, and sets line-height to 1.6.\nEnsure that all non-heading text elements (e.g., paragraphs, list items) have an inline style or embedded style that sets their font size to 20px and color to black (#000000) using !important to override theme styles.\nHyperlinks, points in the table of contents, and FAQ questions must be styled in blue (#00c2ff).\nAll headings and subheadings should have an underline implemented via a bottom border in blue (#00c2ff) with appropriate padding.\nPlace a double break (<br><br>) between each section to improve readability.\nDo not output any extra text or mention code tags like HTML''' around the output; just output the HTML code.\nBlog post: \n\n{{ $json.message.content }}\n\nHere's an example of a well formatted output:\n\n<div style=\"color: #000000; font-family: Arial, sans-serif; line-height: 1.6;\">\n  <style>\n    p,\n    .wp-block-paragraph,\n    ul.wp-block-list,\n    li {\n      color: #000000 !important;\n      font-size: 20px !important;\n    }\n    a {\n      color: #00c2ff !important;\n    }\n  </style>\n\n  <h1 id=\"h-devin-ai-the-hype-and-reality-of-an-ai-software-engineer\"\n      class=\"wp-block-heading\"\n      style=\"border-bottom: 2px solid #00c2ff; padding-bottom: 5px;\">\n    Devin AI: The Hype and Reality of an AI Software Engineer\n  </h1>\n  <br><br>\n\n  <p class=\"estimated-reading-time\"\n     style=\"color: #000000; font-size: 20px !important;\">\n    Estimated reading time: 5 minutes\n  </p>\n  <br><br>\n\n  <p>\n    Devin AI has burst onto the tech scene, promising to revolutionize software development as we know it. But does this AI‑powered coding assistant live up to the hype? Let's dive into what Devin AI really is, what it can do, and what developers are saying after putting it to the test.\n  </p>\n  <br><br>\n\n  <!-- Rest of blog post content goes here -->\n</div>\n\n[final reminder]:\n\nDo not remove any content or information from the current blogpost, only change it to the html version.\n"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "GPT-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "position": [
+        400,
+        460
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8
+    },
+    {
+      "id": "3840fc0f-a139-4645-be2d-38d535f70183",
+      "name": "Image Covers1",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "options": {},
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ $('Google Sheets1').item.json['Query in English'] }}"
+            },
+            {
+              "name": "gl",
+              "value": "us"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "url": "https://serpapi.com/search?engine=google_images"
+      },
+      "position": [
+        820,
+        460
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "",
+      "name": "Wordpress1",
+      "parameters": {
+        "additionalFields": {
+          "authorId": 2,
+          "categories": [
+            32
+          ],
+          "commentStatus": "closed",
+          "content": "=<img src=\"{{ $json['image-url'] }}\" alt=\"Cover Image\">\n{{ $('HTML version').item.json.message.content }}}",
+          "postTemplate": {
+            "values": {}
+          },
+          "slug": "={{ $('Process Form Data').item.json.formData['Slug'] }}",
+          "status": "draft",
+          "sticky": false
+        },
+        "title": "={{ $('Process Form Data').item.json.formData['Title'] }}"
+      },
+      "position": [
+        1260,
+        460
+      ],
+      "type": "n8n-nodes-base.wordpress",
+      "typeVersion": 1
+    },
+    {
+      "id": "f22fcde5-2ce9-4c5a-ad6c-90912fa96ea2",
+      "name": "Edit Fields",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "",
+              "name": "image-url",
+              "type": "string",
+              "value": "={{ $json.images_results[1].original }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        1060,
+        460
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "df6c1404-3508-4945-a5cd-26098699ff5b",
+      "name": "Update tình trạng lên sheet1",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand Name",
+              "id": "Brand Name",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand information",
+              "id": "Brand information",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Brand solution",
+              "id": "Brand solution",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Query",
+              "id": "Query",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Query in English",
+              "id": "Query in English",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "outline focus",
+              "id": "outline focus",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Title",
+              "id": "Title",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Top 3 URL",
+              "id": "Top 3 URL",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Output language",
+              "id": "Output language",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Mục đích tìm kiếm",
+              "id": "Mục đích tìm kiếm",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Outline Result ",
+              "id": "Outline Result ",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Link outline",
+              "id": "Link outline",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Title Content",
+              "id": "Title Content",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Slug",
+              "id": "Slug",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Meta Description",
+              "id": "Meta Description",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Style of Writing",
+              "id": "Style of Writing",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tone of Voice",
+              "id": "Tone of Voice",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status Writing",
+              "id": "Status Writing",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Content Final",
+              "id": "Content Final",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Content Final": "={{ $('Update GG Doc').item.json.documentId }}",
+            "Link outline": "={{ $('Google Docs1').item.json.documentId }}",
+            "Status": "Processing",
+            "Status Writing": "Draft",
+            "row_number": "={{ $('Google Sheets1').item.json.row_number }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        1480,
+        460
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "createdAt": "2025-05-06T17:07:59.776Z",
+      "id": "QnPDekJYr5wskIzf",
+      "name": "marketing-automation",
+      "updatedAt": "2025-05-06T17:07:59.776Z"
+    },
+    {
+      "createdAt": "2025-05-06T17:07:59.776Z",
+      "id": "3THlsgtSV2xVrHZK",
+      "name": "content",
+      "updatedAt": "2025-05-06T17:07:59.776Z"
+    },
+    {
+      "createdAt": "2025-05-06T17:07:59.779Z",
+      "id": "mlhSbcxW9nhS7cX8",
+      "name": "seo",
+      "updatedAt": "2025-05-06T17:07:59.779Z"
+    }
+  ]
+}

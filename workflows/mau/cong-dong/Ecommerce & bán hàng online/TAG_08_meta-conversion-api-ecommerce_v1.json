@@ -1,0 +1,407 @@
+{
+  "connections": {
+    "Encrypt data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send event to Meta",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Execute workflow": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Test data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Format data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Normalize data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Normalize data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Encrypt data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Test data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Format data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Format data",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_meta-conversion-api-ecommerce_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Đẩy đơn/lead lên Facebook Conversion API\n**Làm gì:** Có đơn hoặc lead, workflow gửi sự kiện Purchase/Lead lên Meta CAPI để tối ưu quảng cáo.\n**Trigger:** Bấm tay (Execute workflow), Webhook\n**Credential cần:** Facebook Graph API\n**Chi phí ước:** 0 đồng.\n**Mở rộng gợi ý:** Bắt buộc cho shop chạy Facebook Ads sau khi iOS chặn pixel.\n\n---\n**Nguồn:** n8n.io template #5136 của mediaplusma\nhttps://n8n.io/workflows/5136\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -2220,
+        -420
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "7fd5ddfd-a858-4a0a-84b8-f8f4ec034d63",
+      "name": "Normalize data",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "65d1994d-f4b8-478a-8cf1-490990e6639d",
+              "name": "user_data.phone",
+              "type": "string",
+              "value": "={{$json.user_data.phone.replace(/\\D/g, '').replace(/^0+/, '')}}"
+            },
+            {
+              "id": "5650546d-f0ad-4c69-829c-3e4283e16ac7",
+              "name": "event_time",
+              "type": "number",
+              "value": "={{Math.floor(new Date($json.event_time).getTime() / 1000)}}"
+            },
+            {
+              "id": "9475d631-348f-4d53-9e75-0d568654aeef",
+              "name": "user_data.first_name",
+              "type": "string",
+              "value": "={{$json.user_data.first_name}}"
+            },
+            {
+              "id": "77a8f321-abf9-4618-8fb2-ef5d567a9cd1",
+              "name": "user_data.last_name",
+              "type": "string",
+              "value": "={{$json.user_data.last_name}}"
+            }
+          ]
+        },
+        "excludeFields": "user_data.name",
+        "include": "except",
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "position": [
+        -60,
+        0
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "978d3854-44f6-4773-928e-4536a97a48b1",
+      "name": "Sticky Note1",
+      "parameters": {
+        "color": 7,
+        "content": "## Data normalization",
+        "height": 252,
+        "width": 343
+      },
+      "position": [
+        -180,
+        -60
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "feb4a686-278f-41d4-ab13-ba4fbc159ef6",
+      "name": "Encrypt data",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "097ed7ff-c076-454e-930c-1f4820ac6e2e",
+              "name": "user_data.first_name",
+              "type": "string",
+              "value": "={{ $json.user_data.first_name.hash(\"sha256\") }}"
+            },
+            {
+              "id": "e285fa12-d272-48a0-a583-5e90b394fd74",
+              "name": "user_data.last_name",
+              "type": "string",
+              "value": "={{ $json.user_data.last_name.hash(\"sha256\") }}"
+            },
+            {
+              "id": "",
+              "name": "user_data.phone",
+              "type": "string",
+              "value": "={{ $json.user_data.phone.hash(\"sha256\") }}"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "position": [
+        300,
+        0
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "",
+      "name": "Sticky Note2",
+      "parameters": {
+        "color": 7,
+        "content": "## Data encryption\n",
+        "height": 252,
+        "width": 343
+      },
+      "position": [
+        180,
+        -60
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "9f867c8b-fdc1-4294-b56e-12340c604111",
+      "name": "Sticky Note3",
+      "parameters": {
+        "color": 7,
+        "content": "## Send event\nYou can use a test code from Facebook Events Manager to verify your integration.\n\nAdd your test code to the test_code parameter inside the JSON payload.\n\nOnce everything is confirmed to be working, remove the test_event_code so that events are officially logged.\n\n[**Read more**](https://business.facebook.com/business/help/2040882565969969)",
+        "height": 414,
+        "width": 375
+      },
+      "position": [
+        680,
+        -220
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "c00c1fac-7550-4fa9-8fc9-e9f250519e6a",
+      "name": "Send event to Meta",
+      "parameters": {
+        "edge": "events",
+        "graphApiVersion": "=v20.0",
+        "httpRequestMethod": "POST",
+        "node": "={{$('Format data').item.json.pixel_id}}",
+        "options": {
+          "queryParametersJson": "={\n  \"data\": [\n    {\n      \"event_name\": \"{{ $('Encrypt data').item.json.event_name }}\",\n      \"event_time\": {{ $('Encrypt data').item.json.event_time }},\n      \"event_source_url\": \"{{ $('Encrypt data').item.json.event_source_url }}\",\n      \"action_source\": \"{{ $('Encrypt data').item.json.action_source }}\",\n      \"user_data\": {\n        \"em\": \"{{ $('Encrypt data').item.json.user_data.email }}\",\n        \"ph\": \"{{ $('Encrypt data').item.json.user_data.phone }}\",\n        \"fn\": \"{{ $('Encrypt data').item.json.user_data.first_name }}\",\n        \"ln\": \"{{ $('Encrypt data').item.json.user_data.last_name }}\",\n        \"fbc\": \"{{ $('Encrypt data').item.json.user_data.fbp }}\",\n        \"fbp\": \"{{ $('Encrypt data').item.json.user_data.fbc }}\",\n        \"ip\": \"{{ $('Encrypt data').item.json.user_data.ip }}\",\n        \"user_agent\": \"{{ $('Encrypt data').item.json.user_data.user_agent }}\"\n      },\n      \"custom_data\": {\n        \"value\": {{ $('Encrypt data').item.json.custom_data.value }},\n        \"currency\": \"{{ $('Encrypt data').item.json.custom_data.currency }}\"\n      }\n    }\n  ],\n  \"test_event_code\": \"TEST1337\"\n}\n"
+        }
+      },
+      "position": [
+        820,
+        20
+      ],
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1
+    },
+    {
+      "id": "5b486767-1ec1-4829-a556-ddc4f0c13f95",
+      "name": "Webhook",
+      "parameters": {
+        "httpMethod": [
+          "POST",
+          "GET"
+        ],
+        "multipleMethods": true,
+        "options": {},
+        "path": "b408defb-315d-4676-b4c4-1dcebe81ffc0"
+      },
+      "position": [
+        -1260,
+        -240
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "webhookId": "b408defb-315d-4676-b4c4-1dcebe81ffc0"
+    },
+    {
+      "id": "8a8ee5fb-edf4-410c-b86c-a1b805a66319",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "## Test data \nYou can chenge test data here",
+        "height": 220
+      },
+      "position": [
+        -1160,
+        100
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "40240bfc-8e7b-4c5b-84e0-b8ccd52b097e",
+      "name": "Test data",
+      "notesInFlow": true,
+      "parameters": {
+        "jsCode": "return {\n  \"body\": {\n    'first_name': \"Alex\",\n    'last_name': \"Forbic\",\n    'phone': \"+1234567890\",\n    'ip': \"0.0.0.0\",\n    'user_agent': \"Mozilla/5.0 (Linux; Android 14; SM-A065F Build/UP1A.231005.007; )\",\n    'fbp': \"fb.1.1750638230973.IwZXh0bgNhZW0BMABhZGlkAasgzcY0SboBHlIpXRPFXRua8Udfs9qnBwf4GN3xGWPk9HvipTCJeUYt8jaENcQyAm_TYaYITPrWtzJcJ8e38-CMQ\",\n    'fbc': \"fb.1.1750612363841.918837434857767253\",\n    'created_at': \"2025-06-18T15:24:06.000000Z\",\n    'amount': 120,\n    'currency': \"EUR\"\n  }\n};"
+      },
+      "position": [
+        -1100,
+        180
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "dbb5d646-4500-4ed9-89b6-607ebfc216d9",
+      "name": "Sticky Note5",
+      "parameters": {
+        "content": "## Test Workflow\nClick this button to test the workflow with fake data \n",
+        "height": 240
+      },
+      "position": [
+        -1620,
+        80
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "8473264d-fbad-4213-a0bf-84e7f841053e",
+      "name": "Execute workflow",
+      "parameters": {},
+      "position": [
+        -1540,
+        180
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "ad465243-cb30-492d-b77c-1066fec33c1b",
+      "name": "Sticky Note6",
+      "parameters": {
+        "color": 7,
+        "content": "## Change here\n",
+        "height": 80,
+        "width": 340
+      },
+      "position": [
+        -640,
+        -220
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Sticky Note4",
+      "parameters": {
+        "color": 7,
+        "content": "## Collect data\nIn this node you link between your webhook data with this node parameters, also you can add more data.",
+        "height": 312,
+        "width": 343
+      },
+      "position": [
+        -640,
+        -120
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "63208dd1-6258-4630-9c3b-c8913cf04085",
+      "name": "Format data",
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      event_name: \"Purchase\",\n      pixel_id:'1714041194725552', // you pixel ID\n      user_data: {\n        first_name: $input.first().json.body.first_name, // your customer first_name\n        last_name: $input.first().json.body.last_name, // your customer last_name\n        phone: $input.first().json.body.phone, // your customer phone\n        ip: $input.first().json.body.ip, // your customer IP\n        user_agent: $input.first().json.body.user_agent, // your customer User agent\n        fbp: $input.first().json.body.fbp, // your customer fbp\n        fbc: $input.first().json.body.fbc // your customer fbc\n      },\n      event_time: $input.first().json.body.created_at, // order Date like 2025-06-18T15:24:06.000000Z\n      custom_data: {\n        value: $input.first().json.body.amount, // pricing\n        currency: $input.first().json.body.currency\n      },\n      action_source: \"website\",\n      event_source_url: \"https://example.com/thanks\"\n    }\n  }\n];"
+      },
+      "position": [
+        -520,
+        0
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "81bb1144-9e20-41d2-a611-c5f2422cba09",
+      "name": "Sticky Note7",
+      "parameters": {
+        "color": 4,
+        "content": "## Do you need more help or have any suggestions?\nContact me at you@example.com",
+        "height": 100,
+        "width": 1700
+      },
+      "position": [
+        -640,
+        360
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "a959b199-3d42-4a97-9c59-17cfa0b48124",
+      "name": "Sticky Note8",
+      "parameters": {
+        "content": "## Just to test",
+        "height": 80,
+        "width": 700
+      },
+      "position": [
+        -1620,
+        340
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "541e0afe-1fd4-4c5e-a8e9-d7aa6f0e5832",
+      "name": "Sticky Note9",
+      "parameters": {
+        "color": 4,
+        "content": "## Production",
+        "height": 240,
+        "width": 200
+      },
+      "position": [
+        -1300,
+        -320
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

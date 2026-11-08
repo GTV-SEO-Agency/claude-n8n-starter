@@ -1,0 +1,886 @@
+{
+  "active": false,
+  "connections": {
+    "Agent: Keyword Research": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Information",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Google Sheets",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Agent: SEO Audit": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Docs1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Agent: Title/URL/Meta Generation": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Information",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Google Sheets",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Agent: Topical Map Generation": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Docs",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Agent: Topical Map Generation",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Agent: SEO Audit",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Switch",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Docs": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update GG Doc",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Docs1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update GG Doc1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Agent: Title/URL/Meta Generation",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Agent: Keyword Research",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Send Information": {
+      "main": [
+        []
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Agent: Keyword Research",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Agent: Title/URL/Meta Generation",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Agent: Topical Map Generation",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Agent: SEO Audit",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Agent: Topical Map Generation",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Think1": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Agent: SEO Audit",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Update GG Doc": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Information1",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Google Sheets1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Update GG Doc1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Sheets2",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Send Information2",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "XnjBVAOZyZOMlqfD",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "SEO & SEO research Workflow",
+  "nodes": [
+    {
+      "id": "b2c9b466-06c9-404e-a14d-15214634c9e6",
+      "name": "Execute Workflow Trigger",
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "seo_task_type"
+            },
+            {
+              "name": "user_query"
+            },
+            {
+              "name": "target_url"
+            },
+            {
+              "name": "chatID"
+            }
+          ]
+        }
+      },
+      "position": [
+        -420,
+        0
+      ],
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "d75e1fc8-413b-431d-b873-75cef79c15f8",
+      "name": "Agent: Keyword Research",
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are an SEO expert. Based on the user query and brand context, generate a comprehensive list of relevant keywords, including long-tail keywords, search volume estimates (low, medium, high), and keyword difficulty estimates (low, medium, high). Format the output as a JSON array of objects, each object containing \"keyword\", \"search_volume_estimate\", and \"difficulty_estimate\".\n\n\n## Brand Information: \n- Target Audience: CEO, Managers, Digital Marketer, SEO-er.\n- Brand name: The AI Growth (or TAG)\n- Brand description: The AI Growth định vị là nền tảng tiên phong và đáng tin cậy tại Việt Nam, cung cấp các giải pháp AI và Automation để tiếp cận cho các doanh nghiệp SMEs, nhà quản lý marketing, và các nhà sáng tạo nội dung. The AI Growth mang đến kiến thức chuyên sâu, các công cụ hiện đại và ứng dụng thực tế, giúp khách hàng đạt được hiệu suất tối ưu trong hoạt động marketing, giảm chi phí, và mở rộng tăng trưởng nhanh chóng.\n- Brand image: Dành cho doanh nghiệp và marketer Việt Nam đang đối mặt với chi phí vận hành cao và hiệu quả marketing chưa tối ưu, The AI Growth là nền tảng đào tạo AI & Automation tiên phong mang đến giải pháp thực tiễn với cam kết hiệu quả trong 24 giờ thông qua phương châm 'Learning by Doing' - khác biệt với các khóa học marketing truyền thống chỉ cung cấp kiến thức lý thuyết.\n- Solution: Khóa học AI & Automation\n- Target market: Việt Nam"
+        },
+        "promptType": "define",
+        "text": "=1. User query: {{ $json.user_query }}\n2. Output format: Text or markdown format only. Do not in json format."
+      },
+      "position": [
+        180,
+        -500
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "5023f057-b6fc-4b19-9acf-26472ab34a54",
+      "name": "Agent: Topical Map Generation",
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are an SEO strategist. Based on the main topic/keyword and brand context, generate a detailed topical map. This should include main categories, sub-categories, and potential content ideas (e.g., blog post titles, questions to answer) for each. Format the output as a structured JSON object representing the map.\n\n## Brand Information: \n- Target Audience: CEO, Managers, Digital Marketer, SEO-er.\n- Brand name: The AI Growth (or TAG)\n- Brand description: The AI Growth định vị là nền tảng tiên phong và đáng tin cậy tại Việt Nam, cung cấp các giải pháp AI và Automation để tiếp cận cho các doanh nghiệp SMEs, nhà quản lý marketing, và các nhà sáng tạo nội dung. The AI Growth mang đến kiến thức chuyên sâu, các công cụ hiện đại và ứng dụng thực tế, giúp khách hàng đạt được hiệu suất tối ưu trong hoạt động marketing, giảm chi phí, và mở rộng tăng trưởng nhanh chóng.\n- Brand image: Dành cho doanh nghiệp và marketer Việt Nam đang đối mặt với chi phí vận hành cao và hiệu quả marketing chưa tối ưu, The AI Growth là nền tảng đào tạo AI & Automation tiên phong mang đến giải pháp thực tiễn với cam kết hiệu quả trong 24 giờ thông qua phương châm 'Learning by Doing' - khác biệt với các khóa học marketing truyền thống chỉ cung cấp kiến thức lý thuyết.\n- Solution: Khóa học AI & Automation\n- Target market: Việt Nam\n- Website: https://theaigrowth.io\n\n## tool \n- Think: use this tool to think deeply when doing the task and after generate the response."
+        },
+        "promptType": "define",
+        "text": "=1. Main topic/keyword: {{ $json.user_query }}\n\n2. Output format: Text or markdown format only.  Do not in json format."
+      },
+      "position": [
+        180,
+        60
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "29099063-9247-488b-9047-8ef1a22493fd",
+      "name": "Agent: SEO Audit",
+      "parameters": {
+        "options": {
+          "systemMessage": "=## Context & role \nYou are an SEO auditor. Provide a high-level conceptual SEO audit for the given target URL. Focus on potential issues and recommendations for on-page elements (titles, metas, headings, content), technical aspects (site speed, mobile-friendliness, crawlability - conceptual, as you cannot crawl), content quality, and briefly touch on the conceptual importance of a backlink profile. Do not attempt to crawl the URL. Format as a structured JSON report with sections for each focus area.\n\n## guidelines\n\nTry to meet the Google Helpful Content Standards, \"writing high quality review\" from Google Standard and Google Search Evaluator Guidlines.\n\n## Brand Information: \n- Target Audience: CEO, Managers, Digital Marketer, SEO-er.\n- Brand name: The AI Growth (or TAG)\n- Brand description: The AI Growth định vị là nền tảng tiên phong và đáng tin cậy tại Việt Nam, cung cấp các giải pháp AI và Automation để tiếp cận cho các doanh nghiệp SMEs, nhà quản lý marketing, và các nhà sáng tạo nội dung. The AI Growth mang đến kiến thức chuyên sâu, các công cụ hiện đại và ứng dụng thực tế, giúp khách hàng đạt được hiệu suất tối ưu trong hoạt động marketing, giảm chi phí, và mở rộng tăng trưởng nhanh chóng.\n- Brand image: Dành cho doanh nghiệp và marketer Việt Nam đang đối mặt với chi phí vận hành cao và hiệu quả marketing chưa tối ưu, The AI Growth là nền tảng đào tạo AI & Automation tiên phong mang đến giải pháp thực tiễn với cam kết hiệu quả trong 24 giờ thông qua phương châm 'Learning by Doing' - khác biệt với các khóa học marketing truyền thống chỉ cung cấp kiến thức lý thuyết.\n- Solution: Khóa học AI & Automation\n- Target market: Việt Nam\n- Website: https://theaigrowth.io\n\n## tool \n- Think: use this tool to think deeply when doing the task and after generate the response."
+        },
+        "promptType": "define",
+        "text": "=1. Target URL for audit: {{ $json.target_url }}\n2. Output format: Text or markdown format only. Do not in json format.\n3. Focus areas: On-page SEO, technical SEO (conceptual), content quality, backlink profile (conceptual)."
+      },
+      "position": [
+        160,
+        480
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "8c5b42a7-ef05-44e3-99ae-9471119cfa81",
+      "name": "Agent: Title/URL/Meta Generation",
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are an SEO copywriter. Based on the main keyword/topic and brand context, generate 3-5 variations of SEO-optimized page titles, URL slugs (short, keyword-rich), and meta descriptions. Format as a JSON array of objects, each containing \"title\", \"url_slug\", and \"meta_description\".\n\n## Brand Information: \n- Target Audience: CEO, Managers, Digital Marketer, SEO-er.\n- Brand name: The AI Growth (or TAG)\n- Brand description: The AI Growth định vị là nền tảng tiên phong và đáng tin cậy tại Việt Nam, cung cấp các giải pháp AI và Automation để tiếp cận cho các doanh nghiệp SMEs, nhà quản lý marketing, và các nhà sáng tạo nội dung. The AI Growth mang đến kiến thức chuyên sâu, các công cụ hiện đại và ứng dụng thực tế, giúp khách hàng đạt được hiệu suất tối ưu trong hoạt động marketing, giảm chi phí, và mở rộng tăng trưởng nhanh chóng.\n- Brand image: Dành cho doanh nghiệp và marketer Việt Nam đang đối mặt với chi phí vận hành cao và hiệu quả marketing chưa tối ưu, The AI Growth là nền tảng đào tạo AI & Automation tiên phong mang đến giải pháp thực tiễn với cam kết hiệu quả trong 24 giờ thông qua phương châm 'Learning by Doing' - khác biệt với các khóa học marketing truyền thống chỉ cung cấp kiến thức lý thuyết.\n- Solution: Khóa học AI & Automation\n- Target market: Việt Nam\n- Website: https://theaigrowth.io"
+        },
+        "promptType": "define",
+        "text": "=1. Main keyword/topic: {{ $json.user_query }}\n2. Output format: Text or markdown format only.  Do not in json format."
+      },
+      "position": [
+        220,
+        -200
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "e502ca61-2e33-4659-ae6c-94d9348b9a76",
+      "name": "Anthropic Chat Model",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "Claude 3.7 Sonnet",
+          "mode": "list",
+          "value": "claude-3-7-sonnet-20250219"
+        },
+        "options": {
+          "maxTokensToSample": 20000
+        }
+      },
+      "position": [
+        80,
+        280
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "cf50898c-e07a-4446-b468-63fddd4364bb",
+      "name": "OpenAI Chat Model1",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "gpt-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "position": [
+        80,
+        -300
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "31a3c6b4-20b8-4b3b-b1e5-7e04431f171d",
+      "name": "Switch",
+      "parameters": {
+        "options": {},
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "22fbf012-0f93-419d-813d-c202ba60e70e",
+                    "leftValue": "={{ $json.seo_task_type }}",
+                    "operator": {
+                      "operation": "contains",
+                      "type": "string"
+                    },
+                    "rightValue": "keyword research"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                }
+              },
+              "outputKey": "Keyword_Research",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "32eb8c0b-b5a3-474d-9975-6b6a59ddf288",
+                    "leftValue": "={{ $json.seo_task_type }}",
+                    "operator": {
+                      "operation": "contains",
+                      "type": "string"
+                    },
+                    "rightValue": "onpage"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                }
+              },
+              "outputKey": "Onpage Basic",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "99aca0fb-33e4-46e8-9ed0-04293754790a",
+                    "leftValue": "={{ $json.seo_task_type }}",
+                    "operator": {
+                      "operation": "contains",
+                      "type": "string"
+                    },
+                    "rightValue": "topical"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                }
+              },
+              "outputKey": "topical map",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "ec662ead-5304-47f2-9e63-8175529e2fa4",
+                    "leftValue": "={{ $json.seo_task_type }}",
+                    "operator": {
+                      "operation": "contains",
+                      "type": "string"
+                    },
+                    "rightValue": "audit"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                }
+              },
+              "outputKey": "SEO Audit",
+              "renameOutput": true
+            }
+          ]
+        }
+      },
+      "position": [
+        -220,
+        -20
+      ],
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2
+    },
+    {
+      "id": "783d4924-03b7-485a-ae68-565c168e04ea",
+      "name": "Send Information",
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        },
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chatID }}",
+        "text": "={{ $json.output }}"
+      },
+      "position": [
+        780,
+        -440
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "94fa70af-f2fc-4c05-8fa1-d9f55637485f"
+    },
+    {
+      "id": "4209b25b-e194-4adb-8968-274ff4e49d76",
+      "name": "Google Sheets",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ID",
+              "id": "ID",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Task Type",
+              "id": "Task Type",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Result",
+              "id": "Result",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Result": "={{ $json.output }}",
+            "Task Type": "={{ $('Execute Workflow Trigger').item.json.seo_task_type }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        780,
+        -200
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "63e5b717-1b12-4b79-917c-eb774cc9e12d",
+      "name": "Think",
+      "parameters": {},
+      "position": [
+        400,
+        280
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1
+    },
+    {
+      "id": "a39cde68-13bd-4d0d-b43d-be46b5ebee13",
+      "name": "Google Docs",
+      "parameters": {
+        "folderId": "",
+        "title": "={{ $('Execute Workflow Trigger').item.json.user_query }} - {{ $('Execute Workflow Trigger').item.json.seo_task_type }}"
+      },
+      "position": [
+        700,
+        60
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "",
+      "name": "Update GG Doc",
+      "parameters": {
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ $('Agent: Topical Map Generation').item.json.output }}"
+            }
+          ]
+        },
+        "documentURL": "={{ $json.id }}",
+        "operation": "update"
+      },
+      "position": [
+        920,
+        60
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "70726b23-96d1-4641-8e8d-f06dfff9bbf5",
+      "name": "Send Information1",
+      "parameters": {
+        "additionalFields": {
+          "parse_mode": "HTML"
+        },
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chatID }}",
+        "text": "=<a href=\"https://docs.google.com/document/d/{{ $json.documentId }}/edit?usp=sharing\"> Đây là File topic map của bạn </a>\n\nChúc bạn một ngày tốt lành."
+      },
+      "position": [
+        1140,
+        60
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "94fa70af-f2fc-4c05-8fa1-d9f55637485f"
+    },
+    {
+      "id": "4d5ca5f7-22e6-4378-99c8-42fbef218087",
+      "name": "Google Sheets1",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ID",
+              "id": "ID",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Task Type",
+              "id": "Task Type",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Result",
+              "id": "Result",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Note",
+              "id": "Note",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Result": "=https://docs.google.com/document/d/{{ $json.documentId }}/edit?usp=sharing",
+            "Task Type": "={{ $('Execute Workflow Trigger').item.json.seo_task_type }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        1140,
+        260
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "4e0d8ba7-413d-4948-97fb-40306d36cb5b",
+      "name": "Anthropic Chat Model1",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "Claude 3.7 Sonnet",
+          "mode": "list",
+          "value": "claude-3-7-sonnet-20250219"
+        },
+        "options": {
+          "maxTokensToSample": 20000
+        }
+      },
+      "position": [
+        80,
+        720
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "e3e0b825-d780-4222-a253-d0df557975be",
+      "name": "Think1",
+      "parameters": {},
+      "position": [
+        400,
+        720
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1
+    },
+    {
+      "id": "3da9fcbd-6c79-4884-b97b-2b904516051e",
+      "name": "Google Docs1",
+      "parameters": {
+        "folderId": "",
+        "title": "={{ $('Execute Workflow Trigger').item.json.user_query }} - {{ $('Execute Workflow Trigger').item.json.seo_task_type }}"
+      },
+      "position": [
+        600,
+        480
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "7dcbf374-0e19-4ab2-a193-134891fbdfd5",
+      "name": "Update GG Doc1",
+      "parameters": {
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ $('Agent: Topical Map Generation').item.json.output }}"
+            }
+          ]
+        },
+        "documentURL": "={{ $json.id }}",
+        "operation": "update"
+      },
+      "position": [
+        780,
+        480
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "013a9348-83cc-4b77-97db-e7bf6a76aac2",
+      "name": "Google Sheets2",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ID",
+              "id": "ID",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Task Type",
+              "id": "Task Type",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Result",
+              "id": "Result",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Note",
+              "id": "Note",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Result": "=https://docs.google.com/document/d/{{ $json.documentId }}/edit?usp=sharing",
+            "Task Type": "={{ $('Execute Workflow Trigger').item.json.seo_task_type }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        1020,
+        680
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "b975310a-d26c-4d27-b0b0-59763d7efa91",
+      "name": "Send Information2",
+      "parameters": {
+        "additionalFields": {
+          "parse_mode": "HTML"
+        },
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chatID }}",
+        "text": "=1. <a href=\"https://docs.google.com/document/d/{{ $json.documentId }}/edit?usp=sharing\"> Đây là File SEO Audit cua ban </a>\n\n2. Bên dưới là kết quả chi tiết:\n{{ $('Agent: SEO Audit').item.json.output }}\n"
+      },
+      "position": [
+        1020,
+        480
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "94fa70af-f2fc-4c05-8fa1-d9f55637485f"
+    },
+    {
+      "id": "8fea0541-19d5-4f88-9bd4-3233a65a1918",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "gpt-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "position": [
+        100,
+        -60
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

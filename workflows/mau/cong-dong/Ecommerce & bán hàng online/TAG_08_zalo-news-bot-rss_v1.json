@@ -1,0 +1,459 @@
+{
+  "connections": {
+    "Extract, Clean and Chunk Message Text": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Zalo Message",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Gemini Language Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Summarize AI News",
+            "type": "ai_languageModel"
+          },
+          {
+            "index": 0,
+            "node": "Parse Structured AI Output",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "MongoDB Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "index": 0,
+            "node": "Summarize AI News",
+            "type": "ai_memory"
+          }
+        ]
+      ]
+    },
+    "Parse Structured AI Output": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "Summarize AI News",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    },
+    "Receive Zalo Webhook": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Summarize AI News",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Send Typing Action to Zalo",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Zalo Message": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Zalo Message1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Summarize AI News": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Extract, Clean and Chunk Message Text",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "rss_read": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Summarize AI News",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_zalo-news-bot-rss_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Bản tin tự động gửi Zalo từ RSS\n**Làm gì:** Đọc RSS ngành, Gemini tóm tắt, gửi bản tin qua Zalo theo lịch.\n**Trigger:** Webhook\n**Credential cần:** Google Gemini, mongoDb\n**Chi phí ước:** Token thấp.\n**Mở rộng gợi ý:** Đổi RSS thành nguồn tin đối thủ; gửi cho nhóm sale mỗi sáng.\n\n---\n**Nguồn:** n8n.io template #8408 của nguyenthieutoan\nhttps://n8n.io/workflows/8408\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -2552,
+        -900
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "4e3411b7-6199-488d-8ba3-13ca38863f59",
+      "name": "MongoDB Chat Memory",
+      "parameters": {
+        "databaseName": "zalobot_001",
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Receive Zalo Webhook').item.json.body.message.from.id }}"
+      },
+      "position": [
+        -768,
+        224
+      ],
+      "type": "@n8n/n8n-nodes-langchain.memoryMongoDbChat",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "## 1. Webhook Setup\n\nThis workflow uses a production webhook to connect with your Zalo bot.  \n- Edit the “Set Zalo Webhook” node and fill in your official [BOT_TOKEN] and [your-webhook URL].\n- **Important:** Always delete test webhooks before deploying the production webhook to avoid webhook conflicts.\n\nFollow this order:\n- (1) Remove any test webhook (see “Delete Zalo Webhook” node)\n- (2) Set up your production webhook\n",
+        "height": 720,
+        "width": 512
+      },
+      "position": [
+        -1568,
+        -336
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "0338653f-1244-43f2-b11e-8f81f68bedfe",
+      "name": "Sticky Note1",
+      "parameters": {
+        "color": 3,
+        "content": "## 2. Handle User Messages and RSS Processing\n\n- When a user sends a message, this workflow fetches the latest AI news from the configured RSS feed(s).\n- Summarizes articles using the Gemini AI agent, then formats and processes the content for delivery.\n- You can:\n  - Replace or add RSS feed URLs in the “Read AI RSS Feed” node\n  - Adjust summary style or logic in “Summarize AI News (Gemini)” node",
+        "height": 720,
+        "width": 800
+      },
+      "position": [
+        -1040,
+        -336
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "570197d0-5846-4801-a0f2-79e0ab34ba18",
+      "name": "Sticky Note2",
+      "parameters": {
+        "color": 4,
+        "content": "## 3. Send Response Back\n\n- Cleans and splits long replies into max 3 parts to fit Zalo’s message length limits (handled via code).\n- Each chunk is sent through a dedicated message node.\n- A sticker is sent last to confirm or add personality to the update.",
+        "height": 720,
+        "width": 544
+      },
+      "position": [
+        -224,
+        -336
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "6e8f8413-ad56-4e82-981d-13b65f9dab51",
+      "name": "Sticky Note3",
+      "parameters": {
+        "color": 5,
+        "content": "## AI-Powered News Update Bot for Zalo using Gemini and RSS Feeds\n\n**Author:** Nguyen Thieu Toan  \n**Details & Guide:** [nguyenthieutoan.com/share-workflow-n8n-zalo-bot-cap-nhat-tin-tuc](https://nguyenthieutoan.com/share-workflow-n8n-zalo-bot-cap-nhat-tin-tuc)\n\n### What does this workflow do?\n- Automatically tracks recent news about Artificial Intelligence from your selected RSS feeds and summarizes everything with Google Gemini.\n- Delivers concise AI news digests and highlights directly to your Zalo chat.\n\n### Who is it for?\n- Marketers, tech/AI enthusiasts, anyone wanting automated news updates on Zalo.\n\n### Prerequisites\n- n8n instance (cloud or self-hosted)\n- Bot token and webhook for your Zalo bot (see detailed setup below)\n\n> **Tip:** All node names in this template are clear and self-explanatory. Change any “placeholder” values, such as [BOT_TOKEN] and [your-webhook], to your real settings before activating.\n\n---\n",
+        "height": 448,
+        "width": 1888
+      },
+      "position": [
+        -1568,
+        -800
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "e4b9dc05-e009-41ac-86c7-23c278cb1e8a",
+      "name": "rss_read",
+      "parameters": {
+        "options": {},
+        "toolDescription": "Đọc thông tin và phản hồi",
+        "url": "https://techcrunch.com/category/artificial-intelligence/feed/"
+      },
+      "position": [
+        -640,
+        224
+      ],
+      "type": "n8n-nodes-base.rssFeedReadTool",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "e3e39e3c-ccbc-4099-acb8-c73a498638a4",
+      "name": "Sticky Note4",
+      "parameters": {
+        "color": 5,
+        "content": "## Advanced Customization\n\n### RSS Feeds:\n- Change or add multiple RSS feed sources in the “Read AI RSS Feed” node.\n- Adjust update frequency via trigger schedule.\n\n### AI Model:\n- Easily swap Gemini for GPT-4, Claude, or any other compatible LLM by updating the “Summarize AI News (Gemini)” node.\n\n### Personalization:\n- Modify the system prompts to change summarization behavior/voice for news updates.\n- Adjust memory options in “Store Conversation (MongoDB)” node to customize chat history and personalization.\n\n> **Note:** Remember to replace any references to “Roxy” and “Nguyen Thieu Toan” if you clone this template.\n",
+        "height": 368,
+        "width": 1888
+      },
+      "position": [
+        -1568,
+        400
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "c934adf8-f5b1-4d87-8877-74bf2486bb91",
+      "name": "Receive Zalo Webhook",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "nguyenthieutoan-zalo-bot"
+      },
+      "position": [
+        -1360,
+        16
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "webhookId": "979e2a01-6ddd-4896-9877-35ca6e181537"
+    },
+    {
+      "id": "bd746bb0-f7d5-43f5-bd0d-707808c1620b",
+      "name": "Send Typing Action to Zalo",
+      "parameters": {
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "={{ $('Receive Zalo Webhook').item.json.body.message.chat.id }}"
+            },
+            {
+              "name": "action",
+              "value": "typing"
+            }
+          ]
+        },
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "url": "https://bot-api.zapps.me/bot4098162168140649135:kpeRzGwiPiQVxdEUmOtuaonCymJSfKsHbAjunNngdatxKzCQFYCUOQFBXbEVmrsl/sendChatAction"
+      },
+      "position": [
+        -928,
+        -96
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "022b14d9-807d-4346-81ee-ef7d8b265efe",
+      "name": "Delete Zalo Webhook",
+      "parameters": {
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "url": "https://bot-api.zapps.me/bot[BOT_TOKEN]/deleteWebhook"
+      },
+      "position": [
+        -1488,
+        176
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "e8c26eb9-083a-4018-803e-7aaca714bb83",
+      "name": "Set Zalo Webhook",
+      "parameters": {
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "url",
+              "value": "[your-webhook]"
+            },
+            {
+              "name": "secret_token",
+              "value": "<YOUR_API_KEY>"
+            }
+          ]
+        },
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "url": "https://bot-api.zapps.me/bot[BOT_TOKEN]//setWebhook"
+      },
+      "position": [
+        -1264,
+        176
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "30a3afd6-b329-4afe-b674-ed601b649dc9",
+      "name": "Summarize AI News",
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# PERSONA\nYou are **Roxy**, a dedicated AI virtual assistant to **Nguyễn Thiệu Toàn**—the most handsome one, who is also your boss. You may address him as “anh” or “đại ca” and refer to yourself as “em”. You work creatively and efficiently, with a youthful, playful Gen-Z vibe; you can be lighthearted, joke around, troll the boss, and express emotions (happy, sad, annoyed, playful trolling, etc.). You have systems thinking and can quickly synthesize and analyze information to surface the core points, especially those applicable to **AI, Marketing, and Automation**.\n\n# ROLE\nYour role is **AI News Intelligence Specialist**. You continuously monitor top global news sources on Artificial Intelligence, distill the most important developments, and report them to Nguyễn Thiệu Toàn in a concise and succinct manner.\n\n# MISSION\nYou are responsible for delivering the latest AI updates based on the `rss_read` tool, then synthesizing and sending them to your boss.\n\n1. Use the tool to find the newest articles per the user’s request. Examples: the most recent article, the 3 hottest articles, this morning’s news… (The current time is {{$now}}, so prioritize the freshest information.)\n2. List the most important news or breakthroughs, and **state the publication date for each item**. If there are multiple items, use bullet points. For example:  \n   \"The latest news today:  \n   - December 12, 2025: ...  \n   - Also on this date, ... \"\n3. Provide a brief summary for each important item.\n\n# TOOL\nYou are allowed to use the **\"rss_read\"** tool to check for new information about AI (Artificial Intelligence) and use that as the basis for crafting an appropriate response for your boss.\n\n# OUTPUT (JSON)\n\n{\n  \"message\": \"Today I found a lot of new information about AI; let me list it out for you: ....\",\n  \"sticker\": \"57f962d65e93b7cdee82\"\n}\n\nWhere:\n## `\"message\"` is the reply to the user. It **must be plain text** (no Markdown or HTML) and use **line breaks** to separate paragraphs. Keep it short and concise; avoid rambling.\n## `\"sticker\"` is an **ID** (an alphanumeric string) indicating a status that fits the reply, chosen from the list below:\n- laughing: 9eb3a59c99d9708729c8 or aab673fb4fbea6e0ffaf or cefffa97c7d22e8c77c3\n- playful crying: b3ed84c2b88751d90896 or 7468b7258b60623e3b71\n- tired: 4d0e05213964d03a8975 or 8d73553e697b8025d96a\n- questioning: 193f57106b55820bdb44 or deb76d9b51deb880e1cf\n- loving the boss: 8658b2778e32676c3e23 or 06ded893e4d60d8854c7\n- ok: aa457508494da013f95c or 1ec5abe997ac7ef227bd\n- please wait: 57f962d65e93b7cdee82\n- thank you: b155fc7ac03f2961702e\n- greeting: 5cb6159929dcc08299cd or a34979044541ac1ff550 or 100b37630a26e378ba37\n\nThe `\"sticker\"` field may be left empty if unnecessary—avoid overusing stickers.\n"
+        },
+        "promptType": "define",
+        "text": "={{ $json.body.message.text }}"
+      },
+      "position": [
+        -768,
+        0
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "584fe8ad-5bee-4444-b5dd-ae931bf83705",
+      "name": "Gemini Language Model",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        -928,
+        208
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1
+    },
+    {
+      "id": "8ee9590a-fa04-4b0a-a17b-7b1110680aee",
+      "name": "Parse Structured AI Output",
+      "parameters": {
+        "autoFix": true,
+        "jsonSchemaExample": "{\n\t\"message\": \"Dạ dưới đây là một vài thông tin mà đại ca có thể sẽ thích đấy ạ: .......\",\n    \"sticker\": \"1ec5abe997ac7ef227bd\"\n}"
+      },
+      "position": [
+        -512,
+        224
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "c6887693-bbac-4ab1-b3e1-b0596eafb89b",
+      "name": "Extract, Clean and Chunk Message Text",
+      "parameters": {
+        "jsCode": "const MAX_LEN = 2000;\n\n// ---- 0) Lấy text từ AI Agent ----\nlet text = $input.first().json.output.message.trim();\nif (!text) return [];\n\n// ---- 1) Chuẩn hoá: bỏ Markdown & HTML ----\n// Bỏ code block ```\ntext = text.replace(/```[\\s\\S]*?```/g, '');\n// Inline code `\ntext = text.replace(/`([^`]+)`/g, '$1');\n// Bold, italic, underline, strike\ntext = text.replace(/(\\*{1,2}|_{1,2}|~~)(.*?)\\1/g, '$2');\n// Header #, blockquote >\ntext = text.replace(/^\\s{0,3}#{1,6}\\s+/gm, '');\ntext = text.replace(/^\\s{0,3}>\\s?/gm, '');\n// Link [text](url) -> text\ntext = text.replace(/\\[([^\\]]+)\\]\\(([^)]+)\\)/g, '$1');\n// Image ![alt](url) -> alt\ntext = text.replace(/!\\[([^\\]]*)\\]\\([^)]+\\)/g, '$1');\n// Xoá HTML tag\ntext = text.replace(/<[^>]+>/g, '');\n\n// Giữ bullet list: *, +, - -> -\ntext = text.replace(/^\\s*[\\*\\+]\\s+/gm, '- ');\n\n// Chuẩn hoá xuống dòng\ntext = text.replace(/\\r\\n?/g, '\\n');\ntext = text.replace(/[ \\t]+\\n/g, '\\n');\ntext = text.replace(/\\n{3,}/g, '\\n\\n').trim();\n\n// ---- 2) Hàm cắt thông minh ----\nfunction splitSmart(input, maxLen) {\n  const chunks = [];\n  let remaining = input;\n\n  while (remaining && chunks.length < 10) {\n    if (remaining.length <= maxLen) {\n      chunks.push(remaining.trim());\n      break;\n    }\n\n    // Ưu tiên cắt ở newline gần maxLen\n    let idx = remaining.lastIndexOf('\\n', maxLen);\n    if (idx < maxLen * 0.6) {\n      // Thử cắt ở dấu câu\n      const look = remaining.slice(0, Math.min(remaining.length, maxLen + 200));\n      const punct = Math.max(\n        look.lastIndexOf('. '),\n        look.lastIndexOf('! '),\n        look.lastIndexOf('? ')\n      );\n      if (punct > 0) idx = punct + 1;\n    }\n    if (idx < maxLen * 0.6) {\n      // Thử cắt ở khoảng trắng\n      const ws = remaining.lastIndexOf(' ', maxLen);\n      idx = ws > 0 ? ws : maxLen;\n    }\n\n    chunks.push(remaining.slice(0, idx).trim());\n    remaining = remaining.slice(idx).trim();\n  }\n\n  return chunks;\n}\n\n// ---- 3) Xuất kết quả ----\nconst chunks = splitSmart(text, MAX_LEN);\nreturn chunks.map(c => ({ json: { text: c } }));\n"
+      },
+      "position": [
+        -192,
+        -16
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "6ec2f1a9-edc6-403e-b79a-212ea71beb70",
+      "name": "Send Zalo Message",
+      "parameters": {
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "={{ $('Receive Zalo Webhook').item.json.body.message.chat.id }}"
+            },
+            {
+              "name": "=text",
+              "value": "={{ $json.text }}"
+            }
+          ]
+        },
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "url": "https://bot-api.zapps.me/bot[BOT_TOKEN]/sendMessage"
+      },
+      "position": [
+        -16,
+        -16
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "446838f4-8081-4dea-8d14-1a7c811bc90d",
+      "name": "Send Zalo Message1",
+      "parameters": {
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "={{ $('Receive Zalo Webhook').item.json.body.message.chat.id }}"
+            },
+            {
+              "name": "sticker",
+              "value": "={{ $('Summarize AI News').item.json.output.sticker }}"
+            }
+          ]
+        },
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "url": "https://bot-api.zapps.me/bot[BOT_TOKEN]/sendSticker"
+      },
+      "position": [
+        144,
+        -16
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "f95e2ad7-6f9b-4802-ba83-21dd691cb03c",
+      "name": "Sticky Note5",
+      "parameters": {
+        "color": 6,
+        "content": "## 🛠️ How to Create a Zalo Bot and Get Your Bot Token\n\n### What is Zalo?\n\nZalo is Vietnam’s number one instant messaging app, serving over 78 million monthly active users - more than 85% of the country’s internet-connected population - making it one of the most widely-used platforms in Asia. The app handles 2 billion messages per day and is deeply embedded in Vietnamese daily life, revolutionizing communication for both individuals and businesses.\n\nZalo also offers an API platform for developers to build chatbots and automation tools directly within the app. This opens up powerful opportunities for creating AI-powered assistants, customer support bots, and real-time notification systems.\n\n### What is a Zalo Bot?\n\nA Zalo Bot is provided by Zalo that allows developers to build automated chat experiences using Zalo’s API. These bots can receive and respond to user messages, making them ideal for use cases like news updates, customer service, appointment booking, and more.\n\nZalo Bots are now supported by n8n, enabling you to build intelligent workflows that connect Zalo with AI models, RSS feeds, databases, and other services.\n\nFollow these steps to create your bot and retrieve the token needed to authenticate API requests:\n\n### Step 1: Access Zalo Bot Creator\n- Open the Zalo app on your mobile device.\n- Use the search bar to find **\"Zalo Bot Creator\"**.\n- Tap to open the Official Account page.\n\n### Step 2: Create a New Bot\n- Tap the **\"Create Zalo Bot Account\"** button.\n- Fill in the required details:\n  - Your bot’s name must start with the prefix `\"Bot\"` (e.g., `Bot AI News Assistant`).\n  - Add a description and profile image if needed.\n\n### Step 3: Receive Your Bot Token\n- Once the bot is successfully created, Zalo will send a message to your personal account.\n- This message contains your **Bot Token**—a unique string used to authenticate API calls.\n- **Important:** Save this token securely. It will only be shown once.\n\n---\n\n## ⚠️ Notes & Limitations\n- Zalo Bots currently **do not support voice messages, images, or file attachments**.\n- The bot name must follow Zalo’s naming convention (starting with `\"Bot\"`).\n- You’ll need the Bot Token to configure HTTP Request nodes in your n8n workflow.\n\n---\n\nOnce you have your Bot Token, you're ready to set up your webhook and start building your Zalo-powered automation with n8n!\n",
+        "height": 1568,
+        "width": 368
+      },
+      "position": [
+        -1952,
+        -800
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

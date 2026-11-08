@@ -1,7 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
-    "defaultMode": "acceptEdits",
     "allow": [
       "Bash(docker --version)",
       "Bash(docker version*)",
@@ -35,6 +34,11 @@
       "PowerShell(wsl --status)",
       "PowerShell(winget --version)"
     ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.local)",
+      "Bash(sudo *)"
+    ],
     "ask": [
       "Bash(docker compose * down -v*)",
       "Bash(docker volume rm *)",
@@ -43,11 +47,13 @@
       "PowerShell(docker volume rm *)",
       "PowerShell(docker system prune*)"
     ],
-    "deny": [
-      "Read(./.env)",
-      "Read(./.env.local)",
-      "Bash(sudo *)"
-    ]
+    "defaultMode": "acceptEdits"
+  },
+  "enabledMcpjsonServers": [
+    "n8n-local"
+  ],
+  "enabledPlugins": {
+    "n8n-skills@n8n-io": true
   },
   "extraKnownMarketplaces": {
     "n8n-io": {
@@ -56,8 +62,5 @@
         "repo": "n8n-io/skills"
       }
     }
-  },
-  "enabledPlugins": {
-    "n8n-skills@n8n-io": true
   }
 }

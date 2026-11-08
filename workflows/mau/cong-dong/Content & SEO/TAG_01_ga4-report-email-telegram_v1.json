@@ -1,0 +1,665 @@
+{
+  "connections": {
+    "Assign data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Summarize Data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Assign data1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Summarize Data1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Calculation same period previous year": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Analytics: Past 7 days of the previous year",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Processing for email",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Google Analytics Letzte 7 Tage": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Assign data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Analytics: Past 7 days of the previous year": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Assign data1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Processing for Telegram": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Telegram",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Processing for email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Email",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Processing for Telegram",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Analytics Letzte 7 Tage",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Summarize Data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Calculation same period previous year",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Summarize Data1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Processing for email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Telegram": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_01_ga4-report-email-telegram_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Báo cáo Google Analytics hằng tuần qua email và Telegram\n**Làm gì:** Kéo số GA4, AI viết nhận xét ngắn, gửi báo cáo qua email và Telegram theo lịch.\n**Trigger:** Lịch (Schedule)\n**Credential cần:** Google Analytics, OpenAI, Telegram bot, smtp\n**Chi phí ước:** Token thấp; GA4 miễn phí.\n**Mở rộng gợi ý:** Thêm so sánh cùng kỳ; gộp thêm số Search Console.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/AI_Research_RAG_and_Data_Analysis/Create%20a%20Google%20Analytics%20Data%20Report%20with%20AI%20and%20sent%20it%20to%20E-Mail%20and%20Telegram.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -2820,
+        -20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "91ba5982-e226-4f0b-af0d-8c9a44b08279",
+      "name": "Schedule Trigger",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "position": [
+        -1740,
+        300
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "62c38eaf-2222-4d22-8589-677f36bce10d",
+      "name": "Google Analytics Letzte 7 Tage",
+      "parameters": {
+        "additionalFields": {},
+        "dimensionsGA4": {
+          "dimensionValues": [
+            {}
+          ]
+        },
+        "metricsGA4": {
+          "metricValues": [
+            {
+              "listName": "screenPageViews"
+            },
+            {},
+            {
+              "listName": "sessions"
+            },
+            {
+              "listName": "sessionsPerUser"
+            },
+            {
+              "listName": "other",
+              "name": "averageSessionDuration"
+            },
+            {
+              "listName": "other",
+              "name": "ecommercePurchases"
+            },
+            {
+              "listName": "other",
+              "name": "averagePurchaseRevenue"
+            },
+            {
+              "listName": "other",
+              "name": "purchaseRevenue"
+            }
+          ]
+        },
+        "propertyId": {
+          "__rl": true,
+          "cachedResultName": "https://www.ep-reisen.de  – GA4",
+          "cachedResultUrl": "https://analytics.google.com/analytics/web/#/p345060083/",
+          "mode": "list",
+          "value": "345060083"
+        }
+      },
+      "position": [
+        -1540,
+        300
+      ],
+      "type": "n8n-nodes-base.googleAnalytics",
+      "typeVersion": 2
+    },
+    {
+      "id": "0a51c2f3-a487-4226-884f-63d4cb2bf4e4",
+      "name": "Send Email",
+      "parameters": {
+        "fromEmail": "you@example.com",
+        "html": "={{ $json.message.content }}",
+        "options": {},
+        "subject": "Weekly Report: Google Analytics: Last 7 days",
+        "toEmail": "you@example.com"
+      },
+      "position": [
+        420,
+        80
+      ],
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1
+    },
+    {
+      "id": "04963783-f455-4983-afea-e94b316d8532",
+      "name": "Telegram",
+      "parameters": {
+        "additionalFields": {},
+        "chatId": "",
+        "text": "={{ $json.message.content }}"
+      },
+      "position": [
+        420,
+        420
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "3b6b4902-15b3-4bbc-8427-c35471a7431b",
+      "name": "Processing for Telegram",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=Convert the following text from HTML to normal text:\n\n{{ $json.message.content }}\n\nPlease format the table so that each metric is a separate paragraph!\n\nExample:\n\nTotal views: xx.xxx\nTotal views previous year: xx,xxx\nDifference: x.xx %\n\nTotal users: xx,xxx\nTotal users previous year: xx,xxx\nDifference: -x.xx %"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "GPT-4O-MINI",
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "position": [
+        60,
+        420
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7
+    },
+    {
+      "id": "d761980c-0327-4d4e-92aa-d0342b2e249e",
+      "name": "Calculator",
+      "parameters": {},
+      "position": [
+        140,
+        300
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1
+    },
+    {
+      "id": "ce7ba356-80bb-4b17-9445-fb535267cdf0",
+      "name": "Google Analytics: Past 7 days of the previous year",
+      "parameters": {
+        "additionalFields": {},
+        "dateRange": "custom",
+        "dimensionsGA4": {
+          "dimensionValues": [
+            {}
+          ]
+        },
+        "endDate": "={{ $json.endDate }}",
+        "metricsGA4": {
+          "metricValues": [
+            {
+              "listName": "screenPageViews"
+            },
+            {},
+            {
+              "listName": "sessions"
+            },
+            {
+              "listName": "sessionsPerUser"
+            },
+            {
+              "listName": "other",
+              "name": "averageSessionDuration"
+            },
+            {
+              "listName": "other",
+              "name": "ecommercePurchases"
+            },
+            {
+              "listName": "other",
+              "name": "averagePurchaseRevenue"
+            },
+            {
+              "listName": "other",
+              "name": "purchaseRevenue"
+            }
+          ]
+        },
+        "propertyId": {
+          "__rl": true,
+          "cachedResultName": "https://www.ep-reisen.de  – GA4",
+          "cachedResultUrl": "https://analytics.google.com/analytics/web/#/p345060083/",
+          "mode": "list",
+          "value": "345060083"
+        },
+        "startDate": "={{ $json.startDate }}"
+      },
+      "position": [
+        -600,
+        300
+      ],
+      "type": "n8n-nodes-base.googleAnalytics",
+      "typeVersion": 2
+    },
+    {
+      "id": "d2062aaa-e41b-4405-8470-9e7b4cd77245",
+      "name": "Summarize Data",
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "Aufrufe"
+            },
+            {
+              "aggregation": "sum",
+              "field": "Nutzer"
+            },
+            {
+              "aggregation": "sum",
+              "field": "Sitzungen"
+            },
+            {
+              "aggregation": "average",
+              "field": "Sitzungen pro Nutzer"
+            },
+            {
+              "aggregation": "average",
+              "field": "Sitzungsdauer"
+            },
+            {
+              "aggregation": "sum",
+              "field": "Käufe"
+            },
+            {
+              "aggregation": "average",
+              "field": "Revenue pro Kauf"
+            },
+            {
+              "aggregation": "sum",
+              "field": "Revenue"
+            },
+            {
+              "field": "date"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -1080,
+        300
+      ],
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1
+    },
+    {
+      "id": "d1f48d36-9f27-4cda-af53-e6d430d1a8db",
+      "name": "Summarize Data1",
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "Aufrufe"
+            },
+            {
+              "aggregation": "sum",
+              "field": "Nutzer"
+            },
+            {
+              "aggregation": "sum",
+              "field": "Sitzungen"
+            },
+            {
+              "aggregation": "average",
+              "field": "Sitzungen pro Nutzer"
+            },
+            {
+              "aggregation": "average",
+              "field": "Sitzungsdauer"
+            },
+            {
+              "aggregation": "sum",
+              "field": "Käufe"
+            },
+            {
+              "aggregation": "average",
+              "field": "Revenue pro Kauf"
+            },
+            {
+              "aggregation": "sum",
+              "field": "Revenue"
+            },
+            {
+              "field": "date"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -220,
+        300
+      ],
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1
+    },
+    {
+      "id": "5b6a0644-3839-4a62-8ff3-bf866aa4568c",
+      "name": "Calculation same period previous year",
+      "parameters": {
+        "jsCode": "return {\n // Berechnung des Startdatums: Vorjahr, gleiche Woche, 7 Tage zurück\n startDate: (() => {\n const date = new Date();\n date.setFullYear(date.getFullYear() - 1); // Zurück ins Vorjahr\n date.setDate(date.getDate() - 7); // 7 Tage zurück\n return date.toISOString().split('T')[0];\n })(),\n \n // Berechnung des Enddatums: Vorjahr, heutiges Datum\n endDate: (() => {\n const date = new Date();\n date.setFullYear(date.getFullYear() - 1); // Zurück ins Vorjahr\n return date.toISOString().split('T')[0];\n })(),\n};\n"
+      },
+      "position": [
+        -840,
+        300
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "ab813532-cbe6-4c41-b20b-7efaa1ae4389",
+      "name": "Assign data",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9c2f8b9a-e964-49a0-8837-efb0dfd7bcae",
+              "name": "Aufrufe",
+              "type": "number",
+              "value": "={{ $json.screenPageViews }}"
+            },
+            {
+              "id": "8b524518-1268-4971-b5c9-ae7da09d94f9",
+              "name": "Nutzer",
+              "type": "number",
+              "value": "={{ $json.totalUsers }}"
+            },
+            {
+              "id": "ca7279b9-c643-425f-aa99-cb17146e9994",
+              "name": "Sitzungen",
+              "type": "number",
+              "value": "={{ $json.sessions }}"
+            },
+            {
+              "id": "591288f7-e8cf-445e-872a-5b83f997b825",
+              "name": "Sitzungen pro Nutzer",
+              "type": "number",
+              "value": "={{ $json.sessionsPerUser }}"
+            },
+            {
+              "id": "dc1a43da-3f3a-4dca-bbde-904222d7f693",
+              "name": "Sitzungsdauer",
+              "type": "number",
+              "value": "={{ $json.averageSessionDuration }}"
+            },
+            {
+              "id": "eac0b53e-c452-40b8-92bc-8af8ea349984",
+              "name": "=Käufe",
+              "type": "number",
+              "value": "={{ $json.ecommercePurchases }}"
+            },
+            {
+              "id": "b96439be-189d-4ebe-b49e-d5c31fefe9f0",
+              "name": "Revenue pro Kauf",
+              "type": "number",
+              "value": "={{ $json.averagePurchaseRevenue }}"
+            },
+            {
+              "id": "94835d43-2fc8-49c0-97f0-6f0f8699337a",
+              "name": "Revenue",
+              "type": "number",
+              "value": "={{ $json.purchaseRevenue }}"
+            },
+            {
+              "id": "d70f8138-3b84-4b88-a98f-eb929e1cc29a",
+              "name": "date",
+              "type": "string",
+              "value": "={{ $json.date }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -1300,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "2454fe8a-005d-46dc-ae22-1044c1b793b7",
+      "name": "Assign data1",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9c2f8b9a-e964-49a0-8837-efb0dfd7bcae",
+              "name": "Aufrufe",
+              "type": "number",
+              "value": "={{ $json.screenPageViews }}"
+            },
+            {
+              "id": "8b524518-1268-4971-b5c9-ae7da09d94f9",
+              "name": "Nutzer",
+              "type": "number",
+              "value": "={{ $json.totalUsers }}"
+            },
+            {
+              "id": "ca7279b9-c643-425f-aa99-cb17146e9994",
+              "name": "Sitzungen",
+              "type": "number",
+              "value": "={{ $json.sessions }}"
+            },
+            {
+              "id": "591288f7-e8cf-445e-872a-5b83f997b825",
+              "name": "Sitzungen pro Nutzer",
+              "type": "number",
+              "value": "={{ $json.sessionsPerUser }}"
+            },
+            {
+              "id": "dc1a43da-3f3a-4dca-bbde-904222d7f693",
+              "name": "Sitzungsdauer",
+              "type": "number",
+              "value": "={{ $json.averageSessionDuration }}"
+            },
+            {
+              "id": "eac0b53e-c452-40b8-92bc-8af8ea349984",
+              "name": "=Käufe",
+              "type": "number",
+              "value": "={{ $json.ecommercePurchases }}"
+            },
+            {
+              "id": "b96439be-189d-4ebe-b49e-d5c31fefe9f0",
+              "name": "Revenue pro Kauf",
+              "type": "number",
+              "value": "={{ $json.averagePurchaseRevenue }}"
+            },
+            {
+              "id": "94835d43-2fc8-49c0-97f0-6f0f8699337a",
+              "name": "Revenue",
+              "type": "number",
+              "value": "={{ $json.purchaseRevenue }}"
+            },
+            {
+              "id": "dd8255c6-65b1-41ce-b596-70c09108d6e2",
+              "name": "=date",
+              "type": "string",
+              "value": "={{ $json.date }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -400,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "0a48cbb0-3d4c-4ac8-8dba-08213f7fc430",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "Welcome to my Google Analytics Weekly Report Workflow!\n\nThis workflow has the following sequence:\n\n1. time trigger (e.g. every Monday at 7 a.m.)\n2. retrieval of Google Analytics data from the last 7 days\n3. assignment and summary of the data\n4. retrieval of Google Analytics data from the last 7 days of the previous year\n5. allocation and summary of the data\n6. preparation in tabular form and brief analysis by AI.\n7. sending the report as an email\n8. preparation in short form by AI for Telegram (optional)\n9. sending as Telegram message.\n\nThe following accesses are required for the workflow:\n- Google Analytics (via Google Analytics API): https://docs.n8n.io/integrations/builtin/credentials/google/\n- AI API access (e.g. via OpenAI, Anthropic, Google or Ollama)\n- SMTP access data (for sending the mail)\n- Telegram access data (optional for sending as Telegram message): https://docs.n8n.io/integrations/builtin/credentials/telegram/\n\nYou can contact me via LinkedIn, if you have any questions: https://www.linkedin.com/in/friedemann-schuetz",
+        "height": 560,
+        "width": 440
+      },
+      "position": [
+        -2220,
+        80
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "c87bc648-8fe8-4cec-84d4-2742060f9c53",
+      "name": "Processing for email",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=Please analyze the following data and output the results in tabular form:\n\n| Metrics | Last 7 days | Previous year | Percentage change |\n|-------------------------------|---------------|---------|\n| Total page views | {{ $('Summarize Data').item.json.sum_Aufrufe }} | {{ $('Summarize Data1').item.json.sum_Aufrufe }} | Percentage change |\n| total users | {{ $('Summarize Data').item.json.sum_Nutzer }} | {{ $('Summarize Data1').item.json.sum_Nutzer }} | Percentage change |\n| Total sessions | {{ $('Summarize Data').item.json.sum_Sitzungen }} | {{ $('Summarize Data1').item.json.sum_Sitzungen }} | Percentage change |\n| Average sessions/user | {{ $('Summarize Data').item.json.average_Sitzungen_pro_Nutzer }} | {{ $('Summarize Data1').item.json.average_Sitzungen_pro_Nutzer }} | Percentage change |\n| Average session duration | {{ $('Summarize Data').item.json.average_Sitzungsdauer }} | {{ $('Summarize Data1').item.json.average_Sitzungsdauer }} | Percentage change |\n| Total purchases | {{ $('Summarize Data').item.json['sum_Käufe'] }} | {{ $('Summarize Data1').item.json['sum_Käufe'] }} | Percentage change |\n| Average revenue/purchase | {{ $('Summarize Data').item.json.average_Revenue_pro_Kauf }} | {{ $('Summarize Data1').item.json.average_Revenue_pro_Kauf }} | Percentage change |\n| Total revenue | {{ $('Summarize Data').item.json.sum_Revenue }} | {{ $('Summarize Data1').item.json.sum_Revenue }} | Percentage change |\n\nFormat for numbers:\n- Dot (.) for numbers in thousands (e.g. 4,000)\n- Comma (,) for decimal numbers (e.g. 3.4)\n- Conversion of average session duration in minutes instead of seconds\n- Average turnover/purchase and total turnover in €\n\nPlease write a short summary of the analyzed data above the table (in a maximum of 3 sentences!)\n\nPlease format to a sleek and modern HTML format so that the result can be sent as HTML mail!\n\nStructure of the e-mail:\n\n“Hello! Here is the Weekly Report: Google Analytics of the last 7 days!\n[Summary]\n[Table]”"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "GPT-4O",
+          "mode": "list",
+          "value": "gpt-4o"
+        },
+        "options": {}
+      },
+      "position": [
+        60,
+        80
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

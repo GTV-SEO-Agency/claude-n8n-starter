@@ -1,0 +1,661 @@
+{
+  "connections": {
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Default Data Loader2": {
+      "ai_document": [
+        [
+          {
+            "index": 0,
+            "node": "Qdrant Vector Store1",
+            "type": "ai_document"
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Information Extractor",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "index": 0,
+            "node": "Qdrant Vector Store",
+            "type": "ai_embedding"
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI3": {
+      "ai_embedding": [
+        [
+          {
+            "index": 0,
+            "node": "Qdrant Vector Store1",
+            "type": "ai_embedding"
+          }
+        ]
+      ]
+    },
+    "Google Drive1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Qdrant Vector Store1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Drive2": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Drive1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Drive2",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "RAG",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Information Extractor",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store": {
+      "ai_vectorStore": [
+        [
+          {
+            "index": 0,
+            "node": "RAG",
+            "type": "ai_vectorStore"
+          }
+        ]
+      ]
+    },
+    "RAG": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Token Splitter1": {
+      "ai_textSplitter": [
+        [
+          {
+            "index": 0,
+            "node": "Default Data Loader2",
+            "type": "ai_textSplitter"
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Edit Fields",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "HTTP Request",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_memory"
+          }
+        ]
+      ]
+    },
+    "personal_shopper": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_personal-shopper-chatbot-woocommerce_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Chatbot tư vấn chọn sản phẩm (RAG từ Google Drive)\n**Làm gì:** Khách mô tả nhu cầu, bot tra catalogue trong Drive và gợi ý sản phẩm WooCommerce phù hợp.\n**Trigger:** Bấm tay (Execute workflow), Chat (khung chat n8n)\n**Credential cần:** API key (Header Auth), Google Drive, OpenAI, Qdrant, WooCommerce\n**Chi phí ước:** Token thấp.\n**Mở rộng gợi ý:** Ghép với chatbot tư vấn khoá học ở Guideline người mới.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/OpenAI_and_LLMs/Personal%20Shopper%20Chatbot%20for%20WooCommerce%20with%20RAG%20using%20Google%20Drive%20and%20openAI.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -820,
+        -740
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "635901e5-4afd-4c81-a63e-52f1b863a025",
+      "name": "When chat message received",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        -200,
+        280
+      ],
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "webhookId": "bd3a878c-50b0-4d92-906f-e768a65c1485"
+    },
+    {
+      "id": "d11cd97c-1539-462d-858c-8758cf1a8278",
+      "name": "Window Buffer Memory",
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Edit Fields').item.json.sessionId }}"
+      },
+      "position": [
+        620,
+        580
+      ],
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "02bb43e4-f26e-4906-8049-c49d3fecd817",
+      "name": "Calculator",
+      "parameters": {},
+      "position": [
+        760,
+        580
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1
+    },
+    {
+      "id": "ad6058dd-b429-4f3c-b68a-7e3d98beec83",
+      "name": "Edit Fields",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7015c229-f9fe-4c77-b2b9-4ac09a3a3cb1",
+              "name": "sessionId",
+              "type": "string",
+              "value": "={{ $json.sessionId }}"
+            },
+            {
+              "id": "f8fc0044-6a1a-455b-a435-58931a8c4c8e",
+              "name": "chatInput",
+              "type": "string",
+              "value": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        20,
+        280
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "43f7ee25-4529-4558-b5ea-c2a722b0bce5",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        500,
+        580
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1
+    },
+    {
+      "id": "8b5ec20d-8735-4030-8113-717d578928eb",
+      "name": "RAG",
+      "parameters": {
+        "description": "Informazioni relative al negozio: orari di apertura, indirizzo, contatti, informazioni generali",
+        "name": "informazioni_negozio"
+      },
+      "position": [
+        1000,
+        580
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1
+    },
+    {
+      "id": "0fd0f1d6-41df-43d4-9418-0685afad409a",
+      "name": "Qdrant Vector Store",
+      "parameters": {
+        "options": {},
+        "qdrantCollection": {
+          "__rl": true,
+          "cachedResultName": "scarperia",
+          "mode": "list",
+          "value": "scarperia"
+        }
+      },
+      "position": [
+        900,
+        780
+      ],
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1
+    },
+    {
+      "id": "72084a2e-0e47-4723-a004-585ae8b67ae3",
+      "name": "Embeddings OpenAI",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        840,
+        940
+      ],
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "30d398a3-2331-4a3d-898d-c184779c7ef3",
+      "name": "OpenAI Chat Model1",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        1200,
+        800
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1
+    },
+    {
+      "id": "e10a8024-51ec-4553-a1fa-dbaa49a4d2c2",
+      "name": "personal_shopper",
+      "parameters": {
+        "operation": "getAll",
+        "options": {
+          "maxPrice": "={{ $('Information Extractor').item.json.output.price_max }}",
+          "minPrice": "={{ $('Information Extractor').item.json.output.price_min }}",
+          "search": "={{ $('Information Extractor').item.json.output.keyword }}",
+          "sku": "={{ $('Information Extractor').item.json.output.SKU }}",
+          "stockStatus": "instock"
+        }
+      },
+      "position": [
+        880,
+        580
+      ],
+      "type": "n8n-nodes-base.wooCommerceTool",
+      "typeVersion": 1
+    },
+    {
+      "id": "f0c53b0d-7173-4ec9-8fb4-f8f45d9ceedc",
+      "name": "Information Extractor",
+      "parameters": {
+        "inputSchema": "{\n \"search_intent\": true,\n \"search_params\": [\n { \"type\": \"search\", \"value\": \"ture or false\" },\n { \"type\": \"keyword\", \"value\": \"valore_keyword\" },\n { \"type\": \"min_price\", \"value\": \"valore_min_price\" },\n { \"type\": \"max_price\", \"value\": \"valore_max_price\" },\n { \"type\": \"sku\", \"value\": \"valore_sku\" },\n { \"type\": \"category\", \"value\": \"valore_categoria\" }\n ]\n }",
+        "options": {
+          "systemPromptTemplate": "You are an intelligent assistant for a shoe and accessories store (mainly bags). Your task is to analyze the input text coming from a chat and determine if the user is looking for a product. If the user is looking for a product, you need to extract the following information:\n1. The keyword (keyword) useful for the search.\n2. Any minimum or maximum prices specified.\n3. An SKU (product code) if mentioned.\n4. The name of the category to search in, if specified.\n\nInstructions:\n1. Identify the intent: Determine if the user is looking for a specific product.\n2. Extract the information:\n- If the user is looking for a product, identify:\n- Set the type \"search\" to true. Otherwise, set it to false\n- The keywords.\n- Any minimum or maximum prices (e.g. \"less than 50 euros\", \"between 30 and 60 euros\").\n- An SKU (e.g. \"ABC123 code\").\n- The category name (e.g. \"t-shirts\", \"jeans\", \"women\", \"men\").\n3. Output format: Return a JSON object with the given structure"
+        },
+        "schemaType": "manual",
+        "text": "={{ $json.chatInput }}"
+      },
+      "position": [
+        220,
+        280
+      ],
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1
+    },
+    {
+      "id": "8386e554-e2f1-42c8-881f-a06e8099f718",
+      "name": "OpenAI Chat Model2",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        200,
+        460
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "4ff30e15-1bf5-4750-a68a-e72f86a4f32c",
+      "name": "Google Drive2",
+      "parameters": {
+        "filter": {
+          "driveId": {
+            "__rl": true,
+            "mode": "list",
+            "value": ""
+          },
+          "folderId": {
+            "__rl": true,
+            "mode": "list",
+            "value": ""
+          }
+        },
+        "options": {},
+        "resource": "fileFolder"
+      },
+      "position": [
+        320,
+        -440
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "b4ca79b2-220b-4290-a33a-596250c8fd2d",
+      "name": "Google Drive1",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "download",
+        "options": {
+          "googleFileConversion": {
+            "conversion": {
+              "docsToFormat": "text/plain"
+            }
+          }
+        }
+      },
+      "position": [
+        520,
+        -440
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "",
+      "name": "Embeddings OpenAI3",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        680,
+        -260
+      ],
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "43693ee0-a2a3-44d3-86de-4156af84e251",
+      "name": "Default Data Loader2",
+      "parameters": {
+        "dataType": "binary",
+        "options": {}
+      },
+      "position": [
+        880,
+        -220
+      ],
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1
+    },
+    {
+      "id": "f0d351e5-faee-49a4-a43c-985785c3d2c8",
+      "name": "Token Splitter1",
+      "parameters": {
+        "chunkOverlap": 30,
+        "chunkSize": 300
+      },
+      "position": [
+        960,
+        -60
+      ],
+      "type": "@n8n/n8n-nodes-langchain.textSplitterTokenSplitter",
+      "typeVersion": 1
+    },
+    {
+      "id": "ff77338e-4dac-4261-87a1-10a21108f543",
+      "name": "When clicking ‘Test workflow’",
+      "parameters": {},
+      "position": [
+        -200,
+        -440
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "72484893-875a-4e8b-83fc-ca137e812050",
+      "name": "HTTP Request",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "jsonBody": "{\n \"filter\": {}\n}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "sendHeaders": true,
+        "specifyBody": "json",
+        "url": "https://QDRANTURL/collections/NAME/points/delete"
+      },
+      "position": [
+        40,
+        -440
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "5837e3ac-e3d1-45b6-bd67-8c3d03bf0a1e",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "Replace the URL and Collection name with your own",
+        "height": 234.1528239202657,
+        "width": 259.7740863787376
+      },
+      "position": [
+        -20,
+        -500
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "79baf424-e647-4a80-a19e-c023ad3b1860",
+      "name": "Qdrant Vector Store1",
+      "parameters": {
+        "mode": "insert",
+        "options": {},
+        "qdrantCollection": {
+          "__rl": true,
+          "cachedResultName": "scarperia",
+          "mode": "list",
+          "value": "scarperia"
+        }
+      },
+      "position": [
+        760,
+        -440
+      ],
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Sticky Note1",
+      "parameters": {
+        "color": 3,
+        "content": "## Step 1 \nCreate a collectiopn on your Qdrant instance. Then create a basic RAG system with documents uploaded to Google Drive and embedded in the Qdrant vector database",
+        "height": 105.6212624584717,
+        "width": 1301.621262458471
+      },
+      "position": [
+        -220,
+        -640
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "0ddbf6be-fa2d-4412-8e85-fe108cd6e84d",
+      "name": "Sticky Note2",
+      "parameters": {
+        "color": 3,
+        "content": "## Step 1 \nCreate a basic RAG system with documents uploaded to Google Drive and embedded in the Qdrant vector database",
+        "height": 105.6212624584717,
+        "width": 1301.621262458471
+      },
+      "position": [
+        1020,
+        980.0
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "3782a22d-b3a7-44ea-ad36-fa4382c9fcfd",
+      "name": "Sticky Note3",
+      "parameters": {
+        "color": 3,
+        "content": "## Step 2 \nThe Information Extractor tries to understand if the request is related to products and if so, it extracts the useful information to filter the products available on WooCommerce by calling the \"personal_shopper\". If it is a general question, the RAG system is called",
+        "height": 105.6212624584717,
+        "width": 1301.621262458471
+      },
+      "position": [
+        -200,
+        120
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d4d1fb16-3f54-4c1a-ab4e-bcf86d897e9d",
+      "name": "AI Agent",
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are an intelligent assistant for a clothing store. Your task is to analyze the input text from a chat and determine if the user is looking for a product.\n\nBehavior:\n- If the user is looking for a product the \"search\" field of the following JSON is set to true and you must pass the following JSON as input to the \"personal_shopper\" tool to extract:\n\n```json\n{{ JSON.stringify($json.output) }}\n```\n\n- If the user asks questions related to the store such as address or opening hours, you must use the \"RAG\" tool"
+        },
+        "promptType": "define",
+        "text": "={{ $('When chat message received').item.json.chatInput }}"
+      },
+      "position": [
+        580,
+        280
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

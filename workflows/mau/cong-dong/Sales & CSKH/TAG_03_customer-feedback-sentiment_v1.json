@@ -1,0 +1,334 @@
+{
+  "connections": {
+    "Classify feedback with OpenAI": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Merge sentiment with form content",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Merge sentiment with form content": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Add customer feedback to Google Sheets",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Submit form with customer feedback": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Classify feedback with OpenAI",
+            "type": "main"
+          },
+          {
+            "index": 1,
+            "node": "Merge sentiment with form content",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_03_customer-feedback-sentiment_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Phân tích cảm xúc feedback khách\n**Làm gì:** Feedback từ form → AI chấm cảm xúc và chủ đề → ghi bảng → tiêu cực báo ngay.\n**Trigger:** Form n8n\n**Credential cần:** Google Sheets, OpenAI\n**Chi phí ước:** Token rất thấp.\n**Mở rộng gợi ý:** Nối nguồn từ Google Form, Zalo, Shopee.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/OpenAI_and_LLMs/AI%20Customer%20feedback%20sentiment%20analysis.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        200,
+        920
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "4ea39a4f-d8c1-438f-9738-bfbb906a3d7a",
+      "name": "Sticky Note2",
+      "parameters": {
+        "content": "## Send customer feedback to OpenAI for sentiment analysis",
+        "height": 342,
+        "width": 253
+      },
+      "position": [
+        1200,
+        1020
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "6962ea41-7d15-4932-919f-21ac94fa1269",
+      "name": "Sticky Note3",
+      "parameters": {
+        "content": "## Add new feedback to google sheets",
+        "height": 342,
+        "width": 253
+      },
+      "position": [
+        1960,
+        1180
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "4c8a8984-2d8e-4139-866b-6f3536aced07",
+      "name": "Sticky Note4",
+      "parameters": {
+        "content": "## Instructions\n1. Connect Google sheets\n2. Connect your OpenAi account (api key + org Id)\n3. Create a customer feedback form, use an existing one or use the one below as example. \nAll set!\n\n\n- Here is the example google sheet being used in this workflow: https://docs.google.com/spreadsheets/d/<YOUR_FILE_ID>/edit?usp=sharing. You can download it to your account.",
+        "height": 254,
+        "width": 1407
+      },
+      "position": [
+        800,
+        1600
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d43a9574-626d-4817-87ba-d99bdd6f41dc",
+      "name": "Sticky Note5",
+      "parameters": {
+        "content": "## Feedback form is submitted",
+        "height": 342,
+        "width": 253
+      },
+      "position": [
+        800,
+        1160
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "76dab2dc-935f-416e-91aa-5a1b7017ec1b",
+      "name": "Sticky Note6",
+      "parameters": {
+        "content": "## Merge form data and OpenAI result",
+        "height": 342,
+        "width": 253
+      },
+      "position": [
+        1600,
+        1180
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "9772eac1-8df2-4305-9b2c-265d3c5a9a4a",
+      "name": "Add customer feedback to Google Sheets",
+      "parameters": {
+        "columns": {
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Timestamp",
+              "id": "Timestamp",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Category",
+              "id": "Category",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Customer Feedback",
+              "id": "Customer Feedback",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Customer Name",
+              "id": "Customer Name",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Customer contact",
+              "id": "Customer contact",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Entered by",
+              "id": "Entered by",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Urgent?",
+              "id": "Urgent?",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Sentiment",
+              "id": "Sentiment",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Category": "={{ $json['What is your feedback about?'] }}",
+            "Customer Feedback": "={{ $json['Your feedback'] }}",
+            "Customer Name": "={{ $json.Name }}",
+            "Customer contact": "={{ $json['How do we get in touch with you?'] }}",
+            "Entered by": "=Form",
+            "Sentiment": "={{ $json.text }}",
+            "Timestamp": "={{ $json.submittedAt }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        2020,
+        1320
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.1
+    },
+    {
+      "id": "",
+      "name": "Merge sentiment with form content",
+      "parameters": {
+        "combinationMode": "multiplex",
+        "mode": "combine",
+        "options": {}
+      },
+      "position": [
+        1680,
+        1320
+      ],
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1
+    },
+    {
+      "id": "235edf5b-7724-4712-8dc5-d8327a0620b8",
+      "name": "Classify feedback with OpenAI",
+      "parameters": {
+        "options": {},
+        "prompt": "=Classify the sentiment in the following customer feedback: {{ $json['Your feedback'] }}"
+      },
+      "position": [
+        1280,
+        1180
+      ],
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1
+    },
+    {
+      "id": "af4b22aa-0925-40b1-a9ac-298f9745a98e",
+      "name": "Submit form with customer feedback",
+      "parameters": {
+        "formDescription": "Please give feedback about our company orproducts.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "What is your feedback about?",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Product"
+                  },
+                  {
+                    "option": "Service"
+                  },
+                  {
+                    "option": "Other"
+                  }
+                ]
+              },
+              "fieldType": "dropdown",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Your feedback",
+              "fieldType": "textarea",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "How do we get in touch with you?"
+            }
+          ]
+        },
+        "formTitle": "Customer Feedback",
+        "options": {
+          "formSubmittedText": "Your response has been recorded"
+        }
+      },
+      "position": [
+        860,
+        1340
+      ],
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 1,
+      "webhookId": "e7bf682e-48e8-40de-9815-cd180cdd1480"
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,278 @@
+{
+  "connections": {
+    "Define Prompt": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Drive",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Call Claude 3.5 Sonnet with PDF Capabilities",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Call Gemini 2.0 Flash with PDF Capabilities",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Extract from File",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "When clicking 'Test workflow'": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Define Prompt",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_04_pdf-extract-claude-gemini_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Đọc PDF trực tiếp bằng Claude hoặc Gemini\n**Làm gì:** Đưa PDF thẳng cho Claude hoặc Gemini để trích thông tin, không cần bước OCR riêng.\n**Trigger:** Bấm tay (Execute workflow)\n**Credential cần:** Anthropic (Claude), Google Drive, Google Gemini\n**Chi phí ước:** Token theo số trang.\n**Mở rộng gợi ý:** Dùng cho hợp đồng, báo giá; so hai model để chọn rẻ hơn.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/PDF_and_Document_Processing/Extract%20and%20process%20information%20directly%20from%20PDF%20using%20Claude%20and%20Gemini.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -1300,
+        -380
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "b6cd232e-e82e-457b-9f03-c010b3eba148",
+      "name": "When clicking 'Test workflow'",
+      "parameters": {},
+      "position": [
+        -40,
+        0
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "2b734806-e3c0-4552-a491-54ca846ed3ac",
+      "name": "Extract from File",
+      "parameters": {
+        "operation": "binaryToPropery",
+        "options": {}
+      },
+      "position": [
+        620,
+        0
+      ],
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1
+    },
+    {
+      "id": "2c199499-cc4f-405c-8560-765500b7acba",
+      "name": "Google Drive",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "download",
+        "options": {}
+      },
+      "position": [
+        420,
+        0
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "e3031c0c-f059-4f30-9684-10014a277d55",
+      "name": "Call Gemini 2.0 Flash with PDF Capabilities",
+      "parameters": {
+        "authentication": "predefinedCredentialType",
+        "jsonBody": "={\n \"contents\": [\n {\n \"parts\": [\n {\n \"inline_data\": {\n \"mime_type\": \"application/pdf\",\n \"data\": \"{{ $json.data }}\"\n }\n },\n {\n \"text\": \"{{ $('Define Prompt').item.json.prompt }}\"\n }\n ]\n }\n ]\n}",
+        "method": "POST",
+        "nodeCredentialType": "googlePalmApi",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent"
+      },
+      "position": [
+        880,
+        220
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "",
+      "name": "Call Claude 3.5 Sonnet with PDF Capabilities",
+      "parameters": {
+        "authentication": "predefinedCredentialType",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "jsonBody": "={\n \"model\": \"claude-3-5-sonnet-20241022\",\n \"max_tokens\": 1024,\n \"messages\": [{\n \"role\": \"user\",\n \"content\": [{\n \"type\": \"document\",\n \"source\": {\n \"type\": \"base64\",\n \"media_type\": \"application/pdf\",\n \"data\": \"{{$json.data}}\"\n }\n },\n {\n \"type\": \"text\",\n \"text\": \"{{ $('Define Prompt').item.json.prompt }}\"\n }]\n }]\n}",
+        "method": "POST",
+        "nodeCredentialType": "anthropicApi",
+        "options": {},
+        "sendBody": true,
+        "sendHeaders": true,
+        "specifyBody": "json",
+        "url": "https://api.anthropic.com/v1/messages"
+      },
+      "position": [
+        880,
+        -140
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "5b8994d1-4bfd-4776-84ac-b3141aca6378",
+      "name": "Sticky Note1",
+      "parameters": {
+        "color": 7,
+        "content": "## Workflow: Extract data from PDF with Claude 3.5 Sonnet or Gemini 2.0 Flash\n\n**Overview**\n- This workflow helps you compare Claude 3.5 Sonnet and Gemini 2.0 Flash when extracting data from a PDF\n- This workflow extracts and processes the data within a PDF in **one single step**, **instead of calling an OCR and then an LLM”**\n\n\n**How it works**\n- The initial 2 steps download the PDF and convert it to base64.\n- This base64 string is then sent to both Claude 3.5 Sonnet and Gemini 2.0 Flash to extract information.\n- This workflow is made to let you compare results, latency, and cost (in their dedicated dashboard).\n\n\n**How to use it**\n- Set up your Google Drive if not already done\n- Select a document on your Google Drive\n- Modify the prompt in \"Define Prompt\" to extract the information you need and transform it as wanted.\n- Get a [Claude API key](https://console.anthropic.com/settings/keys) and/or [Gemini API key](https://aistudio.google.com/app/apikey)\n- Note that you can deactivate one of the 2 API calls if you don't want to try both\n- Test the Workflow\n",
+        "height": 585,
+        "width": 601
+      },
+      "position": [
+        -700,
+        -280
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "616241a9-6199-406b-88dc-0afc7d974250",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 5,
+        "content": "You can output the result as JSON by adding the following:\n```\n\"generationConfig\": {\n \"responseMimeType\": \"application/json\"\n```\nor even use a structured output.\n[Check the documentation](https://ai.google.dev/gemini-api/docs/structured-output?lang=rest)",
+        "height": 360,
+        "width": 320
+      },
+      "position": [
+        820,
+        60
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "bbac8d3d-d68f-4aa2-a41a-b06f7de2317b",
+      "name": "Define Prompt",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dba23ef5-95df-496a-8e24-c7c1544533d2",
+              "name": "prompt",
+              "type": "string",
+              "value": "Extract the VAT numbers for each country"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        180,
+        0
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "3c2e7265-76e5-4911-a950-7e6b0c89ec5a",
+      "name": "Sticky Note2",
+      "parameters": {
+        "color": 5,
+        "content": "You can force Claude to output JSON with [Prefill response format](https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/increase-consistency#prefill-claudes-response)",
+        "height": 240,
+        "width": 320
+      },
+      "position": [
+        820,
+        -200
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "f2b46305-5200-486e-ad4d-ecc0d2a14314",
+      "name": "Sticky Note3",
+      "parameters": {
+        "color": 5,
+        "content": "These 2 steps first download the PDF file, and then convert it to base64.\nThis is required by both APIs to process the file.",
+        "height": 280,
+        "width": 380
+      },
+      "position": [
+        380,
+        -120
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "e5dff70f-b55a-4c23-9025-765a7cf19c4a",
+      "name": "Sticky Note4",
+      "parameters": {
+        "color": 5,
+        "content": "This prompt is used in both Gemini’s and Claude’s calls to define what information should be extracted and processed.",
+        "height": 280,
+        "width": 220
+      },
+      "position": [
+        120,
+        -120
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

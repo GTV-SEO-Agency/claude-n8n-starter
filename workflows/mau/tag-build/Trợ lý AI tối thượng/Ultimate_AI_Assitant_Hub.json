@@ -1,0 +1,526 @@
+{
+  "active": true,
+  "connections": {
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Trợ Lý cá nhân Tối Thượng",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Trợ Lý cá nhân Tối Thượng",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Calendar Agent": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Trợ Lý cá nhân Tối Thượng",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Contact Agent": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Trợ Lý cá nhân Tối Thượng",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Content_Creator_and_Research": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Trợ Lý cá nhân Tối Thượng",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Download File": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Transcribe",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Email Agent": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Trợ Lý cá nhân Tối Thượng",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Set 'Text'": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Trợ Lý cá nhân Tối Thượng",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Download File",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Set 'Text'",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Tavily": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Trợ Lý cá nhân Tối Thượng",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Switch",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Transcribe": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Trợ Lý cá nhân Tối Thượng",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Trợ Lý cá nhân Tối Thượng": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "index": 0,
+            "node": "Trợ Lý cá nhân Tối Thượng",
+            "type": "ai_memory"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "XLQ8l0ASEvQz6Ej6",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Ultimate AI Assitant Hub",
+  "nodes": [
+    {
+      "id": "",
+      "name": "Email Agent",
+      "parameters": {
+        "description": "Call this tool for any email actions.",
+        "name": "emailAgent",
+        "workflowId": {
+          "__rl": true,
+          "cachedResultName": "Ultimate AI Assitant — Email Action Hub",
+          "mode": "list",
+          "value": "aJknYC4mSMIK4Mo3"
+        },
+        "workflowInputs": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [],
+          "value": {}
+        }
+      },
+      "position": [
+        300,
+        540
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2
+    },
+    {
+      "id": "8905cc8a-351a-427d-bc75-53440ec776ac",
+      "name": "Contact Agent",
+      "parameters": {
+        "description": "Call this tool for any contact (liên hệ) related actions.",
+        "name": "contactAgent",
+        "workflowId": {
+          "__rl": true,
+          "cachedResultName": "Ultimate AI Assitant — Get Contact",
+          "mode": "list",
+          "value": "p0SgjMYCFzUJ6NQd"
+        },
+        "workflowInputs": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [],
+          "value": {}
+        }
+      },
+      "position": [
+        560,
+        540
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2
+    },
+    {
+      "id": "217b3b49-7161-4a16-a696-94137f62cd3e",
+      "name": "Window Buffer Memory",
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+      },
+      "position": [
+        160,
+        500
+      ],
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "8bf48943-88fe-42be-b890-daed76884424",
+      "name": "Tavily",
+      "parameters": {
+        "jsonBody": "{\n    \"api_key\": \"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\",\n    \"query\": \"{searchTerm}\",\n    \"search_depth\": \"basic\",\n    \"include_answer\": true,\n    \"topic\": \"news\",\n    \"include_raw_content\": true,\n    \"max_results\": 3\n} ",
+        "method": "POST",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "description": "What the user has requested to search the internet for",
+              "name": "searchTerm",
+              "type": "string"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "toolDescription": "Use this tool to search the internet",
+        "url": "https://api.tavily.com/search"
+      },
+      "position": [
+        860,
+        500
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "62620aa0-35eb-47a2-ab1d-32367f751d13",
+      "name": "Calculator",
+      "parameters": {},
+      "position": [
+        980,
+        480
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1
+    },
+    {
+      "id": "922a092a-1dd3-4c3a-8afb-1f0918179db4",
+      "name": "Calendar Agent",
+      "parameters": {
+        "description": "Call this tool for any calendar action.",
+        "name": "calendarAgent",
+        "workflowId": {
+          "__rl": true,
+          "cachedResultName": "Ultimate AI Assitant — Calendar Agent 1.0",
+          "mode": "list",
+          "value": "fWghMjWWOLfsNbwg"
+        },
+        "workflowInputs": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [],
+          "value": {}
+        }
+      },
+      "position": [
+        420,
+        560
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2
+    },
+    {
+      "id": "efd856da-4272-44be-bde1-4c6387333171",
+      "name": "Set 'Text'",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fe7ecc99-e1e8-4a5e-bdd6-6fce9757b234",
+              "name": "text",
+              "type": "string",
+              "value": "={{ $json.message.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        60,
+        220
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "deac565a-c6fd-4c0a-aa66-7227c8ef9f97",
+      "name": "Switch",
+      "parameters": {
+        "options": {},
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.voice.file_id }}",
+                    "operator": {
+                      "operation": "exists",
+                      "singleValue": true,
+                      "type": "string"
+                    },
+                    "rightValue": ""
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                }
+              },
+              "outputKey": "Voice",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "8c844924-b2ed-48b0-935c-c66a8fd0c778",
+                    "leftValue": "={{ $json.message.text }}",
+                    "operator": {
+                      "operation": "exists",
+                      "singleValue": true,
+                      "type": "string"
+                    },
+                    "rightValue": ""
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                }
+              },
+              "outputKey": "Text",
+              "renameOutput": true
+            }
+          ]
+        }
+      },
+      "position": [
+        -200,
+        160
+      ],
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2
+    },
+    {
+      "id": "fd68f3f4-8967-4d6f-b29f-c277318266f2",
+      "name": "Response",
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}"
+      },
+      "position": [
+        900,
+        120
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "5dced4b9-5066-4036-a4d4-14fc07edd53c"
+    },
+    {
+      "id": "41a4a442-baa5-42d2-802a-649dfaca2582",
+      "name": "Download File",
+      "parameters": {
+        "fileId": "={{ $json.message.voice.file_id }}",
+        "resource": "file"
+      },
+      "position": [
+        20,
+        0
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "83bb7385-33f6-4105-8294-1a91c0ebbee5"
+    },
+    {
+      "id": "d706fb1c-64c4-4810-b6b8-d2438bfe32d2",
+      "name": "Transcribe",
+      "parameters": {
+        "operation": "transcribe",
+        "options": {},
+        "resource": "audio"
+      },
+      "position": [
+        180,
+        0
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.6
+    },
+    {
+      "id": "21b3f139-0b3b-4dcd-8eb2-6b87bf97cc8b",
+      "name": "Content_Creator_and_Research",
+      "parameters": {
+        "description": "Call this tool to create social content & research.",
+        "name": "Content_Creator_and_Research",
+        "workflowId": {
+          "__rl": true,
+          "cachedResultName": "Ultimate AI Assitant — Research Automation - Content Creation",
+          "mode": "list",
+          "value": "ydCpDamqRmLhnSyx"
+        },
+        "workflowInputs": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [],
+          "value": {}
+        }
+      },
+      "position": [
+        700,
+        520
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2
+    },
+    {
+      "id": "59ef1e00-955e-4396-834f-7149e6f4889f",
+      "name": "Trợ Lý cá nhân Tối Thượng",
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Overview\nYou are the ultimate personal assistant for me. Your job is to send the user's query to the correct tool. If the task you receive is writing content for social, you will use the \"Content_Creator_and_Research\" to perform the job, copy the result from the tool, and paste it into the output. Or else, You should never be writing emails, or creating even summaries, you just need to call the correct tool.\n\nAll the output need to be in Vietnamese.\n\n## Knowledge about me\n\nI'm the CEO & Cofounder of GTV SEO Agency and CAIO (Chief AI Offiecer) & Cofounder of The AI Growht (TAG). My Name is Đỗ Anh Việt (Vincent Do in English)\n\nMy specialty is in AI, Automation, SEO, Inbound Marketing, Content marketing. I'm from Vietnam. \n\nAs A personal assistant, you should deliver the professional, authority & expert tone for me, but also you need to be friendly. \n\nCách xưng hô: \n - Trong email: Việt và tên người gửi email (ví dụ: Ms. Chi, Ms. Thùy,  Mr.Tú)\n - Trong bài social và content: Mình và bạn.\n\n## Tools\n- emailAgent: Use this tool to take action in email\n- calendarAgent: Use this tool to take action in calendar\n- contactAgent: Use this tool to get, update, or add contacts (contact means liên hệ in vietnamese)\n- Content_Creator_and_Research: Use this tool to create soical content Or you need to do research\n- Tavily: use this tool when you need to do research or search the internet.\n\n## Rules\n- Some actions require you to look up contact information first. For the following actions, you must get contact information and send that to the agent who needs it:\n  - sending emails\n  - drafting emails\n  - creating calendar event with attendee\n\n## Examples\n1) \n- Input: send an email to nate herkelman asking him what time he wants to leave\n  - Action: Use contactAgent to get nate herkelman's email\n  - Action: Use emailAgent to send the email. You will pass the tool a query like \"send nate herkelman an email to ask what time he wants to leave. here is his email: [email address]\n- Output: The email has been sent to Nate Herkelman. Anything else I can help you with?\n\n\n## Final Reminders\nHere is the current date/time: {{ $now }}"
+        },
+        "promptType": "define",
+        "text": "={{ $json.text }}"
+      },
+      "position": [
+        400,
+        140
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    },
+    {
+      "id": "ddd4b47f-2eeb-4ab0-95f3-03ad253f4961",
+      "name": "Telegram Trigger",
+      "parameters": {
+        "additionalFields": {},
+        "updates": [
+          "message"
+        ]
+      },
+      "position": [
+        -420,
+        160
+      ],
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "webhookId": "30d6e73d-f52b-4bd4-8f46-8fa9682a3214"
+    },
+    {
+      "id": "aeadb193-7b52-4e54-b08d-1000aa3a1463",
+      "name": "Anthropic Chat Model",
+      "parameters": {
+        "model": "claude-3-5-sonnet-20241022",
+        "options": {}
+      },
+      "position": [
+        20,
+        460
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

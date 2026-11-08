@@ -48,7 +48,7 @@ Máy và các dịch vụ bắt buộc người thật làm những việc này.
 | Cài Docker trên Windows | Bấm Yes ở hộp hỏi quyền, có thể phải khởi động lại máy |
 | Sau khi khởi động lại máy | Mở lại folder trong app, gõ `tiếp tục cài` |
 | Mở n8n lần đầu | Tự nhập email, tên, mật khẩu tài khoản n8n |
-| Nối n8n với Claude | Bật MCP trong n8n, cài plugin `n8n-skills`, bấm Allow trên trang n8n |
+| Nối n8n với Claude | Bật MCP trong n8n, cài plugin `n8n-skills`, copy Access Token trong n8n (Settings → Instance-level MCP → Connect → API key), rồi gõ `/mcp` → n8n-local → Kết nối lại |
 | Bật workflow gửi ra ngoài | Đọc kế hoạch Claude trình, gõ đồng ý |
 
 ## 5. Connector nên bật
@@ -64,7 +64,7 @@ Connector cho Claude đọc dữ liệu của bạn để dựng workflow cho đ
 | Firecrawl | Đọc nội dung trang web khi workflow cần lấy dữ liệu web | Xem giá và hạn mức miễn phí trên trang của hãng |
 | Tavily | Tìm kiếm web: tài liệu node n8n, cách sửa lỗi mới | Xem giá và hạn mức miễn phí trên trang của hãng |
 
-Dùng n8n Cloud (địa chỉ có https) thay cho n8n trên máy: bật thêm connector **n8n**. n8n trong folder này nối với Claude qua plugin `n8n-skills`, không cần connector đó.
+Dùng n8n Cloud (địa chỉ có https) thay cho n8n trên máy: bật thêm connector **n8n**. n8n trong folder này nối với Claude qua kết nối `n8n-local` (khai báo trong `.mcp.json`), không cần connector đó.
 
 **Dễ nhầm:** connector chỉ cho **Claude** dùng. n8n không dùng được connector. Muốn workflow đọc Gmail hay Google Sheet, bạn tạo credential riêng trong n8n (xem tài liệu "Kết nối Google credential cho n8n" của khoá).
 

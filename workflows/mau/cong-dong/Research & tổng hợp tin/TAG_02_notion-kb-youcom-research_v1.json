@@ -1,0 +1,293 @@
+{
+  "connections": {
+    "If Row Needs Research": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Research the Question",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Research the Question": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Write Answer and Mark Answered",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Log the Research Failure",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "When a Question Is Added": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "If Row Needs Research",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_02_notion-kb-youcom-research_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Trả lời câu hỏi từ knowledge base kèm nghiên cứu web có nguồn\n**Làm gì:** Agent đọc knowledge base Notion, thiếu thì tìm web qua You.com Research và trả lời có trích nguồn.\n**Trigger:** Notion\n**Credential cần:** Notion, youDotComApi\n**Chi phí ước:** Token OpenAI + API You.com.\n**Mở rộng gợi ý:** Đổi Notion sang Google Drive; dùng làm trợ lý nội bộ trả lời quy trình.\n\n---\n**Nguồn:** n8n.io template #17270 của exekyute\nhttps://n8n.io/workflows/17270\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -1496,
+        316
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "When a Question Is Added",
+      "parameters": {
+        "databaseId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        }
+      },
+      "position": [
+        48,
+        736
+      ],
+      "type": "n8n-nodes-base.notionTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "d634b4ac-7c6e-4bb1-9817-ef27e8355438",
+      "name": "If Row Needs Research",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "cond-question",
+              "leftValue": "={{ $json['Question'] }}",
+              "operator": {
+                "operation": "notEmpty",
+                "type": "string"
+              },
+              "rightValue": ""
+            },
+            {
+              "id": "cond-status",
+              "leftValue": "={{ $json['Status'] }}",
+              "operator": {
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "To Research"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        288,
+        736
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3
+    },
+    {
+      "id": "03b9b4aa-a1c6-40a3-a334-45c8f1e59233",
+      "name": "Research the Question",
+      "onError": "continueErrorOutput",
+      "parameters": {
+        "input": "={{ $('When a Question Is Added').item.json['Question'] }}",
+        "operation": "research"
+      },
+      "position": [
+        768,
+        720
+      ],
+      "type": "@youdotcom-oss/n8n-nodes-youdotcom.youDotCom",
+      "typeVersion": 1
+    },
+    {
+      "id": "09ce5e4c-dcad-4675-8a36-1b8cf0baec63",
+      "name": "Write Answer and Mark Answered",
+      "parameters": {
+        "operation": "update",
+        "options": {},
+        "pageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('When a Question Is Added').item.json.id }}"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Answer|rich_text",
+              "textContent": "={{ ($('Research the Question').item.json.output?.content ?? 'No answer was returned.').toString().slice(0, 1900) }}"
+            },
+            {
+              "key": "Sources|rich_text",
+              "textContent": "={{ (($('Research the Question').item.json.output?.sources ?? []).map((s, i) => (i + 1) + '. ' + (s.title || s.url) + ' - ' + s.url).join('\\n') || 'No sources were returned.').slice(0, 1900) }}"
+            },
+            {
+              "key": "Status|select",
+              "selectValue": "Answered"
+            }
+          ]
+        },
+        "resource": "databasePage"
+      },
+      "position": [
+        1296,
+        704
+      ],
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "442678e8-f0a8-4461-af61-be8a093e65ea",
+      "name": "Log the Research Failure",
+      "parameters": {
+        "operation": "update",
+        "options": {},
+        "pageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('When a Question Is Added').item.json.id }}"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Answer|rich_text",
+              "textContent": "={{ 'Research did not complete: ' + ($json.error?.message ?? $json.error ?? 'unknown error') + '. The row was left as To Research so you can retry it.' }}"
+            }
+          ]
+        },
+        "resource": "databasePage"
+      },
+      "position": [
+        1296,
+        912
+      ],
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "64b945c9-0ad2-488a-a6c6-97086d321f00",
+      "name": "Overview",
+      "parameters": {
+        "content": "## Answer a Notion questions queue in place using You.com research\n\n### How it works\n\n1. A Notion trigger picks up each new row added to your questions database.\n2. A guard skips any row with an empty question or a status that is not `To Research`.\n3. The You.com research operation answers the question and returns a cited Markdown write-up with a source list.\n4. A Notion update writes the answer and sources back into the same row and flips its status to `Answered`.\n\n### Setup steps\n\n- [ ] Install the You.com community node `@youdotcom-oss/n8n-nodes-youdotcom` (self-hosted n8n only).\n- [ ] Add You.com and Notion credentials and select them on their nodes.\n- [ ] Point `When a Question Is Added` at a Notion database with `Question` (title), `Status` (select), `Answer` (text), and `Sources` (text).\n- [ ] Add `To Research` and `Answered` as options on the `Status` select.\n\n### Customization\nRaise the depth on `Research the Question` from `standard` to `deep` or `exhaustive`, or swap the Notion trigger for a Schedule trigger that queries `Status = To Research` to run on n8n Cloud.",
+        "height": 668,
+        "width": 728
+      },
+      "position": [
+        -896,
+        416
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "cf56d67a-c1ef-457c-b887-3dd1e3822f22",
+      "name": "Section Intake",
+      "parameters": {
+        "color": 7,
+        "content": "## Intake and guard\n\nA Notion trigger fires on each new question row, and the guard drops empty or not-ready rows before spending a research call.",
+        "height": 384,
+        "width": 568
+      },
+      "position": [
+        -32,
+        560
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "5e622028-06c2-43cd-80eb-aa609375fabd",
+      "name": "Section Research",
+      "parameters": {
+        "color": 7,
+        "content": "## Research the question\n\nYou.com researches the question and returns a cited Markdown answer plus a source list in a single call.",
+        "height": 368,
+        "width": 428
+      },
+      "position": [
+        608,
+        544
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Section Answer",
+      "parameters": {
+        "color": 7,
+        "content": "## Answer in place\n\nThe same row gets the answer and sources written back and its status flips to `Answered`. A failed lookup logs a note and leaves the row as `To Research` so you can retry it.",
+        "height": 620,
+        "width": 480
+      },
+      "position": [
+        1104,
+        480
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "6a6497f0-21c5-42ec-b6ac-68e9646732ec",
+      "name": "Warning self-hosted",
+      "parameters": {
+        "color": 3,
+        "content": "## Self-hosted only\n\nThe You.com node is a community node, so this runs on self-hosted n8n. On n8n Cloud, use the HTTP Request plus Schedule trigger variant described in the README.",
+        "height": 150,
+        "width": 716
+      },
+      "position": [
+        -32,
+        992
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

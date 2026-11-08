@@ -1,0 +1,127 @@
+{
+  "connections": {
+    "Chiama il sito": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Solo se cambia stato",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Ogni 5 minuti": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Chiama il sito",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Solo se cambia stato": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Manda su Telegram",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_07_uptime-ping-alert_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Kiểm tra website còn sống mỗi 5 phút\n**Làm gì:** Ping danh sách URL, sập thì báo Telegram. Không dùng AI.\n**Trigger:** Lịch (Schedule)\n**Credential cần:** Telegram bot\n**Chi phí ước:** 0 đồng.\n**Mở rộng gợi ý:** Mẫu việc không cần LLM; thêm kiểm SSL sắp hết hạn.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/devops/uptime-ping-alert.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -600,
+        -100
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "trigger-5m",
+      "name": "Ogni 5 minuti",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "ping",
+      "name": "Chiama il sito",
+      "parameters": {
+        "options": {
+          "ignoreHttpStatusErrors": true,
+          "timeout": 10000
+        },
+        "url": "https://esempio.com"
+      },
+      "position": [
+        220,
+        0
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "filter-change",
+      "name": "Solo se cambia stato",
+      "parameters": {
+        "jsCode": "// Passa in avanti SOLO se lo stato è cambiato rispetto all'ultimo controllo (evita di\n// avvisarti ogni 5 minuti finché il sito resta giù, o su ogni ping quando è su).\nconst state = $getWorkflowStaticData('global');\nconst code = $input.first().json.statusCode || 0;\nconst giu = code === 0 || code >= 500;\nconst eraGiu = state.giu === true;\nif (giu === eraGiu) return [];\nstate.giu = giu;\nreturn [{ json: { giu, code, quando: new Date().toISOString() } }];"
+      },
+      "position": [
+        440,
+        0
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "notify-telegram",
+      "name": "Manda su Telegram",
+      "parameters": {
+        "additionalFields": {},
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID || 'INSERISCI_CHAT_ID' }}",
+        "text": "={{ $json.giu ? '🔴 Il sito è DOWN (status ' + $json.code + ') — ' + $json.quando : '🟢 Il sito è tornato SU — ' + $json.quando }}"
+      },
+      "position": [
+        660,
+        0
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,345 @@
+{
+  "connections": {
+    "Check for new entries": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Merge",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Qualify leads with GPT",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Extract JSON reply": {
+      "main": [
+        [
+          {
+            "index": 1,
+            "node": "Merge",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update lead status",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Qualify leads with GPT": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Extract JSON reply",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_03_qualify-leads-sheets_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Chấm điểm lead trong Sheets bằng AI\n**Làm gì:** Dòng lead mới → AI đọc nhu cầu, chấm nóng/ấm/lạnh, ghi lại cột.\n**Trigger:** Google Sheets có dòng mới\n**Credential cần:** Google Sheets, OpenAI, googleSheetsTriggerOAuth2Api\n**Chi phí ước:** Token rất thấp.\n**Mở rộng gợi ý:** Nối với workflow lead form của Guideline người mới.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/Google_Drive_and_Google_Sheets/Qualify%20new%20leads%20in%20Google%20Sheets%20via%20OpenAI_s%20GPT-4.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -242,
+        36.3642172523962
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Merge",
+      "parameters": {
+        "combinationMode": "mergeByPosition",
+        "mode": "combine",
+        "options": {}
+      },
+      "position": [
+        1440,
+        340
+      ],
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1
+    },
+    {
+      "id": "7b548661-2b32-451f-ba52-91ca86728f1e",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "### 1. Create a Google Sheet document\n* This template uses Google Sheet document connected to Google Forms, but a standalone Sheet document will work too\n* Adapt initial trigger to your needs: check for new entries periodically or add a manual trigger\n\n[Link to the Google Sheet template](https://docs.google.com/spreadsheets/d/<YOUR_FILE_ID>)",
+        "height": 360.6357827476038,
+        "width": 442
+      },
+      "position": [
+        358,
+        136.3642172523962
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "308b4dce-4656-47bd-b217-69565b1c34f6",
+      "name": "Sticky Note1",
+      "parameters": {
+        "content": "### 2. Provide lead qualification instructions\n* Create a __system message__ with overall instructions\n* Add a __user message__ with the JSON variables\n* Set node parses the resulting JSON object, but you can also request a plain string response in the system message",
+        "height": 322,
+        "width": 471
+      },
+      "position": [
+        820,
+        420
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "c00442ca-98cf-4296-b084-f0881ce4fd39",
+      "name": "Sticky Note2",
+      "parameters": {
+        "content": "### 3. Combine the initial data with GPT response\n* This Merge node puts together original records from the google sheet and responses from the OpenAI",
+        "height": 269.81214057507987,
+        "width": 355
+      },
+      "position": [
+        1320,
+        222.18785942492013
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "62643a4c-a69c-4351-9960-20413285ff33",
+      "name": "Sticky Note3",
+      "parameters": {
+        "content": "### 4. Update the Google Sheet document\n* Provide __Column to Match On__ (usually a timestamp in case of Google Forms)\n* Enter the result from GPT into a separate column",
+        "height": 265,
+        "width": 398
+      },
+      "position": [
+        1700,
+        220
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "4cd58340-81c4-46c7-b346-25a9b6ef2910",
+      "name": "Update lead status",
+      "parameters": {
+        "columns": {
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Timestamp"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Timestamp",
+              "id": "Timestamp",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Email Address",
+              "id": "Email Address",
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Your name",
+              "id": "Your name",
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Your business area",
+              "id": "Your business area",
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Your team size",
+              "id": "Your team size",
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Rating",
+              "id": "Rating",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Rating": "={{ $json.reply.rating }}",
+            "Timestamp": "={{ $json.Timestamp }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        1860,
+        340
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "fea0acee-13b6-441a-8cf9-c8fedbc4617d",
+      "name": "Extract JSON reply",
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "reply",
+              "objectValue": "={{ JSON.parse($json.message.content) }}",
+              "type": "objectValue"
+            }
+          ]
+        },
+        "include": "selected",
+        "options": {}
+      },
+      "position": [
+        1120,
+        580
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2
+    },
+    {
+      "id": "0a0608fe-894f-4eb5-b690-233c6dfc0428",
+      "name": "Qualify leads with GPT",
+      "parameters": {
+        "chatModel": "gpt-4-turbo-preview",
+        "options": {
+          "temperature": 0.3
+        },
+        "prompt": {
+          "messages": [
+            {
+              "content": "Your task is to qualify incoming leads. Leads are form submissions to a closed community group. Use the following criteria for a quality lead:\n\n1. We are looking for decision makers who run companies or who have some teams. The bigger the team - the better. Basically, everyone with some level of responsibility should be accepted. This is the main criterion.\n2. Email from a non-standard domain. Ideally this should be a corporate domain, but this is a secondary criterion.\n\nPlease thing step by step whether a lead is quality or not?\n\nIf at least one of the criteria satisfy, reply with \"qualified\" in response. Otherwise reply \"not qualified\". Reply with a JSON of the following structure: {\"rating\":\"string\",\"explanation\":\"string\"}. Reply only with with the JSON and nothing more!",
+              "role": "system"
+            },
+            {
+              "content": "=Here's a lead info:\nName: {{ $json['Your name'] }}\nEmail: {{ $json['Email Address'] }}\nBusiness area: {{ $json['Your business area'] }}\nSize of the team: {{ $json['Your team size'] }}"
+            }
+          ]
+        },
+        "resource": "chat"
+      },
+      "position": [
+        900,
+        580
+      ],
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "22fdec69-a4a9-430d-9950-79195799ae7a",
+      "name": "Check for new entries",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "event": "rowAdded",
+        "options": {},
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        520,
+        340
+      ],
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "all",
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true
+  }
+}

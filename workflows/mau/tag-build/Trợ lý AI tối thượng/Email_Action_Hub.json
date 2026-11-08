@@ -1,0 +1,348 @@
+{
+  "active": false,
+  "connections": {
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Email Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Create Draft": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Email Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Email Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Success",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Try Again",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Email Reply": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Email Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get Emails": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Email Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Get Labels": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Email Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Label Emails": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Email Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Mark Unread": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Email Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Email Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Email Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "aJknYC4mSMIK4Mo3",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Email Action Hub",
+  "nodes": [
+    {
+      "id": "a14be712-4655-4967-98e6-2987c7ef0677",
+      "name": "Try Again",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7ab380a2-a8d3-421c-ab4e-748ea8fb7904",
+              "name": "response",
+              "type": "string",
+              "value": "Unable to perform task. Please try again."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        0,
+        180
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "30c12772-add8-43b6-8358-449e6ecea22e",
+      "name": "Success",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "39c2f302-03be-4464-a17a-d7cc481d6d44",
+              "name": "=response",
+              "type": "string",
+              "value": "={{$json.output}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "60c4d127-991a-4fc3-94f8-89c2d16f5718",
+      "name": "Email Agent",
+      "onError": "continueErrorOutput",
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Overview\nYou are an email management assistant for me. All emails must be formatted professionally in HTML and signed off as \"Vincent Do.\" \n\nAll the output need to be in Vietnamese.\n\n**Email Management Tools**   \n   - Use \"Send Email\" to send emails.  \n   - Use \"Create Draft\" if the user asks for a draft.  \n   - Use \"Get Emails\" to retrieve emails when requested.\n   - Use \"Get Labels\" to retrieve labels.\n   - Use \"Mark Unread\" to mark an email as unread. You must use \"Get Emails\" first so you have the message ID of the email to flag.\n   - Use \"Label Email\" to flag an email. You must use \"Get Emails\" first so you have the message ID of the email to flag. Then you must use \"Get Labels\" so you have the label ID.\n   - Use \"Email Reply\" to reply to an email. You must use \"Get Emails\" first so you have the message ID of the email to reply to.\n\n## Knowledge about me\n\nI'm the CEO & Cofunder of GTV SEO Agency and CAIO (Chief AI Offiecer) & Cofounder of The AI Growht (TAG). My Name is Đỗ Anh Việt (Vincent Do in English)\n\nMy specialty is in AI, Automation, SEO, Inbound Marketing, Content marketing. I'm from Vietnam. \n\nAs A personal assistant, you should deliver the professional, authority & expert tone for me, but also you need to be friendly. \n\n### Requirement when writing email.\nNội dung viết email được xưng hô chủ yếu bằng đại từ \"Việt\" (Tức Vincent Do/hay bản thân tôi), và tên của người được gửi (Firstname), xưng hô bằng Mr / Ms. \n\nGiọng văn viết mail vừa thân thiên nhưng vừa chuyên nghiệp.\n\nAll the output need to be in Vietnamese.\n## Final Notes\n- Here is the current date/time: {{ $now }}"
+        },
+        "promptType": "define",
+        "text": "={{ $json.query }}"
+      },
+      "position": [
+        -600,
+        80
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6
+    },
+    {
+      "id": "6ee9ad3e-01c2-4a96-9175-f0e16689d0d8",
+      "name": "Send Email",
+      "parameters": {
+        "message": "={{ $fromAI(\"emailBody\") }}",
+        "options": {
+          "appendAttribution": false
+        },
+        "sendTo": "={{ $fromAI(\"emailAddress\") }}",
+        "subject": "={{ $fromAI(\"subject\") }}"
+      },
+      "position": [
+        -920,
+        440
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": "86c8c4b1-13bb-4ebe-acb9-30e1d7082d55"
+    },
+    {
+      "id": "ebaea91b-986e-4f2d-8b7d-8417b504c34b",
+      "name": "Get Emails",
+      "parameters": {
+        "filters": {
+          "sender": "={{ $fromAI(\"sender\",\"who the emails are from\") }}"
+        },
+        "limit": "={{ $fromAI(\"limit\",\"how many emails the user wants\") }}",
+        "operation": "getAll",
+        "options": {},
+        "simple": false
+      },
+      "position": [
+        -280,
+        540
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": "af4b3298-9037-44b0-aa12-2acbfbb5e66f"
+    },
+    {
+      "id": "e59a3976-a58d-41ad-a06e-d5da5b3f0774",
+      "name": "Create Draft",
+      "parameters": {
+        "emailType": "html",
+        "message": "={{ $fromAI(\"emailBody\") }}",
+        "options": {
+          "sendTo": "={{ $fromAI(\"emailAddress\") }}"
+        },
+        "resource": "draft",
+        "subject": "={{ $fromAI(\"subject\") }}"
+      },
+      "position": [
+        -440,
+        560
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": ""
+    },
+    {
+      "id": "e3902152-df99-4676-86fb-a03c7be7cd8e",
+      "name": "Email Reply",
+      "parameters": {
+        "message": "={{ $fromAI(\"emailBody\") }}",
+        "messageId": "={{ $fromAI(\"ID\",\"the message ID\") }}",
+        "operation": "reply",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "position": [
+        -760,
+        500
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": ""
+    },
+    {
+      "id": "840f10a6-5d83-47b8-882a-1b2e705b8be4",
+      "name": "Get Labels",
+      "parameters": {
+        "resource": "label",
+        "returnAll": true
+      },
+      "position": [
+        -160,
+        480
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": "9e08b59e-792d-4566-83f1-9263c9ad86ae"
+    },
+    {
+      "id": "04c45d2d-6ae3-47c8-8646-89124ca5b70d",
+      "name": "Label Emails",
+      "parameters": {
+        "labelIds": "={{ $fromAI(\"labelID\") }}",
+        "messageId": "={{ $fromAI(\"ID\",\"the ID of the message\") }}",
+        "operation": "addLabels"
+      },
+      "position": [
+        -600,
+        540
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": "0e951529-2e6d-40bf-ac40-fc0947e242e2"
+    },
+    {
+      "id": "f86c16e6-25b1-4bcb-a041-f3b834ef67cb",
+      "name": "Mark Unread",
+      "parameters": {
+        "messageId": "={{ $fromAI(\"messageID\") }}",
+        "operation": "markAsUnread"
+      },
+      "position": [
+        -20,
+        420
+      ],
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "webhookId": "a35af9d8-f67d-4ff9-803f-59ec6356e795"
+    },
+    {
+      "id": "5c88c11d-68fc-43f7-959b-1990f1e65f20",
+      "name": "When Executed by Another Workflow",
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "position": [
+        -840,
+        80
+      ],
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "ad8ac214-ec5e-42a3-8075-ceeff9885ef9",
+      "name": "Anthropic Chat Model",
+      "parameters": {
+        "model": "claude-3-5-sonnet-20241022",
+        "options": {}
+      },
+      "position": [
+        -1080,
+        340
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

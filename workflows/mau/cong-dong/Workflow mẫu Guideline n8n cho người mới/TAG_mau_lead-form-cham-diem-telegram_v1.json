@@ -1,0 +1,291 @@
+{
+  "connections": {
+    "Chuẩn hoá dữ liệu": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Ngân sách ≥ 20 triệu?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Form đăng ký": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Chuẩn hoá dữ liệu",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Ghi vào Google Sheets (lead nóng)": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Báo sale qua Telegram",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Ngân sách ≥ 20 triệu?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Ghi vào Google Sheets (lead nóng)",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Ghi vào Google Sheets (nuôi dưỡng)",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_mau_lead-form-cham-diem-telegram_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 6,
+        "content": "## TAG · Đọc trước\n**Workflow mẫu của Guideline \"n8n cho người mới bắt đầu\"** (The AI Growth, 09/2026).\n**Làm gì:** Lead mới từ form → chấm điểm → báo Telegram (demo node cơ bản).\n**Cách dùng:** mở từng node đỏ, chọn credential của bạn (OpenRouter / Google Sheets / Telegram). Bấm Execute step từng node trước khi Publish.\n**Nguồn:** Vincent Do dựng cho khoá AI Agent Cho Doanh Nghiệp. Dùng nội bộ cho học viên.",
+        "height": 260,
+        "width": 460
+      },
+      "position": [
+        -560,
+        -340
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "a1",
+      "name": "Form đăng ký",
+      "parameters": {
+        "formDescription": "Để lại thông tin, TAG liên hệ trong 24h.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Họ tên",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Công ty"
+            },
+            {
+              "fieldLabel": "Ngân sách marketing mỗi tháng (triệu đồng)",
+              "fieldType": "number"
+            },
+            {
+              "fieldLabel": "Bạn muốn tự động hoá việc gì?",
+              "fieldType": "textarea"
+            }
+          ]
+        },
+        "formTitle": "Đăng ký tư vấn",
+        "options": {}
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "webhookId": "tag-demo-form-1"
+    },
+    {
+      "id": "a2",
+      "name": "Chuẩn hoá dữ liệu",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "s1",
+              "name": "ten",
+              "type": "string",
+              "value": "={{ $json[\"Họ tên\"].trim() }}"
+            },
+            {
+              "id": "s2",
+              "name": "email",
+              "type": "string",
+              "value": "={{ $json[\"Email\"].toLowerCase() }}"
+            },
+            {
+              "id": "s3",
+              "name": "ngan_sach",
+              "type": "number",
+              "value": "={{ Number($json[\"Ngân sách marketing mỗi tháng (triệu đồng)\"] || 0) }}"
+            },
+            {
+              "id": "s4",
+              "name": "nhu_cau",
+              "type": "string",
+              "value": "={{ $json[\"Bạn muốn tự động hoá việc gì?\"] }}"
+            },
+            {
+              "id": "s5",
+              "name": "ngay_nhan",
+              "type": "string",
+              "value": "={{ $now.setZone(\"Asia/Ho_Chi_Minh\").toFormat(\"dd/MM/yyyy HH:mm\") }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        260,
+        0
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "a3",
+      "name": "Ngân sách ≥ 20 triệu?",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.ngan_sach }}",
+              "operator": {
+                "operation": "gte",
+                "type": "number"
+              },
+              "rightValue": 20
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        520,
+        0
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "a4",
+      "name": "Ghi vào Google Sheets (lead nóng)",
+      "parameters": {
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "matchingColumns": [],
+          "schema": [],
+          "value": {}
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        800,
+        -120
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "a5",
+      "name": "Báo sale qua Telegram",
+      "parameters": {
+        "additionalFields": {},
+        "chatId": "",
+        "text": "=🔥 Lead nóng: {{ $json.ten }} ({{ $json.email }})\nNgân sách: {{ $json.ngan_sach }} triệu/tháng\nNhu cầu: {{ $json.nhu_cau }}\nNhận lúc: {{ $json.ngay_nhan }}"
+      },
+      "position": [
+        1060,
+        -120
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "a6",
+      "name": "Ghi vào Google Sheets (nuôi dưỡng)",
+      "parameters": {
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "matchingColumns": [],
+          "schema": [],
+          "value": {}
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        800,
+        140
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "a7",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 5,
+        "content": "## Sáu node dùng nhiều nhất\n**Form Trigger** → **Edit Fields (Set)** → **IF** → **Google Sheets** / **Telegram**.\n\nMở từng node xem: Set đổi tên trường cho sạch, IF rẽ nhánh theo số, Sheets ghi 1 dòng, Telegram gửi tin có biểu thức {{ }}.",
+        "height": 200,
+        "width": 460
+      },
+      "position": [
+        -20,
+        -280
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

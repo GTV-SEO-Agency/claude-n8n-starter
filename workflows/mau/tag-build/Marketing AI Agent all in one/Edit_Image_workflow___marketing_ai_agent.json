@@ -1,0 +1,522 @@
+{
+  "active": false,
+  "connections": {
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Up Google Drive",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Send Photo",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Download Image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Edit Image",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Download Ảnh": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Edit Image",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Image Log",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Edit Image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Convert to File",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Download Ảnh",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Download Image",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Up Google Drive": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Edit Fields",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "If",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "NaHd5ME1wZwSMu2W",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Edit Image workflow - marketing ai agent",
+  "nodes": [
+    {
+      "id": "21c5ae4d-5e78-4b28-af35-1a5ac1ce8620",
+      "name": "When Executed by Another Workflow",
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "image"
+            },
+            {
+              "name": "request"
+            },
+            {
+              "name": "chatID"
+            },
+            {
+              "name": "pictureID"
+            },
+            {
+              "name": "ImageUrl"
+            }
+          ]
+        }
+      },
+      "position": [
+        -1320,
+        780
+      ],
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "4e4cb553-93ef-4e33-b0f6-db5f0e0d0341",
+      "name": "Sticky Note6",
+      "parameters": {
+        "color": 6,
+        "content": "# Write to Drive & Sheets",
+        "height": 240,
+        "width": 760
+      },
+      "position": [
+        -160,
+        760
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "5b8335cb-53d7-4cca-b6d6-4e4af373b70e",
+      "name": "Download Image",
+      "parameters": {
+        "options": {},
+        "url": "={{ $('When Executed by Another Workflow').item.json.image }}"
+      },
+      "position": [
+        -820,
+        1000
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "4e91bccf-bedb-4098-aa0b-4a3b067beaae",
+      "name": "If",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "4d7ec0ea-1c30-4a8f-a990-2283f769f9d7",
+              "leftValue": "={{ $json.ImageUrl }}",
+              "operator": {
+                "operation": "contains",
+                "type": "string"
+              },
+              "rightValue": "drive.google.com"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        -1020,
+        780
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "7d53b5b5-0096-4ff2-b772-082e8dc7afb4",
+      "name": "Edit Fields",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "63bd9ce9-4219-487f-b2f4-c95e733e9252",
+              "name": "Image Link",
+              "type": "string",
+              "value": "={{ $json.webViewLink }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        140,
+        820
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "6d74bbe1-f02d-4d35-a371-9e0a9ea2bb51",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "Checks if the image is from Google Drive or an external URL",
+        "height": 80
+      },
+      "position": [
+        -1180,
+        960
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "c38d9ebd-f7f8-4e61-bded-5d6f1006bc18",
+      "name": "Sticky Note8",
+      "parameters": {
+        "content": "If from Google Drive: Downloads directly from Drive",
+        "height": 80
+      },
+      "position": [
+        -600,
+        580
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "e034d05c-1ea5-4150-9239-78ce38b5498f",
+      "name": "Sticky Note10",
+      "parameters": {
+        "content": "Formats the Google Drive link for display to the user",
+        "height": 80,
+        "width": 180
+      },
+      "position": [
+        300,
+        1100
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "30a116ee-b6f2-4aa6-97dd-13a36e97cb74",
+      "name": "Image Log",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tên Image",
+              "id": "Tên Image",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Type",
+              "id": "Type",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Yêu cầu",
+              "id": "Yêu cầu",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ID",
+              "id": "ID",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Link",
+              "id": "Link",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "post",
+              "id": "post",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "ID": "={{ $json.id }}",
+            "Link": "={{ $json.webViewLink }}",
+            "Type": "Edited",
+            "Tên Image": "={{ $('When Executed by Another Workflow').item.json.image }}",
+            "Yêu cầu": "={{ $('When Executed by Another Workflow').item.json.request }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        380,
+        820
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "2520b209-8085-49b6-81d5-2e4a0a7540b0",
+      "name": "Send Photo",
+      "parameters": {
+        "additionalFields": {},
+        "binaryData": true,
+        "chatId": "={{ $('When Executed by Another Workflow').item.json.chatID }}",
+        "operation": "sendPhoto"
+      },
+      "position": [
+        -80,
+        1100
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "85dc0064-e5c5-45a9-91a5-60e5b2bc4f1e"
+    },
+    {
+      "id": "43dfd8e0-bea3-40a9-8ed2-a958af3fd859",
+      "name": "Sticky Note7",
+      "parameters": {
+        "color": 6,
+        "content": "# Send Content",
+        "height": 240,
+        "width": 300
+      },
+      "position": [
+        -160,
+        1020
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "edf2df93-afc2-4acb-b414-d02f2858d872",
+      "name": "Download Ảnh",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "download",
+        "options": {}
+      },
+      "position": [
+        -780,
+        580
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "eeab941e-0004-49ff-827c-90381753b781",
+      "name": "Up Google Drive",
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "name": "={{ $('When Executed by Another Workflow').item.json.image }} - edit",
+        "options": {}
+      },
+      "position": [
+        -80,
+        820
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "6757d6bc-c331-47d7-9c35-c1ea1efa30cc",
+      "name": "Sticky Note11",
+      "parameters": {
+        "content": "Checks if the image is from Google Drive or an external URL",
+        "height": 80
+      },
+      "position": [
+        -1200,
+        560
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d25b9a13-ff90-4889-a8e6-df50addd2ce4",
+      "name": "Edit Image",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "inputDataFieldName": "data",
+              "name": "image",
+              "parameterType": "formBinaryData"
+            },
+            {
+              "name": "prompt",
+              "value": "={{ $('When Executed by Another Workflow').item.json.request.replace(/\"/g, '') }}"
+            },
+            {
+              "name": "model",
+              "value": "gpt-image-1"
+            },
+            {
+              "name": "size",
+              "value": "1024x1024"
+            },
+            {
+              "name": "quality",
+              "value": "high"
+            }
+          ]
+        },
+        "contentType": "multipart-form-data",
+        "genericAuthType": "httpHeaderAuth",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "url": "https://api.openai.com/v1/images/edits"
+      },
+      "position": [
+        -560,
+        1000
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "5ea47832-8deb-4d64-ac73-9b96d0201c12",
+      "name": "Convert to File",
+      "parameters": {
+        "operation": "toBinary",
+        "options": {},
+        "sourceProperty": "data[0].b64_json"
+      },
+      "position": [
+        -360,
+        1000
+      ],
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

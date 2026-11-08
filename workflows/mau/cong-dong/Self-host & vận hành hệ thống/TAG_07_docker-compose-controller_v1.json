@@ -1,0 +1,418 @@
+{
+  "connections": {
+    "Action??": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Start",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Stop",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Exist Route?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Action??",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Stop and Error",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Start": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Started?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Started?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond - Started",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Respond - Started Already",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Stop": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Stopped?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Stopped?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond - Stopped",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Respond - Already Stopped",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Exist Route?",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_07_docker-compose-controller_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Điều khiển Docker Compose từ xa\n**Làm gì:** Gửi lệnh qua webhook để restart, update container n8n trên VPS.\n**Trigger:** Webhook\n**Credential cần:** Basic Auth, SSH, SSH tới VPS\n**Chi phí ước:** 0 đồng.\n**Mở rộng gợi ý:** Bảo vệ webhook bằng header bí mật; chỉ mở cho IP công ty.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/devops/docker-compose-controller.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -2584,
+        -244
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "alwaysOutputData": true,
+      "executeOnce": true,
+      "id": "e5953025-eff5-4aaa-9367-93314eee7c91",
+      "name": "Webhook",
+      "parameters": {
+        "authentication": "basicAuth",
+        "httpMethod": "POST",
+        "options": {},
+        "path": "docker/:action/:service",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        -1984,
+        320
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "webhookId": "de42a9a3-38fe-40a9-a0ea-891a82c021e5"
+    },
+    {
+      "alwaysOutputData": true,
+      "executeOnce": true,
+      "id": "87b48131-6631-4675-9f8f-fe98c290b80f",
+      "name": "Start",
+      "parameters": {
+        "command": "=cd {{ $json.params.service }} && docker compose up -d",
+        "cwd": "/home/ferristhiel"
+      },
+      "position": [
+        -1312,
+        32
+      ],
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1
+    },
+    {
+      "alwaysOutputData": true,
+      "executeOnce": true,
+      "id": "ff1915d8-8522-4074-987b-a2d9f237255c",
+      "name": "Stop",
+      "parameters": {
+        "command": "=cd {{ $json.params.service }} && docker compose down",
+        "cwd": "/home/ferristhiel"
+      },
+      "position": [
+        -1312,
+        416
+      ],
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1
+    },
+    {
+      "id": "b0cdccd3-06d4-401d-a79d-cf5300085c20",
+      "name": "Respond - Started",
+      "parameters": {
+        "options": {},
+        "respondWith": "text",
+        "responseBody": "=Docker Service \"{{ $('Webhook').item.json.params.service }}\" was found and successfully started!"
+      },
+      "position": [
+        -864,
+        -64
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4
+    },
+    {
+      "id": "ad031df3-c2a5-41a8-a084-116f82d512d2",
+      "name": "Respond - Started Already",
+      "parameters": {
+        "options": {},
+        "respondWith": "text",
+        "responseBody": "=Docker Service \"{{ $('Webhook').item.json.params.service }}\" was found but started already!"
+      },
+      "position": [
+        -864,
+        128
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4
+    },
+    {
+      "id": "e6c72ccf-66b5-460e-ad75-b49f60a7598d",
+      "name": "Respond - Stopped",
+      "parameters": {
+        "options": {},
+        "respondWith": "text",
+        "responseBody": "=Docker Service \"{{ $('Webhook').item.json.params.service }}\" was found and successfully stopped!"
+      },
+      "position": [
+        -864,
+        320
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4
+    },
+    {
+      "id": "62a0e055-91a0-42ca-904d-32e0de205bee",
+      "name": "Respond - Already Stopped",
+      "parameters": {
+        "options": {},
+        "respondWith": "text",
+        "responseBody": "=Docker Service \"{{ $('Webhook').item.json.params.service }}\" was found but already stopped/removed!"
+      },
+      "position": [
+        -864,
+        512
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4
+    },
+    {
+      "id": "7be2fb0b-b43c-4504-a841-5b3453f510e6",
+      "name": "Started?",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "a531a60b-200a-4e1e-90c6-98d6a0a3e6de",
+              "leftValue": "={{ $('Start').item.json.stderr }}",
+              "operator": {
+                "operation": "contains",
+                "type": "string"
+              },
+              "rightValue": "=Started"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        -1088,
+        32
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "a4aa806d-01c3-42c2-9513-46bf5d750173",
+      "name": "Stopped?",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "a531a60b-200a-4e1e-90c6-98d6a0a3e6de",
+              "leftValue": "={{ $('Stop').item.json.stderr }}",
+              "operator": {
+                "operation": "contains",
+                "type": "string"
+              },
+              "rightValue": "=Stopping"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        -1088,
+        416
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "dd3fbe64-d723-4b28-b078-e7a0cf9f3478",
+      "name": "Stop and Error",
+      "parameters": {
+        "errorMessage": "Error 404 - Route not found!"
+      },
+      "position": [
+        -1536,
+        416
+      ],
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1
+    },
+    {
+      "id": "83f031b5-73e1-44d1-b83a-daae5f38016a",
+      "name": "Action??",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "892e0cf1-00be-4a9c-ae92-368123909da8",
+              "leftValue": "={{ $('Webhook').item.json.params.action }}",
+              "operator": {
+                "name": "filter.operator.equals",
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "start"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        -1536,
+        224
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "9ef230fb-5bb3-4cc5-a158-5b3bf11a3435",
+      "name": "Exist Route?",
+      "parameters": {
+        "conditions": {
+          "combinator": "or",
+          "conditions": [
+            {
+              "id": "42946715-14dc-41f5-8226-92b395db2d38",
+              "leftValue": "={{ $('Webhook').item.json.params.action }}",
+              "operator": {
+                "name": "filter.operator.equals",
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "start"
+            },
+            {
+              "id": "84cf9cff-2378-40ba-9878-571cfce65a8a",
+              "leftValue": "={{ $('Webhook').item.json.params.action }}",
+              "operator": {
+                "name": "filter.operator.equals",
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "stop"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        -1760,
+        320
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "71fd0f49-302c-4996-ac75-bf978df19a82",
+      "name": "Instructions",
+      "parameters": {
+        "content": "## What it does:\nThis workflow is built for managing docker compose services via a http post request to turn on or off that service...\n## Setup:\nAdd your credentials for basic auth and ssh\nCopy the custom webhook url and get started!\nExample:\n``` curl\ncurl -X POST -u \"username:password\" https://<your-domain>/start/nextcloud\n```\n## Info:\nThis worklow is only for docker compose not for the docker engine cli!",
+        "height": 336,
+        "width": 544
+      },
+      "position": [
+        -1984,
+        -144
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

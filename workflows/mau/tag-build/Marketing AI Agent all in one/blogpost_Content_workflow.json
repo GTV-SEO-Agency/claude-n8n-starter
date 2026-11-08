@@ -1,0 +1,629 @@
+{
+  "active": false,
+  "connections": {
+    "Claude sonet 3.7": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writer & Onpage",
+            "type": "ai_languageModel"
+          },
+          {
+            "index": 0,
+            "node": "Image Prompt Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Content Writer & Onpage": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Docs",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Convert to Binary": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Photo",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Upload",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Search Intent analyze",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Generate Image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Convert to Binary",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Docs": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update GG Doc",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google_HelpFul_Content": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writer & Onpage",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Image & Title": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "Image Prompt Agent",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    },
+    "Image Prompt Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Generate Image",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Search Intent analyze": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writer & Onpage",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Photo": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Notify Reviewer (Telegram)",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Writer & Onpage",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Update GG Doc": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Image Prompt Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Upload": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Image Log",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "V6C6c5fjRgFQxc6s",
+  "meta": {},
+  "name": "blogpost - marketing automation",
+  "nodes": [
+    {
+      "id": "58d0350c-bab7-4486-aadc-76f729887b56",
+      "name": "Execute Workflow Trigger",
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "blogTopic"
+            },
+            {
+              "name": "target_audience"
+            },
+            {
+              "name": "chatID"
+            },
+            {
+              "name": "Note_For_Research"
+            }
+          ]
+        }
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "4d167ebd-ad7e-44fd-9425-6137dde9a29d",
+      "name": "Notify Reviewer (Telegram)",
+      "parameters": {
+        "additionalFields": {
+          "parse_mode": "HTML"
+        },
+        "chatId": "={{ $json.result.chat.id }}",
+        "text": "=1. Blog Title: \"{{ $('Content Writer & Onpage').item.json.output.split(\"\\n\")[0].replace(\"# \", \"\") || $json.topic }}\".\n\n2. <a href=\"https://docs.google.com/document/d/{{ $('Update GG Doc').item.json.documentId }}/edit?usp=sharing\"> Blog content - file doc </a> \n"
+      },
+      "position": [
+        1300,
+        460
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "ba7156ba-100d-4b99-a912-6b8ab91b2a38"
+    },
+    {
+      "id": "3b4ac421-c585-4b4f-a4c8-3cf493e3e514",
+      "name": "Search Intent analyze",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={\n  \"model\": \"sonar-pro\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"[Instruction]: Answer in Markdown format with clear structure, bullet points, and short paragraphs.\\n\\n[Role]: You are a Researcher & Semantic SEO Expert. Your task is to research the latest up-to-date, accuracy & depth of the query you will be provided .\"\n    },\n    {\n      \"role\": \"user\",\n     \"content\": \"{{ $json.blogTopic }} \\n\\n Note: {{ $json.Note_For_Research }}\"\n    }\n  ],\n  \"options\": {\n    \"temperature\": 1,\n    \"max_tokens\": 10000\n  }\n}\n",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://api.perplexity.ai/chat/completions"
+      },
+      "position": [
+        260,
+        0
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "71c5a340-a744-4e69-8b9e-553e9d3b7f0b",
+      "name": "Think",
+      "parameters": {},
+      "position": [
+        780,
+        220
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1
+    },
+    {
+      "id": "011cdd3c-881e-4eb4-9dab-6ad6494bc3a3",
+      "name": "Content Writer & Onpage",
+      "parameters": {
+        "options": {
+          "systemMessage": "=[knowledge]:\n{{ $json.choices[0].message.content }}\n[Role]:\nSEO & Content creation Professional with 10 years of experience.  Bạn cũng chuyên về lĩnh vực AI và là writer cho thương hiệu The AI Growth (TAG).\n\n[Tools]:\n1. Google_HelpFul_Content: Use this tool to retrieve the full requirements of Google on how to create the content that is good. **Call this tool without any input parameters.**\n2. Think: Use the tool before generating the final response/content/output, in order to think about the guidlines, checklist the approach  final output will try its best meet the standard of Google_HelpFul_Content.\n\n[style of writing]:\nWrite in a style that is authoritative, educational, and friendly. Use a conversational tone to explain technical concepts simply. Keep sentences concise (10-20 words), with short paragraphs (2-3 sentences). Engage readers by asking questions and including practical examples or data. Use clear headings and bullet points to improve readability. Include relatable analogies and business-use cases to make complex ideas tangible. Write as if you are speaking directly to a curious learner, guiding them through the topic step by step.\n\n[reminder]:\nToday is {{ $now }}\n\n[output example]:\n\n# An AI-powered workflow to solve content cannibalization\n\n###   \n\nYour site likely suffers from at least some content cannibalization—and you might not even realize it.\n\nCannibalization hurts organic traffic and revenue: The impact can stretch from _key pages not ranking_ to _algorithm issues due to low [domain quality](https://www.growth-memo.com/p/seozempic)._\n\nHowever, cannibalization is tricky to detect, can change over time, and exists on a spectrum.\n\nIt’s the “microplastics of SEO.”\n\nIn this Memo, I’ll show you:\n\n1.  How to identify and fix content cannibalization reliably\n    \n2.  How to automate content cannibalization detection\n    \n3.  An automated workflow you can try out right now: The [Cannibalization Detector](https://app.airops.com/public_apps/a5c873af-e5e3-4855-8261-808807fe7489/run), my new keyword cannibalization tool\n    \n\nI could have never done this without [Nicole Guercia](https://www.linkedin.com/in/nicoleguercia/) from AirOps. I’ve designed the concept and stress-tested the automated workflow, but Nicole built the whole thing.\n\n## How to think about content cannibalization the right way\n\nBefore jumping into the workflow, we must clarify a few guiding principles about content cannibalization that are often misunderstood.\n\nThe biggest misconception about cannibalization is that it happens on the keyword level.\n\n**It’s actually happening on the user intent level.**\n\n**We all need to stop thinking about this concept as** _**keyword cannibalization**_ **and instead as** _**content cannibalization**_ **based on user intent.**\n\n**With this in mind**, cannibalization…\n\n*   **Is a moving target**: When Google updates its understanding of intent during a core update, suddenly two pages can compete with each other that previously didn’t.\n    \n*   **Exists on a spectrum**: A page can compete with another page or _several pages,_ with an intent overlap from 10% to 100%. It’s hard to say exactly how much overlap is fine without looking at outcomes and context.\n    \n*   **Doesn’t stop at rankings:** Looking for two pages that are getting a \"substantial\" amount of impressions or rankings for the same keyword(s) can help you spot cannibalization, but it is not a very accurate method. It’s not enough proof.\n    \n*   **Needs regular check-ups**: You need to check your site for cannibalization regularly and treat your content library as a “living” ecosystem.\n    \n*   **Can be sneaky**: Many cases are not clear-cut. For example, international content cannibalization is not obvious. A /en directory to address all English-speaking countries can compete with a /en-us directory for the US market.\n    \n\n[\n\n![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6df91ba6-7cf0-4ade-8690-c6df8fb21b53_1600x1106.png)\n\n\n\n](https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6df91ba6-7cf0-4ade-8690-c6df8fb21b53_1600x1106.png)\n\nDifferent types of sites have fundamentally different weaknesses for cannibalization.\n\nMy model for site types is the [integrator vs aggregator model](https://www.growth-memo.com/p/integrator-vs-aggregator-growth). Online retailers and other marketplaces face fundamentally different cases of cannibalization than SaaS or D2C companies.\n\n**Integrators** cannibalize between _pages_. **Aggregators** cannibalize between page _types._\n\n*   **With aggregators,** cannibalization often happens when two page types are too similar. For example, you can have two page types that could or could not compete with each other: “points of interest in {city}” and “things to do in {city}”.\n    \n*   **With integrators,** cannibalization often happens when companies publish new content without maintenance and a plan for the existing content. A big part of the issue is that it becomes harder to keep an overview of what you have and what keywords/intent it targets at a certain number of articles (I found the linchpin to be around 250 articles).\n    \n\n## How to spot content cannibalization\n\n[\n\n![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7cd419cf-93c9-4d18-838c-e713949bd0de_1600x592.png)\n\n\n\n](https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7cd419cf-93c9-4d18-838c-e713949bd0de_1600x592.png)\n\nAn example of content cannibalization\n\nContent cannibalization can have one or more of the following symptoms:\n\n*   “URL flickering”: meaning at least two URLs alternate in ranking for one or more keywords\n    \n*   A page loses traffic and/or ranking positions after another one goes live\n    \n*   A new page hits a ranking plateau for its main keyword and cannot break into the top 3 positions\n    \n*   Google doesn’t index a new page or pages within the same page type\n    \n*   Exact duplicate titles appear in Google’s search index\n    \n*   Google reports [“crawled, not indexed”](https://support.google.com/webmasters/answer/7440203?hl=en) or [“discovered, not indexed”](https://support.google.com/webmasters/answer/7440203?hl=en) for URLs that don’t have thin content or technical issues\n    \n\nSince Google doesn’t give us a clear signal for cannibalization, the best way to measure similarity between two or more pages is _cosine similarity between their tokenized embeddings_ (I know, it’s a mouth full).\n\nBut this is what it means: Basically, you compare how similar two pages are by turning their text into numbers and seeing how closely those numbers point in the same direction.\n\nThink about it like a chocolate cookie recipe:\n\n1.  **Tokenization =** Break down each recipe (eg, _page content_) into ingredients: flour, sugar, chocolate chips, etc.\n    \n2.  **Embeddings** \\= Convert each ingredient into numbers**,** like how much of each ingredient is used and how important each one is to the recipe's identity.\n    \n3.  **Cosine Similarity** \\= Compare the recipes mathematically. This gives you a number between 0 and 1. A score of 1 means the recipes are identical, while 0 means they're completely different.\n    \n\nFollow this process to scan your site and find cannibalization candidates:\n\n1.  **Crawl:** Scrape your site with a tool like Screaming Frog (optionally exclude pages that have no SEO purpose) to extract the URL and meta title of each page\n    \n2.  **Tokenization**: Turn words in both the URL and title into _pieces of words_ that are easier to work with. These are your tokens.\n    \n3.  **Embeddings**: Turn the _tokens_ into numbers to do “word math.”\n    \n4.  **Similarity**: Calculate the cosine similarity between all URLs and meta titles\n    \n\nIdeally, this gives you a shortlist of URLs and titles that are too similar.\n\nIn the next step, you can apply the following process to make sure they truly cannibalize each other:\n\n1.  **Extract content**: Clearly isolate the main content (exclude navigation, footer, ads, etc.). Maybe clean up certain elements, like stop words.\n    \n2.  **Chunking or tokenization**: Either split content into meaningful chunks (sentences or paragraphs) or tokenize directly. I prefer the latter.\n    \n3.  **Embeddings**: Embed the tokens.\n    \n4.  **Entities**: Extract named entities from the tokens and weigh them higher in embeddings. In essence, you check which embeddings are “known things” and give them more power in your analysis.\n    \n5.  **Aggregation of embeddings**: Aggregate token/chunk embeddings with a weighted averaging (eg, TF-IDF) or attention-weighted pooling.\n    \n6.  **Cosine similarity**: Calculate cosine similarity between resulting embeddings.\n    \n\nYou can [use my app script](https://github.com/k-indig/webpage-similarity/blob/main/app-script) if you’d like to try it out in Google Sheets (but I have a better alternative for you in a moment).\n\n**About cosine similarity:** It’s not perfect, but good enough.\n\nYes, you can fine-tune embedding models for specific topics.\n\nAnd yes, you can use advanced embedding models like sentence transformers on top, but this simplified process is usually sufficient. No need to make an astrophysics project out of it.\n\n## How to fix cannibalization\n\nOnce you’ve identified cannibalization, you should take action.\n\nBut don’t forget to adjust your long-term approach to content creation and governance. If you don’t, all this work to find and fix cannibalization is going to be a waste.\n\n### Solving cannibalization in the short term\n\nThe short-term action you should take depends on the degree of cannibalization and how quickly you can act.\n\n“Degree” means how similar the content across two or more pages is, expressed in cosine or content similarity.\n\nThough not an exact science, in my experience, a cosine similarity higher than 0.7 classifies as “high”, while it’s “low” below a value of 0.5.\n\n[\n\n![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd17fc65e-215f-4fb9-b29b-0cfa37879d6f_1600x1247.png)\n\n\n\n](https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd17fc65e-215f-4fb9-b29b-0cfa37879d6f_1600x1247.png)\n\n4 ways to fix cannibalization\n\n**What to do if the pages have a high degree of similarity:**\n\n*   **Canonicalize or noindex** the page when cannibalization happens due to technical issues like parameter URLs—or if the cannibalizing page is irrelevant for SEO, like paid landing pages. In this case, canonicalize the parameter URL to the non-parameter URL (or noindex the paid landing page).\n    \n*   **Consolidate** with another page when it’s not a technical issue. Consolidation means combining the content and redirecting the URLs. I suggest taking the older page and/or worse performing page and redirecting to a new, better page. Then, transfer any useful content to the new variant.\n    \n\n**What to do if the pages have a low degree of similarity:**\n\n*   **Noindex or remove** (status code: 410) when you don’t have the capacity or ability to make content changes.\n    \n*   **Disambiguate** the intent focus of the content if you have the capacity—and if the overlap is not too strong. In essence, you want to differentiate the parts of the pages that are too similar.\n    \n\n### Solving cannibalization in the long term\n\nIt’s critical to take long-term action to adjust your strategy or production process because content cannibalization is a symptom of a bigger issue—not a root cause.\n\n(Unless we’re talking about Google changing its understanding of intent during a core algorithm update—and that has nothing to do with you or your team.)\n\nThe most critical long-term changes you need to make are:\n\n1.  **Create a content roadmap:** SEO Integrators should maintain a living spreadsheet or database with all SEO-relevant URLs and their main target keywords and intent to tighten editorial oversight. Whoever is in charge of the content roadmap needs to ensure there is no overlap between articles and other page types. Writers need to have a clear target intent for new and existing content.\n    \n2.  **Develop clear site architecture**: The pendant of a content map for SEO Aggregators is a site architecture map, which is simply an overview of different page types and the intent they target. It’s critical to underline the intent as you define it with example keywords that you verify on a regular basis (”_Are we still ranking well for those keywords?_”) to match it against Google’s understanding and competitors.\n    \n\nThe last question is: “How do I know when _content cannibalization is_ fixed?”\n\nThe answer is when the symptoms mentioned in the previous chapter go away:\n\n*   Indexing issues resolve\n    \n*   URL flickering goes away\n    \n*   No duplicate titles appear in Google’s search index\n    \n*   “Crawled, not indexed” or “discovered, not indexed” issues decrease\n    \n*   Rankings stabilize and break through a plateau (if the page has no other apparent issues)\n    \n\nAnd, after working with my clients under this manual framework for years, I decided it’s time to automate it.\n\n## Introducing: a fully automated cannibalization detector\n\nTogether with Nicole, I used [AirOps](https://app.airops.com/) to build a fully automated AI workflow that goes through 37 steps to detect cannibalization within minutes.\n\nIt performs a thorough analysis of content cannibalization by examining keyword rankings, content similarity, and historical data.\n\nBelow, I’ll break down the most important steps that it automates on your behalf:\n\n1. **Initial URL Processing**\n\nThe workflow extracts and normalizes the domain and brand name from the input URL.\n\nThis foundational step establishes the target website's identity and creates the baseline for all subsequent analysis.\n\n[\n\n![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4f924bea-bcc2-4214-9f3a-10087a2ae347_600x700.png)\n\n\n\n](https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4f924bea-bcc2-4214-9f3a-10087a2ae347_600x700.png)\n\n2. **Target Content Analysis**\n\nTo ensure that the system has quality source material to analyze and compare against competitors, Step 2 involves:\n\n*   Scraping the page\n    \n*   Validating and analyzing the HTML structure for main content extraction\n    \n\nCleaning the article content and generating target embeddings\n\n[\n\n![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fac77f2c2-24c2-4cef-8da6-22e4172708f1_600x700.png)\n\n\n\n](https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fac77f2c2-24c2-4cef-8da6-22e4172708f1_600x700.png)\n\n3. **Keyword Analysis**\n\nStep 3 reveals the target URL's search visibility and potential vulnerabilities by:\n\n*   Analyzing ranking keywords through SEMrush data\n    \n*   Filtering branded versus non-branded terms\n    \n*   Identifying SERP overlap with competing URLs\n    \n*   Conducting historical ranking analysis\n    \n*   Determining page value based on multiple metrics\n    \n*   Analyzing position differential changes over time\n    \n\n[\n\n![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb31d8b95-33ae-4163-a059-e68639271fc0_600x700.png)\n\n\n\n](https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb31d8b95-33ae-4163-a059-e68639271fc0_600x700.png)\n\n4. **Competing Content Analysis** (Iteration over competing URLs)\n\nStep 4 gathers additional context for cannibalization by iteratively processing each competing URL in the search results through the previous steps.\n\n[\n\n![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc18c5e2a-07e8-44dc-a59d-04eee902d549_600x700.png)\n\n\n\n](https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc18c5e2a-07e8-44dc-a59d-04eee902d549_600x700.png)\n\n5. **Final Report Generation**\n\nIn the final step, the workflow cleans up the data and generates an actionable report.\n\n[\n\n![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8c852dd7-2cc3-4f47-b9b7-104c3a7d7560_600x700.png)\n\n\n\n](https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8c852dd7-2cc3-4f47-b9b7-104c3a7d7560_600x700.png)\n\n## Try the automated content Cannibalization Detector\n\n[\n\n![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4800b37c-ff78-4e5e-8b46-310bd6cb235f_1600x745.png)\n\n\n\n](https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4800b37c-ff78-4e5e-8b46-310bd6cb235f_1600x745.png)\n\nTry the [Cannibalization Detector](https://airops.typeform.com/to/Hd3ce2pU) and check out an [example report](https://docs.google.com/document/d/<YOUR_FILE_ID>/edit?tab=t.0#heading=h.hwcjpi4jdfex).\n\nA few things to note:\n\n1.  **This is an early version.** We’re planning to optimize and improve it over time.\n    \n2.  **The workflow can time out** due to a high number of requests. We intentionally limit usage to not get overwhelmed by API calls (they cost money). We’ll monitor usage and might temporarily raise the limit, which means if your first attempt isn’t successful, try again in a few minutes. It might just be a temporary spike in usage.\n    \n3.  **I’m an advisor to AirOps** but was neither paid nor incentivized in any other way to build this workflow.\n    \n\nPlease leave your feedback in the comments.\n\nWe’d love to hear how we can take the Cannibalization Detector to the next level!"
+        },
+        "promptType": "define",
+        "text": "=Dựa trên phần knowledge được cung cấp, hãy viết một nội dung để đăng trên website The AI Growth với các thông tin bên dưới.\n\n### [theme: {{ $('Execute Workflow Trigger').item.json.blogTopic }}] [audience: {{ $('Execute Workflow Trigger').item.json.target_audience }}] [format: blogpost]  [length: 1500 - 2000 words] \n\nViết bằng tiếng Việt. \n\n[final reminder]:\n\n1. Ưu tiên viết content ở dạng paragraph format, nếu dùng list hoặc table format, content phải ổn về contextual flow, contextual coverage. Có flow nội dung rành mạch, rõ ràng, tự nhiên cho người đọc.\n2. Output in Vietnamese. Use Vietnamese grammar and language."
+      },
+      "position": [
+        560,
+        0
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    },
+    {
+      "id": "86d36d66-43b7-4572-a3c2-b660a120062c",
+      "name": "Google Docs",
+      "parameters": {
+        "folderId": "",
+        "title": "={{ $('Execute Workflow Trigger').item.json.blogTopic }} - Content detail"
+      },
+      "position": [
+        940,
+        0
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "",
+      "name": "Update GG Doc",
+      "parameters": {
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ $('Content Writer & Onpage').item.json.output }}"
+            }
+          ]
+        },
+        "documentURL": "={{ $json.id }}",
+        "operation": "update"
+      },
+      "position": [
+        1200,
+        0
+      ],
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2
+    },
+    {
+      "id": "7e73f88b-3516-4acf-bdcc-f4a82146d136",
+      "name": "Google_HelpFul_Content",
+      "parameters": {
+        "documentURL": "",
+        "operation": "get",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}"
+      },
+      "position": [
+        620,
+        220
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "e8d28408-8a0a-4f51-bcc1-9da734009e7a",
+      "name": "Sticky Note8",
+      "parameters": {
+        "color": 7,
+        "content": "## Structured Output",
+        "height": 240,
+        "width": 320
+      },
+      "position": [
+        120,
+        540
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "disabled": true,
+      "id": "f5ee1184-0bfd-4488-a7da-4993a4f70b8b",
+      "name": "Send Blog1",
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "chatId": "={{ $('When Executed by Another Workflow').item.json.chatID }}",
+        "text": "={{ $('Blog Post Agent').item.json.output }}"
+      },
+      "position": [
+        1620,
+        460
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "94fa70af-f2fc-4c05-8fa1-d9f55637485f"
+    },
+    {
+      "id": "4cda5b9b-8c9e-4631-ae29-eb484f933c7c",
+      "name": "Sticky Note9",
+      "parameters": {
+        "color": 6,
+        "content": "# Write to Drive & Sheets",
+        "height": 240,
+        "width": 540
+      },
+      "position": [
+        980,
+        700
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "2ef1ef5f-1f4a-451e-8a33-f0d4124e85d3",
+      "name": "Sticky Note10",
+      "parameters": {
+        "color": 6,
+        "content": "# Send Content",
+        "height": 240,
+        "width": 540
+      },
+      "position": [
+        940,
+        380
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Claude sonet 3.7",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "Claude 3.7 Sonnet",
+          "mode": "list",
+          "value": "claude-3-7-sonnet-20250219"
+        },
+        "options": {
+          "maxTokensToSample": 64000
+        }
+      },
+      "position": [
+        460,
+        220
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "651aa0e0-8da5-4c65-8f35-4eb26e367dc1",
+      "name": "Image Prompt Agent",
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Overview\nYou are an AI agent that transforms blog posts into visual prompt descriptions for generating graphic marketing materials. These visuals are designed to be paired with the post, helping communicate the message in a visually engaging, brand-aligned way.\n\n## Objective:\n- Read and analyze the given blog post.\n- Identify the main message, insight, or takeaway from the post.\n- Create a clear and compelling graphic prompt that can be used with a text-to-image generator.\n- The result should be a marketing-style graphic — not a literal scene or hyperrealistic photo — that:\n1) Visually supports or illustrates the key idea of the post\n2) Looks appropriate for use in a professional LinkedIn feed\n3) Feels polished, modern, and engaging\n\n## Output Instructions:\n- Output two fields: \n1) title (2-4 words) \n2) prompt\n- Output only the final image prompt. Do not output quotation marks.\n- Do not repeat or rephrase the blog post.\n- Do not add any explanations or extra content — just the image prompt.\n- Never leave things blank like \"Header area reserved for customizable callout text\"\n- Output numeric stats when available in the original post\n\n## Style Guidelines:\n- Think like a brand designer or marketing creative.\n- Visuals may include: text, charts, icons, abstract shapes, overlays, modern illustrations, motion-like effects, bold typography elements (described, not rendered), or metaphorical concepts.\n- You can mention layout suggestions (e.g., \"split screen design,\" \"header with bold title and subtle background illustration\").\n- Assume the output will be generated using AI image tools — your prompt should guide those tools effectively.\n\n## Example Prompt Format:\nA modern flat-style graphic showing a human brain connected to mechanical gears, representing the fusion of AI and automation. Minimalist background, soft gradients, clean sans-serif text placement space at the top.\n\n"
+        },
+        "promptType": "define",
+        "text": "=Blog Post: [\n{{ $('Content Writer & Onpage').item.json.output }} ]"
+      },
+      "position": [
+        -40,
+        400
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9
+    },
+    {
+      "id": "f2405f45-8e4f-4ddc-acd8-496146edcb7b",
+      "name": "Send Photo",
+      "parameters": {
+        "additionalFields": {},
+        "binaryData": true,
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chatID }}",
+        "operation": "sendPhoto"
+      },
+      "position": [
+        1060,
+        460
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "8fcbda9c-8396-41f7-8f2d-39e4ae4337c7"
+    },
+    {
+      "id": "79aaa584-6405-43db-a2ae-ba4f4a5e455e",
+      "name": "Upload",
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "name": "={{ $('Image Prompt Agent').item.json.output.title }}.png",
+        "options": {}
+      },
+      "position": [
+        1060,
+        760
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "51cd6a31-be2a-4b95-8f3a-d5797a9eb2f5",
+      "name": "Image & Title",
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"title\": \"<2-4 word creative title for the image>\",\n  \"prompt\": \"<full detailed image generation prompt>\"\n}\n"
+      },
+      "position": [
+        200,
+        640
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "e28c9936-a76a-4adc-831f-bfc9827007d7",
+      "name": "Generate Image",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "gpt-image-1"
+            },
+            {
+              "name": "prompt",
+              "value": "={{ $json.output.prompt.replace(/\"/g, '') }}"
+            },
+            {
+              "name": "size",
+              "value": "1024x1024"
+            }
+          ]
+        },
+        "genericAuthType": "httpHeaderAuth",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "url": "https://api.openai.com/v1/images/generations"
+      },
+      "position": [
+        500,
+        580
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "07b31a25-b912-401c-9699-0acbe8b91005",
+      "name": "Convert to Binary",
+      "parameters": {
+        "operation": "toBinary",
+        "options": {},
+        "sourceProperty": "data[0].b64_json"
+      },
+      "position": [
+        680,
+        580
+      ],
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "4bbf777f-4ce8-48c1-88ed-fba83d2419e8",
+      "name": "Image Log",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "stt",
+              "id": "stt",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Title of the blog",
+              "id": "Title of the blog",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Content link",
+              "id": "Content link",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Drive Image Link",
+              "id": "Drive Image Link",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Content link": "=https://docs.google.com/document/d/{{ $('Update GG Doc').item.json.documentId }}/edit?usp=sharing",
+            "Drive Image Link": "={{ $json.webViewLink }}",
+            "Title of the blog": "={{ $('Execute Workflow Trigger').item.json.blogTopic }}",
+            "stt": "="
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        1280,
+        760
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "createdAt": "2025-05-06T17:07:59.776Z",
+      "id": "QnPDekJYr5wskIzf",
+      "name": "marketing-automation",
+      "updatedAt": "2025-05-06T17:07:59.776Z"
+    },
+    {
+      "createdAt": "2025-05-06T17:07:59.776Z",
+      "id": "3THlsgtSV2xVrHZK",
+      "name": "content",
+      "updatedAt": "2025-05-06T17:07:59.776Z"
+    },
+    {
+      "createdAt": "2025-05-06T17:07:59.779Z",
+      "id": "mlhSbcxW9nhS7cX8",
+      "name": "seo",
+      "updatedAt": "2025-05-06T17:07:59.779Z"
+    }
+  ]
+}

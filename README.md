@@ -19,10 +19,11 @@ Hướng dẫn đầy đủ và câu lệnh mẫu: [HUONG-DAN.md](HUONG-DAN.md).
 | File | Dùng để |
 |---|---|
 | `AGENTS.md`, `CLAUDE.md` | Luật làm việc của Claude trong folder này |
-| `.claude/settings.json` | Lệnh được tự chạy, lệnh phải hỏi; khai báo plugin `n8n-skills` |
+| `.claude/settings.json` | Lệnh được tự chạy, lệnh phải hỏi; khai báo plugin `n8n-skills` và kết nối `n8n-local` |
+| `.mcp.json`, `n8n/mcp-headers.sh` | Kết nối `n8n-local`: Claude điều khiển n8n bằng Access token cất trong `.env` |
 | `.claude/skills/cai-dat-n8n/` | Quy trình cài, bật lại, cập nhật, sao lưu n8n |
 | `n8n/compose.yml` | Cấu hình chạy n8n bằng Docker, chỉ mở trên máy bạn |
-| `workflows/mau/` | Workflow mẫu để nhập thử |
+| `workflows/mau/` | Workflow mẫu: 4 mẫu nhập thử, mẫu TAG đã build (`tag-build/`), kho workflow cộng đồng chọn lọc (`cong-dong/`) |
 | `TIEN-DO.md`, `BAI-HOC.md` | Claude ghi tiến độ cài và bài học khi sửa lỗi |
 
 Không đưa API key vào folder này trên GitHub. Key nằm trong credential của n8n hoặc file `.env` trên máy bạn.

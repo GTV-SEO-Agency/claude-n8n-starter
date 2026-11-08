@@ -1,0 +1,1212 @@
+{
+  "active": false,
+  "connections": {
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Create Newsletter HTML",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Clean HTML": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Newsletter Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Create Newsletter HTML": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Clean HTML",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Download TikTok": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Extract Today's Articles": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Split Out1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Filter Verified": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Tag Image Keyword",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Format News Articles": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Split Out",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Download URL": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Thumbnail Images": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Pre-Newsletter List",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Transcript": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set TikTok List",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Limit",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "No Operation",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Download URL",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Transcript",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Wait 5 Seconds",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Scrape TikTok Profiles",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Scrape Website - theRundown",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Perplexity",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Scrape Reddit",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Merge Lists": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Verify Articles",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Perplexity": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Format News Articles",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Pre-Newsletter List": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Aggregate",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Scrape Reddit": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set Reddit List",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Scrape TikTok Profiles": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "If",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Scrape Website - theRundown": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Extract Today's Articles",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Newsletter Email": {
+      "main": [
+        []
+      ]
+    },
+    "Set Perplexity List": {
+      "main": [
+        [
+          {
+            "index": 1,
+            "node": "Merge Lists",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Set Reddit List": {
+      "main": [
+        [
+          {
+            "index": 3,
+            "node": "Merge Lists",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Set TherundownAI List": {
+      "main": [
+        [
+          {
+            "index": 2,
+            "node": "Merge Lists",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Set TikTok List": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Merge Lists",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set Perplexity List",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set TherundownAI List",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Tag Image Keyword": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Thumbnail Images",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Tag Verification": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Filter Verified",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Verify Articles": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Tag Verification",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait 5 Seconds": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Download TikTok",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "EOy1kW18iBiPsqOU",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "News Update Content",
+  "nodes": [
+    {
+      "id": "357eed82-18d2-4e63-b291-47a8791f2ec1",
+      "name": "Manual Trigger",
+      "parameters": {},
+      "position": [
+        -1200,
+        800
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "bb739692-e37d-4cab-a946-527612541dcf",
+      "name": "Scrape TikTok Profiles",
+      "parameters": {
+        "jsonBody": "={\n    \"excludePinnedPosts\": true,\n    \"hashtags\": [\n        \"aiagent\"\n    ],\n    \"newestPostDate\": \"{{$today.format('yyyy-MM-dd')}}\",\n    \"oldestPostDateUnified\": \"{{$today.format('yyyy-MM-dd')}}\",\n    \"profileScrapeSections\": [\n        \"videos\"\n    ],\n    \"profileSorting\": \"latest\",\n    \"profiles\": [\n        \"brandnat\",\n        \"rileybrown.ai\",\n        \"iamkylebalmer\"\n    ],\n    \"resultsPerPage\": 10,\n    \"shouldDownloadCovers\": false,\n    \"shouldDownloadSlideshowImages\": false,\n    \"shouldDownloadSubtitles\": false,\n    \"shouldDownloadVideos\": false\n}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://api.apify.com/v2/acts/clockworks~free-tiktok-scraper/run-sync-get-dataset-items?token=<YOUR_APIFY_TOKEN>"
+      },
+      "position": [
+        -680,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "f2ed3f02-0230-4dac-8af3-1871a55fb644",
+      "name": "No Operation",
+      "parameters": {},
+      "position": [
+        -180,
+        600
+      ],
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1
+    },
+    {
+      "id": "5fd8fada-30a0-49a8-a4bc-fe5573cdfc92",
+      "name": "Get Download URL",
+      "parameters": {
+        "jsonBody": "={\n  \"url\": \"{{ $json.webVideoUrl }}\"\n}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://api.apify.com/v2/acts/wilcode~fast-tiktok-downloader-without-watermark/run-sync-get-dataset-items?token=<YOUR_APIFY_TOKEN>"
+      },
+      "position": [
+        20,
+        320
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "5969f373-5cae-4205-974e-f0ce6f7367db",
+      "name": "Loop Over Items",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        280,
+        360
+      ],
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3
+    },
+    {
+      "id": "8778be56-6b83-4a6a-a1bf-3808406dce13",
+      "name": "Wait 5 Seconds",
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      },
+      "position": [
+        540,
+        380
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "webhookId": "52badac5-ec8e-4155-bef4-851c4d4c03fb"
+    },
+    {
+      "id": "58044a57-b8e6-4e10-ba6f-77a06e206a6f",
+      "name": "Get Transcript",
+      "parameters": {
+        "binaryPropertyName": "={{ $('Get Download URL').item.json.result.video }}",
+        "operation": "transcribe",
+        "options": {},
+        "resource": "audio"
+      },
+      "position": [
+        580,
+        180
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4
+    },
+    {
+      "id": "e31baca6-4d05-4e6f-9288-03bb4de2de8e",
+      "name": "Set TikTok List",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "",
+              "name": "Content",
+              "type": "string",
+              "value": "=Video description: \n{{ $('Scrape TikTok Profiles').item.json.text }}\n\nVideo transcript:\n{{ $json.text }}"
+            },
+            {
+              "id": "b5922f61-2425-4bdd-8a03-6ba0ee42fe19",
+              "name": "Url",
+              "type": "string",
+              "value": "={{ $('Scrape TikTok Profiles').item.json.webVideoUrl }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        1080,
+        260
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "a47ad07b-007d-4bc4-96ed-425fd4d01135",
+      "name": "Research Reddit",
+      "parameters": {
+        "content": "## Research Reddit\nScrapes top Reddit posts from the past 24 hours using keyword search.\nFilters by 'AI tools' and gets the top posts of the day.",
+        "height": 150,
+        "width": 300
+      },
+      "position": [
+        -420,
+        60
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d62212b2-b895-48a6-827a-a1084d52b701",
+      "name": "Format News Articles",
+      "parameters": {
+        "jsonOutput": true,
+        "messages": {
+          "values": [
+            {
+              "content": "=Output JSON format. Split the content into a structured list. Only keep the news articles and their respective citation URLs. \n\nExample output:\n{\"news_articles\": [{\"news\": \"OpenAI releases GPT-5\", \"citation\": \"https://example.com\"}, {\"news\": \"Google announces Gemini Pro\", \"citation\": \"https://example2.com\"}]}",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.choices[0].message.content }}"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "GPT-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "position": [
+        -120,
+        720
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4
+    },
+    {
+      "id": "66f399e2-99e3-491f-a368-2542ce672bcc",
+      "name": "Set Perplexity List",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8fe76cbc-ba88-458f-a552-eec41fa9f1e2",
+              "name": "Content",
+              "type": "string",
+              "value": "={{ $json.news }}"
+            },
+            {
+              "id": "3960b6bb-00be-4b44-a812-00194824a0e5",
+              "name": "Url",
+              "type": "string",
+              "value": "={{ $json.citation }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        620,
+        720
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "82f3208b-ec21-4a0b-8bfb-6613d42f3519",
+      "name": "Extract Today's Articles",
+      "parameters": {
+        "jsonOutput": true,
+        "messages": {
+          "values": [
+            {
+              "content": "=Read the scraped data and extract ONLY articles from today ({{ $today.format('yyyy-MM-dd') }}). Output JSON format with articles list. Example: {\"articles\": [{\"title\": \"Article Title\", \"description\": \"Article description\", \"url\": \"https://example.com\"}]}",
+              "role": "system"
+            },
+            {
+              "content": "=Scraped data: {{ $json.data.markdown }}"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "GPT-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "position": [
+        -60,
+        1000
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4
+    },
+    {
+      "id": "9c25e2db-4d6b-46b7-b5ea-96af1d9c7957",
+      "name": "Merge Lists",
+      "parameters": {
+        "numberInputs": 4
+      },
+      "position": [
+        1220,
+        840
+      ],
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3
+    },
+    {
+      "id": "ecac3943-7a37-4326-a770-8dc7c05ecd64",
+      "name": "Verify Articles",
+      "parameters": {
+        "jsonOutput": true,
+        "messages": {
+          "values": [
+            {
+              "content": "=You are an AI news curator. Verify if each article is relevant and high-quality based on these criteria:\n1. Is about AI, machine learning, AI Agents or AI tools\n2. Contains substantial information (not just announcements)\n3. From reputable sources\n4. Not duplicate content\n5. Recent and newsworthy\n\nOutput JSON with verify (yes/no) and explanation for each decision.\nFormat: {\"verify\": \"yes\", \"explanation\": \"This article about OpenAI's new model is highly relevant...\"}\n\nIf the content is relevance about the AI, ML,... classify it as yes."
+            },
+            {
+              "content": "=News article: {{ $json.Content }}\nURL: {{ $json.Url }}"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "GPT-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "position": [
+        1500,
+        860
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4
+    },
+    {
+      "id": "0a3dc306-3781-47ea-b9b9-fa95361ee20e",
+      "name": "Tag Verification",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6ffbf509-abaa-4f5e-92c0-a12e238b34d3",
+              "name": "Content",
+              "type": "string",
+              "value": "={{ $('Merge Lists').item.json.Content }}"
+            },
+            {
+              "id": "",
+              "name": "Url",
+              "type": "string",
+              "value": "={{ $('Merge Lists').item.json.Url }}"
+            },
+            {
+              "id": "0f3cfb13-e51e-4882-b464-b243f4ddc8f8",
+              "name": "Verify",
+              "type": "string",
+              "value": "={{ $json.message.content.verify }}"
+            },
+            {
+              "id": "d2740317-c3e3-418e-b6f1-5349eb69e120",
+              "name": "Explain",
+              "type": "string",
+              "value": "={{ $json.message.content.explanation }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        1840,
+        860
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "0202ec3a-ab13-49b7-a370-6bb472671172",
+      "name": "Filter Verified",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "45f3cd2e-b2e8-4b51-85e1-54f0e5887b22",
+              "leftValue": "={{ $json.Verify }}",
+              "operator": {
+                "name": "filter.operator.equals",
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "yes"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        2060,
+        860
+      ],
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2
+    },
+    {
+      "id": "f0805e15-3737-4cf0-9fdc-39a75d2bbeb0",
+      "name": "Tag Image Keyword",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=Read the news article and create ONE keyword for a thumbnail image. Never include 'AI' or 'artificial intelligence' as keywords. Focus on the main topic or technology mentioned.",
+              "role": "system"
+            },
+            {
+              "content": "=Article: {{ $json.Content }}\nUrl: {{ $json.Url }}\nExplaination of the ariticle: {{ $json.Explain }}"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "GPT-4O-MINI",
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {
+          "temperature": 0.5
+        }
+      },
+      "position": [
+        2300,
+        860
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4
+    },
+    {
+      "id": "083dded1-f4b2-4649-9214-377fa283d466",
+      "name": "Create Newsletter HTML",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a professional at creating HTML email newsletters. You will receive a list of articles with: \n- descriptions & title\n- thumbnail image URLs\n- Source URLs.\n\nGenerate a well-formatted HTML email newsletter based on this content.\n\nHTML Template:\n<!DOCTYPE html>\n<html lang=\"vi\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <title>AI News Digest – 24h qua</title>\n  </head>\n\n  <body style=\"margin:0;padding:0;background:#f4f4f4;\">\n    <!-- wrapper -->\n    <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f4f4;\">\n      <tr>\n        <td align=\"center\">\n          <!-- email container -->\n          <table role=\"presentation\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#ffffff;font-family:Arial,Helvetica,sans-serif;\">\n            <!-- header -->\n            <tr>\n              <td style=\"padding:24px 32px;background:#20263a;color:#ffffff;text-align:center;\">\n                <h1 style=\"margin:0;font-size:24px;\">AI News Digest</h1>\n                <p style=\"margin:4px 0 0;font-size:14px;opacity:.8;\">\n                  Tổng hợp tin tức AI nổi bật 24&nbsp;giờ qua &bull; {{DD/MM/YYYY}}\n                </p>\n              </td>\n            </tr>\n\n            <!-- intro -->\n            <tr>\n              <td style=\"padding:24px 32px;font-size:15px;line-height:1.6;color:#333333;\">\n                Chào bạn,<br />\n                Dưới đây là những diễn biến quan trọng nhất về Trí tuệ nhân tạo trong ngày qua.\n              </td>\n            </tr>\n\n            <!-- BEGIN: news loop -->\n            <!-- ① Bosch CEO cảnh báo châu Âu về siết quy định AI -->\n            <tr>\n              <td style=\"padding:0 32px 24px;\">\n                <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n                  <tr>\n                    <td style=\"font-size:18px;font-weight:bold;padding-bottom:6px;\">\n                      <a href=\"https://www.reuters.com/technology/bosch-ceo-warns-europe-against-regulating-itself-death-ai-2025-06-25/\"\n                         style=\"color:#0066cc;text-decoration:none;\">Bosch CEO: Châu Âu có nguy cơ “tự bóp nghẹt” mình vì quy định AI</a>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td style=\"font-size:14px;line-height:1.6;color:#555555;\">\n                      Stefan Hartung cho rằng bộ máy pháp lý rườm rà sẽ khiến EU tụt hậu trong cuộc đua AI; Bosch cam kết bơm thêm 2,5 tỷ € vào R&amp;D tới 2027. \n                    </td>\n                  </tr>\n                </table>\n              </td>\n            </tr>\n\n            <!-- ② Dự luật lưỡng đảng cấm AI Trung Quốc tại cơ quan liên bang -->\n            <tr>\n              <td style=\"padding:0 32px 24px;\">\n                <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n                  <tr>\n                    <td style=\"font-size:18px;font-weight:bold;padding-bottom:6px;\">\n                      <a href=\"https://apnews.com/article/<YOUR_ID>\"\n                         style=\"color:#0066cc;text-decoration:none;\">Hạ viện Mỹ đề xuất cấm hệ thống AI của Trung Quốc trong toàn bộ cơ quan liên bang</a>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td style=\"font-size:14px;line-height:1.6;color:#555555;\">\n                      Dự luật nhấn mạnh rủi ro an ninh khi dùng AI từ “đối thủ” và khẳng định Mỹ đang bước vào “Chiến tranh Lạnh mới về AI”.\n                    </td>\n                  </tr>\n                </table>\n              </td>\n            </tr>\n\n            <!-- ③ Microsoft & OpenAI “căng” vì điều khoản AGI -->\n            <tr>\n              <td style=\"padding:0 32px 24px;\">\n                <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n                  <tr>\n                    <td style=\"font-size:18px;font-weight:bold;padding-bottom:6px;\">\n                      <a href=\"https://www.reuters.com/business/microsoft-openai-dueling-over-artificial-general-intelligence-information-2025-06-25/\"\n                         style=\"color:#0066cc;text-decoration:none;\">Microsoft muốn xoá điều khoản “AGI là hết duyên” với OpenAI</a>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td style=\"font-size:14px;line-height:1.6;color:#555555;\">\n                      The Information tiết lộ: khi OpenAI đạt AGI, quyền truy cập của Microsoft sẽ kết thúc – và Redmond đang thương thảo quyết liệt để giữ lợi thế.\n                    </td>\n                  </tr>\n                </table>\n              </td>\n            </tr>\n\n            <!-- ④ Meta thắng bước đầu vụ kiện bản quyền -->\n            <tr>\n              <td style=\"padding:0 32px 24px;\">\n                <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n                  <tr>\n                    <td style=\"font-size:18px;font-weight:bold;padding-bottom:6px;\">\n                      <a href=\"https://www.reuters.com/sustainability/boards-policy-regulation/meta-fends-off-authors-us-copyright-lawsuit-over-ai-2025-06-25/\"\n                         style=\"color:#0066cc;text-decoration:none;\">Meta tạm “hạ” nhóm tác giả kiện vi phạm bản quyền huấn luyện AI</a>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td style=\"font-size:14px;line-height:1.6;color:#555555;\">\n                      Thẩm phán quận San Francisco bác lập luận “thị trường bị tổn hại”, nhưng khẳng định vẫn có nhiều kịch bản sử dụng dữ liệu phạm luật.\n                    </td>\n                  </tr>\n                </table>\n              </td>\n            </tr>\n\n            <!-- ⑤ Tranh cãi “đóng băng” luật AI cấp bang đổi lấy ngân sách Internet -->\n            <tr>\n              <td style=\"padding:0 32px 40px;\">\n                <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n                  <tr>\n                    <td style=\"font-size:18px;font-weight:bold;padding-bottom:6px;\">\n                      <a href=\"https://www.reuters.com/legal/government/teamsters-president-urges-congress-scrap-ai-state-law-ban-2025-06-25/\"\n                         style=\"color:#0066cc;text-decoration:none;\">Đề xuất hoãn 10 năm quyền lập pháp AI của các tiểu bang Mỹ gặp phản ứng dữ dội</a>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td style=\"font-size:14px;line-height:1.6;color:#555555;\">\n                      Liên đoàn Teamsters và nhiều Thượng nghị sĩ phản đối vì e ngại “món quà” cho Big Tech; phe ủng hộ nói cần một khung thống nhất để thúc đẩy đổi mới.\n                    </td>\n                  </tr>\n                </table>\n              </td>\n            </tr>\n            <!-- END: news loop -->\n\n            <!-- footer -->\n            <tr>\n              <td style=\"padding:24px 32px;font-size:12px;color:#999999;text-align:center;\">\n                Bạn nhận email này vì đã đăng ký nhận bản tin AI News Digest.<br />\n                <a href=\"theaigrowth.io\" style=\"color:#999;text-decoration:underline;\">Huỷ đăng ký</a>\n              </td>\n            </tr>\n          </table>\n          <!-- /email container -->\n        </td>\n      </tr>\n    </table>\n    <!-- /wrapper -->\n  </body>\n</html>\n\n\n\nInstructions:\n1. Replace the area between <!-- ARTICLES START --> and <!-- ARTICLES END --> with article divs\n2. Each article should be wrapped in <div class=\"article\"> tags\n3. Article title should be bold and clickable, linking to the source URL\n4. Include the thumbnail image for each article\n5. Add the article description\n6. Maintain clean HTML structure"
+            },
+            {
+              "content": "={{ JSON.stringify($json.listforhtml) }}"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "GPT-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "position": [
+        3360,
+        860
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4
+    },
+    {
+      "id": "765c54fe-5b09-4dc3-99d5-b625a0e04a8f",
+      "name": "Clean HTML",
+      "parameters": {
+        "jsCode": "// Get the input string\nconst input = $input.first().json.message.content;\n\n// Clean up the text by removing backslashes before 'n' and triple backticks\nconst cleanedString = input\n  .replace(/^```[a-z]*?\\n/, \"\")   // Remove starting triple backticks with optional language\n  .replace(/```$/, \"\");           // Remove ending triple backticks\n\n// Return the cleaned text\nreturn [{ cleanedHTML: cleanedString }];\n"
+      },
+      "position": [
+        3720,
+        880
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "035367b8-970d-4b05-8592-5916a6dfa149",
+      "name": "Send Newsletter Email",
+      "parameters": {
+        "message": "={{ $json.cleanedHTML }}",
+        "options": {},
+        "sendTo": "you@example.com",
+        "subject": "=Latest AI News - {{ $today.format('MMMM D') }}"
+      },
+      "position": [
+        3940,
+        860
+      ],
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "webhookId": "3fe24ebb-4fd0-423d-843a-80865312b344"
+    },
+    {
+      "id": "596651f5-65b4-42c4-8f47-16b99e7e1c78",
+      "name": "Research TikTok",
+      "parameters": {
+        "content": "## Research TikTok\nScrapes videos from specific TikTok creators within the past 24hrs.\nUses Apify's TikTok scraper to get videos, then downloads and transcribes them.",
+        "height": 150,
+        "width": 300
+      },
+      "position": [
+        -760,
+        60
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d40701be-1703-4549-be2d-fae54933922f",
+      "name": "Research Internet",
+      "parameters": {
+        "content": "## Research Internet (Perplexity)\nUses Perplexity API to search the internet for latest AI news.\nGets comprehensive coverage from various sources.",
+        "height": 150,
+        "width": 300
+      },
+      "position": [
+        -60,
+        60
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "579a2cd7-5e6d-4c16-878e-47a96929079f",
+      "name": "Merge and Filter",
+      "parameters": {
+        "content": "## Merge and Filter\nMerges all research sources and uses GPT-4 to verify article quality.\nFilters out irrelevant or low-quality content.",
+        "height": 150,
+        "width": 300
+      },
+      "position": [
+        400,
+        20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "eee734fb-3c88-46af-83b3-8e4d7fec54f3",
+      "name": "Get Images & Send",
+      "parameters": {
+        "content": "## Get Images and Send Newsletter\nFetches thumbnail images from Pexels API.\nCreates HTML newsletter and sends via Gmail.",
+        "height": 150,
+        "width": 300
+      },
+      "position": [
+        900,
+        20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "e512b92a-6d31-48b7-b290-ea9537cf3b4e",
+      "name": "API Keys Setup",
+      "parameters": {
+        "content": "## Important API Keys to Replace:\n\n1. YOUR_APIFY_TOKEN - Get from apify.com\n2. YOUR_PERPLEXITY_KEY - Get from perplexity.ai\n3. YOUR_PEXELS_API_KEY - Get from pexels.com\n4. YOUR_OPENAI_CRED_ID - Create in n8n credentials\n5. YOUR_GMAIL_CRED_ID - Create Gmail OAuth2 in n8n\n\nAlso update user@example.com to your email!",
+        "height": 250,
+        "width": 400
+      },
+      "position": [
+        1280,
+        20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "a86f893a-3c66-4147-9067-20d521e2cf8f",
+      "name": "If",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "9ace5e00-1a83-4b2f-b73f-8bb4b893306c",
+              "leftValue": "={{ $json.webVideoUrl }}",
+              "operator": {
+                "operation": "exists",
+                "singleValue": true,
+                "type": "string"
+              },
+              "rightValue": ""
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        -420,
+        400
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "20c18c7d-0ef2-4d0f-900d-64e28a1c5f07",
+      "name": "Limit",
+      "parameters": {
+        "maxItems": 4
+      },
+      "position": [
+        -220,
+        340
+      ],
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1
+    },
+    {
+      "id": "e763fb69-52d2-447a-b2d8-889d1688507e",
+      "name": "Download TikTok",
+      "parameters": {
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "outputPropertyName": "={{ $json.result.video }}",
+              "responseFormat": "file"
+            }
+          }
+        },
+        "sendHeaders": true,
+        "url": "={{ $json.result.video }}"
+      },
+      "position": [
+        780,
+        380
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "2974f282-3c5d-4e8d-a44b-e72749726779",
+      "name": "Perplexity",
+      "parameters": {
+        "messages": {
+          "message": [
+            {
+              "content": "=You are a researcher and a writer who searches, finds, and writes about the latest AI developments / AI models news that will affect business. Your target audience are marker, business, CEO, managers,..",
+              "role": "system"
+            },
+            {
+              "content": "=Find the latest and most relevant AI news, AI Agents news, AI tools releases, and major AI developments from the last 24 hours (today is {{ $today.format('yyyy-MM-dd') }}). For each news item, include the citation URL in the same paragraph. Focus on: new AI model releases, AI tool launches, major AI company announcements, AI research breakthroughs, and significant AI industry updates. Format each news item with its source URL."
+            }
+          ]
+        },
+        "model": "sonar-pro",
+        "options": {},
+        "requestOptions": {}
+      },
+      "position": [
+        -540,
+        680
+      ],
+      "type": "n8n-nodes-base.perplexity",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Scrape Reddit",
+      "parameters": {
+        "jsonBody": "={\n    \"debugMode\": false,\n    \"ignoreStartUrls\": false,\n    \"includeNSFW\": true,\n    \"maxComments\": 10,\n    \"maxCommunitiesCount\": 2,\n    \"maxItems\": 10,\n    \"maxPostCount\": 10,\n    \"maxUserCount\": 2,\n    \"proxy\": {\n        \"useApifyProxy\": true,\n        \"apifyProxyGroups\": [\n            \"RESIDENTIAL\"\n        ]\n    },\n    \"scrollTimeout\": 40,\n    \"searchComments\": false,\n    \"searchCommunities\": false,\n    \"searchPosts\": true,\n    \"searchUsers\": false,\n    \"searches\": [\n        \"AI Agent\"\n    ],\n    \"skipComments\": false,\n    \"skipCommunity\": false,\n    \"skipUserPosts\": false,\n    \"sort\": \"top\",\n    \"time\": \"day\"\n}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://api.apify.com/v2/acts/trudax~reddit-scraper-lite/run-sync-get-dataset-items?token=<YOUR_APIFY_TOKEN>"
+      },
+      "position": [
+        -420,
+        1320
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "0c37c4be-9434-482a-b1e2-6750ddc3da9a",
+      "name": "Set Reddit List",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "",
+              "name": "Content",
+              "type": "string",
+              "value": "=Title: \n{{ $json.title }}\n\nContent:\n{{ $json.body }}"
+            },
+            {
+              "id": "b5922f61-2425-4bdd-8a03-6ba0ee42fe19",
+              "name": "Url",
+              "type": "string",
+              "value": "={{ $json.url }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        80,
+        1320
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "02668a3a-52e0-41db-83e4-e227e8ba94a5",
+      "name": "Split Out",
+      "parameters": {
+        "fieldToSplitOut": "message.content.news_articles",
+        "options": {}
+      },
+      "position": [
+        300,
+        720
+      ],
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1
+    },
+    {
+      "id": "47c7337c-4674-4f1f-9555-0a1ceb47ba79",
+      "name": "Scrape Website - theRundown",
+      "parameters": {
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer <YOUR_API_KEY>"
+            }
+          ]
+        },
+        "jsonBody": "{\n  \"url\": \"https://www.therundown.ai/\",\n  \"formats\": [\n    \"markdown\"\n  ],\n  \"onlyMainContent\": true\n}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "sendHeaders": true,
+        "specifyBody": "json",
+        "url": "https://api.firecrawl.dev/v1/scrape"
+      },
+      "position": [
+        -440,
+        1020
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "f871b7ac-56a3-4c3a-bb4a-330fca9469ea",
+      "name": "Split Out1",
+      "parameters": {
+        "fieldToSplitOut": "message.content.articles",
+        "options": {}
+      },
+      "position": [
+        320,
+        1000
+      ],
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1
+    },
+    {
+      "id": "b9012842-e5f0-408b-860b-25abe640a06b",
+      "name": "Set TherundownAI List",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6eca2700-6ea5-4192-90d7-26bd05af6f9f",
+              "name": "Content",
+              "type": "string",
+              "value": "=Title: {{ $json.title }}\nDescription: {{ $json.description }}"
+            },
+            {
+              "id": "57ca3f44-7539-4a6a-8e15-82881ccf4d8f",
+              "name": "Url",
+              "type": "string",
+              "value": "={{ $json.url }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        540,
+        980
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "e9495867-f17e-4a5d-be45-c34a28002a15",
+      "name": "Pre-Newsletter List",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c2a75eec-2310-4867-bf01-27b97ce91fa8",
+              "name": "Content",
+              "type": "string",
+              "value": "={{ $('Filter Verified').item.json.Content }}"
+            },
+            {
+              "id": "72180686-7d0f-4825-a6d9-bf452bdfdffa",
+              "name": "Source Url",
+              "type": "string",
+              "value": "={{ $('Filter Verified').item.json.Url }}"
+            },
+            {
+              "id": "",
+              "name": "Image Url",
+              "type": "string",
+              "value": "={{ $('Get Thumbnail Images').item.json.photos[0].src.landscape }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        2960,
+        860
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "a2a79594-fb8f-4adf-96a7-06a90b5bf483",
+      "name": "Get Thumbnail Images",
+      "parameters": {
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<YOUR_API_KEY>"
+            }
+          ]
+        },
+        "options": {},
+        "sendHeaders": true,
+        "url": "=https://api.pexels.com/v1/search?query={{ encodeURIComponent($json.message.content) }}&per_page=1"
+      },
+      "position": [
+        2680,
+        860
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "",
+      "name": "Aggregate",
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "listforhtml",
+        "options": {}
+      },
+      "position": [
+        3140,
+        860
+      ],
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

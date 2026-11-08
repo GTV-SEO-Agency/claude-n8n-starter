@@ -1,0 +1,363 @@
+{
+  "connections": {
+    "Change State of Rows in Unverified & Not Sent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Change State of Rows in Verified & Sent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Check valid whatsapp number Using Rapiwa1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "If",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Clean Webhooks Response Data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Clean WhatsApp Number",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Clean WhatsApp Number": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Check valid whatsapp number Using Rapiwa1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Message Using Rapiwa",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Change State of Rows in Unverified & Not Sent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "index": 0,
+            "node": "Clean Webhooks Response Data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Message Using Rapiwa": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Change State of Rows in Verified & Sent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_shopify-order-confirmation-whatsapp_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Xác nhận đơn Shopify tự động qua WhatsApp\n**Làm gì:** Đơn mới → soạn tin xác nhận → gửi WhatsApp cho khách.\n**Trigger:** Webhook\n**Credential cần:** Google Sheets\n**Chi phí ước:** Phí tin WhatsApp qua Rapiwa.\n**Mở rộng gợi ý:** Đổi kênh sang Zalo OA (dùng workflow token ở trên).\n\n---\n**Nguồn:** n8n.io template #9262 của spagreen\nhttps://n8n.io/workflows/9262\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -904,
+        -596
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "49f6c0b4-d943-425b-8e90-5bb3264300f0",
+      "name": "Loop Over Items",
+      "parameters": {},
+      "position": [
+        1568,
+        304
+      ],
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3
+    },
+    {
+      "id": "4a602b94-9664-429c-86f1-5faf96cc8a59",
+      "name": "Webhook",
+      "parameters": {},
+      "position": [
+        1168,
+        304
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "webhookId": "a9b6a936-e5f2-4d4c-9cf9-182de0a970d5"
+    },
+    {
+      "id": "34695eb4-af92-47fa-b499-d0232d2fd47b",
+      "name": "Clean WhatsApp Number",
+      "parameters": {},
+      "position": [
+        2336,
+        320
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "950fd5e6-df76-4ede-8cef-f0bf83e96d03",
+      "name": "Check valid whatsapp number Using Rapiwa1",
+      "parameters": {},
+      "position": [
+        2608,
+        320
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "384a2bfb-85ed-4d73-8918-db5443707362",
+      "name": "Sticky Note10",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        2240,
+        -320
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "24bd6b89-6c12-429b-89c2-af26f7a5ec36",
+      "name": "Sticky Note9",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        2832,
+        -320
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "6e674ebc-6552-4b42-acdb-1953f7c070d7",
+      "name": "Sticky Note12",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        3280,
+        -320
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "426ebbd2-7716-4760-b482-780ac36a958d",
+      "name": "Sticky Note13",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        3280,
+        384
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "645ed438-a1ca-4158-bb3d-2f304aa337d5",
+      "name": "Wait",
+      "parameters": {},
+      "position": [
+        3680,
+        448
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "6c474e54-eb3c-4fcd-b455-948322cd0121"
+    },
+    {
+      "id": "7c761688-bd05-465e-80f2-651b03f8f438",
+      "name": "If",
+      "parameters": {},
+      "position": [
+        2976,
+        320
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "",
+      "name": "Change State of Rows in Unverified & Not Sent",
+      "parameters": {},
+      "position": [
+        3440,
+        448
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6
+    },
+    {
+      "id": "416c0533-1aad-4885-a607-17b5770d67e2",
+      "name": "Send Message Using Rapiwa",
+      "parameters": {},
+      "position": [
+        3440,
+        144
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "d4a7a2df-6518-4ade-ad00-e833c254d847",
+      "name": "Change State of Rows in Verified & Sent",
+      "parameters": {},
+      "position": [
+        3680,
+        144
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6
+    },
+    {
+      "id": "3d0e7cb5-1c19-4366-a252-432f3406b875",
+      "name": "Sticky Note1",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        1072,
+        -320
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "b7e88ae6-6136-41f7-aa18-5eba05dbe026",
+      "name": "Sticky Note2",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        1408,
+        -320
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "821172b6-321e-4c9d-93c8-078ef48821c4",
+      "name": "Clean Webhooks Response Data",
+      "parameters": {},
+      "position": [
+        1936,
+        320
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "e25c79ad-1ed7-47d9-a0c2-4eccd744c77b",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        -304,
+        -320
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "832d90a7-fdde-4bb0-a7ea-7f10259825dd",
+      "name": "Sticky Note3",
+      "parameters": {
+        "content": ""
+      },
+      "position": [
+        1072,
+        -496
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

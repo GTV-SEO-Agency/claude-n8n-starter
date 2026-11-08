@@ -1,0 +1,559 @@
+{
+  "active": true,
+  "connections": {
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "index": 0,
+            "node": "Supabase Vector Store1",
+            "type": "ai_document"
+          }
+        ]
+      ]
+    },
+    "Default Data Loader1": {
+      "ai_document": [
+        [
+          {
+            "index": 0,
+            "node": "Supabase Vector Store2",
+            "type": "ai_document"
+          }
+        ]
+      ]
+    },
+    "Delete Row(s)": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set ID 1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Download File 1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Supabase Vector Store1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Downloading File": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Supabase Vector Store2",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "index": 0,
+            "node": "Supabase Vector Store2",
+            "type": "ai_embedding"
+          },
+          {
+            "index": 0,
+            "node": "Supabase1",
+            "type": "ai_embedding"
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "index": 0,
+            "node": "Supabase Vector Store1",
+            "type": "ai_embedding"
+          }
+        ]
+      ]
+    },
+    "File Updated": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Delete Row(s)",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Keep First ID": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Download File 1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "New File": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set ID",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "RAG Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "index": 0,
+            "node": "RAG Agent",
+            "type": "ai_memory"
+          }
+        ]
+      ]
+    },
+    "RAG Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Set ID": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Downloading File",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Set ID 1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Keep First ID",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Supabase1": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "RAG Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "RAG Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "at2vdGTdguLAMJkM",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "RAG Workflow auto update & nhiều file",
+  "nodes": [
+    {
+      "id": "d27d878f-3a67-41e5-9c01-2b73554b928d",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": "gpt-4.1-mini",
+        "options": {}
+      },
+      "position": [
+        1248,
+        16
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1
+    },
+    {
+      "id": "98dc2256-ad0b-4b6e-9c34-61c6151607b1",
+      "name": "RAG Agent",
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistant. You will use the superbase1 Tool to retrieve relevant information and respond to the user's query."
+        },
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}"
+      },
+      "position": [
+        1472,
+        -224
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    },
+    {
+      "id": "f03b0ff2-cbec-4a94-9924-a3a5c991adfd",
+      "name": "Downloading File",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "download",
+        "options": {
+          "googleFileConversion": {
+            "conversion": {
+              "docsToFormat": "text/plain"
+            }
+          }
+        }
+      },
+      "position": [
+        1424,
+        272
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "454475d2-6393-4f7d-9fff-4b65ebf5cdef",
+      "name": "Embeddings OpenAI",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        1536,
+        464
+      ],
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "857fca97-61c3-4e36-abc8-dfd0d1bc9a52",
+      "name": "Set ID",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "02e314e8-2989-4381-a528-01d242fa6f9a",
+              "name": "ID",
+              "type": "string",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        1168,
+        272
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "adbc85d7-a0ff-487d-9d1d-58098a78ce75",
+      "name": "Postgres Chat Memory",
+      "parameters": {
+        "contextWindowLength": 10,
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}"
+      },
+      "position": [
+        1488,
+        0
+      ],
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "",
+      "name": "Default Data Loader1",
+      "parameters": {
+        "dataType": "binary",
+        "options": {}
+      },
+      "position": [
+        2000,
+        448
+      ],
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "ad2fc8cc-483e-4d6d-9cad-f5eaa6bf352f",
+      "name": "Supabase Vector Store2",
+      "parameters": {
+        "mode": "insert",
+        "options": {
+          "queryName": "match_documents"
+        },
+        "tableName": {
+          "__rl": true,
+          "cachedResultName": "documents",
+          "mode": "list",
+          "value": "documents"
+        }
+      },
+      "position": [
+        1744,
+        272
+      ],
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "ac2b6e09-7191-4671-b207-d923add360c1",
+      "name": "Supabase1",
+      "parameters": {
+        "includeDocumentMetadata": false,
+        "mode": "retrieve-as-tool",
+        "options": {},
+        "tableName": {
+          "__rl": true,
+          "cachedResultName": "documents",
+          "mode": "list",
+          "value": "documents"
+        },
+        "toolDescription": "Call this tool to look up the HR policy of the company"
+      },
+      "position": [
+        1696,
+        16
+      ],
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "ac9e73f0-bdf8-478f-a48b-1db388baaa2d",
+      "name": "File Updated",
+      "parameters": {
+        "event": "fileUpdated",
+        "folderToWatch": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {},
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder"
+      },
+      "position": [
+        688,
+        656
+      ],
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "4e656472-77bb-4ad4-96d1-5b9ea88b66ae",
+      "name": "Supabase Vector Store1",
+      "parameters": {
+        "mode": "insert",
+        "options": {
+          "queryName": "match_documents"
+        },
+        "tableName": {
+          "__rl": true,
+          "cachedResultName": "documents",
+          "mode": "list",
+          "value": "documents"
+        }
+      },
+      "position": [
+        1792,
+        656
+      ],
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1
+    },
+    {
+      "id": "d8263e45-fb44-4e27-8b54-c1310cebc7c0",
+      "name": "Embeddings OpenAI1",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        1680,
+        864
+      ],
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "b09ba79b-1b29-428a-a7af-4bf8109cb75e",
+      "name": "Delete Row(s)",
+      "parameters": {
+        "filterString": "=metadata->>file_id=like.*{{ $json.id }}*",
+        "filterType": "string",
+        "operation": "delete",
+        "tableId": "documents"
+      },
+      "position": [
+        896,
+        656
+      ],
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1
+    },
+    {
+      "id": "982abdf3-ab3d-44ae-8ebf-679f35f3359f",
+      "name": "Keep First ID",
+      "parameters": {},
+      "position": [
+        1264,
+        656
+      ],
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1
+    },
+    {
+      "id": "9a240158-adaf-40eb-9334-64c0c73226e8",
+      "name": "When chat message received",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        1136,
+        -224
+      ],
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "webhookId": "bba27081-9227-4be7-bc0a-ce22dafdf900"
+    },
+    {
+      "id": "45651ea3-071d-4d42-9fcb-549607ca2481",
+      "name": "New File",
+      "parameters": {
+        "event": "fileCreated",
+        "folderToWatch": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {},
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder"
+      },
+      "position": [
+        864,
+        272
+      ],
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "9e2a4736-ccd9-4612-a4ec-47d46ec918ac",
+      "name": "Set ID 1",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b4433ac7-0b70-4405-a564-f3f78f784470",
+              "name": "file_id",
+              "type": "string",
+              "value": "={{ $('File Updated').item.json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        1088,
+        656
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "f91f585c-dd77-48a9-8fb2-016c47ffddbb",
+      "name": "Download File 1",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "download",
+        "options": {
+          "googleFileConversion": {
+            "conversion": {
+              "docsToFormat": "text/plain"
+            }
+          }
+        }
+      },
+      "position": [
+        1504,
+        656
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "79ce880c-b127-47b9-b98d-ac24f29102d2",
+      "name": "Default Data Loader",
+      "parameters": {
+        "dataType": "binary",
+        "options": {}
+      },
+      "position": [
+        2048,
+        880
+      ],
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

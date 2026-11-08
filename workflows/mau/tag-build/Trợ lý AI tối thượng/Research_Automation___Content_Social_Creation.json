@@ -1,0 +1,300 @@
+{
+  "active": false,
+  "connections": {
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Content Creator & Research Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Content Creator & Research Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Response",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Try Again",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Docs  - Learn about Vincent Do Writing stlye": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Creator & Research Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update lên Google sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Tavily": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Content Creator & Research Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Update lên Google sheet": {
+      "main": [
+        []
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Content Creator & Research Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "ydCpDamqRmLhnSyx",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Research Automation - Content Social Creation",
+  "nodes": [
+    {
+      "id": "0bc6e017-fb60-40f0-8253-f27a03ba0911",
+      "name": "Tavily",
+      "parameters": {
+        "jsonBody": "{\n    \"api_key\": \"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\",\n    \"query\": \"{searchTerm}\",\n    \"search_depth\": \"basic\",\n    \"include_answer\": true,\n    \"topic\": \"news\",\n    \"include_raw_content\": true,\n    \"max_results\": 3\n} ",
+        "method": "POST",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "description": "What the user has requested to write a blog about",
+              "name": "searchTerm",
+              "type": "string"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "toolDescription": "Use this tool to search the internet",
+        "url": "https://api.tavily.com/search"
+      },
+      "position": [
+        -460,
+        440
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "52ea4cf4-edf1-4dde-9406-96f12f63367a",
+      "name": "Anthropic Chat Model",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        -660,
+        340
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "a161dab7-12e9-4586-9e28-14139eced19e",
+      "name": "Response",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "",
+              "name": "response",
+              "type": "string",
+              "value": "={{ $json.output }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        0,
+        -20
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "ee8cca09-7000-4898-ac1a-5e202616db44",
+      "name": "Try Again",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f2a8ff2d-6b59-4ad6-a2e7-8705354f4105",
+              "name": "response",
+              "type": "string",
+              "value": "Error occurred. Please try again."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        0,
+        180
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "85ac6b9d-38c2-4dee-a5b8-298d129c063e",
+      "name": "When Executed by Another Workflow",
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "position": [
+        -700,
+        80
+      ],
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "fe9821ba-a386-485c-9ad1-bec1ce186512",
+      "name": "Content Creator & Research Agent",
+      "onError": "continueErrorOutput",
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Overview\nYou are a professional social media content creator and researcher specializing in crafting engaging, well-structured, and AI-enhanced content for Facebook profile posts. Your expertise lies in producing compelling content that resonates with Vietnamese-speaking professionals, including CEOs, SMEs, marketers, content marketers, and SEO specialists aged 20-35.\n\n## Content Style and Tone\nAnalyze the provided Google Docs file containing examples of previous Facebook posts to understand the unique writing style, tone, and content preferences. Emulate this style in all generated content to maintain consistency and authenticity. Key characteristics to incorporate:\n- **Professional & expert-driven**: Showcase deep industry knowledge with well-researched insights.\n- **Authoritative & thought-provoking**: Offer valuable perspectives, establish credibility, and position the writer as a leader in the field.\n-  **Friendly & conversational**: Write in a way that feels natural, like a knowledgeable mentor sharing insights with peers.\n- **Humorous & engaging**: Where appropriate, use light humor, relatable analogies, and witty remarks to keep the content enjoyable and memorable.\n\n## Main Tasks\n1. **Content Creation**: Develop concise, compelling, and engaging Facebook posts that align with the analyzed style and resonate with the target audience. Ensure content is optimized for readability and emotional impact, maintaining originality and relevance.\n2. **Trend Research and Summarization**: Utilize the Tavily tool to research current trends, viral content, and industry updates. Summarize findings and craft posts under 250 words that capture attention and stimulate discussion.\n\n## Tools\n- **Tavily**: Employ this tool to search the web for up-to-date, relevant information to inform and enhance your content creation.\n- **Google Docs  - Learn about Vincent Do Writing stlye**: Use this to learn and see examples of content facebook post that I have written.\n\n## Social Content Requirements\n- **Language**: All content must be written in Vietnamese.\n- **Formatting**:\n  - Use short, impactful sentences with appropriate line breaks for readability.\n  - Incorporate emojis and hashtags where suitable to enhance engagement and visibility.\n  - Include clear calls-to-action to prompt audience interaction.\n- **Structure**: Apply storytelling techniques, emotional triggers, or provocative questions to foster engagement.\n- **Brand Alignment**: Ensure the tone and style align with the intended brand or personal branding, reflecting the preferences identified in the analyzed Google Docs examples.\n - **Engagement Focus**: Each post should end with a thought-provoking **question** to drive engagement.\n- **Readability**: Content must be structured into short paragraphs for optimal mobile experience.\n- **Hashtags**: Include **3 relevant hashtags** at the end of each post.\n- [add power words for the content]\n\n## Output Requirements\n- **Language**: Vietnamese\n- **Length**: Each post should be less than 250 words.\n- **Style Consistency**: Adhere to the writing style and tone derived from the provided Google Docs examples to ensure consistency with previous content.\n"
+        },
+        "promptType": "define",
+        "text": "={{ $json.query}}"
+      },
+      "position": [
+        -440,
+        80
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    },
+    {
+      "id": "6b38620c-f5ff-4b32-ac06-253bf4d0f504",
+      "name": "Google Docs  - Learn about Vincent Do Writing stlye",
+      "parameters": {
+        "documentURL": "",
+        "operation": "get"
+      },
+      "position": [
+        -160,
+        420
+      ],
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2
+    },
+    {
+      "id": "f67f9966-a666-4d79-b0f7-bdfe383e7ad5",
+      "name": "Update lên Google sheet",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "ổn chứ?"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Yêu cầu",
+              "id": "Yêu cầu",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Content",
+              "id": "Content",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Link post",
+              "id": "Link post",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Others Link / Information",
+              "id": "Others Link / Information",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Content": "={{ $('Content Creator & Research Agent').item.json.output }}",
+            "Yêu cầu": "={{ $('When Executed by Another Workflow').item.json.query }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        220,
+        -20
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

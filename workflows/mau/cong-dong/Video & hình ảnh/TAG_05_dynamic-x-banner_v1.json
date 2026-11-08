@@ -1,0 +1,369 @@
+{
+  "connections": {
+    "Crop": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Resize1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Edit Image": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "HTTP Request",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch bg": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Merge",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch new followers": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Item Lists",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetching images": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Resize",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Function": {
+      "main": [
+        [
+          {
+            "index": 1,
+            "node": "Merge",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Item Lists": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Fetching images",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Edit Image",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Fetch new followers",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Resize": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Crop",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Resize1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Function",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_05_dynamic-x-banner_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Ảnh bìa X đổi theo dữ liệu\n**Làm gì:** Tự vẽ ảnh bìa mới (avatar người theo dõi gần nhất) và cập nhật lên X theo lịch.\n**Trigger:** Bấm tay (Execute workflow)\n**Credential cần:** API key (Header Auth), oAuth1Api\n**Chi phí ước:** Gần 0.\n**Mở rộng gợi ý:** Ví dụ vui về sinh ảnh động; áp cho banner sự kiện đếm ngược.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/Instagram_Twitter_Social_Media/Create%20dynamic%20Twitter%20profile%20banner.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -340,
+        -140
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "name": "On clicking 'execute'",
+      "parameters": {},
+      "position": [
+        260,
+        210
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "name": "Fetch new followers",
+      "parameters": {
+        "authentication": "headerAuth",
+        "options": {},
+        "url": "https://api.twitter.com/2/users/{YOUR_USER_ID}/followers?user.fields=profile_image_url&max_results=3"
+      },
+      "position": [
+        460,
+        210
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1
+    },
+    {
+      "name": "Item Lists",
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "position": [
+        660,
+        210
+      ],
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 1
+    },
+    {
+      "name": "Function",
+      "parameters": {
+        "functionCode": "const binary = {};\nfor (let i=0; i < items.length; i++) {\n binary[`data${i}`] = items[i].binary.avatar;\n}\n\nreturn [\n {\n json: {\n numIcons: items.length,\n },\n binary,\n }\n];\n"
+      },
+      "position": [
+        1660,
+        210
+      ],
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1
+    },
+    {
+      "name": "Merge",
+      "parameters": {
+        "mode": "mergeByIndex"
+      },
+      "position": [
+        1910,
+        110
+      ],
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 1
+    },
+    {
+      "name": "Fetching images",
+      "parameters": {
+        "dataPropertyName": "avatar",
+        "options": {},
+        "responseFormat": "file",
+        "url": "={{$json[\"profile_image_url\"].replace('normal','400x400')}}"
+      },
+      "position": [
+        860,
+        210
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1
+    },
+    {
+      "name": "Fetch bg",
+      "parameters": {
+        "dataPropertyName": "bg",
+        "options": {},
+        "responseFormat": "file",
+        "url": "{TEMPLATE_IMAGE_URL}"
+      },
+      "position": [
+        1660,
+        -40
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1
+    },
+    {
+      "name": "Resize",
+      "parameters": {
+        "dataPropertyName": "avatar",
+        "height": 200,
+        "operation": "resize",
+        "options": {},
+        "width": 200
+      },
+      "position": [
+        1060,
+        210
+      ],
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1
+    },
+    {
+      "name": "Crop",
+      "parameters": {
+        "dataPropertyName": "avatar",
+        "operation": "multiStep",
+        "operations": {
+          "operations": [
+            {
+              "backgroundColor": "#000000ff",
+              "height": 200,
+              "operation": "create",
+              "width": 200
+            },
+            {
+              "color": "#ffffff00",
+              "endPositionX": 25,
+              "endPositionY": 50,
+              "operation": "draw",
+              "primitive": "circle",
+              "startPositionX": 100,
+              "startPositionY": 100
+            },
+            {
+              "dataPropertyNameComposite": "avatar",
+              "operation": "composite",
+              "operator": "In"
+            }
+          ]
+        },
+        "options": {
+          "format": "png"
+        }
+      },
+      "position": [
+        1260,
+        210
+      ],
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1
+    },
+    {
+      "name": "Edit Image",
+      "parameters": {
+        "dataPropertyName": "bg",
+        "operation": "multiStep",
+        "operations": {
+          "operations": [
+            {
+              "dataPropertyNameComposite": "data0",
+              "operation": "composite",
+              "positionX": 1000,
+              "positionY": 375
+            },
+            {
+              "dataPropertyNameComposite": "data1",
+              "operation": "composite",
+              "positionX": 1100,
+              "positionY": 375
+            },
+            {
+              "dataPropertyNameComposite": "data2",
+              "operation": "composite",
+              "positionX": 1200,
+              "positionY": 375
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        2110,
+        110
+      ],
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1
+    },
+    {
+      "name": "Resize1",
+      "parameters": {
+        "dataPropertyName": "avatar",
+        "height": 75,
+        "operation": "resize",
+        "options": {},
+        "width": 75
+      },
+      "position": [
+        1450,
+        210
+      ],
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1
+    },
+    {
+      "name": "HTTP Request",
+      "parameters": {
+        "authentication": "oAuth1",
+        "binaryPropertyName": "banner:bg",
+        "jsonParameters": true,
+        "options": {
+          "bodyContentType": "multipart-form-data"
+        },
+        "requestMethod": "POST",
+        "sendBinaryData": true,
+        "url": "https://api.twitter.com/1.1/account/update_profile_banner.json"
+      },
+      "position": [
+        2310,
+        110
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

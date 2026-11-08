@@ -1,0 +1,218 @@
+{
+  "connections": {
+    "When you click Test workflow": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Your idea, video and platforms",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Write a native caption per platform": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Publish to every connected account",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Your idea, video and platforms": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Write a native caption per platform",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_05_publish-video-tiktok-instagram-youtube_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Một video đăng ba nền tảng (TikTok, Instagram, YouTube)\n**Làm gì:** Đăng native một lần lên ba kênh qua PostWire.\n**Trigger:** Bấm tay (Execute workflow)\n**Credential cần:** Không cần\n**Chi phí ước:** PostWire trả phí.\n**Mở rộng gợi ý:** So với Blotato trong video của TAG.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/Instagram_Twitter_Social_Media/Publish%20one%20video%20natively%20to%20TikTok%20Instagram%20and%20YouTube%20with%20PostWire.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -1500,
+        -80
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "a1111111-1111-4111-8111-111111111111",
+      "name": "When you click Test workflow",
+      "parameters": {},
+      "position": [
+        -260,
+        300
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "a2222222-2222-4222-8222-222222222222",
+      "name": "Your idea, video and platforms",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1",
+              "name": "idea",
+              "type": "string",
+              "value": "Announce that our AI meal planner now builds a full week of recipes from one photo of your fridge. Friendly, build-in-public tone."
+            },
+            {
+              "id": "f2",
+              "name": "video_url",
+              "type": "string",
+              "value": "https://example.com/your-vertical-video.mp4"
+            },
+            {
+              "id": "f3",
+              "name": "platforms",
+              "type": "array",
+              "value": "={{ [\"tiktok\", \"instagram\", \"youtube\"] }}"
+            },
+            {
+              "id": "f4",
+              "name": "brand_voice",
+              "type": "string",
+              "value": "Plain language, first person, no hype, at most one emoji."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -40,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "a3333333-3333-4333-8333-333333333333",
+      "name": "Write a native caption per platform",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={{ JSON.stringify({ prompt: $json.idea, platforms: $json.platforms, media_url: $json.video_url, brand_voice: $json.brand_voice }) }}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://postwire.io/api/generate"
+      },
+      "position": [
+        200,
+        300
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "a4444444-4444-4444-8444-444444444444",
+      "name": "Publish to every connected account",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={{ JSON.stringify({ platforms: $('Your idea, video and platforms').item.json.platforms, video_url: $('Your idea, video and platforms').item.json.video_url, per_platform: $json.drafts, options: { tiktok: { privacy_level: 'SELF_ONLY' } } }) }}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://postwire.io/api/post"
+      },
+      "position": [
+        440,
+        300
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "a5555555-5555-4555-8555-555555555555",
+      "name": "About this template",
+      "parameters": {
+        "color": 3,
+        "content": "## Turn one video into native TikTok, Instagram and YouTube posts\n\n### Who's it for\nCreators, solo founders and small agencies who publish the same video to several networks and are tired of rewriting the caption three times — or of pasting the identical text everywhere and watching it underperform.\n\n### What it does\nYou give it one idea and one video URL. PostWire's Smart Distribute writes a **native caption for each network** — the right length, hashtags, SEO and format per platform — and then publishes the video to every connected account in a single call. TikTok, Instagram, YouTube, Facebook, LinkedIn, X, Bluesky, Mastodon, Telegram, Discord and Reddit are supported.\n\n### How to set up\n1. Create a free PostWire account at https://postwire.io/dashboard.html (1 brand, 30 posts/month, no card) and connect your social accounts there with OAuth.\n2. Copy your API key from the dashboard.\n3. In n8n, create a **Header Auth** credential: name `Authorization`, value `Bearer <YOUR_API_KEY>`.\n4. Select that credential on both HTTP Request nodes.\n5. Edit the **Your idea, video and platforms** node with your own idea, video URL and networks.\n\n### Requirements\n- A PostWire API key (free tier works).\n- A publicly reachable video URL (MP4). TikTok and YouTube reject text-only or photo posts.\n\n### How to customize\n- Change `platforms` to any mix of the supported networks.\n- Swap the manual trigger for a Schedule, RSS or Google Sheets trigger to run it unattended.\n- To queue a post for later instead of publishing now, call `POST /api/schedule` with a `run_at` timestamp.\n- `brand_voice` is free text and steers every caption at once.",
+        "height": 760,
+        "width": 520
+      },
+      "position": [
+        -900,
+        120
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "a6666666-6666-4666-8666-666666666666",
+      "name": "Step 1",
+      "parameters": {
+        "color": 7,
+        "content": "### 1. Your input\nThe only node you need to edit.\n\n`video_url` must be a public MP4 link — TikTok and YouTube will not accept a photo or text-only post.",
+        "height": 220,
+        "width": 300
+      },
+      "position": [
+        -80,
+        20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "a7777777-7777-4777-8777-777777777777",
+      "name": "Step 2",
+      "parameters": {
+        "color": 7,
+        "content": "### 2. One idea → a caption per network\nSmart Distribute returns a `drafts` object keyed by platform, each with the text (and title and tags for YouTube) written for that network's rules.",
+        "height": 220,
+        "width": 300
+      },
+      "position": [
+        240,
+        20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "a8888888-8888-4888-8888-888888888888",
+      "name": "Step 3",
+      "parameters": {
+        "color": 7,
+        "content": "### 3. Publish everywhere at once\nReturns one result per network, each with the post URL or the exact error.\n\nTikTok starts as `SELF_ONLY` so your first test run stays private — change it to `PUBLIC_TO_EVERYONE` when you are happy.",
+        "height": 260,
+        "width": 320
+      },
+      "position": [
+        560,
+        20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

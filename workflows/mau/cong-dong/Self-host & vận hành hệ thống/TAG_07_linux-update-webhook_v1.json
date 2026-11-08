@@ -1,0 +1,114 @@
+{
+  "connections": {
+    "Execute a command": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond to Webhook",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Execute a command",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_07_linux-update-webhook_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Cập nhật Linux qua webhook\n**Làm gì:** Bấm một link, VPS tự chạy apt update và báo kết quả.\n**Trigger:** Webhook\n**Credential cần:** Basic Auth, SSH, SSH tới VPS\n**Chi phí ước:** 0 đồng.\n**Mở rộng gợi ý:** Lên lịch tuần; gộp với watchdog ổ đĩa.\n\n---\n**Nguồn:** Kho awesome-n8n-templates (Enes Cingoz tổng hợp, giấy phép CC BY 4.0)\nhttps://github.com/enescingoz/awesome-n8n-templates/blob/main/devops/linux-update-via-webhook.json\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        -632,
+        -484
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "ab983738-8b2e-4388-b9e2-8849a307cd18",
+      "name": "Webhook",
+      "parameters": {
+        "authentication": "basicAuth",
+        "httpMethod": "POST",
+        "options": {},
+        "path": "update",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        0,
+        -16
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "webhookId": "06dec1b4-a026-43f6-8af9-aa71edc18c9d"
+    },
+    {
+      "alwaysOutputData": true,
+      "executeOnce": false,
+      "id": "d75fdbb3-3768-463d-8c24-08e183962ef3",
+      "name": "Execute a command",
+      "parameters": {
+        "command": "sudo apt update && sudo apt upgrade -y"
+      },
+      "position": [
+        224,
+        -16
+      ],
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1
+    },
+    {
+      "id": "b6b13f8b-28fe-487f-b65d-8351f1c91648",
+      "name": "Respond to Webhook",
+      "parameters": {
+        "options": {},
+        "respondWith": "text",
+        "responseBody": "={{ $json.stdout }}"
+      },
+      "position": [
+        448,
+        -16
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4
+    },
+    {
+      "id": "01a69511-2a7a-41e5-b709-9f3731530402",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "## What it does:\nThis workflow is built for updating your linux system with a single API Request which can be automated in web interfaces or shortcut app...\n## Setup:\nAdd your credentials for basic auth and ssh\nCopy the custom webhook url and get started!\nExample:\n``` curl\ncurl -X POST -u \"username:password\" https://<your-domain>/update\n```\n## Info:\nThis workflow is built only for debian based systems but i think it is not too hard to change for your needs ;-)",
+        "height": 352,
+        "width": 672
+      },
+      "position": [
+        -32,
+        -384
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

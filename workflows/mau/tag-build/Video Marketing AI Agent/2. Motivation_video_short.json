@@ -1,0 +1,1185 @@
+{
+  "active": false,
+  "connections": {
+    "10 Secs1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Video",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "150 Secs1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Video",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "ElevenLabs": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Generate Image prompt": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Tạo image qua Flux",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Video": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Switch1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Tạo script video",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Sheets1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Lay Video",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Item List Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "Tạo script video",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    },
+    "Json2video creation": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "150 Secs1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Lay Video": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "YouTube",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "List element": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Json2video creation",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "upload Google Drive",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Wait 10 Seconds",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Lấy image1": {
+      "main": [
+        [
+          {
+            "index": 1,
+            "node": "Merge",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "List element",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Tạo script video",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Render Video": {
+      "main": [
+        []
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Sheets",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Google Sheets1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update Video Link",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "10 Secs1",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "10 Secs1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Tạo image qua Flux": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Tạo script video": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Merge",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Generate Image prompt",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait 10 Seconds": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "ElevenLabs",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Lấy image1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "YouTube": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Notification1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "share quyền": {
+      "main": [
+        []
+      ]
+    },
+    "upload Google Drive": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "share quyền",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "vu7RJfINqImqQgSZ",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Motivation video",
+  "nodes": [
+    {
+      "id": "fd375ca8-2109-461f-8672-d17d26ff7915",
+      "name": "Schedule Trigger",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "position": [
+        -1820,
+        120
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "c435dc61-ee2f-4412-aeb1-471d7728d7b6",
+      "name": "Google Sheets",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Production",
+              "lookupValue": "for production"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        -1600,
+        120
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "716aa313-de75-4b1d-931f-829239deca03",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "cachedResultName": "gpt-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {
+          "maxTokens": -1
+        }
+      },
+      "position": [
+        -1500,
+        360
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "63d7e6cf-2e43-4361-b8ee-4c15b1341099",
+      "name": "Item List Output Parser",
+      "parameters": {
+        "options": {
+          "numberOfItems": 6
+        }
+      },
+      "position": [
+        -1120,
+        340
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserItemList",
+      "typeVersion": 1
+    },
+    {
+      "id": "401a6eb9-5005-40bf-b6fa-cbf99eea4b11",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "## Video Ideas & Brief\n",
+        "height": 500,
+        "width": 880
+      },
+      "position": [
+        -1860,
+        20
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "e381e87a-83c1-4335-8a9a-28896c07c51f",
+      "name": "Tạo script video",
+      "parameters": {
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=## Role & Context:\n\nYou are a **direct motivational content creator** for US YouTube Shorts. You create **30-second powerful motivational content** (6 segments × 5 seconds) that delivers immediate impact through universal truths, powerful statements, and actionable wisdom rather than specific stories.\n\n## Core Variables System (6 Variables):\n\n### INPUT VARIABLES:\n1. **Theme** = Content focus (persistence, hard_work, success, mindset, relationships, leadership)\n2. **Video Format** = Content approach (motivational_speech, definition_based, universal_truths, transformation_call)  \n3. **Lesson Focus** = Core message to deliver\n4. **Character Type** = Audience persona (young_professional, student, entrepreneur, everyday_person)\n5. **Setting Type** = Visual context (office, urban, nature, educational, home)\n6. **Emotional Tone** = Energy level (inspiring, determined, peaceful, energetic, confident)\n\n## Content Style Guidelines:\n\n### MOTIVATIONAL_SPEECH Format:\n**Direct, powerful statements that push the audience**\n- **Segment 1**: Strong opening challenge/question\n- **Segment 2-3**: Contrasting statements (if you do this vs if you do that)\n- **Segment 4-5**: Building intensity and truth\n- **Segment 6**: Powerful conclusion/call to action\n\n### DEFINITION_BASED Format:\n**Defining what it means to be/have something**\n- **Segment 1**: \"Do you know what X is?\"\n- **Segment 2-5**: Multiple definitions building power\n- **Segment 6**: Ultimate definition/truth\n\n### UNIVERSAL_TRUTHS Format:\n**Stating powerful universal principles**\n- **Segment 1**: Universal acknowledgment\n- **Segment 2-5**: Building truths and realizations\n- **Segment 6**: Final powerful truth\n\n### TRANSFORMATION_CALL Format:\n**Calling for personal transformation**\n- **Segment 1**: Current state recognition\n- **Segment 2-3**: The shift/change needed\n- **Segment 4-5**: What transformation looks like\n- **Segment 6**: Become the change\n\n## Theme-Specific Content Direction:\n\n### PERSISTENCE Theme:\n- **Focus**: Never giving up, continuing despite challenges\n- **Key Messages**: Persistence beats talent, small steps daily, breakthrough comes after breaking point\n- **Tone**: Relentless, unwavering, determined\n- **Examples**: \"You haven't failed until you quit\", \"Every expert was once a beginner\"\n\n### HARD_WORK Theme:\n- **Focus**: Effort, dedication, grinding when others don't\n- **Key Messages**: Work while others sleep, no shortcuts, effort compounds\n- **Tone**: Intense, dedicated, disciplined\n- **Examples**: \"Success is earned in the dark\", \"Easy choices, hard life\"\n\n### SUCCESS Theme:\n- **Focus**: Achievement mindset, winning principles\n- **Key Messages**: Success habits, mindset of winners, what separates successful people\n- **Tone**: Confident, authoritative, inspiring\n- **Examples**: \"Success is a decision\", \"Champions do what others won't\"\n\n### MINDSET Theme:\n- **Focus**: Mental strength, perspective shifts, thinking patterns\n- **Key Messages**: Your thoughts create your reality, mindset determines outcome\n- **Tone**: Wise, powerful, transformational\n- **Examples**: \"Change your mind, change your life\", \"Your biggest enemy is your own thinking\"\n\n### RELATIONSHIPS Theme:\n- **Focus**: Connection, collaboration, people skills\n- **Key Messages**: People are your greatest asset, connection creates opportunity\n- **Tone**: Warm but powerful, collaborative strength\n- **Examples**: \"Your network is your net worth\", \"Alone you go fast, together you go far\"\n\n### LEADERSHIP Theme:\n- **Focus**: Leading self and others, influence, responsibility\n- **Key Messages**: Leadership is influence, lead by example, responsibility creates leaders\n- **Tone**: Authoritative, inspiring, responsible\n- **Examples**: \"Leaders are made, not born\", \"You don't need a title to lead\"\n\n## Writing Style Requirements:\n\n### Universal Language:\n- **Avoid specific names** (Anh Minh, Chị Mai, etc.)\n- **Use \"you\", \"we\", \"người ta\"** for universal appeal\n- **Speak directly to audience**\n- **No detailed scenarios** - focus on principles\n\n### Powerful Phrasing:\n- **Short, punchy statements**\n- **Contrasting structures** (if this, then that)\n- **Building intensity**\n- **Quotable wisdom**\n- **Action-oriented language**\n\n### English (US) Adaptation:\n- **Use impactful English (US) expressions**\n- **Cultural resonance** without specific cultural stories\n- **Universal truths** applicable to English (US) young adults\n- **Modern English (US) language** that feels natural\n\n## Segment Structure (30 seconds / 6 segments):\n\n### Template Structure:\n**Segment 1 (0-5s)**: [Powerful opening - question, challenge, or truth]\n**Segment 2 (5-10s)**: [Building the premise - what most people do]\n**Segment 3 (10-15s)**: [The contrast - what successful people do differently]\n**Segment 4 (15-20s)**: [Deeper truth - why this matters]\n**Segment 5 (20-25s)**: [The result - what happens when you apply this]\n**Segment 6 (25-30s)**: [Final powerful statement - call to action or ultimate truth]\n\n## Output Format:\n\n**Content Analysis**:\n- Theme: [Theme focus]\n- Format: [Content approach]\n- Character: [Audience type] \n- Tone: [Energy level]\n- Core Message: [Lesson Focus]\n\n**6-Segment Content**:\n\n**Segment 1 (0-5s)**: [Powerful hook - 12-15 words]\n**Segment 2 (5-10s)**: [Building premise - 12-15 words]\n**Segment 3 (10-15s)**: [The contrast - 12-15 words]\n**Segment 4 (15-20s)**: [Deeper truth - 12-15 words]\n**Segment 5 (20-25s)**: [The result - 12-15 words]\n**Segment 6 (25-30s)**: [Ultimate truth/call - 12-15 words]\n\n## Quality Standards:\n\n✅ **Direct Impact** - Every segment delivers immediate value\n✅ **Universal Appeal** - No specific stories, focus on principles\n✅ **Quotable Content** - Each segment could stand alone as wisdom\n✅ **Visual Compatible** - Each segment creates clear image opportunity\n✅ **Emotional Building** - Intensity builds toward powerful conclusion\n✅ **Cultural Relevance** - English (US) context without specific scenarios\n✅ **Action Oriented** - Inspires immediate behavior change\n✅ **Memorable** - Sticky phrases that audiences remember and share\n\nCertainly! Here's the **English-only version** of your quotes:\n\n\n## **Examples by Format:**\n\n### **Motivational Speech (Hard Work Theme):**\n\n1. \"Are you working while others are sleeping?\"\n2. \"Success doesn’t come when you want it; it comes when you're ready.\"\n3. \"People only see the results, not the process.\"\n4. \"The difference between dreams and reality is action.\"\n5. \"You have a choice: the pain of discipline or the pain of regret.\"\n6. \"Work hard today, enjoy freedom tomorrow.\"\n\n\n### **Definition Based (Success Theme):**\n\n1. \"Do you know what true success really means?\"\n2. \"Success isn't about never failing.\"\n3. \"Success is standing up every time you fall.\"\n4. \"Success is doing the right thing even when no one is watching.\"\n5. \"Success is turning what you have into what you want.\"\n6. \"Success is becoming the best version of yourself.\"\n\n"
+            }
+          ]
+        },
+        "promptType": "define",
+        "text": "=## Context:\n**6 Core Variables**:\n- Theme:  {{ $json.Theme }}\n- Video Format: {{ $json['Video/Content Format'] }}\n- Lesson Focus: {{ $json['Lesson Focus'] }}\n- Character Type: {{ $json.character_type }}\n- Setting Type: {{ $json.setting_type }}\n- Emotional Tone: {{ $json.emotional_tone }}\n\n## **Content Request**:\nCreate a 30-second English (US Native) YouTube Short motivational content (6 segments × 5 seconds) that:\n\n1. **Delivers direct impact** on the theme of [THEME]\n2. **Uses the format** of [VIDEO_FORMAT] approach\n3. **Targets** [CHARACTER_TYPE] audience with [EMOTIONAL_TONE] energy\n4. **Communicates** the core message of [LESSON_FOCUS]\n5. **Creates visual content** suitable for [SETTING_TYPE] imagery\n\n## **Style Requirements**:\n- No specific character names or detailed stories\n- Universal statements that apply to everyone\n- Powerful, quotable segments\n- Building intensity toward conclusion\n- **Each segment 9 - 11 words for 5-second timing (maximum 11 words and 72 characters max)**\n- **Each segment only have one comma and one period at the end to control the voice speed**\n- Modern US language for young adults\n- Direct motivational impact over narrative\n\nGenerate 6 powerful segments that deliver immediate value and inspire action."
+      },
+      "position": [
+        -1380,
+        120
+      ],
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5
+    },
+    {
+      "id": "e9558f2e-9301-4438-9d9e-dd776ec11d6b",
+      "name": "upload Google Drive",
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "name": "={{ $('Tạo image qua Flux').item.json.request_id }}",
+        "options": {}
+      },
+      "position": [
+        -580,
+        380
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "id": "d1eb75dc-4666-4d55-8bd8-a247e4e7a9ca",
+      "name": "share quyền",
+      "parameters": {
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
+        "operation": "share",
+        "options": {},
+        "permissionsUi": {
+          "permissionsValues": {
+            "allowFileDiscovery": true,
+            "role": "writer",
+            "type": "anyone"
+          }
+        }
+      },
+      "position": [
+        -220,
+        380
+      ],
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3
+    },
+    {
+      "alwaysOutputData": false,
+      "id": "3c514609-f4c9-4b27-99cc-6c166e2cb4ff",
+      "name": "Merge",
+      "parameters": {
+        "combineBy": "combineByPosition",
+        "mode": "combine",
+        "options": {}
+      },
+      "position": [
+        0,
+        20
+      ],
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3
+    },
+    {
+      "id": "4766ad90-8354-4682-9af9-44931611dec7",
+      "name": "List element",
+      "parameters": {
+        "jsCode": "return [\n  {\n    scene_titles: items.map(item => item.json.text),\n    image_urls: items.map(item => item.json.images[0].url) \n  }\n];"
+      },
+      "position": [
+        260,
+        20
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "executeOnce": true,
+      "id": "b44916ea-6481-49ed-9605-0dde07ddc091",
+      "name": "Render Video",
+      "parameters": {
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer <YOUR_API_KEY>"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "jsonBody": "={\n  \"template_id\": \"2d790ad4-89e0-4786-8027-450bbf1e292f\",\n  \"modifications\": {\n    \"background_image_1.source\": \"{{ $json.image_urls[0] }}\",\n    \"background_image_2.source\": \"{{ $json.image_urls[1] }}\",\n    \"background_image_3.source\": \"{{ $json.image_urls[2] }}\",\n    \"background_image_4.source\": \"{{ $json.image_urls[3] }}\",\n    \"background_image_5.source\": \"{{ $json.image_urls[4] }}\",\n    \"background_image_6.source\": \"{{ $json.image_urls[5] }}\",\n    \"Voiceover-SQB.source\": \"{{ $json.scene_titles[0] }}\",\n    \"Voiceover-BXB.source\": \"{{ $json.scene_titles[1] }}\",\n    \"Voiceover-M4X.source\": \"{{ $json.scene_titles[2] }}\",\n    \"Voiceover-RM9.source\": \"{{ $json.scene_titles[3] }}\",\n    \"Voiceover-9J6.source\": \"{{ $json.scene_titles[4] }}\",\n    \"Voiceover-R67.source\": \"{{ $json.scene_titles[5] }}\"\n  }\n}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "sendHeaders": true,
+        "specifyBody": "json",
+        "url": "https://api.creatomate.com/v1/renders"
+      },
+      "position": [
+        740,
+        -220
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "6b24a982-3211-47e3-aa77-a9a1bcef58c9",
+      "name": "Schedule Trigger1",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "position": [
+        140,
+        500
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "",
+      "name": "Google Sheets1",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status Publishing",
+              "lookupValue": "for publishing"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        300,
+        500
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "593ea485-2e36-4440-9ec0-26b265c8a0df",
+      "name": "YouTube",
+      "parameters": {
+        "categoryId": "27",
+        "operation": "upload",
+        "options": {
+          "description": "={{ $('Google Sheets1').item.json[\"Lesson Focus\"] }}",
+          "privacyStatus": "unlisted"
+        },
+        "regionCode": "US",
+        "resource": "video",
+        "title": "={{ $('Google Sheets1').item.json.Theme }}"
+      },
+      "position": [
+        600,
+        500
+      ],
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1
+    },
+    {
+      "id": "2d67c340-678e-42e0-b45f-08e330c7e810",
+      "name": "Sticky Note1",
+      "parameters": {
+        "content": "## Upload Youtube\n",
+        "height": 280,
+        "width": 820
+      },
+      "position": [
+        80,
+        400
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "878fa031-f6f0-443d-8dbe-5b8231bbae42",
+      "name": "Lay Video",
+      "parameters": {
+        "options": {},
+        "url": "={{ $json.Final_Output }}"
+      },
+      "position": [
+        460,
+        500
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "",
+      "name": "Update Video Link",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": true,
+              "display": true,
+              "displayName": "id",
+              "id": "id",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Theme",
+              "id": "Theme",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Video/Content Format",
+              "id": "Video/Content Format",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Lesson Focus",
+              "id": "Lesson Focus",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "character_type",
+              "id": "character_type",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "setting_type",
+              "id": "setting_type",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "emotional_tone",
+              "id": "emotional_tone",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Catption",
+              "id": "Catption",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Production",
+              "id": "Production",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Background music",
+              "id": "Background music",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status Publishing",
+              "id": "Status Publishing",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Final_Output",
+              "id": "Final_Output",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Final_Output": "={{ $json.movie.url }}",
+            "Status Publishing": "for publishing",
+            "id": "={{ $('Google Sheets').first().json.id }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        2040,
+        -20
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "6b95f0a8-e15c-40e5-a456-904a299320f2",
+      "name": "Generate Image prompt",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=**6 Core Variables**:\n- Theme:  {{ $('Google Sheets').item.json.Theme }}\n- Video Format: {{ $('Google Sheets').item.json['Video/Content Format'] }}\n- Lesson Focus: {{ $('Google Sheets').item.json['Lesson Focus'] }}\n- Character Type: {{ $('Google Sheets').item.json.character_type }}\n- Setting Type: {{ $('Google Sheets').item.json.setting_type }}\n- Emotional Tone: {{ $('Google Sheets').item.json.emotional_tone }}\n\n**Current Segment**:\n- Segment Number: {{ $itemIndex + 1 }} /6\n- Motivational Text: \"{{ $json.text }}\"\n\n**Universal Motivational Image Request**:\nCreate one detailed Flux Schnell AI model prompt for this motivational segment that:\n\n1. **Visualizes the universal concept** from the motivational text through symbolic imagery\n2. **Auto-generates visual elements** from the 6 core variables:\n   - Color palette from Theme psychology\n   - Visual archetype from Character Type\n   - Environmental context from Setting Type\n   - Energy level from Emotional Tone\n\n3. **Creates powerful motivation** through:\n   - Universal symbols that amplify the message\n   - Dramatic composition suitable for social media\n   - Inspirational imagery that builds emotional impact\n   - Visual metaphors that make the concept memorable\n\n4. **Maintains series consistency** while delivering segment-specific impact:\n   - Coherent visual style across all segments\n   - Building emotional intensity toward conclusion\n   - Theme-appropriate symbolic elements\n   - Professional motivational photography quality\n\nGenerate one complete image prompt that creates powerful visual support for this motivational message, optimized for Flux Schnell AI model generation.\n\n[output format and rule]:\n1. The output only contain the Image prompt in English.\n2. Text only, do not have markdown or other format.\n3. do not include the \"Flux Schnell AI model\" on the output and the aspect ratio of the image, since it will be configured directly.\n4. The prompt will less than 100 words\n",
+              "role": "system"
+            },
+            {
+              "content": "=## Role & Context:\n\nYou are a **universal motivational visual creator** for Flux Schnell AI model. You create powerful, symbolic images for **direct motivational content** (6 segments × 5 seconds) that focus on **universal inspiration** rather than specific character stories. Your visuals should amplify the motivational message through symbolic imagery, powerful compositions, and inspiring scenes.\n\n## 6 Core Variables Input:\n\n### PRIMARY VARIABLES:\n1. **Theme** = Content focus (persistence, hard_work, success, mindset, relationships, leadership)\n2. **Video Format** = Content approach (motivational_speech, definition_based, universal_truths, transformation_call)\n3. **Lesson Focus** = Core message\n4. **Character Type** = Audience persona (young_professional, student, entrepreneur, everyday_person)\n5. **Setting Type** = Visual context (office, urban, nature, educational, home)\n6. **Emotional Tone** = Energy level (inspiring, determined, peaceful, energetic, confident)\n\n### AUTO-GENERATED VISUAL ELEMENTS:\n\n#### Theme-Based Dark Color Psychology:\n\n1. persistence → \"Deep black #000000, steel blue #2C3E50, dark gray #34495E\" (gritty determination, relentless power)\n2. hard_work → \"Charcoal black #1C1C1C, dark navy #0B1426, muted blue #2E4057\" (grinding in darkness, serious effort)\nsuccess → \"Pure black #000000, platinum silver #95A5A6, subtle gold #B7950B\" (earned through darkness, refined power)\n3. mindset → \"Deep black #000000, dark purple #4A148C, midnight blue #0D1B2A\" (deep thinking, profound wisdom)\n4. relationships → \"Black #000000, dark teal #145A5A, muted gray #5D6D7E\" (serious connections, depth)\n5. leadership → \"Commanding black #000000, dark red #8B0000, steel gray #2F4F4F\" (authority through darkness, power).\n\n#### Universal Visual Archetypes (Not Specific Characters):\n\n1. young_professional → \"Silhouetted figure in business attire, representing ambition and drive\"\n2. student → \"Learning-focused imagery, books, growth symbols, knowledge pursuit\"\nentrepreneur → \"Innovation symbols, building/creating imagery, vision and opportunity\"\n3. everyday_person → \"Universal human elements, relatable daily moments, personal growth\"\n#### Motivational Visual Categories:\n\n### DARK POWER IMAGERY:\n- **Silhouettes against minimal light** (lone figure, dramatic contrast)\n- **Harsh shadows, dramatic lighting** (single light source, intense contrast)\n- **Black and white compositions** (timeless, serious, powerful)\n- **Underground/basement training** (raw, gritty, authentic grind)\n- **Night scenes, dark environments** (working in darkness, dedication)\n\n### INTENSE ENERGY IMAGERY:\n- **Dark storm clouds, lightning** (power through darkness)\n- **Shadowy figures in motion** (relentless action, unstoppable force)\n- **Harsh industrial settings** (steel, concrete, raw materials)\n- **Minimal lighting, maximum impact** (spotlight effect, dramatic focus)\n- **Black backgrounds with selective lighting** (isolation, focus, intensity)\n\n### GRITTY ACHIEVEMENT IMAGERY:\n- **Dark success symbols** (silhouetted podiums, shadowy victories)\n- **Minimal color, maximum impact** (black/white with single color accent)\n- **Raw, unpolished environments** (real struggle, authentic effort)\n- **Dramatic low-key lighting** (serious achievement, earned success)\n- **Monochromatic power compositions** (timeless, classic, intense)\n\n## Setting-Enhanced Symbolic Imagery:\n\n### OFFICE Setting (Professional Achievement):\n\"Modern minimalist office environment, glass surfaces reflecting determination, city skyline representing ambition, clean lines suggesting focus and clarity\"\n\n### URBAN Setting (Hustle & Opportunity):\n\"Dynamic city energy, movement and flow, neon lights suggesting endless possibility, urban architecture representing growth and building\"\n\n### NATURE Setting (Growth & Persistence):\n\"Natural power imagery, mountains representing challenges to overcome, flowing water suggesting persistence, trees symbolizing growth over time\"\n\n### EDUCATIONAL Setting (Knowledge & Wisdom):\n\"Clean learning environment, books and knowledge symbols, light representing understanding, organized space suggesting clarity of thought\"\n\n### HOME Setting (Personal Transformation):\n\"Intimate personal space, mirror reflections for self-improvement, comfortable yet purposeful environment, personal growth symbols\"\n\n## Segment Position Visual Progression (6 segments):\n\n### Emotional Arc for Motivational Content:\n- **Segment 1 (Challenge)**: Questioning, confronting current state\n- **Segment 2 (Recognition)**: Acknowledging the problem/opportunity  \n- **Segment 3 (Contrast)**: Showing the difference/choice\n- **Segment 4 (Truth)**: Deep realization moment\n- **Segment 5 (Result)**: Transformation/outcome visualization\n- **Segment 6 (Power)**: Ultimate truth/call to action energy\n\n### Visual Intensity Building:\n\n1. Segment 1-2: Contemplative, questioning energy\n2. Segment 3-4: Rising intensity, building power\n3. Segment 5-6: Peak energy, maximum impact\n## Format-Specific Visual Approaches:\n\n### MOTIVATIONAL_SPEECH Format:\n- **Strong contrast lighting** (dramatic shadows, powerful highlights)\n- **Dynamic compositions** (diagonal lines, upward movement)\n- **Intense energy** (motion blur, powerful poses)\n- **Bold symbolic elements** (fists, mountains, lightning)\n\n### DEFINITION_BASED Format:\n- **Clean, authoritative compositions** (centered, balanced)\n- **Symbolic representations** (abstract concepts made visual)\n- **Building complexity** (simple to complex visual elements)\n- **Iconic imagery** (easily recognizable symbols)\n\n### UNIVERSAL_TRUTHS Format:\n- **Timeless imagery** (universal symbols, natural elements)\n- **Philosophical compositions** (thoughtful, contemplative)\n- **Universal symbols** (light, paths, balance, harmony)\n- **Wisdom representations** (books, mentors, ancient symbols)\n\n### TRANSFORMATION_CALL Format:\n- **Before/after implications** (transformation suggested)\n- **Metamorphosis imagery** (change, evolution, growth)\n- **Action-oriented visuals** (movement, decision, change)\n- **Empowerment symbols** (strength, confidence, capability)\n\n## Flux Schnell Prompt Construction:\n\n### Template for Dark Motivational Content:\n**[DARK_SYMBOLIC_CONCEPT], [SILHOUETTED_FIGURE], [MINIMAL_LIGHTING], [BLACK_WHITE_COMPOSITION], [DRAMATIC_SHADOWS], [GRITTY_ENVIRONMENT], ultra detailed, photorealistic, dark cinematic style, low-key lighting, Flux Schnell AI model, 9:16 aspect ratio**\n\n### Technical Specifications:\n- **AI Model**: Flux Schnell AI model\n- **Format**: 9:16 vertical for YouTube Shorts\n- **Style**: \"Dark cinematic photography, low-key lighting, high contrast black and white, gritty motivational aesthetic\"\n- **Quality**: \"Ultra detailed, photorealistic, dramatic shadows, minimal color palette, serious tone\"\n- **Color Approach**: \"Monochromatic or dark blue/black palette, avoid bright colors, focus on contrast and shadows\"\n\n## Single Segment Processing:\n\n### Content Analysis Process:\n1. **Extract motivational concept** from segment text\n2. **Determine visual archetype** based on character type\n3. **Apply theme symbolism** for powerful imagery\n4. **Enhance with setting context** for environmental consistency\n5. **Build emotional intensity** appropriate for segment position\n\n### Output Format:\n\n**Segment Analysis**:\n- Motivational Concept: [Key concept to visualize]\n- Segment Position: [X]/6 ([Challenge/Recognition/Contrast/Truth/Result/Power])\n- Visual Archetype: [Universal representation needed]\n- Symbolic Elements: [Key symbols to include]\n\n**Auto-Generated Elements**:\n- Color Palette: [From Theme psychology]\n- Visual Energy: [From Emotional Tone]\n- Setting Context: [From Setting Type]\n- Format Approach: [From Video Format]\n\n**Flux Schnell Prompt**:\n[Complete universal motivational image prompt]\n\n## Example Processing:\n\n**INPUT**:\n- Segment: \"Thành công không phải là không bao giờ thất bại\"\n- Variables: Theme=\"success\", Video Format=\"definition_based\", Character Type=\"young_professional\", Setting Type=\"office\", Emotional Tone=\"confident\"\n- Position: 2/6 (Recognition phase)\n\n**ANALYSIS**:\n- Concept: Redefining success through resilience\n- Visual Archetype: Professional achievement through overcoming\n- Symbolic Elements: Rising from challenges, strength through adversity\n\n**OUTPUT PROMPT**:\n\"Silhouetted professional figure standing alone in dark office environment, single harsh light source from window creating dramatic shadows, black and white composition with minimal blue accent lighting, gritty low-key photography, high contrast shadows defining strength through adversity, deep black #000000 and steel blue #2C3E50 color scheme, dark cinematic style, ultra detailed, photorealistic, Flux Schnell AI model, 9:16 aspect ratio\"\n\n## Consistency Rules for Dark Series:\n\n✅ **Dark aesthetic consistency** - All images use black/white or dark blue/black palette\n✅ **Low-key lighting** - Dramatic shadows, minimal light sources throughout\n✅ **Gritty realism** - Raw, serious, no-nonsense visual approach\n✅ **High contrast** - Strong blacks and selective lighting for impact\n✅ **Monochromatic power** - Limited color palette for serious tone\n✅ **Dramatic shadows** - Use darkness to create depth and intensity\n✅ **Minimal brightness** - Avoid colorful, cheerful, bright imagery\n✅ **Serious motivational tone** - Every image amplifies intensity and determination"
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "GPT-4.1",
+          "mode": "list",
+          "value": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "position": [
+        -820,
+        -200
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8
+    },
+    {
+      "id": "f6346689-b5f3-4906-907e-ecb8d3f9e7ab",
+      "name": "Sticky Note4",
+      "parameters": {
+        "color": 4,
+        "content": "## Tạo Images",
+        "height": 220,
+        "width": 840
+      },
+      "position": [
+        -940,
+        60
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "c8ecef5a-a76d-4e2c-9a62-98063fbf5fb7",
+      "name": "Wait1",
+      "parameters": {
+        "amount": 15
+      },
+      "position": [
+        -580,
+        120
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "e8a2b29e-7051-479d-a2dc-a7368be4de9a"
+    },
+    {
+      "id": "241693a7-be4b-4817-ac19-9b5b1297e718",
+      "name": "Lấy image1",
+      "parameters": {
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<YOUR_API_KEY>"
+            }
+          ]
+        },
+        "options": {},
+        "sendHeaders": true,
+        "url": "=https://queue.fal.run/fal-ai/flux/requests/{{ $json.request_id }}"
+      },
+      "position": [
+        -360,
+        120
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "8dc70714-1129-4a5d-b83c-968724a7a44b",
+      "name": "ElevenLabs",
+      "parameters": {
+        "additionalOptions": {
+          "model": {
+            "__rl": true,
+            "cachedResultName": "Eleven Turbo v2.5",
+            "mode": "list",
+            "value": "eleven_turbo_v2_5"
+          },
+          "voiceSettings": "{\n  \"stability\": 1,\n  \"similarity_boost\": 0.63,\n  \"speed\": 0.82\n}"
+        },
+        "requestOptions": {},
+        "resource": "speech",
+        "text": "={{ $('Tạo script video').item.json.text }}",
+        "voice": {
+          "__rl": true,
+          "cachedResultName": "VietNam DangTungDuy 2",
+          "mode": "list",
+          "value": "3VnrjnYrskPMDsapTr8X"
+        }
+      },
+      "position": [
+        -300,
+        580
+      ],
+      "type": "@elevenlabs/n8n-nodes-elevenlabs.elevenLabs",
+      "typeVersion": 1
+    },
+    {
+      "id": "0f447f9f-d8f1-4397-ab48-6dbc2dc1f010",
+      "name": "Loop Over Items",
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "position": [
+        -840,
+        560
+      ],
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3
+    },
+    {
+      "id": "632cbe41-87d2-4d42-9270-5529dc0e9bc0",
+      "name": "Wait 10 Seconds",
+      "parameters": {
+        "amount": 10,
+        "unit": "seconds"
+      },
+      "position": [
+        -560,
+        580
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "webhookId": "52badac5-ec8e-4155-bef4-851c4d4c03fb"
+    },
+    {
+      "id": "f8ff12c3-a881-4c99-bd5b-ea7a1497fc5e",
+      "name": "Tạo image qua Flux",
+      "parameters": {
+        "body": "={\n     \"prompt\": \"{{ $json.message.content }}\",\n\"imagesize\":{\n\"width\": 540, \n\"height\": 960}\n   }\n",
+        "contentType": "raw",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<YOUR_API_KEY>"
+            }
+          ]
+        },
+        "method": "POST",
+        "options": {},
+        "rawContentType": "application/json",
+        "sendBody": true,
+        "sendHeaders": true,
+        "url": "https://queue.fal.run/fal-ai/flux/schnell"
+      },
+      "position": [
+        -800,
+        120
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "08d9f2de-50ed-4afa-b38b-ea0dc6672410",
+      "name": "Notification1",
+      "parameters": {
+        "emailType": "text",
+        "message": "=Hi,\n\nA new short has been created and is awaiting your approval.\n\nIt is called \"{{ $('Google Sheets1').item.json.Theme }} - {{ $('Google Sheets1').item.json.Catption }}\".\n\nYou can view it here: https://www.youtube.com/shorts/{{ $json.uploadId }}\n\nCheers!",
+        "options": {
+          "appendAttribution": false
+        },
+        "sendTo": "you@example.com",
+        "subject": "=Video Short đã hoàn thành: {{ $('Google Sheets1').item.json[\"Lesson Focus\"] }}"
+      },
+      "position": [
+        760,
+        500
+      ],
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "webhookId": "495213a9-3d81-40bf-a612-1240bf7498db"
+    },
+    {
+      "id": "c08883fe-f0c3-4cf3-a283-7c2dc0078c7b",
+      "name": "Json2video creation",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "jsonBody": "={\n  \"template\": \"eCyZFP4eVarbofeSeS0b\",\n  \"variables\": {\n    \"fal_image_1_url\": \"{{ $json.image_urls[0] }}\",\n    \"fal_image_2_url\": \"{{ $json.image_urls[1] }}\",\n    \"fal_image_3_url\": \"{{ $json.image_urls[2] }}\",\n    \"fal_image_4_url\": \"{{ $json.image_urls[3] }}\",\n    \"fal_image_5_url\": \"{{ $json.image_urls[4] }}\",\n    \"fal_image_6_url\": \"{{ $json.image_urls[5] }}\",\n    \"motivational_text_1\": \"{{ $json.scene_titles[0] }}\",\n    \"motivational_text_2\": \"{{ $json.scene_titles[1] }}\",\n    \"motivational_text_3\": \"{{ $json.scene_titles[2] }}\",\n    \"motivational_text_4\": \"{{ $json.scene_titles[3] }}\",\n    \"motivational_text_5\": \"{{ $json.scene_titles[4] }}\",\n    \"motivational_text_6\": \"{{ $json.scene_titles[5] }}\"\n  }\n}\n",
+        "method": "POST",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://api.json2video.com/v2/movies"
+      },
+      "position": [
+        520,
+        20
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    },
+    {
+      "id": "5ff3cac0-f561-4c0c-9867-e4dd7f17b4d4",
+      "name": "List element1",
+      "parameters": {
+        "jsCode": "return [\n  {\n    scene_titles: items.map(item => item.json.response.text),\n    vimage_urls: items.map(item => item.json.images[0].url) ,\n    sound_urls: items.map(item => item.json.webContentLink)\n  }\n];"
+      },
+      "position": [
+        180,
+        -340
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "97369c2d-ddfd-4618-a0a2-eb8d0d62e30a",
+      "name": "10 Secs1",
+      "parameters": {
+        "amount": 10
+      },
+      "position": [
+        1800,
+        80
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "4ed8db71-25d8-484b-a6e9-23f411ed040d"
+    },
+    {
+      "id": "efe6322c-41aa-4cde-8693-7e7cce9da82f",
+      "name": "Switch1",
+      "parameters": {
+        "options": {},
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "5b858d82-0a7c-44ea-940b-ae83a7c22f3c",
+                    "leftValue": "={{ $json.movie.status }}",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "done"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                }
+              },
+              "outputKey": "Done",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "6ebbf3c8-599e-451d-acf6-4e63fef69ae0",
+                    "leftValue": "={{ $json.movie.status }}",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "running"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                }
+              },
+              "outputKey": "Running",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "e22298ac-6f08-4f73-a361-768a17ea9a3a",
+                    "leftValue": "={{ $json.movie.status }}",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "preparing"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                }
+              },
+              "outputKey": "Preparing",
+              "renameOutput": true
+            }
+          ]
+        }
+      },
+      "position": [
+        1260,
+        0
+      ],
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2
+    },
+    {
+      "id": "49a68e3b-c116-4db9-9549-e13af0551b37",
+      "name": "150 Secs1",
+      "parameters": {},
+      "position": [
+        800,
+        0
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "3922e8b8-aa6c-44c3-9773-49b59d59bb53"
+    },
+    {
+      "id": "a72d3fac-26cf-42b8-8446-7745fab258fc",
+      "name": "Get Video",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        },
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "project",
+              "value": "={{ $('Json2video creation').item.json.project }}"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "url": "https://api.json2video.com/v2/movies"
+      },
+      "position": [
+        1060,
+        0
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

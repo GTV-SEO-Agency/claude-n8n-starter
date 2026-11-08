@@ -1,0 +1,770 @@
+{
+  "active": false,
+  "connections": {
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Sales Agent",
+            "type": "ai_languageModel"
+          },
+          {
+            "index": 0,
+            "node": "Review  Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Sales Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Case Study": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Sales Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Check Calendar Availability": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "Sales Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Check Feedback": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Email",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Review  Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Feedback": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Check Feedback",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Check Feedback",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Google Sheets Trigger1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Sales Agent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Review  Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Sales Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update Lead Status",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Set Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Feedback",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "Sales Agent",
+            "type": "ai_outputParser"
+          },
+          {
+            "index": 0,
+            "node": "Review  Agent",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "XpTXkw0ATqn2FveB",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Sale AI Agent - Human in loop",
+  "nodes": [
+    {
+      "id": "6e9a9071-2fa5-436a-a4bd-85235751d0ef",
+      "name": "Check Calendar Availability",
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "getAll",
+        "options": {},
+        "timeMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Before', `Check xem lịch công việc có trong hai tuần kế tiếp, tính từ hôm nay. Để có thể lên lịch hẹn mà không bị trùng giờ. `, 'string') }}",
+        "timeMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('After', `Check xem lịch công việc có trong hai tuần kế tiếp, tính từ hôm nay. Để có thể lên lịch hẹn mà không bị trùng giờ. `, 'string') }}"
+      },
+      "position": [
+        160,
+        980
+      ],
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "5a67b9e6-3971-4aa5-ab67-7a1b9db0ccd2",
+      "name": "Sales Agent",
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Overview\nYou are an expert sales person for The AI Growth (TAG) agency that delivers AI & Automation Marketing solutions for businesses. Your job is to respond to incoming leads by addressing their needs in a professional manner and setting up a meeting. You will receive information about the lead's project description and timeline, and your goal is to convince them that TAG is the best AI & Automation Marketing agency in Vietnam.\n\n## Tools\n - Check Calendar Availability - Use this tool to check Vincent's availability on his calendar for the next 14 days. Only suggest meeting times between 8:00 AM and 6:00 PM (Vietnam time) and in Monday to Friday.\n- Case Study - Use this tool to search through previous projects we have done. \n\n## Rules\n- You will receive information about a lead, and you need to craft a professional email IN VIETNAMESE. Keep it concise, short paragrapth, to the point.\n- Your main objective is to convince the lead to book a meeting with Vincent. Your job is to make them believe that TAG can deliver the project they have described and exceed their expectations.\n- Retrieve information about previous projects to share with the lead to prove that our team is capable of handling their project. Find a similar project we have done to share with the lead. Share the result of how we helped the client as a case study.\n- Use the Calendar tool to check Vincent's availability and suggest 2-3 specific time slots when he is available in the next 14 days. Only suggest times between 8:00 AM and 6:00 PM (Vietnam time). These should be exact slots like \"14:00-15:00 ngày 15/4/2024\".\n- Highlight TAG's expertise in AI & Automation Marketing solutions for businesses, including both training courses and setup services.\n- Sử dụng đại từ xưng hô là \"Bên em\" hoặc \"Em\" khi xưng hô cá nhân mình với khách hàng. Còn khi xưng hô giữa doanh nghiệp với doanh nghiệp sẽ là \"Chúng tôi\" hoặc \"TAG\"\n\n## Final Notes\nSign off emails as \"Vincent Đỗ, The AI Growth\"\nHere is the current date/time: {{ $now }}\n"
+        },
+        "promptType": "define",
+        "text": "=Incoming Lead\n\nName: {{ $json.Name }}\n\nEmail: {{ $json.Email }}\n\nIntent/Service/Proudct: {{ $json['Service/Product'] }}\n\nBudget: {{ $json.Buget }}\n\nCompany Name: {{ $json.CompanyName }}\n\nProject Description: {{ $json.ProjectDescription }}\n\nTimeline: {{ $json.Timeline }}\n\nNote: Format email phải thân thiện trên gmail. "
+      },
+      "position": [
+        240,
+        640
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    },
+    {
+      "id": "08225f54-3afe-4d9c-b3a3-60d44aba326a",
+      "name": "Structured Output Parser",
+      "parameters": {
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"subject\": {\n      \"type\": \"string\",\n      \"description\": \"The subject line of the email in Vietnamese\"\n    },\n    \"email\": {\n      \"type\": \"string\",\n      \"description\": \"The body content of the email in Vietnamese\"\n    },\n    \"suggestedTimes\": {\n      \"type\": \"array\",\n      \"description\": \"Array of suggested meeting times that are available\",\n      \"items\": {\n        \"type\": \"string\"\n      }\n    }\n  },\n  \"required\": [\"subject\", \"email\", \"suggestedTimes\"]\n}\n",
+        "schemaType": "manual"
+      },
+      "position": [
+        1120,
+        980
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "a9b25981-c597-4724-8683-9854db0af6be",
+      "name": "Send Email",
+      "parameters": {
+        "emailType": "text",
+        "message": "={{ $('Set Email').item.json.email }}",
+        "options": {
+          "appendAttribution": false
+        },
+        "sendTo": "={{ $('Google Sheets Trigger1').item.json.Email }}",
+        "subject": "={{ $('Sales Agent').item.json.output.subject }}"
+      },
+      "position": [
+        1520,
+        480
+      ],
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "webhookId": "9ae2a2f2-de7c-46a1-93f7-8b2612d40751"
+    },
+    {
+      "id": "327768ab-fefd-4f1e-8377-547635a769b7",
+      "name": "Google Gemini Chat Model",
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-lite-preview-02-05",
+        "options": {
+          "temperature": 0.5
+        }
+      },
+      "position": [
+        900,
+        980
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1
+    },
+    {
+      "id": "51230a16-cd31-4128-b072-bcb3f3566722",
+      "name": "Set Email",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3800e373-5f7a-4642-8392-d3a4aed9e067",
+              "name": "email",
+              "type": "string",
+              "value": "={{ $json.output.email }}"
+            },
+            {
+              "id": "9c82f5c6-52d3-4b7e-bfe9-b1c64d233e15",
+              "name": "suggestedTimes",
+              "type": "array",
+              "value": "={{ $json.output.suggestedTimes }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        600,
+        600
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "5d3c7873-df48-4be2-b9d7-cf47ea76eaab",
+      "name": "Get Feedback",
+      "parameters": {
+        "message": "= {{ $('Google Sheets Trigger1').item.json.Name }} từ công ty {{ $('Google Sheets Trigger1').item.json.CompanyName }} đang tìm kiếm dịch vụ/sản phẩm {{ $('Google Sheets Trigger1').item.json['Service/Product'] }} . Ngân sách của họ là {{ $('Google Sheets Trigger1').item.json.Buget }} với khung thời gian {{ $('Google Sheets Trigger1').item.json.Timeline }}\n\nXin vui lòng duyệt hoặc chỉnh sửa email dưới đây trước khi gửi đi.\n\nTiêu đề: {{ $('Sales Agent').item.json.output.subject }}\n\nNội dung: {{ $json.email }}\n\nKhung giờ đề xuất: {{ $json.suggestedTimes.join(', ') }}",
+        "operation": "sendAndWait",
+        "options": {},
+        "responseType": "freeText",
+        "sendTo": "=you@example.com",
+        "subject": "=DUYỆT EMAIL CHO KHÁCH HÀNG MỚI: {{ $('Google Sheets Trigger1').item.json.Name }}"
+      },
+      "position": [
+        800,
+        600
+      ],
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "webhookId": ""
+    },
+    {
+      "id": "c87418df-839d-4739-805e-93b255abfd16",
+      "name": "Check Feedback",
+      "parameters": {
+        "categories": {
+          "categories": [
+            {
+              "category": "Approved",
+              "description": "The email has been reviewed and accepted as-is. The human explicitly or implicitly expresses approval, indicating that no changes are needed. |Example phrases include:\"Okay.\"\"được rồi.\"\"Ổn đấy.\"\"Duyệt.\"\"Ok.\"\"Looks Good\"\"Gửi đi\"\"dc đấy\"\"Tốt\"\"Được\""
+            },
+            {
+              "category": "Declined",
+              "description": "The email has been reviewed, but the human requests modifications before it is sent like tweaks, removing parts, rewording, etc. This could include suggested edits, rewording, or major revisions. |Example phrases include:\"Chỉnh chỗ này chút\"\"Bổ sung\"\"Tôi muốn chỉnh\"\"Chưa ổn lắm\"\"Bạn chỉnh cái này được không\"\"Sửa lại\"\"Chỉnh sửa\"\"Thay đổi\""
+            }
+          ]
+        },
+        "inputText": "={{ $json.data.text }}",
+        "options": {}
+      },
+      "position": [
+        1060,
+        600
+      ],
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1
+    },
+    {
+      "id": "9674c496-59e6-4fa6-9fc5-de1725deebe1",
+      "name": "Sticky Note",
+      "parameters": {
+        "color": 5,
+        "content": "# Vincent Đỗ | The AI Growth (TAG)",
+        "height": 80,
+        "width": 660
+      },
+      "position": [
+        360,
+        40
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "c88661a9-16e8-438e-9569-45431c91ced4",
+      "name": "Update Lead Status",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Name"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Name",
+              "id": "Name",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Email",
+              "id": "Email",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "CompanyName",
+              "id": "CompanyName",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Service/Product",
+              "id": "Service/Product",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Buget",
+              "id": "Buget",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ProjectDescription",
+              "id": "ProjectDescription",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Timeline",
+              "id": "Timeline",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "LastContact",
+              "id": "LastContact",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SuggestedTimes",
+              "id": "SuggestedTimes",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Name": "={{ $('Google Sheets Trigger1').item.json.Name }}",
+            "Status": "contacted",
+            "SuggestedTimes": "=- {{ $('Set Email').item.json.suggestedTimes[0] }}\n- {{ $('Set Email').item.json.suggestedTimes[1] }}\n- {{ $('Set Email').item.json.suggestedTimes[2] }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        1740,
+        480
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "39ecce68-6bfe-4ff9-bf8e-c4ed1800363a",
+      "name": "Sticky Note2",
+      "parameters": {
+        "color": 6,
+        "content": "## Xử lý dữ liệu từ Google Sheets\nKết nối với Google Sheets để đọc thông tin lead mới",
+        "height": 240,
+        "width": 380
+      },
+      "position": [
+        -220,
+        540
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d0ac8cf2-e365-4175-a5ef-b90917b9153f",
+      "name": "Sticky Note3",
+      "parameters": {
+        "color": 6,
+        "content": "## Kiểm tra lịch & Case study\nĐảm bảo chỉ đề xuất thời gian trống trong lịch từ 8h-18h. Cũng như check qua porfolio của mình",
+        "height": 240,
+        "width": 420
+      },
+      "position": [
+        140,
+        860
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "ff601c92-611c-4c85-8529-738ad4da0aaa",
+      "name": "Sticky Note4",
+      "parameters": {
+        "color": 6,
+        "content": "## AI Sales Agent\nSử dụng AI để phân tích thông tin lead và tạo email chuyên nghiệp bằng tiếng Việt",
+        "height": 220,
+        "width": 380
+      },
+      "position": [
+        180,
+        540
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "72e699f1-f137-46c8-87b1-7a1867e7633d",
+      "name": "Sticky Note5",
+      "parameters": {
+        "color": 6,
+        "content": "## Human-in-the-Loop Check\nGửi email để duyệt trước khi gửi cho khách hàng",
+        "height": 220,
+        "width": 400
+      },
+      "position": [
+        580,
+        500
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Sticky Note6",
+      "parameters": {
+        "color": 6,
+        "content": "## Xử lý phản hồi\nPhân loại phản hồi để quyết định gửi email hoặc chỉnh sửa",
+        "height": 200,
+        "width": 400
+      },
+      "position": [
+        1000,
+        520
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "9196f9ec-1e92-49a3-98ad-16c5e63c160f",
+      "name": "Sticky Note7",
+      "parameters": {
+        "color": 6,
+        "content": "## AI Models\nSử dụng Claude Sonet  và Google Gemini để phân tích nội dung và tạo phản hồi",
+        "height": 240,
+        "width": 800
+      },
+      "position": [
+        580,
+        860
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "23b43331-5b44-4a97-be57-efddd51947c2",
+      "name": "Sticky Note8",
+      "parameters": {
+        "color": 6,
+        "content": "## Cập nhật Lead Status\nCập nhật trạng thái lead sau khi đã liên hệ",
+        "height": 240,
+        "width": 540
+      },
+      "position": [
+        1420,
+        380
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "73d014de-406f-418f-a338-590f0f80d2e3",
+      "name": "Calculator",
+      "parameters": {},
+      "position": [
+        440,
+        980
+      ],
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1
+    },
+    {
+      "id": "c8852cde-7318-4026-9d60-0aa80ed8c6fa",
+      "name": "Anthropic Chat Model",
+      "parameters": {
+        "model": "claude-3-5-sonnet-20241022",
+        "options": {}
+      },
+      "position": [
+        700,
+        980
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "f1a1a354-1427-485c-800d-9bfb6f3c6620",
+      "name": "Google Sheets Trigger1",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "event": "rowUpdate",
+        "options": {
+          "columnsToWatch": [
+            "Name"
+          ]
+        },
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        -140,
+        640
+      ],
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "9ecb0f73-82f7-4107-b27a-2fe1f3684ba8",
+      "name": "Case Study",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Dịch vụ / Sản phẩm Order",
+              "lookupValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Value', `Tìm kiếm dữ liệu sản phẩm/dịch vụ ở khách hàng tương tự đang order hiện tại, từ đây để lấy dữ liệu khách hàng cũ đã triển khai - thành công, kết quả ra sao mà thuyết phục khách hàng mới.`, 'string') }}"
+            }
+          ]
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        300,
+        980
+      ],
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "231bb469-13d7-4a8b-9bca-b9c84224f2ea",
+      "name": "Review  Agent",
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Overview\nYou are an expert email writer for The AI Growth (TAG). Your job is to take an incoming email draft and revise it based on the feedback the human submitted.\n\n## Rules\n- All output must be in Vietnamese.\n- Maintain a professional but friendly tone.\n- Keep the emails concise and to the point.\n- Sign off emails as \"Vincent Đỗ, The AI Growth\"\n- Ensure any suggested meeting times remain between 8:00 AM and 6:00 PM Vietnam time.\n- Here is the current date/time: {{ $now }}"
+        },
+        "promptType": "define",
+        "text": "=Email: {{ $('Set Email').item.json.email }}\n\nFeedback from human: {{ $json.data.text }}"
+      },
+      "position": [
+        1480,
+        680
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    },
+    {
+      "id": "ac020e68-a9f9-48ef-92eb-faeeb36f599a",
+      "name": "Sticky Note1",
+      "parameters": {
+        "color": 4,
+        "content": "# Human In The Loop Sales Team\n## Tự động kiểm tra lịch và đề xuất lịch họp trước khi gửi email\n\n- Workflow này kết nối với Google Sheets để theo dõi lead\n- Kiểm tra lịch Google Calendar để đề xuất thời gian họp thích hợp (8h-18h)\n- Giao tiếp bằng tiếng Việt với khách hàng\n- Kiểm duyệt email trước khi gửi đi",
+        "height": 260,
+        "width": 680
+      },
+      "position": [
+        -300,
+        220
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "4536e56d-2be3-4790-a005-eec57bae9eae",
+      "name": "Sticky Note9",
+      "parameters": {
+        "color": 6,
+        "content": "## Vincent Do | AI & Automation | The AI Growth\n",
+        "height": 80,
+        "width": 560
+      },
+      "position": [
+        560,
+        320
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "createdAt": "2025-03-29T01:49:59.429Z",
+      "id": "9ZuFaoAuQ7IXvD8W",
+      "name": "Calendar",
+      "updatedAt": "2025-03-29T01:49:59.429Z"
+    },
+    {
+      "createdAt": "2025-03-29T01:49:59.478Z",
+      "id": "HZMVcNZUlRxfCCKv",
+      "name": "Vietnamese",
+      "updatedAt": "2025-03-29T01:49:59.478Z"
+    },
+    {
+      "createdAt": "2025-03-29T01:49:59.455Z",
+      "id": "di9zphBNgumr1GxR",
+      "name": "Sales",
+      "updatedAt": "2025-03-29T01:49:59.455Z"
+    }
+  ]
+}

@@ -1,0 +1,1869 @@
+{
+  "connections": {
+    "Build Daily Digest HTML": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Daily Digest Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Calculate Demand Forecast": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "IF - Actionable",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Build Daily Digest HTML",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Generate PO Draft (AI) - Critical1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Log Purchase Order - Critical",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Generate PO Draft (AI) - Warning1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Log Purchase Order - Warning",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Existing Purchase Orders": {
+      "main": [
+        [
+          {
+            "index": 3,
+            "node": "Merge1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Inventory Levels": {
+      "main": [
+        [
+          {
+            "index": 1,
+            "node": "Merge1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get PO Details1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send PO Email to Supplier1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Sales History": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Merge1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Vendor Directory": {
+      "main": [
+        [
+          {
+            "index": 2,
+            "node": "Merge1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "IF - Actionable": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Switch - Severity Routing",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Log Purchase Order - Critical": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Telegram Approval Request",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Send Slack Critical Alert",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Log Purchase Order - Warning": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Telegram Alert - Warning",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Calculate Demand Forecast",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "On Workflow Error": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Slack – Post Workflow Error Alert",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Parse Approval Callback1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Switch - Approve or Reject1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger (Daily)": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Sales History",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Get Inventory Levels",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Get Vendor Directory",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Get Existing Purchase Orders",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send PO Email to Supplier1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Telegram Confirmation - Approved1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Switch - Approve or Reject1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Update PO Status - Approved1",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Update PO Status - Rejected1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Switch - Severity Routing": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Generate PO Draft (AI) - Critical1",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Generate PO Draft (AI) - Warning1",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Log Purchase Order - Watch",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger (Approval Callback)1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Parse Approval Callback1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Update PO Status - Approved1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get PO Details1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Update PO Status - Rejected1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Telegram Confirmation - Rejected1",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "name": "TAG_08_inventory-forecast-purchase-orders_v1",
+  "nodes": [
+    {
+      "id": "tag-note",
+      "name": "TAG · Đọc trước",
+      "parameters": {
+        "color": 4,
+        "content": "## Dự báo tồn kho và điều tuyến đơn mua\n**Làm gì:** AI dự báo nhu cầu từ lịch sử bán, đề xuất đơn mua, gửi duyệt qua Telegram/Slack.\n**Trigger:** Khi workflow khác lỗi, Lịch (Schedule), Telegram có tin nhắn\n**Credential cần:** Gmail, Google Sheets, OpenAI, Slack, Telegram bot\n**Chi phí ước:** Token thấp.\n**Mở rộng gợi ý:** Nâng cấp của workflow trên; cần lịch sử bán 3 tháng.\n\n---\n**Nguồn:** n8n.io template #17683 của rahul08\nhttps://n8n.io/workflows/17683\nNhãn TAG: **Recommend** (chọn lọc theo DNA khoá, học viên tự import; TAG đổi nhãn khi test xong).\nImport: n8n → Create workflow → ⋯ → Import from file. Sau khi import, mở từng node đỏ để chọn credential của bạn.",
+        "height": 420,
+        "width": 520
+      },
+      "position": [
+        88,
+        5276
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "4e194e41-cf3c-479b-9914-69e96d3c31b7",
+      "name": "Section – Error Handling",
+      "parameters": {
+        "color": 7,
+        "content": "## ⚠️ Error Handling\nA workflow-level error trigger catches any node failure and posts an alert to Slack. Replace `YOUR_SLACK_CHANNEL_ID` with your ops or alerts channel before going live.",
+        "height": 456,
+        "width": 652
+      },
+      "position": [
+        2080,
+        8064
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "2cb54dfe-2f07-42b4-8184-6a59a6f38eb6",
+      "name": "On Workflow Error",
+      "parameters": {},
+      "position": [
+        2224,
+        8288
+      ],
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "bbe87660-d1f0-422b-996c-a3d9096d0452",
+      "name": "Slack – Post Workflow Error Alert",
+      "parameters": {
+        "authentication": "oAuth2",
+        "channelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "otherOptions": {},
+        "select": "channel",
+        "text": "=⚠️ *AI Crisis Management Agent Error*\n\n*Workflow:* {{ $workflow.name }}\n*Failed Node:* {{ $execution.lastNodeExecuted }}\n*Time:* {{ $now.format('MMM D, YYYY – HH:mm') }}\n*Execution ID:* {{ $execution.id }}"
+      },
+      "position": [
+        2496,
+        8288
+      ],
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "webhookId": "dbc43610-c028-4410-a2d4-5f365b0aaa25"
+    },
+    {
+      "id": "798192c1-ea39-41df-b0f1-66e2469f2612",
+      "name": "📌 Overview – How This Workflow Works",
+      "parameters": {
+        "color": 2,
+        "content": "## 📦 AI Inventory Forecasting & Smart Purchase Order Automation\n\n### How it works\nEvery morning, the workflow reads four data sources from Google Sheets — sales history, current inventory levels, vendor directory, and existing purchase orders — and runs a demand forecast in code. Each SKU is assessed against reorder points and classified as Critical (stockout imminent), Warning (running low), or Watch (monitor). Critical items get an AI-drafted PO sent for Telegram approval and a Slack alert; Warning items generate a draft with a lighter Telegram ping; Watch items are logged only. After sending, a daily HTML digest email summarises all actions taken. A second Telegram trigger handles the approval callback — approve or reject — which emails the PO to the supplier and confirms back to the requester.\n\n### Setup steps\n1. Connect **Google Sheets OAuth2** and create a sheet with tabs: `Sales History`, `Inventory`, `Vendors`, `Purchase Orders`. Replace `YOUR_GOOGLE_SHEET_ID` in every Sheets node.\n2. Connect **OpenAI API** to both PO draft generation nodes.\n3. Connect **Gmail OAuth2** and update `procurement@yourcompany.com` in the digest and supplier email nodes.\n4. Connect **Telegram Bot API** and replace `YOUR_TELEGRAM_CHAT_ID` in all Telegram nodes.\n5. Connect **Slack OAuth2** and replace `YOUR_SLACK_CHANNEL_ID` in the critical alert and error nodes.\n6. Activate the daily schedule trigger and the Telegram approval callback trigger.",
+        "height": 648,
+        "width": 920
+      },
+      "position": [
+        688,
+        5376
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "d788e0af-1719-4d1c-aeb0-336247a424d0",
+      "name": "Section – Daily Trigger & Data Fetch",
+      "parameters": {
+        "color": 7,
+        "content": "## ⏰ Daily Trigger & Multi-Source Data Fetch\nFires once a day. Reads sales history, current stock levels, vendor info, and open POs from four separate sheets in parallel, then merges them into a unified dataset before forecasting begins.",
+        "height": 1132,
+        "width": 1236
+      },
+      "position": [
+        1840,
+        5920
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "Section – Demand Forecast & Severity Classification",
+      "parameters": {
+        "color": 7,
+        "content": "## 📊 Demand Forecast & Severity Classification\nCalculates a rolling demand forecast per SKU based on sales velocity. Compares each SKU's current stock against its reorder point, then classifies as Critical, Warning, or Watch. SKUs with no action needed are filtered out.",
+        "height": 732,
+        "width": 772
+      },
+      "position": [
+        3120,
+        5968
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "c4ac1c27-7307-4174-9f93-b0a509b9a53f",
+      "name": "Section – AI PO Drafting & Severity Routing",
+      "parameters": {
+        "color": 7,
+        "content": "## 🤖 AI PO Drafting & Severity-Based Routing\nCritical and Warning SKUs each get an AI-generated purchase order draft from GPT-4o-mini. Critical POs trigger a Telegram approval request and a Slack alert; Warning POs send a lighter Telegram ping. Watch SKUs are logged without any outbound message.",
+        "height": 988,
+        "width": 1160
+      },
+      "position": [
+        4016,
+        5888
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "71efc726-f06d-4581-b237-33e40783932c",
+      "name": "Section – Daily Digest Email",
+      "parameters": {
+        "color": 7,
+        "content": "## 📧 Daily Digest Email\nBuilds an HTML summary of all inventory actions taken during the run — critical alerts, warnings, and watch items — and emails it to the procurement team via Gmail.",
+        "height": 412,
+        "width": 660
+      },
+      "position": [
+        3312,
+        6752
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "8b9596d2-a26d-42ea-a12b-cd34a62fe152",
+      "name": "Section – Telegram Approval Callback",
+      "parameters": {
+        "color": 7,
+        "content": "## ✅ Telegram Approval Callback\nListens for the procurement manager's Telegram reply (`approve` or `reject`). Approve emails the PO to the supplier and confirms on Telegram. Reject logs the decision and notifies the requester. The PO row is updated either way.",
+        "height": 732,
+        "width": 2048
+      },
+      "position": [
+        2352,
+        7232
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "",
+      "name": "🔑 Credentials & Security",
+      "parameters": {
+        "color": 3,
+        "content": "## 🔑 Credentials Required\n- **Google Sheets OAuth2** — 4 data tabs + Purchase Orders log\n- **OpenAI API** — Critical + Warning PO drafting nodes\n- **Gmail OAuth2** — daily digest + supplier PO email\n- **Telegram Bot API** — approval requests + callbacks + confirmations\n- **Slack OAuth2** — critical stock alert + error alerts\n\nNever hardcode sheet IDs, emails, or chat IDs in shared templates.",
+        "height": 384,
+        "width": 484
+      },
+      "position": [
+        4544,
+        7808
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "3e1df18d-2b04-4861-87ed-2d8e72405fa6",
+      "name": "Schedule Trigger (Daily)",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 6
+            }
+          ]
+        }
+      },
+      "position": [
+        1984,
+        6480
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "a8a29e68-fdb6-4517-ab82-f7d01e3ba67c",
+      "name": "Get Sales History",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        2352,
+        6176
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "32c66024-8c22-4676-b84e-fd08704c6d98",
+      "name": "Get Inventory Levels",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        2368,
+        6384
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "530e89d1-10c8-4e54-9bf2-9df4d10d2fc4",
+      "name": "Get Vendor Directory",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        2368,
+        6608
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "bf725f3a-3d2c-457c-8f11-1c088aff1ce7",
+      "name": "Get Existing Purchase Orders",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        2368,
+        6800
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "a8426892-2d81-400b-8938-6d849c7f08f4",
+      "name": "Calculate Demand Forecast",
+      "parameters": {
+        "jsCode": "const salesRows = $('Get Sales History').all().map(i => i.json);\nconst inventoryRows = $('Get Inventory Levels').all().map(i => i.json);\nconst vendorRows = $('Get Vendor Directory').all().map(i => i.json);\nconst existingPORows = $('Get Existing Purchase Orders').all().map(i => i.json);\n\nconst LOOKBACK_DAYS = 30;\nconst TREND_WINDOW_DAYS = 7;\nconst PENDING_LOOKBACK_DAYS = 7;\nconst now = new Date();\nconst cutoff30 = new Date(now.getTime() - LOOKBACK_DAYS * 24 * 60 * 60 * 1000);\nconst cutoff7 = new Date(now.getTime() - TREND_WINDOW_DAYS * 24 * 60 * 60 * 1000);\nconst pendingCutoff = new Date(now.getTime() - PENDING_LOOKBACK_DAYS * 24 * 60 * 60 * 1000);\n\nconst demand30BySku = {};\nconst demand7BySku = {};\nfor (const row of salesRows) {\n  const sku = String(row.SKU || row.sku || '').trim();\n  if (!sku) continue;\n  const rowDate = new Date(row.Date || row.date);\n  if (isNaN(rowDate.getTime())) continue;\n  const units = Number(row.UnitsSold || row.unitsSold || row.units_sold || 0);\n  if (rowDate >= cutoff30) demand30BySku[sku] = (demand30BySku[sku] || 0) + units;\n  if (rowDate >= cutoff7) demand7BySku[sku] = (demand7BySku[sku] || 0) + units;\n}\n\nconst vendorBySku = {};\nfor (const v of vendorRows) {\n  const sku = String(v.SKU || v.sku || '').trim();\n  if (!sku) continue;\n  vendorBySku[sku] = {\n    supplierName: v.SupplierName || v.supplierName || '',\n    supplierEmail: v.SupplierEmail || v.supplierEmail || '',\n    moq: Number(v.MOQ || v.moq || 0)\n  };\n}\n\nconst openStatuses = ['Draft', 'Pending Approval', 'Approved'];\nconst pendingSkus = new Set();\nfor (const po of existingPORows) {\n  const sku = String(po.SKU || po.sku || '').trim();\n  const status = String(po.Status || po.status || '').trim();\n  const ts = new Date(po.Timestamp || po.timestamp);\n  if (sku && openStatuses.includes(status) && !isNaN(ts.getTime()) && ts >= pendingCutoff) {\n    pendingSkus.add(sku);\n  }\n}\n\nconst results = [];\n\nfor (const inv of inventoryRows) {\n  const sku = String(inv.SKU || inv.sku || '').trim();\n  if (!sku) continue;\n\n  const productName = inv.ProductName || inv.productName || '';\n  const currentStock = Number(inv.CurrentStock || inv.currentStock || 0);\n  const leadTimeDays = Number(inv.LeadTimeDays || inv.leadTimeDays || 7);\n  const reorderThresholdDays = Number(inv.ReorderThresholdDays || inv.reorderThresholdDays || 7);\n  const safetyStock = Number(inv.SafetyStock || inv.safetyStock || 0);\n  const unitCost = Number(inv.UnitCost || inv.unitCost || 0);\n\n  const totalUnitsSold30 = demand30BySku[sku] || 0;\n  const totalUnitsSold7 = demand7BySku[sku] || 0;\n  const avgDailyDemand = totalUnitsSold30 / LOOKBACK_DAYS;\n  const avgDailyDemand7 = totalUnitsSold7 / TREND_WINDOW_DAYS;\n  const trendUp = avgDailyDemand > 0 && avgDailyDemand7 > avgDailyDemand * 1.2;\n\n  const daysOfStockRemaining = avgDailyDemand > 0\n    ? Math.round((currentStock / avgDailyDemand) * 10) / 10\n    : null;\n\n  const vendor = vendorBySku[sku] || { supplierName: '', supplierEmail: '', moq: 0 };\n  const alreadyPending = pendingSkus.has(sku);\n\n  let severity = 'OK';\n  if (!alreadyPending && daysOfStockRemaining !== null) {\n    if (daysOfStockRemaining <= 3) severity = 'Critical';\n    else if (daysOfStockRemaining <= reorderThresholdDays) severity = 'Warning';\n    else if (trendUp && daysOfStockRemaining <= reorderThresholdDays * 1.5) severity = 'Watch';\n  }\n\n  let recommendedQty = 0;\n  if (severity === 'Critical' || severity === 'Warning') {\n    const targetStock = (avgDailyDemand * (leadTimeDays + reorderThresholdDays)) + safetyStock;\n    recommendedQty = Math.max(0, Math.ceil(targetStock - currentStock));\n    if (vendor.moq > 0 && recommendedQty > 0 && recommendedQty < vendor.moq) {\n      recommendedQty = vendor.moq;\n    }\n  }\n\n  const poId = severity !== 'OK' ? `${sku}-${Date.now()}` : '';\n\n  results.push({\n    json: {\n      sku,\n      productName,\n      currentStock,\n      avgDailyDemand: Math.round(avgDailyDemand * 100) / 100,\n      avgDailyDemand7: Math.round(avgDailyDemand7 * 100) / 100,\n      trendUp,\n      daysOfStockRemaining,\n      leadTimeDays,\n      reorderThresholdDays,\n      safetyStock,\n      unitCost,\n      recommendedQty,\n      estimatedCost: Math.round(recommendedQty * unitCost * 100) / 100,\n      severity,\n      alreadyPending,\n      poId,\n      supplierName: vendor.supplierName,\n      supplierEmail: vendor.supplierEmail,\n      moq: vendor.moq\n    }\n  });\n}\n\nreturn results;"
+      },
+      "position": [
+        3168,
+        6480
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "43791c38-f751-45f1-a437-7296f0acc478",
+      "name": "IF - Actionable",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "cond-actionable",
+              "leftValue": "={{$json.severity}}",
+              "operator": {
+                "operation": "notEquals",
+                "type": "string"
+              },
+              "rightValue": "OK"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        3504,
+        6384
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2
+    },
+    {
+      "id": "78664c40-3a0f-4670-b3de-96db17c0daee",
+      "name": "Switch - Severity Routing",
+      "parameters": {
+        "options": {},
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "sev-critical",
+                    "leftValue": "={{$json.severity}}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "Critical"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                }
+              }
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "sev-warning",
+                    "leftValue": "={{$json.severity}}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "Warning"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                }
+              }
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "sev-watch",
+                    "leftValue": "={{$json.severity}}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "Watch"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                }
+              }
+            }
+          ]
+        }
+      },
+      "position": [
+        3776,
+        6352
+      ],
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3
+    },
+    {
+      "id": "d17f3a25-f975-4e30-a603-7d95d55a9fed",
+      "name": "Log Purchase Order - Critical",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "POId",
+              "id": "POId",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Timestamp",
+              "id": "Timestamp",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SKU",
+              "id": "SKU",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ProductName",
+              "id": "ProductName",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "CurrentStock",
+              "id": "CurrentStock",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "RecommendedQty",
+              "id": "RecommendedQty",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "EstimatedCost",
+              "id": "EstimatedCost",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Severity",
+              "id": "Severity",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "POReason",
+              "id": "POReason",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SupplierName",
+              "id": "SupplierName",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SupplierEmail",
+              "id": "SupplierEmail",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "CurrentStock": "={{$('Switch - Severity Routing1').item.json.currentStock}}",
+            "EstimatedCost": "={{$('Switch - Severity Routing1').item.json.estimatedCost}}",
+            "POId": "={{$('Switch - Severity Routing1').item.json.poId}}",
+            "POReason": "={{$json.message.content}}",
+            "ProductName": "={{$('Switch - Severity Routing1').item.json.productName}}",
+            "RecommendedQty": "={{$('Switch - Severity Routing1').item.json.recommendedQty}}",
+            "SKU": "={{$('Switch - Severity Routing1').item.json.sku}}",
+            "Severity": "={{$('Switch - Severity Routing1').item.json.severity}}",
+            "Status": "Pending Approval",
+            "SupplierEmail": "={{$('Switch - Severity Routing1').item.json.supplierEmail}}",
+            "SupplierName": "={{$('Switch - Severity Routing1').item.json.supplierName}}",
+            "Timestamp": "={{$now.toISO()}}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        4688,
+        6208
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "808a4e9d-9d3d-4e2c-82fd-14e6aa861d7d",
+      "name": "Send Telegram Approval Request",
+      "parameters": {
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        },
+        "chatId": "",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "additionalFields": {
+                      "callback_data": "=approve_{{$json.POId}}"
+                    },
+                    "text": "✅ Approve"
+                  },
+                  {
+                    "additionalFields": {
+                      "callback_data": "=reject_{{$json.POId}}"
+                    },
+                    "text": "❌ Reject"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyMarkup": "inlineKeyboard",
+        "text": "=🚨 *CRITICAL Reorder — Approval Needed*\n\n*SKU:* {{$json.SKU}}\n*Product:* {{$json.ProductName}}\n*Current Stock:* {{$json.CurrentStock}} units\n*Recommended Qty:* {{$json.RecommendedQty}}\n*Estimated Cost:* {{$json.EstimatedCost}}\n*Supplier:* {{$json.SupplierName}}\n\n📝 {{$json.POReason}}\n\nTap Approve to email the supplier automatically."
+      },
+      "position": [
+        4928,
+        6096
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "0a02184d-ab52-40df-b688-b643a768f58a"
+    },
+    {
+      "id": "0b25eda2-7d7d-457a-b08e-c92009762e42",
+      "name": "Send Slack Critical Alert",
+      "parameters": {
+        "authentication": "oAuth2",
+        "channelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "otherOptions": {},
+        "select": "channel",
+        "text": "=🚨 CRITICAL stockout risk: {{$json.SKU}} ({{$json.ProductName}}) — {{$json.CurrentStock}} units left, reorder {{$json.RecommendedQty}} pending Telegram approval."
+      },
+      "position": [
+        4928,
+        6304
+      ],
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "webhookId": "ea185e69-8bec-4042-a613-f513c75b6e10"
+    },
+    {
+      "id": "615bbccf-2d91-42d4-a00d-2d9e6e8b6569",
+      "name": "Log Purchase Order - Warning",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "POId",
+              "id": "POId",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Timestamp",
+              "id": "Timestamp",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SKU",
+              "id": "SKU",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ProductName",
+              "id": "ProductName",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "CurrentStock",
+              "id": "CurrentStock",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "RecommendedQty",
+              "id": "RecommendedQty",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "EstimatedCost",
+              "id": "EstimatedCost",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Severity",
+              "id": "Severity",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "POReason",
+              "id": "POReason",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SupplierName",
+              "id": "SupplierName",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SupplierEmail",
+              "id": "SupplierEmail",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "CurrentStock": "={{$('Switch - Severity Routing1').item.json.currentStock}}",
+            "EstimatedCost": "={{$('Switch - Severity Routing1').item.json.estimatedCost}}",
+            "POId": "={{$('Switch - Severity Routing1').item.json.poId}}",
+            "POReason": "={{$json.message.content}}",
+            "ProductName": "={{$('Switch - Severity Routing1').item.json.productName}}",
+            "RecommendedQty": "={{$('Switch - Severity Routing1').item.json.recommendedQty}}",
+            "SKU": "={{$('Switch - Severity Routing1').item.json.sku}}",
+            "Severity": "={{$('Switch - Severity Routing1').item.json.severity}}",
+            "Status": "Draft",
+            "SupplierEmail": "={{$('Switch - Severity Routing1').item.json.supplierEmail}}",
+            "SupplierName": "={{$('Switch - Severity Routing1').item.json.supplierName}}",
+            "Timestamp": "={{$now.toISO()}}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        4656,
+        6528
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "f046dc99-da08-4b11-9381-3f94625454ee",
+      "name": "Send Telegram Alert - Warning",
+      "parameters": {
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        },
+        "chatId": "",
+        "text": "=⚠️ *Reorder Recommended (Draft logged)*\n\n*SKU:* {{$json.SKU}}\n*Product:* {{$json.ProductName}}\n*Current Stock:* {{$json.CurrentStock}} units\n*Recommended Qty:* {{$json.RecommendedQty}}\n*Estimated Cost:* {{$json.EstimatedCost}}\n\n📝 {{$json.POReason}}"
+      },
+      "position": [
+        4896,
+        6528
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "bb52e47d-768c-409e-b482-a7a08c8dcc26"
+    },
+    {
+      "id": "d4ef66f7-5b6d-4c83-82ad-db038ed8baf6",
+      "name": "Log Purchase Order - Watch",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "POId",
+              "id": "POId",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Timestamp",
+              "id": "Timestamp",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SKU",
+              "id": "SKU",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ProductName",
+              "id": "ProductName",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "CurrentStock",
+              "id": "CurrentStock",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "RecommendedQty",
+              "id": "RecommendedQty",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "EstimatedCost",
+              "id": "EstimatedCost",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Severity",
+              "id": "Severity",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "POReason",
+              "id": "POReason",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SupplierName",
+              "id": "SupplierName",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SupplierEmail",
+              "id": "SupplierEmail",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "CurrentStock": "={{$json.currentStock}}",
+            "EstimatedCost": 0,
+            "POId": "={{$json.poId}}",
+            "POReason": "Demand trending up — monitoring, no reorder triggered yet.",
+            "ProductName": "={{$json.productName}}",
+            "RecommendedQty": 0,
+            "SKU": "={{$json.sku}}",
+            "Severity": "Watch",
+            "Status": "Watch",
+            "SupplierEmail": "={{$json.supplierEmail}}",
+            "SupplierName": "={{$json.supplierName}}",
+            "Timestamp": "={{$now.toISO()}}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        4256,
+        6672
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "d7476eff-4f8a-49c0-a0a0-a91054312d92",
+      "name": "Build Daily Digest HTML",
+      "parameters": {
+        "jsCode": "const items = $input.all().map(i => i.json);\nconst critical = items.filter(i => i.severity === 'Critical');\nconst warning = items.filter(i => i.severity === 'Warning');\nconst watch = items.filter(i => i.severity === 'Watch');\nconst ok = items.filter(i => i.severity === 'OK');\n\nfunction rows(list) {\n  return list.map(i => `<tr><td>${i.sku}</td><td>${i.productName}</td><td>${i.currentStock}</td><td>${i.daysOfStockRemaining ?? '-'}</td><td>${i.recommendedQty}</td><td>${i.estimatedCost}</td></tr>`).join('');\n}\n\nconst html = `\n<h2>📦 InvenOS AI — Daily Inventory Digest</h2>\n<p>${critical.length} Critical, ${warning.length} Warning, ${watch.length} Watch, ${ok.length} OK</p>\n<h3 style=\"color:#c0392b\">Critical</h3>\n<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse\"><tr><th>SKU</th><th>Product</th><th>Stock</th><th>Days Left</th><th>Reorder Qty</th><th>Est. Cost</th></tr>${rows(critical)}</table>\n<h3 style=\"color:#e67e22\">Warning</h3>\n<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse\"><tr><th>SKU</th><th>Product</th><th>Stock</th><th>Days Left</th><th>Reorder Qty</th><th>Est. Cost</th></tr>${rows(warning)}</table>\n<h3 style=\"color:#f1c40f\">Watch</h3>\n<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse\"><tr><th>SKU</th><th>Product</th><th>Stock</th><th>Days Left</th><th>Reorder Qty</th><th>Est. Cost</th></tr>${rows(watch)}</table>\n`;\n\nreturn [{ json: { html, criticalCount: critical.length, warningCount: warning.length, watchCount: watch.length } }];"
+      },
+      "position": [
+        3536,
+        6960
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "caae8415-57ed-4782-8420-e5e3364d68c2",
+      "name": "Send Daily Digest Email",
+      "parameters": {
+        "message": "={{$json.html}}",
+        "options": {},
+        "sendTo": "user@example.com",
+        "subject": "=InvenOS AI — Daily Inventory Digest {{$now.format('yyyy-MM-dd')}}"
+      },
+      "position": [
+        3776,
+        6960
+      ],
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "webhookId": "2bc437dd-cc87-43e3-9481-547909d52c14"
+    },
+    {
+      "id": "550e64d5-55c5-4b8d-93bb-e1a5cdb37645",
+      "name": "Generate PO Draft (AI) - Warning1",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=Write a short, professional purchase order justification (3-4 sentences max) for this routine reorder. Be specific with the numbers, don't invent data.\n\nSKU: {{$json.sku}}\nProduct: {{$json.productName}}\nCurrent Stock: {{$json.currentStock}} units\nDays of Stock Remaining: {{$json.daysOfStockRemaining}}\nAverage Daily Demand: {{$json.avgDailyDemand}} units/day\nLead Time: {{$json.leadTimeDays}} days\nRecommended Reorder Qty: {{$json.recommendedQty}} units\nEstimated Cost: {{$json.estimatedCost}}\n\nReturn only the justification text, no headers."
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "gpt-4o-mini",
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "position": [
+        4240,
+        6512
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8
+    },
+    {
+      "id": "2b5dcd97-ca76-4cf0-8cb1-5f19bf5ca33b",
+      "name": "Generate PO Draft (AI) - Critical1",
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=Write a short, professional purchase order justification (3-4 sentences max) for this CRITICAL stockout risk. Be specific with the numbers, don't invent data.\n\nSKU: {{$json.sku}}\nProduct: {{$json.productName}}\nCurrent Stock: {{$json.currentStock}} units\nDays of Stock Remaining: {{$json.daysOfStockRemaining}}\nAverage Daily Demand: {{$json.avgDailyDemand}} units/day\nLead Time: {{$json.leadTimeDays}} days\nRecommended Reorder Qty: {{$json.recommendedQty}} units\nEstimated Cost: {{$json.estimatedCost}}\n\nReturn only the justification text, no headers."
+            }
+          ]
+        },
+        "modelId": {
+          "__rl": true,
+          "cachedResultName": "gpt-4o-mini",
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "position": [
+        4224,
+        6208
+      ],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8
+    },
+    {
+      "id": "b2f2c2e6-ec0d-4330-b0e9-e61e095fab92",
+      "name": "Merge1",
+      "parameters": {
+        "numberInputs": 4
+      },
+      "position": [
+        2864,
+        6448
+      ],
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2
+    },
+    {
+      "id": "a2008412-4397-43ac-9c56-94d7ab68015d",
+      "name": "Get PO Details1",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "POId",
+              "lookupValue": "={{$json.POId}}"
+            }
+          ]
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        3600,
+        7376
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "5311ac7f-0f5b-4e2e-bf2e-cb728fbe3495",
+      "name": "Telegram Trigger (Approval Callback)1",
+      "parameters": {
+        "additionalFields": {},
+        "updates": [
+          "callback_query"
+        ]
+      },
+      "position": [
+        2464,
+        7632
+      ],
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "webhookId": "84993f6b-89b9-449b-9850-6212bb10138a"
+    },
+    {
+      "id": "9a829940-6d60-4569-ba18-acb1c5d3455e",
+      "name": "Parse Approval Callback1",
+      "parameters": {
+        "jsCode": "const cq = $json.callback_query || {};\nconst data = cq.data || '';\nconst [action, poId] = data.split('_');\nreturn [{\n  json: {\n    action,\n    poId,\n    chatId: cq.message?.chat?.id,\n    messageId: cq.message?.message_id\n  }\n}];"
+      },
+      "position": [
+        2704,
+        7632
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "acbd5ab4-b932-4e57-bd66-74fa551d46ff",
+      "name": "Switch - Approve or Reject1",
+      "parameters": {
+        "options": {},
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "act-approve",
+                    "leftValue": "={{$json.action}}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "approve"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                }
+              }
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "act-reject",
+                    "leftValue": "={{$json.action}}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "reject"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                }
+              }
+            }
+          ]
+        }
+      },
+      "position": [
+        2944,
+        7632
+      ],
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3
+    },
+    {
+      "id": "40b87f6e-13a9-4ef6-b9c3-02e28d296c4c",
+      "name": "Update PO Status - Approved1",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "POId"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "POId",
+              "id": "POId",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Timestamp",
+              "id": "Timestamp",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SKU",
+              "id": "SKU",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ProductName",
+              "id": "ProductName",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "CurrentStock",
+              "id": "CurrentStock",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "RecommendedQty",
+              "id": "RecommendedQty",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "EstimatedCost",
+              "id": "EstimatedCost",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Severity",
+              "id": "Severity",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "POReason",
+              "id": "POReason",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SupplierName",
+              "id": "SupplierName",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SupplierEmail",
+              "id": "SupplierEmail",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": false,
+              "required": false,
+              "type": "number"
+            }
+          ],
+          "value": {
+            "POId": "={{$json.poId}}",
+            "Status": "Approved",
+            "row_number": 0
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        3360,
+        7376
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "a3578153-56d6-457d-b1ff-606d00a85075",
+      "name": "Update PO Status - Rejected1",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "POId"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "POId",
+              "id": "POId",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Timestamp",
+              "id": "Timestamp",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SKU",
+              "id": "SKU",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ProductName",
+              "id": "ProductName",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "CurrentStock",
+              "id": "CurrentStock",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "RecommendedQty",
+              "id": "RecommendedQty",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "EstimatedCost",
+              "id": "EstimatedCost",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Severity",
+              "id": "Severity",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "POReason",
+              "id": "POReason",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SupplierName",
+              "id": "SupplierName",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "SupplierEmail",
+              "id": "SupplierEmail",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": false,
+              "required": false,
+              "type": "number"
+            }
+          ],
+          "value": {
+            "POId": "={{$json.poId}}",
+            "Status": "Rejected",
+            "row_number": 0
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        3328,
+        7728
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    },
+    {
+      "id": "da18ae8e-82d1-4480-8882-af3d37b6f636",
+      "name": "Send PO Email to Supplier1",
+      "parameters": {
+        "message": "=Hi {{$json.SupplierName}},\n\nPlease process a purchase order for the following:\n\nSKU: {{$json.SKU}}\nProduct: {{$json.ProductName}}\nQuantity: {{$json.RecommendedQty}}\nEstimated Cost: {{$json.EstimatedCost}}\n\nThanks,\nTechdome Procurement",
+        "options": {},
+        "sendTo": "=procurement@yourcompany.com",
+        "subject": "=Purchase Order Request — {{$json.SKU}} ({{$json.ProductName}})"
+      },
+      "position": [
+        3840,
+        7376
+      ],
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "webhookId": "ee50cb88-7ff8-4825-b1ca-d00dbbdfdd19"
+    },
+    {
+      "id": "d996646b-52db-4995-b932-be7fa279bade",
+      "name": "Send Telegram Confirmation - Approved1",
+      "parameters": {
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        },
+        "chatId": "",
+        "text": "=✅ Approved — PO for {{$('Get PO Details1').item.json.SKU}} has been emailed to {{$('Get PO Details1').item.json.SupplierName}}."
+      },
+      "position": [
+        4080,
+        7376
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "e5c590f0-bd95-4958-b5f2-82ee6c8c3a09"
+    },
+    {
+      "id": "",
+      "name": "Send Telegram Confirmation - Rejected1",
+      "parameters": {
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        },
+        "chatId": "",
+        "text": "=❌ Rejected — no PO was sent for POId {{$json.POId}}."
+      },
+      "position": [
+        3568,
+        7728
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "fa9be5ef-8af3-4877-820d-660dd528cb35"
+    }
+  ],
+  "settings": {
+    "availableInMCP": false,
+    "binaryMode": "separate",
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,363 @@
+{
+  "active": false,
+  "connections": {
+    "AI Agent - Email Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send a message",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "AI Agent - Sentiment Analysis": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Merge",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent - Email Response",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Update tình trạng khách hàng",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent - Sentiment Analysis",
+            "type": "main"
+          },
+          {
+            "index": 1,
+            "node": "Merge",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent - Sentiment Analysis",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent - Email Response",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent - Sentiment Analysis",
+            "type": "ai_outputParser"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "qd9yJfoAdtYYtyO6",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "sentiment classify form",
+  "nodes": [
+    {
+      "id": "f1fdf08c-490d-4f96-8515-30b91c5eb448",
+      "name": "On form submission",
+      "parameters": {
+        "formDescription": "Please give feedback about our company or products.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Feedback của bạn về vấn đề gì?",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Product"
+                  },
+                  {
+                    "option": "Service"
+                  },
+                  {
+                    "option": "Other"
+                  }
+                ]
+              },
+              "fieldType": "dropdown",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Feedback của bạn",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email liên hệ của bạn là gì?",
+              "fieldType": "email",
+              "placeholder": "email",
+              "requiredField": true
+            }
+          ]
+        },
+        "formTitle": "Customer Feedback",
+        "options": {},
+        "path": "customer-feedback"
+      },
+      "position": [
+        -448,
+        400
+      ],
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.1,
+      "webhookId": "df050370-5332-48b1-b402-e8766a78fd25"
+    },
+    {
+      "id": "c820d14b-51ed-45f9-8cc4-1e9b0d38b1a4",
+      "name": "AI Agent - Sentiment Analysis",
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are a sentiment analysis assistant. Analyze the customer feedback and classify it as either 'positive' , 'neutrual'  or 'negative'. Also, rating the sentiment from 1 to 10, with 1 is extremely angry and 10 is perfection. Return only the sentiment classification and the point without any additional explanation.\n\nAnswer in Vietnamese."
+        },
+        "promptType": "define",
+        "text": "=1. Chủ đề feedback: \"{{ $json['Feedback của bạn về vấn đề gì?'] }}\"\n2. Feedback của khách hàng: \"{{ $json['Feedback của bạn'] }}\""
+      },
+      "position": [
+        -96,
+        224
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    },
+    {
+      "id": "6d3862c7-78f2-4333-ab34-65e815e94eae",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": "gpt-4.1-mini",
+        "options": {}
+      },
+      "position": [
+        -176,
+        512
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1
+    },
+    {
+      "id": "78f825f9-3726-42e6-833c-476c156e7879",
+      "name": "AI Agent - Email Response",
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are a customer service representative. Write a concise email response without a subject line, to the feedback provided.\n\nFor Positive Feedback:\nCraft a short, warm email thanking the customer {{ $json.Name }} for taking the time to share their thoughts. Express genuine appreciation for their support.\n\nFor Negative Feedback:\nWrite a thoughtful, empathetic email thanking the customer {{ $json.Name }} for their valuable input. Show sincere interest in their perspective by asking how we can improve our services or products. Additionally, include a special offer code for a 20% discount on their next purchase as a gesture of goodwill.\n\nAlways conclude the email with the signature:\n'The AI Growth'\n\n[final reminder]:\n\n1. The output is in the friendly HTML format since this will be the email that will be sent to the client gmail.\n\n2. Only return the html content.\n\n3. Answer in Vietnamese."
+        },
+        "promptType": "define",
+        "text": "=1. Chủ đề feedback: \"{{ $json['Feedback của bạn về vấn đề gì?'] }}\"\n2. Feedback của khách hàng: \"{{ $json['Feedback của bạn'] }}\"\n3. Sentiment rating: \"{{ $json.output.Sentiment }}\"\n4. Score rating (with 10 is perfection and 1 is extremly angry): \"{{ $json.output.Rating }}\""
+      },
+      "position": [
+        608,
+        128
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    },
+    {
+      "id": "d7a2764a-05d8-4482-8730-9d212e6cf261",
+      "name": "OpenAI Chat Model1",
+      "parameters": {
+        "model": "gpt-4.1",
+        "options": {}
+      },
+      "position": [
+        640,
+        400
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1
+    },
+    {
+      "id": "f0efce28-d265-430c-aa65-5fb39ef153e6",
+      "name": "Merge",
+      "parameters": {
+        "combineBy": "combineAll",
+        "mode": "combine",
+        "options": {}
+      },
+      "position": [
+        368,
+        384
+      ],
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3
+    },
+    {
+      "id": "e6714132-275b-4b4f-9867-a67674a3e493",
+      "name": "Send a message",
+      "parameters": {
+        "message": "={{ $json.output }}",
+        "options": {
+          "appendAttribution": false
+        },
+        "sendTo": "={{ $('Merge').item.json['Email liên hệ của bạn là gì?'] }}",
+        "subject": "Thank You for your Feedback"
+      },
+      "position": [
+        1024,
+        336
+      ],
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "webhookId": "3c0ea407-151e-4dcd-b40f-da9caa608b97"
+    },
+    {
+      "id": "eae0fe23-1a6e-41f4-9ee8-f3778e8699cf",
+      "name": "Structured Output Parser",
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"Rating\": \"the rating of the feedback, from 1 to 10\",\n\t\"Sentiment\": \"the sentiment of it, negative or positive or netural\"\n}"
+      },
+      "position": [
+        144,
+        496
+      ],
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "4ae0f801-6042-4148-a2a3-5486fa10d944",
+      "name": "Update tình trạng khách hàng",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Tên khách hàng"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tên khách hàng",
+              "id": "Tên khách hàng",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Email",
+              "id": "Email",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Chủ đề Feedback",
+              "id": "Chủ đề Feedback",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Feedback",
+              "id": "Feedback",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Sentiment rating",
+              "id": "Sentiment rating",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Sentiment",
+              "id": "Sentiment",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Chủ đề Feedback": "={{ $json['Feedback của bạn về vấn đề gì?'] }}",
+            "Email": "={{ $json['Email liên hệ của bạn là gì?'] }}",
+            "Feedback": "={{ $json['Feedback của bạn'] }}",
+            "Sentiment": "={{ $json.output.Sentiment }}",
+            "Sentiment rating": "={{ $json.output.Rating }}",
+            "Tên khách hàng": "={{ $json.Name }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "position": [
+        560,
+        640
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}
